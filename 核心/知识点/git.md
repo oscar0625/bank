@@ -1,4 +1,4 @@
-一、首次配置
+一、首次配置 http://blog.csdn.net/Hanani_Jia/article/details/77950594
 1. 下载git  安装 打开 Git Bush
 2. 输入 
     $ ssh-keygen -t rsa -C "749301111@qq.com"
@@ -14,6 +14,7 @@
 6. 配置 username和email，因为github每次commit都会记录他们。 
    $ git config --global user.name "oscar0625"
    $ git config --global user.email "749301111@qq.com"
+   注意:我的github 密码 qiangqiang0625
    
 二、 git 常用命令
 
@@ -33,7 +34,7 @@
     b.按照路径新建一个目录，然后将其初始化为Git代码库
         $ git init  /d/github/init
     c.将github远端服务器的仓库上的文件下载下来
-        $ git clone https://github.com/oscar0625/oscarBank.git [server]
+        $ git clone https://github.com/oscar0625/bank.git [server]
         
 2.增加/删除文件到暂存区(Index)
     a.$ git add .                       添加当前目录的 新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件 到暂存区
@@ -51,11 +52,13 @@
 4.远程同步 提交到远端仓库(Remote)
     a.注意:如果你是克隆下来的,那么忽略此步骤，但如果你是新建的，你首先应将 Repository(本地仓库) 连接到某个Remote(远程服务器)
         $ git remote add [shortname] [url]              增加一个新的远程仓库，并命名
-            example : $ git remote add origin https://github.com/oscar0625/oscarBank.git 
+            example : $ git remote add origin https://github.com/oscar0625/bank.git
     b.  $ git pull [remote] [branch]                    取回远程仓库的变化，并与本地分支合并
             example : $ git pull origin master
     c.  $ git push [remote] [branch]                    上传本地指定分支到远程仓库
             example : $ git push origin master
+        注意:如果是自己新建的文件夹 上传会失败 因为少了一个readme文件 
+        解决办法执行 $ git pull --rebase origin master
             
 5.查看信息
     $ git status                      显示有变更的文件
