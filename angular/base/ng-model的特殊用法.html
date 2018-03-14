@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+    <select name="" id="" ng-model="num">
+        <option ng-repeat="x in arr track by $index" value="{{x.val}}">{{x.str}}</option>
+    </select>
+    <p ng-bind="{1:'哈哈哈',2:'啦啦啦',3:'嘻嘻嘻'}[num]"></p>
+</div>
+</body>
+<script>
+    angular.module('app',[])
+            .controller('ctrl',function ($scope) {
+                $scope.arr=[
+                    {val:1,str:1},
+                    {val:2,str:2},
+                    {val:3,str:3}
+                ];
+                $scope.num=1;
+
+            })
+
+</script>
+</html>

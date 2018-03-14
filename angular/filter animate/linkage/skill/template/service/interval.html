@@ -1,0 +1,24 @@
+<pre>
+    $interval:
+        定义间隔执行, 同原生中的 window.setInterval()
+
+        var r = $interval(函数, 时间ms)
+            函数: 间隔执行的内容
+            时间: 每次执行的间隔时间, 以毫秒为单位,  7 * 24 * 60 * 60 * 1000
+
+            取消间隔执行:
+                $interval.cancel( 间隔执行的返回值 r )
+
+
+        如:
+            var timer = $interval(function () {
+                var barWidth = parseInt($scope.bar.width);
+                if (barWidth < 90) {
+                    $scope.bar.width = ++barWidth + '%';
+                } else {
+                    //取消间隔执行
+                    $interval.cancel(timer);
+                    timer = null;
+                }
+            },8)
+</pre>

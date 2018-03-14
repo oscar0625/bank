@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Father(){
+        this.fatA = 1;
+    }
+    Father.prototype.bianCe = function () {
+        return this.fatA;
+    };
+    function Son(){
+        this.fatA = 2;
+    }
+    Father.bianCe = function () {
+        return 3;
+    };
+    Son.prototype = new Father();
+    var f = new Father();
+    var s = new Son();
+    //请列出以下提示的内容
+    console.log(s.bianCe()); //2
+    console.log(f.bianCe()); //1
+    console.log(Father.bianCe()); // 3
+    console.log(Son.bianCe()); //报错 undefined()
+</script>
+</body>
+</html>

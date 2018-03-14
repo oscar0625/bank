@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/jquery.fullPage.min.css">
+    <style>
+        #fp-nav ul li a span{
+            background: cyan;
+        }
+        #fp-nav ul li .active span{
+            background: black;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="section">第1屏</div>
+    <div class="section">第2屏</div>
+    <div class="section">第3屏</div>
+    <div class="section">第4屏</div>
+    <div class="section">第5屏</div>
+    <div class="section">第6屏</div>
+    <div class="section">第7屏</div>
+    <div class="section">第8屏</div>
+</div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.fullPage.min.js"></script>
+<script>
+        $('.box').fullpage({
+            //1设置每屏颜色(必要)
+            sectionsColor:['red','blue','green','yellow','pink','deeppink','yellowgreen','skyblue'],
+            //2设置每屏锚点链接
+            anchors:['第一屏','第二屏','第三屏','第四屏','第五屏','第六屏','第七屏','第八屏'],
+            //3设置滚动速度
+            scrollingSpeed:700,
+            //4设置显示导航(加上之后生成那个div>ul>li)
+            navigation:true,
+            //导航按钮选中时提示文字
+            navigationTooltips:['第一屏','第二屏','第三屏','第四屏','第五屏','第六屏','第七屏','第八屏'],
+            //入场回调函数 滚动到某一屏后的回调函数，接收 anchorLink 和 index 两个参数，anchorLink 是锚链接的名称，index 是序号，从1开始计算
+            afterLoad:function(anchorLink,index){
+
+            },
+            /* 离场回调函数 滚动前的回调函数，接收 index、nextIndex 和 direction 3个参数：
+            *  index 是离开的“页面”的序号，从1开始计算；
+            *  nextIndex 是滚动到的“页面”的序号，从1开始计算；
+            *  direction 判断往上滚动还是往下滚动，值是 up 或 down。
+            */
+            onLeave:function(index,nextIndex,direction){
+
+            }
+        })
+</script>
+</html>

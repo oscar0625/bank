@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../dist/jquery.js"></script>
+	<script src="../dist/react.js"></script>
+	<script src="../dist/react-dom.js"></script>
+	<script src="../dist/browser.min.js"></script>
+	<style>
+		.u1{
+			font-size: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+</body>
+<script type="text/babel">
+	/*
+      react事件
+        调用时 要遵循驼峰命名法 //onClick
+        注意: **********绑定事件的时候没有括号
+        		this关键字问题
+     
+     */
+    var attrs="oscar";
+
+    var Demo=React.createClass({
+    	getInitialState:function(){
+    	   console.log('state')
+			return{
+				data:1
+			}
+    	},
+    	fn:function(){
+    		this.setState({
+				data:this.state.data+1
+    		})
+    	},
+		render:function(){
+			return(
+				<ul style={{color:"blue"}} className="u1">
+					<li>{this.props.params}{console.log("render")}</li>
+					<li onClick={this.fn}>{this.state.data}</li>
+				</ul>
+			)
+		}
+
+    })
+
+	ReactDOM.render(
+		<Demo params={attrs}/>
+		,document.querySelector('div')
+	)
+
+</script>
+</html>

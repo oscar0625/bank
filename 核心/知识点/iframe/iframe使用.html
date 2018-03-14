@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+	</head>
+	<style type="text/css">
+		iframe{
+			width: 600px;
+			height: 300px;
+		}
+	</style>
+	<body>
+		<iframe src="demo.html" frameborder="0"></iframe>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 1. iframe在页面嵌入另一个页面
+		 * 2. window self top parent 默认都代表window对象，最好变量名不要与这冲突
+		 * 3. 如果当前页面不是通过嵌套的则window self top parent是全等的
+		 * 4. self window都代表当前窗口
+		 * 5. parent代表父级窗口
+		 * 6. top最顶层的窗口
+		 * 7. 框架之间，父子窗口可以互相调用，若跨域则不能操作对方！
+		 *
+		 */
+
+		var box = document.querySelector('iframe');
+
+		//方法1  获取框架中的window对象
+
+		//1 先获取
+		var newWindow = box.contentWindow;
+		//2等onload后获取document
+		newWindow.onload = function(){
+
+			var newDocument = newWindow.document;
+			var div = newDocument.querySelector('div');
+			div.style.border='10px solid yellow';
+
+		};
+
+		//方法2 直接获取框架中的document对象；
+		window.onload=function () {
+			var newDocument=box.contentDocument;
+			var div = newDocument.querySelector('div');
+			div.style.border='10px solid yellow';
+		}
+		function getIframeDom(iframeId) {
+			return document.getElementById(iframeId).contentDocument || window.frames[iframeId].document;
+		}
+
+		/*
+		* 注：
+		* 直接用contentDocument获取document 和 先用contentWindow获取到window无区别
+		* 要注意的是想要获取iframe的高度应在window.onload下执行；
+		* window.frames[iframeId].document /document.frames('iframename').document 这种只有ie好使 并且在ie9以上已经废弃 就不要用了
+		*
+		*
+		* */
+
+
+		
+	</script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script>
+    //    /加*加*加enter
+
+    /**
+     * @description (描述内容)
+     * @example (示例内容)
+     * var animal = new Animal('恐龙',1000);
+     * @param {string,[number,....]} name
+     * @param {number} weight
+     * @constructor
+     */
+
+    function Animal(name,weight){
+        this.name = name;
+        this.weight = weight;
+    }
+
+    /**
+     * @extends {Animal} 用于标识继承于某个类型
+     * @constructor
+     */
+
+    function Dog(){
+        this.say = function(){
+            console.log(this.name+":wang wang wang ...");
+        }
+    }
+    Dog.prototype = new Animal();
+    var dog = new Dog();
+    dog.name = "gougou";
+    dog.say();
+
+</script>
+</html>

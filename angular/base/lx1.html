@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+    <!--<input type="text" ng-model="name">-->
+    <!--<p>{{name}}</p>-->
+    <!--<p ng-cloak>{{zxc}}</p>-->
+    <!--<p ng-bind="price*num">{{price*num}}</p>-->
+    <!--<p ng-bind="price+''+num">{{price+''+num}}</p>-->
+    <!--<p>{{points[4]}}</p>-->
+    <!--<ul>-->
+        <!--<li ng-repeat="(k, v) in myObj" ><a href="" >{{k+'  '+v}}</a></li>-->
+    <!--</ul>-->
+    <input type="text" ng-model="phone" >
+    <span ng-hide="test" >您输入的手机有误</span>
+</div>
+
+</body>
+<script src="js/angular-1.3.9.js"></script>
+<script>
+    /*
+    * angular与js不同
+    * 1 angular无dom操作 可以直接写在html中
+    * 2 angular在html中不支持if和for 用ng-if and ng-repeat
+    * 3 angular支持过滤器
+    *
+    * */
+    angular.module('app',[])
+            .controller('ctrl',function ($scope) {
+                $scope.phone='';
+                if(/^1[34578]\d{9}]$/.test(this.phone)){
+                    this.test=true;
+                }
+
+            })
+
+
+</script>
+</html>

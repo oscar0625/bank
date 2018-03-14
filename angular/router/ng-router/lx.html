@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+    <script src="js/angular-route-1.3.9.js"></script>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+    <a href="#a/oscar/18">a</a>
+    <a href="#b/caroline/21">b</a>
+    <div ng-view></div>
+</div>
+</body>
+<script>
+    angular.module('app',['ngRoute'])
+            .controller('ctrl',function ($scope) {
+
+            })
+            .config(function ($routeProvider) {
+                $routeProvider
+                        .when('/a/:name/:age',{
+                            templateUrl:'./a.html',
+                            controller:function ($scope,$routeParams,$route) {
+                                $scope.name=$routeParams.name;
+                                $scope.asd=function () {
+                                    console.log($route)
+                                }
+                            },
+                            resolve:{
+
+                            }
+                        })
+                        .when('/b/:name/:age',{
+                            templateUrl:'./b.html',
+                            controller:function ($scope,$routeParams) {
+                                $scope.name=$routeParams.name
+                            },
+                            resolve:{
+
+                            }
+                        })
+                        .otherwise({/*初始默认页面*/
+                            redirectTo:'a/oscar/18'
+                        });
+            })
+</script>
+</html>

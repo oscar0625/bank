@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .topsquare{
+            width: 100%;
+            height: 200px;
+
+        }
+        .leftsquare{
+            display: inline-block;
+            width: 150px;
+            height: 250px;
+
+        }
+        .leftball{display: inline-block;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background:url("img/222.jpg") ;
+            background-size:300px;
+            animation: zuoqiu 5s linear infinite;
+        }
+        @keyframes zuoqiu {
+            0%{ transform:translate(0px,0px) rotate(90deg) }
+            25%{ transform:translate(0px,-100px) rotate(180deg) }
+            50%{ transform:translate(0px,0px) rotate(270deg) }
+            75%{ transform:translate(0px,100px) rotate(360deg) }
+            100%{ transform:translate(0px,0px) rotate(90deg) }
+
+        }
+        .centersquare{display: inline-block;
+            width:500px;
+            height: 250px;
+
+        }
+        .rightball{
+            display: inline-block;
+            width: 250px;
+            height: 250px;
+            background: url("img/frank.JPG");
+            border-radius: 50%;
+            background-size: 250px;
+            animation: youqiu 5s linear infinite;
+        }
+        @keyframes youqiu {
+            0%{transform: translate(0px,0px) rotate(0deg)}
+            25%{transform: translate(0px,100px) rotate(90deg)}
+            50%{transform: translate(0px,0px) rotate(180deg)}
+            75%{transform: translate(0px,-100px) rotate(270deg)}
+            100%{transform: translate(0px,-0px) rotate(360deg)}
+        }
+        .ban{
+            width: 950px;
+            height:50px;
+            border-radius: 50%;
+            background: green;
+            margin: 0px auto;
+            animation: banzi 5s linear infinite;
+        }
+        @keyframes banzi {
+            0%{transform: rotate(0deg)}
+            25%{transform: rotate(15deg)}
+            50%{transform: rotate(0deg)}
+            75%{transform: rotate(-15deg)}
+            100%{transform: rotate(0deg)}
+        }
+        .sanjiao{
+            width: 1px;
+            height: 1px;
+            border-right: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-bottom: 50px solid red;
+            margin: 0px auto;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="topsquare"></div>
+<div class="leftsquare"></div>
+<div class="leftball"></div>
+<div class="centersquare"></div>
+<div class="rightball"></div>
+<div class="ban"></div>
+<div class="sanjiao"></div>
+</body>
+</html>

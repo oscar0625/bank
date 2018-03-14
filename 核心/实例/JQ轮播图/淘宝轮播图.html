@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <style>
+        .out{
+            width: 1000px;
+            height: 450px;
+            overflow: hidden;
+            margin: 50px auto;
+            position: relative;
+        }
+        .in{
+            width:7000px;
+            position: absolute;
+            left: -1000px;
+        }
+        .in li{
+            float: left;
+        }
+        .btn{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -120px;
+        }
+        .btn li{
+            float: left;
+            width: 30px;
+            line-height: 30px;
+            background: pink;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        .btn li a{
+            color: #ffffff;
+        }
+        .out>a{
+            width: 30px;
+            line-height: 60px;
+            position: absolute;
+            top: 50%;
+            margin-top: -30px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #ffffff;
+            font-size: 25px;
+        }
+        .out>a:hover{
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .out a:last-child{
+            right: 0;
+        }
+        .btn .on{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div class="out">
+    <ul class="in clearfix">
+        <li><a href=""><img src="images/b5.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b1.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b2.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b3.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b4.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b5.jpg" alt="" width="1000px" height="450px"/></a></li>
+        <li><a href=""><img src="images/b1.jpg" alt="" width="1000px" height="450px"/></a></li>
+    </ul>
+    <ul class="btn clearfix">
+        <li class="on"><a href="javascript:;">1</a></li>
+        <li><a href="javascript:;">2</a></li>
+        <li><a href="javascript:;">3</a></li>
+        <li><a href="javascript:;">4</a></li>
+        <li><a href="javascript:;">5</a></li>
+    </ul>
+    <a href="javascript:;">&lt;</a>
+    <a href="javascript:;">&gt;</a>
+</div>
+
+</body>
+<script src="jq/jquery-1.7.2.min.js"></script>
+<script>
+    $(function () {
+        var index=0;
+        var timer=null;
+        function oscar(num){
+            $(".btn li").eq(num).addClass("on").siblings().removeClass("on");
+            /*(-(num+1)*1000)是要移动的一张图片的距离由具体情况定*/
+            $(".in").stop().animate({left:(-(num+1)*1000)},200,"linear")
+        }
+        $(".btn li").on("click", function () {
+            index=$(this).index();
+            oscar(index);
+        });
+        $(".out>a:first").on("click", function () {
+            index--;
+            if(index<0){
+                $(".in").css({left:-6000});
+                index=4 ;//最后一张图的index 不包括无缝重复那2张
+            }
+            oscar(index)
+        });
+        $(".out>a:last").on("click", function () {
+            index++;
+            if(index>4){ //最后一张图的index 不包括无缝重复那2张
+                $(".in").css({left:0});
+                index=0;
+            }
+            oscar(index)
+        });
+        timer=setInterval(function () {
+            index++;
+            if(index>4){
+                $('.in').css({left:0});
+                index=0;
+            }
+            oscar(index);
+        },1000);
+        $('.in').hover(function () {
+            clearInterval(timer)
+        }, function () {
+            timer=setInterval(function () {
+                index++;
+                if(index>4){
+                    $('.in').css({left:0});
+                    index=0;
+                }
+                oscar(index);
+            },1000);
+        })
+    })
+
+
+</script>
+</html>

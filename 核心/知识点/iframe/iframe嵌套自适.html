@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<iframe src="#" id="iframepage" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+</body>
+<script>
+
+    window.onload = function () {
+        var ifm = document.getElementById("iframepage");
+        var subWeb = ifm.contentDocument;
+        setInterval(function () {
+            if (ifm != null && subWeb != null) {
+                ifm.height = subWeb.body.clientHeight;
+                ifm.width = subWeb.body.clientWidth;
+            }
+        }, 10)
+
+    }
+    $(function () {
+        var ifm = document.getElementById("iframepage");
+        var newWindow = ifm.contentWindow;
+        newWindow.onload = function () {
+            var subWeb = newWindow.document;
+            setInterval(function () {
+                if (ifm != null && subWeb != null) {
+                    ifm.height = subWeb.body.clientHeight;
+                    ifm.width = subWeb.body.clientWidth;
+                }
+            }, 10)
+        }
+
+    })
+
+</script>
+</html>

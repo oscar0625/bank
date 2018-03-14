@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../dist/jquery.js"></script>
+	<script src="../dist/react.js"></script>
+	<script src="../dist/react-dom.js"></script>
+	<script src="../dist/browser.min.js"></script>
+	<style>
+		.u1{
+			font-size: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+</body>
+<script type="text/babel">
+	 /*
+     start -> getDefaultprops(获取外部传入的props值) -> getInitialState(初始化状态)
+
+     componentWillMount :当组件即将渲染的时候触发的函数
+     componentDidMount：当组件渲染完成触发的一个函数
+
+     componentWillReceiveProps：props改变之后触发
+
+	  若state状态改变后或componentWillReceiveProps触发后会执行shouldComponentUpdate
+	  1. 若 return true 会执行重新更新操作
+	  2. 若 return false 不会执行重新更新操作
+
+     componentWillUpdate：当组件重新更新之前触发
+     componentDidUpdate：当组件重新更新完成	后触发
+
+     componentWillUnmount：组件被卸载的时候触发
+
+     */
+    /*
+	     4.组件的状态
+	      state:状态 当组件自身改变的内容，可以使用state处理
+	       a.必须先初始化 
+	       		getInitialState:function(){
+	       		  return:{}
+	       		}
+	       b.this.state :获取
+		   c.this.setState({}) :设置
+		   d.当state改变的时候，会触发render重新渲染
+
+     		区分：props和state
+     		props 外部  state 内部
+     */
+    
+    var attrs="oscar";
+    
+    var Demo=React.createClass({
+    	getDefaultProps:function(){
+    	   console.log('props')
+    		return{
+    		  params:'caroline',
+    		  asd:111
+    		}
+    	},
+    	getInitialState:function(){
+    	   console.log('state')
+			return{
+				data:1
+			}
+    	},
+    	componentWillMount:function(){
+    		console.log("componentWillMount")
+    	},
+    	componentDidMount:function(){
+			console.log("componentDidMount")
+    	},
+		shouldComponentUpdate:function () {
+			return true
+		},
+    	componentWillUpdate:function(){
+			console.log("componentWillUpdate")
+    	},
+    	componentDidUpdate:function(){
+			console.log("componentDidUpdate");	
+    	},
+    	fn:function(){
+    		this.setState({
+				data:this.state.data+1
+    		})
+    	},
+		render:function(){
+			return(
+				<ul style={{color:"blue"}} className="u1">
+					<li>{this.props.params}{console.log("render")}</li>
+					<li onClick={this.fn}>{this.state.data}</li>
+				</ul>
+			)
+		}
+
+    })
+
+	ReactDOM.render(
+		<Demo params={attrs}/>
+		,document.querySelector('div')
+	)
+
+</script>
+</html>

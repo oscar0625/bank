@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/angular-1.3.9.js"></script>
+    <script src="js/angular-ui-router-0.2.18.js"></script>
+    <style>
+        .active{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+                   <!--设置参数-->
+    <a ui-sref-active="active" ui-sref="a({name:name,age:age})">a</a>
+    <b ui-sref-active="active" ui-sref="b">b</b>
+    <div ui-view></div>
+</div>
+</body>
+<script>
+    /*
+     uiRouter和 ngRoute的区别
+     1. ui.router基于 状态 改变网页内容 ngRoute基于 url 改变
+     2. ngRoute 没有嵌套路由 且resolve中不能注入routeParams
+     3. 多视图
+     4.ngRoute的resolve里接受不到$routeParams ui.router可以接受到$stateParams
+
+     1.配置路由
+     $stateProvider(服务提供者) --------- 用来配置路由
+     $urlRouterProvider(服务提供者) --------- 用来配置路由重定向(一级路由的重定向)
+
+     $urlRouterProvider.otherwise('/a/oscar/18')
+     模块.config(function($stateProvider){
+         $stateProvider.state('状态',{
+             url:'状态匹配的url地址',
+                 templateUrl:'匹配状态的页面',
+                 controller:'匹配的控制器',
+                 resolve:{
+
+                 }
+             })
+         })
+     2.路由参数
+        传参：<a ui-sref="a({name:name,age:age})">a</a>
+        接参：url:'/a/:name/:age',
+        $stateParams(服务) --------- 用来存储路由匹配时的参数
+
+     3.$state(服务) --------- 用来显示当前路由状态信息，以及一些路由方法（如：跳转）
+         //设置二级路由的默认路由模块,第一个参数为state。第二个参数为要传递的参数
+         $state.go('foodIndex.pd',{type:'paidu'});
+
+         .state('foodIndex',{
+             url:'/food/index',
+             templateUrl:'./src/food/index.html',
+             controller: function($state){
+                 //设置二级路由的默认路由模块,第一个参数为state。第二个参数为要传递的参数
+                 $state.go('foodIndex.pd',{type:'paidu'});
+             }
+         })
+         .state('foodIndex.pd',{
+             url:'/pd/:type',
+             templateUrl:'./src/food/indexSon.html',
+             controller:['$stateParams','$scope',function ($stateParams,$scope) {
+                 $scope.type=$stateParams.type
+             }]
+         })
+
+     4.html:
+     ui-view(指令) --------- 路由模板渲染，对应的dom相关联
+     ui-sref(指令) ---------          ui-sref="状态"
+     ui-sref-active="类名"
+
+     $urlRouter(服务) -------等同$route
+
+     * */
+    angular.module('app',['ui.router'])
+            .controller('ctrl',function ($scope) {
+                $scope.name='oscar';
+                $scope.age=18;
+            })
+            .config(function ($stateProvider,$urlRouterProvider) {
+                /*重定向路由 并传参 一开始默认加载的路由模块*/
+                $urlRouterProvider.otherwise('/a/oscar/18');
+                $stateProvider
+                        .state('a',{
+                            /*接受参数*/
+                            url:'/a/:name/:age',
+                            templateUrl:'./a.html',
+                            controller:function ($scope,$stateParams,$urlRouter) {
+                                $scope.name=$stateParams.name;
+//                                console.log($urlRouter);
+                            },
+                            resolve:{
+
+                            }
+                        })
+                        .state('b',{
+                            url:'/b',
+                            templateUrl:'./b.html',
+                                             /*注入resolve*/
+                            controller:['$scope','getOne',function ($scope,getOne) {
+                                               /*得到数据*/
+//                                $scope.data=getOne.data
+                            }],
+                            /*resolve作用
+                             1 .需要把resolve里面的所有程序执行完 才会去执行路由（跳转页面，没执行完待在原页面）
+                             2 .会把$http处理好返回完整数据
+                             3 .出错不会报错
+                             */
+                            resolve:{
+                                getOne:function ($http) {
+                                    /*调用参数*/
+//                                    return $http.get('a1.php')
+                                }
+                            }
+                        })
+            })
+</script>
+</html>

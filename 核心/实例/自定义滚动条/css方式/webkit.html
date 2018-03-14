@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height: 6000px;
+        }
+        ::-webkit-scrollbar {  /* 滚动条整体部分，其中的属性有width,height,background,border（就和一个块级元素一样）等。     */
+            width:10px;
+            margin-right:2px
+        }
+        ::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
+            width:10px;
+            background-color: yellow;
+        }
+        ::-webkit-scrollbar:horizontal {
+            height:10px;
+            margin-bottom:2px
+        }
+        ::-webkit-scrollbar-track {  /* 外层轨道 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track-piece {  /*内层轨道，滚动条中间部分 */
+            background-color: #333333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {  /* 滑块 */
+            width:10px;
+            border-radius: 5px;
+            background: #CBCBCB;
+        }
+        ::-webkit-scrollbar-corner { /* 边角 */
+            width: 10px;
+            background-color: red;
+        }
+        ::-webkit-resizer{/*定义右下角拖动块的样式*/
+
+        }
+        /*通过以上，我们几乎就可以来重写网站的滚动条了，但是webkit提供的还有更多的伪类，可以定制更丰富滚动条样式。
+        本文以下内容参考：https://www.webkit.org/blog/363/styling-scrollbars
+        http://www.cnblogs.com/11lang/p/6818037.html*/
+        ::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
+            background: #909090;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

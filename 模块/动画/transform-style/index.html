@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .imgBox{
+            position: relative;
+            width: 300px;
+            height: 180px;
+            margin: 300px auto;
+            transform-style: preserve-3d;
+            animation: donghua 8s linear infinite;
+        }
+        img{
+            position: absolute;
+            width: 300px;
+            height: 180px;
+        }
+        .img1{transform: rotateY(0deg) translateZ(280px);}
+        .img2{transform: rotateY(60deg) translateZ(280px);}
+        .img3{transform: rotateY(120deg) translateZ(280px);}
+        .img4{transform: rotateY(180deg) translateZ(280px);}
+        .img5{transform: rotateY(240deg) translateZ(280px);}
+        .img6{transform: rotateY(300deg) translateZ(280px);}
+        .img7{transform: rotateX(60deg) translateZ(280px);}
+        .img8{transform: rotateX(120deg) translateZ(280px);}
+        .img9{transform: rotateX(240deg) translateZ(280px);}
+        .img10{transform: rotateX(300deg) translateZ(280px);}
+        @keyframes donghua {
+            from{transform: rotateX(0deg) rotateY(0deg)}
+            to{transform: rotateX(360deg) rotateY(360deg)}
+
+        }
+    </style>
+</head>
+<body>
+<div class="imgBox">
+<img src="img/001.jpg" class="img1" alt=""/>
+<img src="img/002.jpg" class="img2" alt=""/>
+<img src="img/003.jpg" class="img3" alt=""/>
+<img src="img/004.jpg" class="img4" alt=""/>
+<img src="img/005.jpg" class="img5" alt=""/>
+<img src="img/006.jpg" class="img6" alt=""/>
+<img src="img/007.jpg" class="img7" alt=""/>
+<img src="img/008.jpg" class="img8" alt=""/>
+<img src="img/009.jpg" class="img9" alt=""/>
+<img src="img/010.jpg" class="img10" alt=""/>
+</div>
+</body>
+</html>

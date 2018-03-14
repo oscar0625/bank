@@ -1,0 +1,7 @@
+<div class="btn">
+    <ul ng-click="changePage($event)">
+        <li>&lt;</li>
+        <li ng-repeat="x in page track by $index" ng-class="{true:'active'}[params.page==x]" >{{x}}</li>
+        <li>&gt;</li>
+    </ul>
+</div>

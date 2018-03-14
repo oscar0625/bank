@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+<script src="build/three.js"></script>
+<script src="js/Detector.js"></script>
+<script>
+    var container = document.getElementById( 'container' );
+    var camera, scene, renderer;
+    var bufferScene,bufferTexture;
+    var group;
+    var angle=0;
+
+    function init() {
+        /*
+        * 渲染到缓冲区   WebGLRenderTarget
+        * 教程：https://gamedevelopment.tutsplus.com/tutorials/quick-tip-how-to-render-to-a-texture-in-threejs--cms-25686
+        *   1.创建一个场景来保存你的对象      var bufferScene = new THREE.Scene();
+            2.创建一个纹理来存储你渲染的东西   var bufferTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter});
+            3.将您的纹理绘制成网格 添加到sence上
+                 var boxMaterial = new THREE.MeshBasicMaterial({map:bufferTexture.texture });
+                 var boxGeometry2 = new THREE.BoxGeometry(10 , 10, 10 );
+                 var mainBoxObject = new THREE.Mesh(boxGeometry2,boxMaterial);
+                 scene.add(mainBoxObject);
+            4.渲染      renderer.render(bufferScene, camera, bufferTexture);
+        *
+        * */
+
+        camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        camera.position.z =1.2;
+        scene = new THREE.Scene();                       //创建场景
+
+
+        //创建缓冲区
+        //创建缓冲区场景  添加到这个场景上的的任何对象,都将被放置到我们的屏幕外(缓冲区)目标而不是屏幕上。
+        bufferScene = new THREE.Scene();
+        //创建缓冲区的纹理
+        bufferTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight);
+
+        //灯光
+        bufferScene.add(new THREE.AmbientLight(0x333333));	//环境光 作用于整个场景 这光不能用来投射阴影，因为它没有方向。
+        var light = new THREE.DirectionalLight(0xffffff,1);//平行光 常见的用例是模拟日光
+        light.position.set(5,3,5);						//设置光源的位置(x,y,z)
+        bufferScene.add(light);
+
+        //创建组
+        group = new THREE.Group();
+        group.position.set(0,0,0);
+        bufferScene.add( group );           //加入到缓冲区场景
+
+        //创建地球
+        function createMesh() {
+            // 2.2.1 创建几何体中的球体(还有其他几何体在文档Geometries中)
+            // 参考：http://blog.csdn.net/yangnianbing110/article/details/51306653
+            var geometry = new THREE.SphereGeometry(0.5,64, 64);    //params:半径 默认是1、水平片段数、垂直片段数(片段数越大，球体越精细，要求性能高)。
+            // 2.2.2 选择材料(还有其他材料在文档Materials中)
+            // 我们使用MeshPhongMaterial将地图数据封装在球体周围。这种材料用于镜面高光的有光泽表面的材料,我们用它来使海洋反射。
+            var texture = new THREE.TextureLoader();  	//用来加载纹理图的类
+            var material =new THREE.MeshPhongMaterial({
+                map:texture.load('images/2_no_clouds_4k.jpg'),     //普通的贴图纹理
+                bumpMap:texture.load('images/elev_bump_4k.jpg'),    //凹凸贴图纹理 材料产生凹凸感
+                bumpScale:0.002,                     //粗糙度
+                specularMap:texture.load('images/water_4k.png' ),   //高光贴图纹理 用来调节镜面反射的，这里主要是调节海洋对光线的反射，增加真实性。
+                specular:new THREE.Color('gray'),   //镜面反射的颜色
+                overdraw: 1,                        //这是在使用CanvasRenderer时 三角形之间出现间隙的情况下的解决方法 0-1
+//                transparent: true,                  //透明
+//                side: THREE.BackSide,               //开启全景 看到此网格里面的东西
+            });
+            return new THREE.Mesh( geometry, material );
+        }
+        var mesh = createMesh();
+        group.add( mesh );
+
+        //按照bufferTexture的纹理,绘制成网格 添加到sence上
+
+        var boxMaterial = new THREE.MeshBasicMaterial({map:bufferTexture.texture });
+        var boxGeometry2 = new THREE.BoxGeometry(2,1,1);
+        var mainBoxObject = new THREE.Mesh(boxGeometry2,boxMaterial);
+        scene.add(mainBoxObject);
+
+        //3.渲染器
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize(window.innerWidth,window.innerHeight);
+
+        //4.放入元素
+        container.appendChild(renderer.domElement);               // 将渲染器插入到container内
+
+        //相机一直正对场景(球)去看  否则相机的目光是平行的
+        camera.lookAt(scene.position);
+
+    }
+    init();
+    animate();
+
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+    }
+
+    function render() {
+        //变化的方式
+        angle+=0.5;
+        group.rotation.y = angle*Math.PI/180;
+
+        //3.1渲染
+        renderer.render(bufferScene, camera, bufferTexture);
+        renderer.render( scene, camera );
+
+    }
+
+
+</script>
+
+</html>

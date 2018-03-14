@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #boxroundCorner{
+            /*最好加定位*/
+            position: relative;
+            z-index: 2;
+
+
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            /*核心代码*/
+            behavior: url(PIE.htc);
+
+            background:red;
+            height: 100px;
+            width: 60px;
+            border: 1px solid #999;
+        }
+        /*原理：需要注意PIE文件的引入路径为PIE文件相对于HTML 页面的路径
+   IE下这些CSS3效果实现是借助于VML，由VML绘制圆角或是投影效果的容器元素，然后这个容器元素作为目标元素的后兄弟节点插入，如果目标元素position:absolute 或是 position:relative，则这个css3-container元素将会设置与之一样的z-index值，在DOM tree中，同级的元素总是后面的覆盖前面的，所以这样就实现了覆盖，又避免了可能有其他元素正好插入其中。所以，问题来了，如果目前元素的position属性为static，也就是默认属性，则z-index属性是没有用的，无覆盖可言，所以此时IE浏览器下CSS3的渲染是不会成功的。要解决也很简单，设置目标元素position:relative或是设置祖先元素position:relative并赋予一个z-index值（不可为-1）。*/
+    </style>
+</head>
+<body>
+    <div id="boxroundCorner"></div>
+
+</body>
+</html>

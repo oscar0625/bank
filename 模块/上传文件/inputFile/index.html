@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" id="myFile" accept="image/jpg,image/jpeg,image/png">
+<button>
+    clear
+</button>
+</body>
+<script>
+    /* 插件form.js
+     * 实际问题
+     * 1.在截图模式下 要注意每次执行onchange之后将 value设置为""   否则不能多次上传一张图片 并且点击取消时反而会继续触发onchange;
+     *
+     *
+     *
+     * */
+
+    document.querySelector('input').onchange=function (e) {
+        //注意：file点击取消和 X 的时候，会将input的值清空
+        if(this.value){
+            var e=e||window.event;
+
+            //限制类型
+            var type=this.value;
+
+            var files=this.files[0];
+            //限制大小
+            var size=files.size;
+
+            //获取路径
+            var url=URL.createObjectURL(files);
+            var newImg = new Image();
+            newImg.src = url;
+            document.body.appendChild(newImg);
+        }else {
+            /*其他操作*/
+
+        }
+
+
+    };
+
+    //清空input file 的值
+    function clearInputFile(file){
+        if(file.value){
+            try{
+                file.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+            }catch(err){}
+
+            if(file.value){ //for IE5 ~ IE10
+                var form = document.createElement('form'), ref = file.nextSibling, p = file.parentNode;
+                form.appendChild(file);
+                form.reset();
+                p.insertBefore(file,ref);
+            }
+        }
+    }
+
+</script>
+</html>

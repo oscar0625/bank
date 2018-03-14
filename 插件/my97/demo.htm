@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input class="Wdate" type="text" >
+</body>
+<script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+<script>
+    /**
+     *
+     * 0. api http://www.my97.net/dp/demo/index.htm
+    * 1.以上My97DatePicker文件整体保留
+    * 2.WdatePicker 是js 配置
+    * 3.My97DatePicker->skin->default->datepicker.css可以修改日历控件样式；
+    * 4.My97DatePicker->skin->WdatePicker.css是针对 class="Wdate" 的样式  可以删掉自己写
+    *
+    **/
+    document.querySelector('.Wdate').onfocus=function () {
+        var my97=new WdatePicker({
+            minDate:new Date()
+        })
+    }
+</script>
+</html>

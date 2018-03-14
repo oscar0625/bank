@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../dist/jquery.js"></script>
+	<script src="../dist/react.js"></script>
+	<script src="../dist/react-dom.js"></script>
+	<script src="../dist/browser.min.js"></script>
+</head>
+<body>
+	<div></div>
+</body>
+<script type="text/babel">
+	 /*
+    	react
+    		1.用的是jsx语法 type="text/babel"  配合browser.min.js进行解析
+    	jsx 执行时，遇到<><>解析为html语句  遇到{}解析为js
+    		注意：遇见<!---->注释就报错
+     */
+    
+    // ReactDOM.render(组件，节点)
+	ReactDOM.render(
+		<Demo params="oscar"/>
+		,document.querySelector('div')
+	)
+
+</script>
+</html>

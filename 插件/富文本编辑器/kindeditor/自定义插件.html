@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .demo{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <!--默认样式-->
+    <link rel="stylesheet" href="kindeditor-4.1.10/themes/default/default.css" />
+</head>
+<body>
+<div class="demo"></div>
+</body>
+<!--加载核心js-->
+<script src="kindeditor-4.1.10/kindeditor-min.js"></script>
+<!--加载语言包-->
+<script src="kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script>
+    /*
+    * asp asp.net是服务器的 不用管
+    * attached是接受上传的图片的位置
+    * themes里装的是css样式以及图片背景
+    *
+    * */
+    /*全部插件名*/
+    var arr = ["source", "|", "undo", "redo", "|", "preview", "print", "template", "code", "cut", "copy", "paste", "plainpaste", "wordpaste", "|", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "subscript", "superscript", "clearhtml", "quickformat", "selectall", "|", "fullscreen", "/", "formatblock", "fontname", "fontsize", "|", "forecolor", "hilitecolor", "bold", "italic", "underline", "strikethrough", "lineheight", "removeformat", "|", "image", "multiimage", "flash", "media", "insertfile", "table", "hr", "emoticons", "baidumap", "pagebreak", "anchor", "link", "unlink", "|", "about"];
+
+    var editor;
+    KindEditor.ready(function(K) {
+        //实例化一个编辑器 指定标签
+        editor = K.create('.demo',{
+            //自定义选择插件
+            items :["preview", "print", "template"],
+            //设置不允许动 0 1 2(默认)
+            resizeType:0
+        });
+    });
+
+//    KindEditor.ready(function(K) {
+//        //实例化一个编辑器 指定标签
+//        window.editor = K.create('#editor_id',{
+//            //自定义选择插件
+//            items :["fontsize", "bold", "italic","justifyleft","justifycenter","justifyright","image","hr","forecolor"],
+//            //设置不允许动 0 1 2(默认)
+//            resizeType:0,
+//            //调用编辑器时，引入self.css
+//            themeType : 'self',
+//            //设置宽度
+//            width:'100%',
+//            //设置高度
+//            height:420/64*(window.innerWidth/10)+'px'
+//        });
+//    });
+
+</script>
+</html>

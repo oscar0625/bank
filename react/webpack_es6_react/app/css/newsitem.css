@@ -1,0 +1,8 @@
+.item-a a{
+	display: block;
+	color:#000;
+}
+
+.item-a a span{
+	float: right;
+}

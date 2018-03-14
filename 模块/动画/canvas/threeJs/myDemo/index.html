@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+<script src="build/three.js"></script>
+<script src="js/Detector.js"></script>
+<script>
+    var container = document.getElementById( 'container' );
+    var camera, scene, renderer;
+    var group;
+    var angle=0;
+
+    function init() {
+        /* 教程：
+         *  https://aotu.io/notes/2017/08/28/getting-started-with-threejs/index.html
+         *  https://teakki.com/p/58a3ef1bf0d40775548c908f
+         * 第三方实例：
+         *  http://stemkoski.github.io/Three.js/index.html
+         * 三要素：场景，相机和渲染器
+         * */
+
+        /* 1.相机  相机决定了我们在渲染场景时会看到什么。*/
+
+        // params 相机的视锥体的垂直视野角度(视角)  相机视锥体的长宽比(通常1)  相机视锥体的近平面  相机视锥体的远平面(在近远之间才能看到)
+        camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        //相机摄像头位置
+        camera.position.z = 1.1;
+//        camera.position.set(0,1,0);
+
+        /*2.场景(往屏幕中放入的三维世界就是场景)  场景是用来存储和跟踪我们想渲染的对象（地球和星星）的容器。*/
+
+        scene = new THREE.Scene();                       //创建场景
+        scene.background = new THREE.Color( 0xffffff );  //设置场景背景颜色
+
+        //2.1灯光  在Lights中有几种光源
+        scene.add(new THREE.AmbientLight(0x333333));	//环境光 作用于整个场景 这光不能用来投射阴影，因为它没有方向。
+        var light = new THREE.DirectionalLight(0xffffff,1);//平行光 常见的用例是模拟日光
+        light.position.set(5,3,5);						//设置光源的位置(x,y,z)
+        scene.add(light);
+
+        //创建组放进场景。它的目的是使对象组的语法更清晰。
+        group = new THREE.Group();
+        group.position.set(0,0,0);  //将组的三维坐标系的原点 放在场景(0,0,0)的位置  //默认
+        scene.add( group );                               //加入场景
+
+        // 2.2 创建网格mesh,分为几何体(geometry)和材质(material)。
+        function createMesh() {
+            // 2.2.1 创建几何体中的球体(还有其他几何体在文档Geometries中)
+            // 参考：http://blog.csdn.net/yangnianbing110/article/details/51306653
+            var geometry = new THREE.SphereGeometry(0.5,64, 64);    //params:半径 默认是1、水平片段数、垂直片段数(片段数越大，球体越精细，要求性能高)。
+            // 2.2.2 选择材料(还有其他材料在文档Materials中)
+            // 我们使用MeshPhongMaterial将地图数据封装在球体周围。这种材料用于镜面高光的有光泽表面的材料,我们用它来使海洋反射。
+            var texture = new THREE.TextureLoader();  	//用来加载纹理图的类
+            var material =new THREE.MeshPhongMaterial({
+                map:texture.load('images/2_no_clouds_4k.jpg'),     //普通的贴图纹理
+                bumpMap:texture.load('images/elev_bump_4k.jpg'),    //凹凸贴图纹理 材料产生凹凸感
+                bumpScale:0.002,                     //粗糙度
+                specularMap:texture.load('images/water_4k.png' ),   //高光贴图纹理 用来调节镜面反射的，这里主要是调节海洋对光线的反射，增加真实性。
+                specular:new THREE.Color('gray'),   //镜面反射的颜色
+                overdraw: 1,                        //这是在使用CanvasRenderer时 三角形之间出现间隙的情况下的解决方法 0-1
+//                transparent: true,                  //透明
+//                side: THREE.BackSide,               //开启全景 看到此网格里面的东西
+            });
+            return new THREE.Mesh( geometry, material );
+        }
+            //2.2.3 创建网格mesh
+            var mesh = createMesh();
+            group.add( mesh );
+
+
+        //3.渲染器  渲染器负责在浏览器中渲染场景。Three.js支持WebGL，Canvas，SVG和CSS 3D等不同的渲染器。要用不同的渲染器需要引用不同的js
+        renderer = new THREE.WebGLRenderer();                     //WebGLRenderer引擎渲染效果最好
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize(window.innerWidth,window.innerHeight);   //设置长, 宽
+        //renderer.clear();                                       // 清除面板
+
+        //4.放入元素
+        container.appendChild(renderer.domElement);               // 将渲染器插入到container内
+        //相机一直正对场景(球)去看  否则相机的目光是平行的
+        camera.lookAt(scene.position);
+
+        //5其他事件
+        window.addEventListener( 'resize', onWindowResize, false ); //改变视口大小
+        document.addEventListener( 'mousedown',onMouseDown, false );
+
+
+    }
+    init();
+    animate();
+
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+    }
+
+    function render() {
+        //变化的方式
+        angle+=0.5;
+        group.rotation.y = angle*Math.PI/180;
+
+        //3.1渲染
+        renderer.render( scene, camera );
+
+    }
+    function onMouseDown() {
+        event.preventDefault();
+        //2d向量
+        var mouse = new THREE.Vector2();
+        //将鼠标点击位置的屏幕坐标转成threejs中的标准坐标
+        mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+        //Raycasting用于鼠标拾取（计算出鼠标移过的三维空间中的对象）等等。
+        var raycaster = new THREE.Raycaster();
+        //从相机发射一条射线，经过鼠标点击位置
+        raycaster.setFromCamera( mouse, camera );
+        //计算相机射线到的对象，可能有多个对象，因此返回的是一个数组，按离相机远近排列 group.children/scene.children 必须是装有对象的数字
+        var intersects = raycaster.intersectObjects( group.children );
+
+        if ( intersects.length > 0 ) {
+            console.log(intersects)
+        }
+    }
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+</script>
+<script>
+    function Object3D() {
+        //这是three.js中大多数对象的基类，并提供了一组用于在3D空间中操作对象的属性和方法。
+        // 实例可以调用 .position lookAt .rotation都是源于此类
+        camera.position.z = 1.1;               //相机摄像头位置
+        camera.lookAt(scene.position);         //相机一直正对场景(球)去看  否则相机的目光是平行的
+        scene.rotation.y -= 0.005;             //场景沿着Y轴回转
+        sprite.getWorldPosition()              //获取改点的世界坐标(scene)
+    }
+    function createSprite() {
+        //创建精灵 是一个始终朝向相机的平面，通常使用部分透明的纹理。
+        var spriteMap = new THREE.TextureLoader().load( "images/sprite0.png" );
+        //选择材料
+        var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff, fog: true } );
+        //创建精灵
+        var sprite = new THREE.Sprite( spriteMaterial );
+        //精灵位置
+        sprite.position.set(0.011240021327087023,0.12582579430044608,0.55);
+        sprite.scale.set(0.05,0.05,0.05);
+        sprite.oscar=100;
+    }
+    /*
+    * 粒子 http://localhost:63342/vue/canvas/threeJs/three.js-master/examples/#webgl_gpu_particle_system
+    *
+    *
+    * */
+
+</script>
+
+</html>

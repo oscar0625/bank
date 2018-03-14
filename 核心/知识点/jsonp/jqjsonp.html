@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button>获取jsonp数据</button>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script>
+    /*必须是全局的*/
+    function oscar(data){
+        console.log(data)
+    }
+    $('button').on('click', function () {
+        $.ajax({
+            type:'get',
+            url:'http://cct296.com/api/goods.php?datatype=jsonp',
+            /*必须有*/
+            dataType:'jsonp',
+            /*可有可没有 默认callback*/
+            jsonp:'callback',
+            /*指定要执行的函数*/
+            jsonpCallback:'oscar',
+            success: function (data) {
+                /*无论如何都会走这里*/
+                console.log(data)
+            }
+        })
+    });
+
+
+
+</script>
+</html>

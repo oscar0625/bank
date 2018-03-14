@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .imgBox{
+            position: relative;
+            /*把div当成是一个放图片的小盒*/
+            width: 300px;
+            height: 180px;
+            margin: 200px auto;
+            /*实现3d动画、变换的时候保留3d下的运动轨迹 flat不保留轨迹 preserve-3d保留轨迹*/
+            transform-style: preserve-3d;
+            animation: xzDH 8s linear infinite;
+        }
+        img {
+            position: absolute;
+            /*把图片摞成一摞，然后放进小盒*/
+            width: 300px;
+            height: 180px;
+        }
+        .img1{  transform: rotateY(0deg) translateZ(280px);  }
+        .img2{  transform: rotateY(60deg) translateZ(280px);  }
+        .img3{  transform: rotateY(120deg) translateZ(280px);  }
+        .img4{  transform: rotateY(180deg) translateZ(280px);  }
+        .img5{  transform: rotateY(240deg) translateZ(280px);  }
+        .img6{  transform: rotateY(300deg) translateZ(280px);  }
+
+        /*@keyframes xzDH {*/
+            /*from{transform: rotateX(0deg) rotateY(0deg);}*/
+            /*to{transform: rotateX(360deg) rotateY(360deg);}*/
+        }
+    </style>
+
+</head>
+<body>
+<div class="imgBox">
+    <img src="img/wife1.jpg" class="img1" alt=""/>
+    <img src="img/wife2.jpg" class="img2" alt=""/>
+    <img src="img/wife3.jpg" class="img3" alt=""/>
+    <img src="img/wife4.jpg" class="img4" alt=""/>
+    <img src="img/wife5.jpg" class="img5" alt=""/>
+    <img src="img/wife6.jpg" class="img6" alt=""/>
+</div>
+
+
+</body>
+</html>

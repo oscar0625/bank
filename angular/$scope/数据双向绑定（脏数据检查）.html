@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<!--
+数据双向绑定
+    $scope.$watch()
+
+    $scope.$apply()
+        手动渲染页面
+
+    $scope.$digest()
+        手动渲染, 官方不推荐直接调用
+
+    如何理解 AngularJs数据双向绑定(我们都知道angular建议一个页面最多2000个双向绑定)
+    1实现：
+        是一种叫做脏数据检查(Dirty Checking)的机制实现了数据双向绑定；
+        在angular中是通过Digest Cycle($digest 循环)来完成脏数据检查从而完成双向绑定进而实现scope和view的同步的
+    2过程：
+  (注: $digest cycle：并不是定时去检查model是否变更,其实，ng只有在指定事件触发后，才进入$digest 循环
+  例如： DOM事件，譬如用户输入文本，点击按钮等。(ng-click)
+         XHR响应事件 ($http)
+         浏览器Location变更事件 ($location)
+         Timer事件($timeout, $interval)
+         执行$digest()或$apply())
+     当执行这些指定的操作时,digest循环就会触发,将会遍历我们的watch list，检查它是否有属性和值的变化，直$watch队列都检查过，这就是dirty-checking。当所有的$watch都检查完了，判断有没有$watch更新过？如果有至少一个更新过，digest循环就会再次触发，直到所有的$watch都没有变化。这样就能够保证每个model都已经不会再变化。
+     (如果循环超过10次的话，它将报错，防止无限循环。)
+      当$digest循环结束时，DOM相应地变化。从而完成了数据的双向绑定
+
+  关键点：$watch $apply $digest
+  核心：$digest循环 脏数据检查
+
+
+    $apply和$digest区别
+    1. $apply()手动渲染页面 $scope.$digest() 手动渲染, 官方不推荐直接调用
+       apply实际上是调用的 digest方法
+    2.$apply进入$digest cycle, 并从$rootScope开始遍历(深度优先)检查数据变更。
+      $digest仅会检查该scope和它的子scope
+
+面试 AngularJs
+    你知道路由?
+        ngRoute, ui.router
+            怎么用
+            区别
+                routeParams
+                嵌套路由
+
+            事件
+                $routeChangeStart/Success
+                $stateChangeStart/Success
+
+                $locationChangeStart/Success
+
+                $scope.$on()
+
+                =====>  $on, $emit, $broadcast  ===> 事件 二三阶段内容, 绑定事件, 兼容
+                        ===> 事件对象, 兼容, 事件对象的属性, target/srcElement
+                        兼容 ====> XMLHttpRequest ===> ajax ===> jquery ajax ===> angular $http
+                        $http ====> 服务 =====> PJAX
+
+-->
+<body ng-app="app" ng-controller="ctrl">
+<p>{{time}}</p>
+<script>
+    angular.module('app', [])
+        .controller('ctrl', [
+            '$scope',
+            '$interval',
+            function ($scope, $interval) {
+                $scope.time = new Date().toLocaleString();//2017/3/4 上午11:01:31
+                $scope.time1 = new Date().toLocaleDateString();//2017/3/4
+                $scope.time2 = new Date().toLocaleTimeString();//上午11:01:31
+//                $interval(function () {
+//                    console.log($scope.time);
+//                    $scope.time = new Date().toLocaleString();
+//                }, 1000)
+                setInterval(function () {
+                    console.log($scope.time);
+                    $scope.time = new Date().toLocaleString();
+                    //手动渲染页面, scope中的变量到页面上
+                    $scope.$apply();
+                    //$scope.$digest();
+                }, 1000)
+            }])
+</script>
+</body>
+</html>

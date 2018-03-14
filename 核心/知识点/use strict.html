@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 在严格模式下：
+    * 1 在正常模式中，如果一个变量没有声明就赋值，默认是全局变量。严格模式禁止这种用法，全局变量必须显式声明。
+    *   "use strict";
+     　　v = 1; // 报错，v未声明
+     　　for(i = 0; i < 2; i++) { // 报错，i未声明
+     　　}
+      2 禁止this关键字指向全局对象
+         (function () {
+             'use strict';
+             console.log(this); //this不是window
+         })()
+      3 更严格
+        a:对象不能有重名的属性
+        b:函数不能有重名的参数
+        c:函数必须声明在顶层(不能声明在if或for中)
+        d:保留字不允许被声明否则报错
+    * */
+    (function () {
+       'use strict'; //开启严格模式
+        console.log(this);
+    })();
+
+
+
+</script>
+</html>

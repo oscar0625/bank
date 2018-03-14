@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div {
+            height: 1000px;
+        }
+        p{
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 10px solid red;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<p></p>
+</body>
+<script>
+    var p=document.getElementsByTagName('p')[0]
+    console.log(p.getClientRects())
+    console.log(p.getBoundingClientRect())
+    /*
+    * ele.getClientRects()和ele.getBoundingClientRect()没区别（几乎）
+    * w/h : w+p+b
+    * left/top:非ie: 相对于当前视口右上角
+    *            ie:相对于整个页面右上角
+    * */
+</script>
+</html>

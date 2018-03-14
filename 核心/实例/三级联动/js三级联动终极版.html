@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现级联下拉列表</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<h1>实现级联下拉列表</h1>
+<div>
+    <select id="province">
+        <option value="-1">-请选择-</option>
+    </select>
+    <select id="city">
+        <option value="-1">-请选择-</option>
+    </select>
+    <select id="area">
+        <option value="-1">-请选择-</option>
+    </select>
+</div>
+</body>
+<script>
+    var provinceList = ['北京市', '河北省', '浙江省'];
+    var cityList = [['东城区', '西城区', '海淀区'], ['廊坊市', '唐山市', '石家庄市', '承德市'], ['杭州市', '温州市', '宁波市', '嘉兴市', '绍兴市']];
+    var areasList = [
+        [
+            ['东城区1', '东城区2', '东城区3'], //
+            ['西城区1', '西城区2', '西城区3'],
+            ['海淀区1', '海淀区2', '海淀区3']
+        ],
+        [
+            ['廊坊市1', '廊坊市2', '廊坊市3', '廊坊市4'],
+            ['唐山市1', '唐山市2', '唐山市3', '唐山市4'],
+            ['石家庄市1', '石家庄市2', '石家庄市3', '石家庄市4'],
+            ['承德市1', '承德市2', '承德市3', '承德市4']
+        ],
+        [
+            ['杭州市1', '杭州市2', '杭州市3', '杭州市4', '杭州市5'],
+            ['温州市1', '温州市2', '温州市3', '温州市4', '温州市5'],
+            ['宁波市1', '宁波市2', '宁波市3', '宁波市4', '宁波市5'],
+            ['嘉兴市1', '嘉兴市2', '嘉兴市3', '嘉兴市4', '嘉兴市5'],
+            ['绍兴市1', '绍兴市2', '绍兴市3', '绍兴市4', '绍兴市5']
+        ]
+    ];
+    var province = document.getElementById("province");
+    var city = document.getElementById("city");
+    var area = document.getElementById("area");
+
+    function main(data,mb,str){
+        mb.length=1;
+        for(var i=0;i<data.length;i++){
+            var opt=document.createElement("option");
+            opt.innerHTML=data[i];
+            opt.value=i;
+            mb.appendChild(opt);
+        }
+        document.querySelector(str).nextElementSibling.setAttribute('selected',true);
+    }
+    /*创建省*/
+    (function(){
+        main(provinceList,province,'#province>option');
+        main(cityList[province.value],city,'#city>option');
+        main(areasList[province.value][city.value],area,'#area>option');
+    })();
+    /*创建市*/
+    province.onchange=function(){
+        if(this.value==-1){
+            city.length=1;
+            area.length=1;
+            return
+        }
+        main(cityList[province.value],city,'#city>option');
+        main(areasList[province.value][city.value],area,'#area>option');
+    };
+    /*创建地区*/
+    city.onchange=function(){
+        if(this.value==-1){
+            area.length=1;
+            return
+        }
+        main(areasList[province.value][city.value],area,'#area>option');
+    };
+
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+
+</script>
+</html>

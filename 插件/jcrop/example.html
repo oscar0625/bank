@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/jquery.Jcrop.css">
+</head>
+<body>
+<img src="img/pool.jpg" height="370" width="500" id="example"/>
+<button>上传</button>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.Jcrop.js"></script>
+<script>
+    var main={
+        upLoad:function () {
+            var self=this;
+            $('button').on('click',function () {
+              console.log(self.rect)
+          })
+        },
+        rect:{},
+        getRect:function () {
+            var self=this;
+            $('#example').Jcrop({
+                allowSelect:false,
+                aspectRatio:1,
+                bgFade:true,
+                createDragbars:[],
+                createHandles:[],
+                onSelect:function () {
+                    self.rect=arguments[0]
+                }
+
+            },function () {
+                var arr=this.getBounds();
+                this.setSelect([arr[0]/2-90,arr[1]/2-90,arr[0]/2+90,arr[1]/2+90]);
+            });
+        },
+        init:function () {
+            this.getRect();
+            this.upLoad();
+        }
+    };
+    main.init()
+</script>
+</html>

@@ -1,0 +1,44 @@
+/*fans*/
+.c-fans {
+  margin: 0.26666667rem 0;
+  width: 10rem;
+  height: 2.05333333rem;
+  box-shadow: 0.02666667rem 0.02666667rem 0.12rem rgba(0, 0, 0, 0.1), -0.02666667rem -0.02666667rem 0.12rem rgba(0, 0, 0, 0.1);
+  position: relative;
+  color: #333;
+  background: #fff;
+}
+.c-fans img,
+.c-fans p,
+.c-fans span {
+  position: absolute;
+}
+.c-fans img {
+  width: 1.28rem;
+  height: 1.28rem;
+  left: 0.4rem;
+  top: 0.4rem;
+}
+.c-fans .c-fans-user {
+  font-size: 0.37333333rem;
+  left: 2rem;
+  top: 0.58666667rem;
+}
+.c-fans .c-fans-personal {
+  font-size: 0.32rem;
+  left: 2rem;
+  top: 1.2rem;
+}
+.c-fans span {
+  font-size: 0.24rem;
+  color: #858585;
+  padding: 0.10666667rem 0.33333333rem;
+  border: 0.01333333rem solid #808080;
+  border-radius: 0.26666667rem;
+  right: 0.73333333rem;
+  top: 0.73333333rem;
+}
+.c-fans span#pink {
+  border: 0.01333333rem solid #ff406f;
+  color: #ff406f;
+}

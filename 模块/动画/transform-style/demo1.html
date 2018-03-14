@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+            div{
+                position: relative;
+                width: 300px;
+                height: 180px;
+                margin: 100px auto;
+                transform-style: preserve-3d;
+
+
+            }
+        img {
+            position: absolute;
+            width: 300px;
+            height: 180px;
+            transition:  2s linear ;
+        }
+        .img1{transform: rotateY(0deg) translateZ(280px);}
+        .img2{transform: rotateY(60deg) translateZ(280px) ;}
+        .img3{transform: rotateY(120deg) translateZ(280px);}
+        .img4{transform: rotateY(180deg) translateZ(280px);}
+        .img5{transform: rotateY(240deg) translateZ(280px);}
+        .img6{transform: rotateY(300deg) translateZ(280px);}
+
+
+    </style>
+    <script src="jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div>
+    <img src="img/common_03.png" height="111" width="291" class="img1"/>
+    <img src="img/common_09.png" height="97" width="88" class="img2"/>
+    <img src="img/common_11.png" height="97" width="97" class="img3"/>
+    <img src="img/common_03.png" height="111" width="291" class="img4"/>
+    <img src="img/common_09.png" height="97" width="88" class="img5"/>
+    <img src="img/common_11.png" height="97" width="97" class="img6"/>
+
+</div>
+<button>11s</button>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var img1=document.querySelector('.img1');
+    var img2=document.querySelector('.img2');
+    var img3=document.querySelector('.img3');
+    var img4=document.querySelector('.img4');
+    var img5=document.querySelector('.img5');
+    var img6=document.querySelector('.img6');
+    var i=0;
+    document.querySelector('button').onclick=function () {
+        i1=(i+1)*60;
+        i2=(i+2)*60;
+        i3=(i+3)*60;
+        i4=(i+4)*60;
+        i5=(i+5)*60;
+        i6=(i+6)*60;
+
+        $(img1).css({"-webkit-transform":'rotateY('+i1+'deg) translateZ(280px)'});
+        $(img2).css({"-webkit-transform":'rotateY('+i2+'deg) translateZ(280px)'});
+        $(img3).css({"-webkit-transform":'rotateY('+i3+'deg) translateZ(280px)'});
+        $(img4).css({"-webkit-transform":'rotateY('+i4+'deg) translateZ(280px)'});
+        $(img5).css({"-webkit-transform":'rotateY('+i5+'deg) translateZ(280px)'});
+        $(img6).css({"-webkit-transform":'rotateY('+i6+'deg) translateZ(280px)'});
+        i=i+1;
+    }
+
+</script>
+</html>

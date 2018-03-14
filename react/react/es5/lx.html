@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src=../dist/jquery.js></script>
+    <script src="../dist/react.js"></script>
+    <script src="../dist/react-dom.js"></script>
+    <script src="../dist/browser.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+
+</body>
+<script type="text/babel">
+	var Header=React.createClass({
+		render:function(){
+			return(
+				<ul className="nav">
+	                <li><a href="http://www.iwen.wiki">个人主页</a></li>
+	                <li><a href="http://www.iwen.wiki/blog">个人博客</a></li>
+	                <li><a href="http://www.baidu.com">百度一下</a></li>
+	                <li><a href="http://www.iwen.wiki">React官网</a></li>
+	             </ul>
+			)
+		}	
+	})
+	var Footer=React.createClass({
+		render:function(){
+			return (<div>©2017 Baidu 使用百度前必读 意见反馈 京ICP证030173号  京公网安备11000002000001号 </div>)
+		}	
+	})	
+	var Content=React.createClass({
+		getDefaultProps:function(){
+			return{
+				url:"http://iwen.wiki/zhichenshop/buy.php"
+			}
+		},
+		getInitialState:function(){
+			return{
+				data:''
+			}
+		},
+		componentWillMount:function(){
+			console.log('componentWillMount')
+			$.ajax({
+				type:'get',
+				url:this.props.url,
+				success:function(data){
+					this.setState({
+						data:data
+					})
+				}.bind(this)
+			})
+		},
+		componentDidMount:function(){
+			console.log("componentDidMount")
+		},
+		render:function(){
+			return(
+			<div>
+				<Header />
+				<ul>{
+					 this.state.data?this.state.data.map(function(x){
+							return(
+							
+							<ul>
+								<li><img src={x.buyimg} /></li>
+								<li>{x.buyshop}</li>
+								<li>{x.buytitle}</li>
+								<li>{x.buyxj}</li>
+								</ul>
+							)
+					 }):''
+			
+					}
+				</ul>
+				<Footer />>
+			</div>
+			)
+		},
+		componentWillUpdate:function(){
+			console.log("componentWillUpdate")
+		},
+		componentDidUpdate:function(){
+			console.log("componentDidUpDate")
+		}
+	})
+	
+	ReactDOM.render(<Content />,document.querySelector('#root'));
+</script>
+</html>

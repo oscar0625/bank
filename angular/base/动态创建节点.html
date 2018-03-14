@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            height: 60px;
+            width: 60px;
+            border: 2px solid #000;
+            border-radius: 3px;
+            float: left;
+        }
+
+        .red {
+            background: #c9302c;
+        }
+
+        ::selection {
+            background: transparent;
+        }
+
+        .green {
+            background: #3eba00;
+        }
+
+        .blue {
+            background: #007aba;
+        }
+
+        .orange {
+            background: #ecbc00;
+        }
+
+        .pink {
+            background: #f7aed9;
+        }
+    </style>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl" >
+    <input type="submit" value="add" ng-click="add()">
+    <div>
+        <div ng-repeat="x in arr track by $index" ng-class="x" class="box" ng-click="remove($index)"></div>
+    </div>
+</div>
+</body>
+<script>
+    angular.module('app',[])
+            .controller('ctrl',function ($scope) {
+                $scope.colors=['red','blue','pink','green','orange'];
+                $scope.add=function () {
+                    console.log(111);
+                    this.arr.push(this.colors[Math.floor(Math.random()*5)])
+                };
+                $scope.arr=['red'];
+                $scope.remove=function (i) {
+                    this.arr.splice(i,1)
+                }
+
+            })
+
+</script>
+</html>

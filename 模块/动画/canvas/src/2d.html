@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            line-height:50px;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="500"  height="500" id="drawing" ></canvas>
+</body>
+<script>
+    /*
+    * 参考手册 http://www.runoob.com/tags/ref-canvas.html
+    *
+    *
+    * */
+    var drawing=document.getElementById('drawing');
+    if(drawing.getContext){
+        var ps=drawing.getContext('2d');          //2d上下文 canvas
+
+        //1.绘制路径
+
+//        //1.1直线路径
+//        ps.beginPath();     // 开始绘制新路径 清除上一点
+//        ps.moveTo(0,0);     // 起点,将路径笔放到(x,y)位置 此时不绘制路径
+//        ps.lineTo(100,100); // 从上一点开始绘制一条直线路径,到(x,y)为止;
+//        ps.lineTo(100,150); // 从上一点开始绘制一条直线路径,到(x,y)为止;
+//        ps.closePath();     // 从上一点开始绘制一条直线路径,到起点为止;
+//        if(ps.isPointInPath(100,120)){  //判断点(100,120)是否在当前路径上
+//            ps.stroke();        // 按照当前路径描边
+//        }
+
+//        //1.2矩形路径
+//        ps.beginPath();        // 开始绘制新路径 清除上一点
+//        ps.rect(0,0,100,100);  // 创建矩形路径  params:(startX startY width height)
+//        ps.clip();             // 按照当前路径裁剪出一个区域(封闭)  超出这个区域不可见
+//        ps.stroke();           // 按照当前路径描边
+
+//        //1.3圆路径
+//        ps.beginPath();                        // 开始绘制新路径 清除上一点
+//        ps.arc(100,100,50,0,2*Math.PI,true) ;  // 创建圆路径  params:圆点X 圆点Y 半径 起始弧度 终止弧度 顺时针false/逆时针true
+//        ps.fill();                             // 按照当前路径填充
+
+//        //1.4 弧路径——圆角  borderRadius
+//        ps.beginPath();                    // 开始绘制新路径 清除上一点
+////        ps.moveTo(x1,y1);                // 起点,将路径笔放到(x1,y1)位置 此时不绘制路径
+////        ps.arcTo(x1+r,y1,x1+r,y1+r,r);   // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  顺时针
+////        ps.arcTo(x1,y1+r,x1+r,y1+r,r);   // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  逆时针
+//        // 顺时针例子
+//        ps.moveTo(100,20);
+//        ps.arcTo(100+50,20,100+50,20+50,50);
+//        // 逆时针例子
+//        ps.moveTo(100,20);
+//        ps.arcTo(100,20+50,100+50,20+50,50);
+//        ps.stroke();                       // 按照当前路径描边
+
+
+       //2. fill/stroke相关
+
+//        //2.1 填充/描边
+//        ps.fillStyle='rgba(0,0,0,1)'; // 设置填充颜色
+//        ps.strokeStyle='#0000ff';     // 设置描边颜色
+//        ps.fill();         // 填充
+//        ps.stroke();       // 描边
+
+//        //2.2 清除画布和填充/描边矩形  fillRect() | strokeRect() | clearRect()    params:(startX,startY,width,height)
+//        ps.fillRect(0,0,50,50);
+//        ps.strokeRect(50,50,50,50);
+//        ps.clearRect(0,0,0,100);   //清除画布
+
+//        //2.3 填充/描边文本 fillText() | strokeText() params:('content',x,y[,(允许的最大文本宽度px)])
+//        ps.font='italic bold 20px/20px Microsoft YaHei';
+//        var w=ps.measureText('oscar').width;  //返回在当前font下 文本'oscar'的宽 可以用此方法来做限制
+//        ps.textAlign='center';         //过(x,y)点做平行于Y轴的线  以此线为 start/center/end
+//        ps.fillText('oscar',20,20);
+//        ps.strokeText('oscar',50,50);
+
+        //3. 变换
+        ps.translate(50,50);    //将坐标原点(0,0) 移动到  
+
+
+
+
+        //4.方法
+        //save()	保存当前环境的状态。
+        //restore()	返回之前保存过的路径状态和属性。
+        //两者连用可以达到2个圆形，一个包含阴影，一个不包含阴影。
+
+/*requestAnimationFrame*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var imgURL=drawing.toDataURL('image/png'); //取得canvas 里面的内容转换成png的图片的路径
+    }
+
+
+
+</script>
+</html>

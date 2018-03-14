@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style media="print">
+        .noprint{
+            display: none;
+        }
+    </style>
+    <style>
+        @media print {
+            .noprint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<!--startprint-->
+<div>123</div>
+<!--endprint-->
+<div>456</div>
+<button class="noprint">打印</button>
+</body>
+<script>
+    /*
+     * 打印
+     * http://www.cnblogs.com/sunrunzhi/p/5310020.html
+     * http://plugins.jquery.com/PrintArea/ 插件
+     * */
+
+    // 1.打印整个页面
+    document.querySelector('button').onclick = function () {
+        window.print();
+    };
+
+    // 2.打印局部
+
+    // 2.1 css控制局部打印
+        /*
+        * 方法1:<style media="print">
+            .noprint{
+                display: none;
+            }
+          </style>
+        * 方法2:<style>
+             @media print {
+                 .noprint {
+                    display: none;
+                 }
+             }
+          </style>
+        * */
+
+     // 2.2 js控制局部打印
+        function doPrint() {
+            // <!--startprint-->要打印的部分<!--endprint-->
+            bdhtml=window.document.body.innerHTML;
+            sprnstr="<!--startprint-->";
+            eprnstr="<!--endprint-->";
+            prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);
+            prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML=prnhtml;
+            window.print();
+            window.document.body.innerHTML=bdhtml;
+        }
+</script>
+</html>

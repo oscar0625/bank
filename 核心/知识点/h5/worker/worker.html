@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<button>start</button>
+<button>end</button>
+<body>
+</body>
+<script>
+    /*
+     *
+     *
+     *  Worker
+     *  线程对象，可以执行一个js文件在后台默默的运行，且不会阻塞页面！
+     *  一般用于大量的计算等比较消耗性能的代码。
+     *
+     *
+     * */
+    var start=document.querySelectorAll('button')[0];
+    var end=document.querySelectorAll('button')[1];
+    var obj;
+    start.onclick= function () {
+        obj=new Worker('worker.js');
+        //添加监听事件
+        obj.onmessage= function (e) {
+            console.log(e.data);
+        };
+        //添加异常事件
+        obj.onerror= function (e) {
+            console.log(e)
+        }
+    };
+    //停止worker
+    end.onclick= function () {
+        obj.terminate();
+    };
+
+
+</script>
+</html>

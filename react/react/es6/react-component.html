@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../dist/jquery.js"></script>
+    <script src="../dist/react.js"></script>
+    <script src="../dist/react-dom.js"></script>
+    <script src="../dist/browser.min.js"></script>
+    <style>
+        .d1{
+         font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+<div ></div>
+</body>
+<script type="text/babel">
+    /*
+    * 1 es6模块 的导入导出
+    *  import       export default
+       注意 首字母大写   import MediaQuery from 'react-responsive';
+    * 2.组件的创建
+    *   class Demo extends React.Component{
+    *
+    *   }
+    * 3.props的初始化
+    *      Demo.defaultProps={
+    *          name:'caroline'
+    *      }
+    * 4.propTypes
+    *      Demo.propTypes={
+    *          name:React.PropTypes.string
+    *      };
+    * 5.状态的初始化
+    *      constructor(){
+               super();
+               this.state={
+                  data:1
+               }
+           }
+    *
+    */
+    /*
+     start -> Defaultprops(获取外部传入的props值) -> constructor(初始化状态)
+
+     componentWillMount :当组件即将渲染的时候触发的函数
+     componentDidMount：当组件渲染完成触发的一个函数
+
+     componentWillReceiveProps：props改变之后触发
+
+     若state状态改变后或componentWillReceiveProps触发后会执行shouldComponentUpdate
+     1. 若 return true 会执行重新更新操作
+     2. 若 return false 不会执行重新更新操作
+
+     componentWillUpdate：当组件重新更新之前触发
+     componentDidUpdate：当组件重新更新完成	后触发
+
+     componentWillUnmount：组件被卸载的时候触发
+
+     */
+        var name='oscar';
+        class Demo extends  React.Component{
+            constructor(){
+                console.log('state');
+                super();
+                this.state={
+                    data:1
+                }
+            }
+            componentWillMount(){
+                console.log('componentWillMount');
+            }
+            componentDidMount(){
+                console.log('componentDidMount');
+            }
+            qwe(){
+                this.setState({
+                    data:this.state.data+1
+                })
+                console.log(this.state.data+1);
+            }
+            render(){
+                console.log('render');
+                return(
+                        <div style={{color:'red'}}  className="d1" onClick={this.qwe.bind(this)}>
+                            {this.props.name}{this.state.data}
+                        </div>
+                )
+            }
+            shouldComponentUpdate(){
+                console.log('shouldComponentUpdate');
+                return true
+            }
+
+        Demo.propTypes={
+            name:React.PropTypes.string
+        };
+        Demo.defaultProps={
+            name:'caroline'
+        };
+
+        ReactDOM.render(
+                <Demo name={name}/>
+                ,document.querySelector('div')
+        )
+</script>
+</html>

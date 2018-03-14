@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../dist/jquery.js"></script>
+    <script src="../dist/react.js"></script>
+    <script src="../dist/react-dom.js"></script>
+    <script src="../dist/browser.min.js"></script>
+    <style>
+        .d1{
+         font-size: 50px;
+        }
+
+    </style>
+</head>
+<body>
+<div ></div>
+</body>
+<script type="text/babel">
+        let name=1;
+        class Demo extends  React.Component{
+            constructor(){
+                super();
+                console.log('state');
+            }
+            componentWillMount(){
+                console.log('componentWillMount');
+            }
+            componentDidMount(){
+                console.log('componentDidMount');
+            }
+            qwe(){
+                name=name+1;
+                console.log(name);
+                console.log(this.props.name)
+            }
+            render(){
+                console.log('render');
+                return(
+                        <div style={{color:'blue'}}  className="d1" onClick={this.qwe.bind(this)}>
+                            {this.props.name}
+                        </div>
+                )
+            }
+            componentWillReceiveProps(){
+                console.log(888888888)
+            }
+            shouldComponentUpdate(){
+                console.log('shouldComponentUpdate');
+                return true
+            }
+            componentWillUpdate(){
+                console.log('componentWillUpdate')
+            }
+            componentDidUpdate(){
+                console.log('componentDidUpdate')
+            }
+        }
+
+        ReactDOM.render(
+                <Demo name={name}/>
+                ,document.querySelector('div')
+        )
+</script>
+</html>

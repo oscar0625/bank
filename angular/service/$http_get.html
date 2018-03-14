@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+
+</body>
+<script>
+    angular.module('app',[])
+            .controller('ctrl',['$scope','$http',function ($scope,$http) {
+                /*第一种请求方式*/
+//                $http.get('table.php',{params: {name: '小nnnk', age: 90}})
+//                        .success(function (data) {
+//                            console.log(data)
+//                        });
+                /*第二种请求方式*/
+                $http({
+                    method:'get',
+                    url:'table.php',
+                    params:{name: '小nnnk', age: 90}
+                }).success(function (data) {
+                    console.log(data)
+                })
+            }])
+</script>
+</html>

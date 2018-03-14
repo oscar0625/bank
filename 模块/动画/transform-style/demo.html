@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            position: relative;
+            width: 300px;
+            height: 180px;
+            margin: 100px auto;
+            transform-style: preserve-3d;
+
+        }
+        img {
+            position: absolute;
+            width: 300px;
+            height: 180px;
+        }
+
+        .img1{transform: rotateY(-60deg) translate3d(0,0,380px) ;}
+        .img2{transform: rotateY(0deg) translate3d(0,0,380px) ;}
+        .img3{transform: rotateY(60deg) translate3d(0,-20px,380px);}
+
+
+
+    </style>
+    <script src="jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div>
+    <!--1231-->
+    <img src="img/common_03.png" height="111" width="291" class="img1"/>
+    <img src="img/common_09.png" height="97" width="88" class="img2"/>
+    <img src="img/common_11.png" height="97" width="97" class="img3"/>
+
+
+
+
+
+
+</div>
+<button>11s</button>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var img1=document.querySelector('.img1');
+    var img2=document.querySelector('.img2');
+    var img3=document.querySelector('.img3');
+//    var img5=document.querySelector('.img5');
+    var arr=[['rotateY(-60deg) translate3d(0,-20px,380px)',''],['rotateY(0deg) translate3d(0,0,380px)','gd'],['rotateY(60deg) translate3d(0,-20px,380px)','gd'],];
+//    ,['rotateY(-120deg) translate3d(0,-20px,380px)',''],
+    document.querySelector('button').onclick=function () {
+        var first=arr.shift();
+        arr.push(first);
+        console.log(arr);
+
+        $(img1).removeClass().addClass(arr[0][1]).css({"-webkit-transform":arr[0][0]});
+        $(img2).removeClass().addClass(arr[1][1]).css({"-webkit-transform":arr[1][0]});
+        $(img3).removeClass().addClass(arr[2][1]).css({"-webkit-transform":arr[2][0]});
+
+parseInt()
+//
+//        $(img5).removeClass().addClass(arr[2][1]).css({"-webkit-transform":arr[2][0]});
+
+
+    }
+
+</script>
+</html>

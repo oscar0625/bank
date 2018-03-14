@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/dialog.js"></script>
+
+</head>
+<body>
+<button>出现</button>
+</body>
+<script>
+    /* http://www.daimajiayuan.com/download/201304/yulan/artDialog4.1.7/_doc/API.html
+    * 1. dialog   点击 取消按钮/标题栏的关闭按钮 默认进行的是remove()即移除该元素
+    * 2. 防止重复出现同一个对话框方法 加id
+    *
+    *
+    * */
+    $('button').on('click',function () {
+
+        //普通对话框
+//        var d = dialog({
+//            title: '欢迎',
+//            content: '欢迎使用 artDialog 对话框组件！'
+//        });
+//        d.show();
+
+        //模态对话框
+//        var d = dialog({
+//            title: 'message',
+//            content: '<input autofocus />'
+//        });
+//        d.showModal();
+
+        //确定与取消按钮：
+        var d = dialog({
+            id:'oscar',    //string number
+            title: '提示',
+            content: '按钮点击后默认会关闭弹出框(默认移除操作)，返回 false 则不关闭，',
+            okValue: '确定',
+            ok: function () {
+                this.title('提交中…');
+                return false;
+            },
+            cancelValue: '取消',
+            cancel: function () {     //取消按钮也等同于标题栏的关闭按钮。回调函数this指向dialog对象
+                console.log(112233)
+            },
+//            width:500,
+//            height:500
+        });
+       d.show();
+
+        //只有确定按钮：
+//        var d = dialog({
+//            title: '欢迎',
+//            content: '欢迎使用 artDialog 对话框组件！',
+//            ok: function () {}
+//        });
+//        d.show();
+
+        //控制对话框关闭
+//        var d = dialog({
+//            content: '对话框将在两秒内关闭'
+//        });
+//        d.show();
+//        setTimeout(function () {
+//            d.close().remove();
+//        }, 2000);
+
+        //给对话框左下角添加复选框
+//        var d = dialog({
+//            title: '欢迎',
+//            content: '欢迎使用 artDialog 对话框组件！',
+//            ok: function () {},
+//            statusbar: '<label><input type="checkbox">不再提醒</label>'
+//        });
+//        d.show();
+
+    })
+
+</script>
+</html>

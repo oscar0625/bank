@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/angular-1.3.9.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<a ui-sref="a({name:'oscar',age:18})">a</a>
+<a ui-sref="b">b</a>
+<div ui-view></div>
+</body>
+<script src="../js/angular-ui-router-0.2.18.js"></script>
+<script>
+    /*
+    * ui.router
+        嵌套路由
+            模块.config(function($stateProvider){
+                $stateProvider.state('父状态',配置对象)
+                $stateProvider.state('父状态.子状态',配置对象)
+            })
+    *
+    * */
+    angular.module('app',['ui.router'])
+        .controller('ctrl',['$scope',function ($scope) {
+
+        }])
+        .config(function ($stateProvider,$urlRouterProvider) {
+            /*一级路由的重定向 参数是url*/
+            $urlRouterProvider.otherwise('/a/oscar/18');
+            $stateProvider
+                .state('a',{
+                    url:'/a/:name/:age',
+                    templateUrl:'a.html',
+                    controller:['$scope','$state',function ($scope,$state) {
+                        $scope.name=$state.params.name;
+                        /*二级路由的重定向 默认进的二级路由页面 第一个参数是状态值 第二个参数是要传递的params*/
+                        $state.go('a.c',{link:'eat'})
+                    }]
+                })
+                .state('a.c',{
+                    url:'/c/:link',
+                    templateUrl:'c.html',
+                    controller:['$scope','$state',function ($scope,$state) {
+                        $scope.link=$state.params.link;
+
+                    }]
+                })
+                .state('a.d',{
+                    url:'/d',
+                    templateUrl:'d.html',
+                    controller:['$scope',function ($scope) {
+                    }]
+                });
+            $stateProvider
+                .state('b',{
+                    url:'/b',
+                    templateUrl:'b.html',
+                    controller:['$scope',function ($scope) {
+                    }]
+                })
+
+        })
+</script>
+</html>

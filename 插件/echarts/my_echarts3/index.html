@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="script/echarts.js"></script>
+<script type="text/javascript">
+    /*  下载实例
+     *   https://ecomfe.github.io/echarts-examples/public/index.html
+     *   http://www.echartsjs.com/gallery/index.html
+     *
+     *   http://echarts.baidu.com/option.html  option
+     *
+     *  在echarts3中 markPoint和markLine变成画死线的了
+     * */
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    /*
+     * option ...
+     *
+     *
+     * */
+
+
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+        //点击事件
+        myChart.on('click',function (e) {
+            console.log(e);
+            try{
+                if (e.data.Type == '成果') {
+                    window.open('/achievementInfo?id=' + e.data.Id)
+                } else if (e.data.Type == '需求') {
+                    window.open('/demandinfo?id=' + e.data.Id);
+                } else {
+                    console.log(222)
+                }
+            }catch(res){
+                console.log(111)
+            }
+        })
+    };
+    //api
+
+    // 1. 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过setOption完成，ECharts 会合并新的参数和数据，然后刷新图表。如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
+    myChart.setOption();
+    // 2. 触发图表行为api
+    myChart.dispatchAction()
+    //3.loading状态
+    myChart.showLoading();
+    myChart.hideLoading();
+
+
+    //重置地图的两种方法
+    //重置option  但存在轨迹问题
+    myChart.dispatchAction({
+        type: 'restore'
+    });
+    //销毁重建
+    $('#button').on('click', function () {
+        myChart.dispose();   //原本销毁
+        myChart = echarts.init(dom);  //初始化
+        myChart.setOption(option, true); //新建
+    });
+</script>
+</html>

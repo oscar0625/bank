@@ -1,0 +1,25 @@
+.progress{
+    width: 100%;
+    height: 3px;
+}
+.progress_btn{
+    width: 0%;
+    height: 3px;
+    background:red;
+    transition: opacity 1s;
+}
+/*不加动画则没过度效果*/
+.progress_btn.ng-hide-remove {
+    opacity: 0;
+}
+
+.progress_btn.ng-hide-remove-active {
+    opacity: 1;
+}
+.progress_btn.ng-hide-add {
+    opacity: 1;
+}
+
+.progress_btn.ng-hide-add-active {
+    opacity: 0;
+}

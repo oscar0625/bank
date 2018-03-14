@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+    <style>
+        .left,.right{
+            float: left;
+            width: 50%;
+        }
+        .left{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        aside::after{
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<aside ng-app="app" ng-controller="ctrl">
+    <div class="left">
+        <h1>{{anchor}}:</h1>
+        <input type="text" ng-model="say" ng-keyup="keySendData($event)">
+        <input type="submit" ng-click="sendData()">
+        <div>
+            <p ng-repeat="x in arr track by $index">{{x.anchor}}:{{x.content}}</p>
+        </div>
+    </div>
+    <div class="right">
+        <div ng-controller="reporterCtrl">
+            <h1>{{anchor}}</h1>
+            <p ng-repeat="x in arr track by $index">{{x.anchor}}:{{x.content}}</p>
+        </div>
+        <div ng-controller="massCtrl">
+            <h1>{{anchor}}</h1>
+            <p ng-repeat="x in arr track by $index">{{x.anchor}}:{{x.content}}</p>
+        </div>
+        <div ng-controller="friendCtrl">
+            <h1>{{ancho   r}}</h1>
+            <p ng-repeat="x in arr track by $index">{{x.anchor}}:{{x.content}}</p>
+        </div>
+    </div>
+</aside>
+</body>
+<script>
+    angular.module('app',[])
+            .controller('ctrl',function ($scope) {
+                $scope.anchor='宝强';
+                $scope.say='';
+                $scope.arr=[];
+                var obj;
+                $scope.sendData=function () {
+                    if($scope.say){
+                        obj={
+                            anchor:$scope.anchor,
+                            content:$scope.say
+                        };
+                        $scope.arr.push(obj);
+                        $scope.$broadcast('bg',obj)
+                    }
+                };
+                $scope.keySendData=function (e) {
+                    if(e.keyCode==13){
+                        if($scope.say){
+                            obj={
+                                anchor:$scope.anchor,
+                                content:$scope.say
+                            };
+                            $scope.arr.push(obj);
+                            $scope.$broadcast('bg',obj)
+                        }
+
+                    }
+                }
+            })
+            .controller('reporterCtrl',function ($scope) {
+                $scope.anchor='记者';
+                $scope.arr=[];
+                var obj;
+                $scope.$on('bg',function (e,data) {
+                    obj={
+                        anchor:$scope.anchor,
+                        content:'转发了@'+data.anchor+':'+data.content+'转发到了xx新闻'
+                    };
+                    $scope.arr.push(obj);
+                })
+            })
+            .controller('massCtrl',function ($scope) {
+                $scope.anchor='群众';
+                $scope.arr=[];
+                var obj;
+                $scope.$on('bg',function (e,data) {
+                    obj={
+                        anchor:$scope.anchor,
+                        content:'转发了@'+data.anchor+':'+data.content+'宝宝不哭, 还有XX'
+                    };
+                    $scope.arr.push(obj);
+                })
+            })
+            .controller('friendCtrl',function ($scope) {
+                $scope.anchor='朋友';
+                $scope.arr=[];
+                var obj;
+                $scope.$on('bg',function (e,data) {
+                    obj={
+                        anchor:$scope.anchor,
+                        content:'转发了@'+data.anchor+':'+data.content+'发来安慰'
+                    };
+                    $scope.arr.push(obj);
+                })
+            });
+
+//    angular.module('app',[])
+//            .controller('baoQiang',function ($scope) {
+//                $scope.$on('trans',function (t,data) {
+//                    $scope.data=data["author"]+":"+data["content"];
+//                });
+//                $scope.main=function () {
+//                    var message={
+//                        author:'宝强',
+//                        content:'绿了'
+//                    };
+//                    $scope.$broadcast('trans',message);
+//                }
+//            })
+//            .controller('reporter',function ($scope) {
+//                $scope.$on('trans',function (t,data) {
+//                    var str='reporter:转发了@';
+//                    $scope.data=str+data["author"]+":"+data["content"]+'转发到了xx新闻';
+//                });
+//            })
+//            .controller('mass',function ($scope) {
+//                $scope.$on('trans',function (t,data) {
+//                    var str='mass:转发了@';
+//                    $scope.data=str+data["author"]+":"+data["content"]+'宝宝不哭, 还有XX';
+//                });
+//            })
+//            .controller('friend',function ($scope) {
+//                $scope.$on('trans',function (t,data) {
+//                    var str='friend:转发了@';
+//                    $scope.data=str+data["author"]+":"+data["content"]+'发来安慰. 报告团长, 不抛弃, 不放弃';
+//                });
+//            })
+</script>
+</html>

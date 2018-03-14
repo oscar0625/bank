@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<body>
+</body>
+<script>
+    angular.module('app',[])
+        .controller('ctrl',['$scope',function ($scope) {
+
+        }])
+        /*相同点  ：两者都是angluar下的全局变量
+        * 不同点 ：value可以修改(主副模块冲突时,不会修改,会以主模块为主)但是不可以注入到config里
+        *         constant不可以修改(以最先定义那个为主,以主模块为主) 可以注入到config里
+        *         同名情况下 constant优先级更高
+        * 用途：value用来注册服务对象或函数
+        *       constant用来配置数据；
+        * */
+        .value('vle',{})
+        .constant('cst',{})
+</script>
+</html>

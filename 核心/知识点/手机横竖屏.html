@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    @media screen and (orientation: portrait){
+        /*竖屏的样式*/
+    }
+    @media screen and (orientation: landscape){
+        /*横屏的样式*/
+    }
+    div{
+        height: 200px;
+        background: red;
+    }
+    </style>
+</head>
+<body>
+<div>
+
+</div>
+</body>
+<script>
+//检测横竖屏
+    var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    //1. type
+        if(orientation.type === "portrait-primary"){
+            console.log("这是竖屏0度 等同于 nature 代表设备手机的自然方向 Home键在下边");
+        }
+        else if (orientation.type === "portrait-secondary") {
+            console.log("这是竖屏 在自然基础上反转 180度 Home键在上边");
+        }
+        else if (orientation.type === "landscape-primary") {
+            console.log("这是横屏  Home键在右边");
+        } else if (orientation.type === "landscape-secondary") {
+            console.log("这是横屏  Home键在左边");
+        }
+//2.change 事件 屏幕切换触发
+    orientation.addEventListener('change',function () {
+        console.log(1111)
+    });
+    console.log(orientation.lock('portrait-primary'))
+</script>
+
+</html>

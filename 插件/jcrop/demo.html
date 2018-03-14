@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--css--><!--注意引入Jcrop.gif 否则没蚂蚁线-->
+    <link rel="stylesheet" href="./css/jquery.Jcrop.css">
+
+</head>
+<body>
+
+<img src="img/pool.jpg" height="370" width="500" id="target"/>
+
+</body>
+<!--js-->
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.Jcrop.js"></script>
+<script>
+    /*http://code.ciaoca.com/jquery/jcrop/*/
+        var obj={
+//        allowSelect:true,       //允许新选框
+//        allowMove:true,         //允许选框移动
+//        allowResize:true,       //允许选框缩放
+//        trackDocument:true,     //拖动选框时，允许超出图像以外的地方时继续拖动。
+            aspectRatio:1,        //选框宽高比。说明：width/height 1:1是正方形
+//        keySupport:true,        //支持键盘控制选框
+
+//        addClass:'oscar',       //额外加个类名 class="jcrop-holder oscar"
+//        bgColor:'black',	      //背景颜色。颜色关键字、HEX、RGB 均可。
+//        bgOpacity:0.6,	      //背景透明度
+//        bgFade:false,	          //是否使用背景过渡效果
+
+//        touchSupport:null,      //支持触摸事件
+//        boxWidth:0,             //画布宽度 为0 为img的本身宽
+//        boxHeight:0,            //画布高度 为0 为img的本身高
+//        minSelect:[150, 150],	  //选框最小选择尺寸。说明：若选框小于该尺寸，则自动取消选择
+//        maxSize:[200, 200],	  //选框最大尺寸 最大就这么大
+//        minSize:[150, 150],	  //选框最小尺寸 初始就这么大
+//        shade:true	          //使用更好的遮罩
+
+            createHandles:['n','s','e','w','nw','ne','se','sw'],//设置边角控制器 传[]无控制器
+            createDragbars:['n','s','e','w'], //设置边框控制器  传[]无控制器
+            createBorders:['n','s','e','w'],  //设置边框  传[]无边框
+
+            onChange:function () {
+                //选框改变时就触发 console.log(arguments)
+            },
+            onSelect:function () {
+                //选框选定时的事件 console.log(arguments)
+            },
+            onDblClick:function () {
+                //在选框内双击时的事件 console.log(arguments)
+            },
+            onRelease:function () {
+                //取消选框时的事件 console.log(arguments)
+            }
+        };
+        //可以理解为初始化
+        var fn=function () {
+            //设定（或改变）要操作的图像 url
+            this.setImage('img/sago.jpg',function () {});
+            //设定（或改变）参数
+            this.setOptions({});
+            //获取图片实际尺寸格式为：[w, h]
+            this.getBounds();
+            this.getWidgetSize();
+            //创建选框，参数格式为：[x, y, x2, y2]
+            this.setSelect([100,100,150,150]);
+            this.animateTo([100,100,150,150],function () {});
+            //获取选框的值（实际尺寸）。例：            //获取选框的值（界面尺寸）。例：
+            console.log(this.tellSelect());
+            console.log(this.tellScaled());
+
+            //获取图片缩放的比例格式为：[w, h]
+            this.getScaleFactor();
+
+            this.release();	//取消选框
+            this.disable();	//禁用 Jcrop。说明：已有选框不会被清除。
+            this.enable();	//启用 Jcrop
+            this.destroy();	//移除 Jcrop
+        }
+
+        /*main*/
+        $('#target').Jcrop(obj,fn)
+
+
+
+</script>
+</html>

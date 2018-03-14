@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas{
+
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+</body>
+<script>
+    var canvas=document.querySelector('canvas');
+    var ps=canvas.getContext('2d');
+    ps.beginPath();
+    ps.moveTo(50,50);
+    ps.lineTo(50,450);
+    ps.lineTo(450,450);
+    ps.strokeStyle='blue';
+    ps.stroke();
+    ps.closePath();
+    for(var i=0;i<4;i++){
+        var randomY=Math.floor(Math.random()*300+50);
+        var color='rgb('+random(255)+','+random(255)+','+random(255)+')';
+        ps.beginPath();
+        ps.rect(100*(i+1),randomY,50,450-randomY);
+        ps.fillStyle=color;
+        ps.fill();
+        ps.closePath();
+    }
+    function random(num){
+        return Math.floor(Math.random()*num)
+    }
+
+</script>
+</html>

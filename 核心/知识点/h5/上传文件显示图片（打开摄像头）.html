@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="file"/>
+<img src="" alt=""/>
+<script>
+    var file=document.querySelector('input');
+    var myImg=document.querySelector('img');
+    file.onchange= function (e) {
+//        console.log(e);
+        /*************************/
+        //选中那张图片
+        var img= e.target.files[0];
+        /*************************/
+        //根据图片创建地址
+        var url=URL.createObjectURL(img);
+        myImg.src=url;
+    }
+</script>
+</body>
+</html>

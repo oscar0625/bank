@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="view" width="500" height="500"></canvas>
+</body>
+<script type="text/javascript">
+    //获取元素
+    var canvas = document.getElementById('view');
+    //根据标签获取绘图对象（上下文对象）
+    var ps = canvas.getContext('2d');
+
+    /*一画线*/
+//    // 开启路径
+//    ps.beginPath();
+//    //设置起始位置（画笔着笔点）
+//    ps.moveTo(100,50);
+//    //画线
+//    ps.lineTo(200,80);
+//    //设置画笔颜色
+//    ps.strokeStyle = 'blue';
+//    //设置线宽
+//    ps.lineWidth = 5;
+//    //画笔着色（类似描边）
+//    ps.stroke();
+//    //关闭路径
+//    ps.closePath();
+
+    /*二画矩形*/
+//    //1普通矩形
+//    ps.beginPath();
+//    //绘制一个矩形
+//    //startX startY width height
+//    ps.rect(0,0,100,100);
+//    //设置填充颜色
+//    ps.fillStyle='red';
+//    //填充（上色）
+//    ps.fill();
+////    ps.strokeStyle='red';
+////    ps.stroke();
+//    ps.closePath();
+
+//    //2填充矩形
+//    ps.beginPath();
+//    ps.fillStyle='red';
+//    ps.fillRect(0,0,100,100);
+//    ps.closePath();
+//
+//    //3描边矩形
+//    ps.beginPath();
+//    ps.strokeStyle='red';
+//    ps.strokeRect(100,100,200,200);
+//    ps.closePath();
+
+//      //清除画布
+//      ps.clearRect(0,0,500,500);
+
+    /*画圆*/
+    ps.beginPath();
+    // 圆点X 圆点Y 半径 起始点 终止点 顺时针/逆时针
+    ps.arc(50,50,50,0,2*Math.PI,true);
+    ps.fillStyle='red';
+    ps.fill();
+    ps.closePath();
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

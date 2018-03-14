@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+    <script src="js/angular-ui-router-0.2.18.js"></script>
+    <script src="js/jquery.js"></script>
+    <style>
+        body{
+            height:6000px;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+    <a ui-sref="a">a</a>
+    <a ui-sref="b">b</a>
+    <div ui-view></div>
+</div>
+</body>
+<script>
+    /*
+    * 1.手动销毁
+    * 通常来讲如果一个 $scope 在视图中不再需要, Angular 会自己清理它.当然也可以通过 $destroy() 函数手动清理.
+      $scope.$destroy();
+    * 2.事件 销毁时触发
+    *  $scope.$on('$destroy',function () {});
+    *
+    * */
+    angular.module('app',['ui.router'])
+            .controller('ctrl',function ($scope) {
+
+            })
+            .config(function ($stateProvider,$urlRouterProvider) {
+                $stateProvider
+                        .state('a',{
+                            url:'/a',
+                            templateUrl:'./a.html',
+                            controller:function ($scope) {
+                                $scope.num=1;
+                                $(window).on('scroll',function () {
+                                    console.log(111)
+                                });
+                                $scope.$on('$destroy',function () {
+                                    $(window).off('scroll')
+                                });
+
+                            },
+                            resolve:{
+
+                            }
+                        })
+                        .state('b',{
+                            url:'/b',
+                            templateUrl:'./b.html',
+                            controller:function ($scope) {
+                            },
+                            resolve:{
+                            }
+                        })
+
+            })
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+    * replace(/../g,function(a,b,c){
+    *   1.函数只有匹配成功才会执行
+    *   2.a为匹配的关键字，b为关键字的索引值，c为字符串本身
+    *   3.若匹配的关键字为正则 并加g,会进行全局匹配,匹配成功几次函数执行几次
+    * } )
+    *
+    * */
+    var str='李佳强李佳强李佳强李佳强李佳强李佳强李佳强李佳强';
+    str.replace(/李/g,function (a,b,c) {
+        console.log(a,b,c)
+    });
+
+    var str1 = "雍正皇帝简介_雍正皇帝胤禛继位之谜_历史上雍正的皇后妃子怎么死...";
+    var p1=str1.replace(/(雍正)/g, '<div>$1</div>');
+    console.log(p1);
+
+    var name = "Doe, John";
+    var p2=name.replace(/(\w+)\s*, \s*(\w+)/, "$2 $1");
+    console.log(p2);
+
+    /*split*/
+    var str2='asda a sdhjuasdhf jasdfjdis fdfh asdhf     ajhsdj'
+    console.log(str2.split(/\s+/));
+
+    /*match*/
+    console.log(str.match(/李/g));   //["李", "李", "李", "李", "李", "李", "李", "李"]  换成search只能找到一个
+    console.log(str.match(/(李)/)[1]);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        #wrapper{
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!--只有wrapper里的第一个子元素（ul）才可以被实例化滚动，并且要结合外层的DOM（wrapper）才能实现滚动。-->
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li class="target">3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</div>
+<script src="iscroll-zoom.js"></script>
+<script>
+    /* 注意
+     * 当DOM准备完成后iScroll需要被初始化。最保险的方式是在window的onload事件中启动它。因为脚本需要知道滚动区域的高度和宽度。如果你有一些图片在滚动区域导致不能立马获取区域的高度和宽度，iScroll的滚动尺寸有可能会错误。
+     * */
+    /*为了使用缩放功能，你最好使用iscroll-zoom.js脚本。*/
+    var myScroll;
+    window.onload=function () {
+        myScroll = new IScroll("#wrapper", {
+            bounce: true, //当滚动器到达容器边界时他将执行一个小反弹动画(true) 默认
+            snap: true, //对齐（精确捕捉元素） 默认情况下，iScroll将wrapper分成四分体，snap属性的值是滚动条将要对齐到的元素的选择器。
+            momentum: false,//在用户快速触摸屏幕时，你可以开/关势能动画。关闭此功能将大幅度提升性能 默认true。
+            mouseWheel: true, //开启滚轮 默认false 不开启
+            zoom: true, //开启缩放 默认false 不开启
+            wheelAction: 'zoom',//鼠标滚轮的动作可以设置为'zoom'，这样在滚动滚轮时缩放操作会代替原来的滚动操作。
+            scrollX: true,  //开启x轴缩放
+            scrollY: true,  //开启Y轴缩放
+            zoomMax:1,   //最大缩放级数。默认值：4
+            zoomMin:1,   //最小缩放级数。默认值：1
+            zoomStart:1  //初始的缩放级数。默认值：1
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow: hidden;
+            color: #ff6600;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas  width="256" height="128"></canvas>
+</body>
+<script>
+    var canvas=document.getElementsByTagName('canvas')[0];
+    var cvs=canvas.getContext('2d');
+
+    function CreateRippleCanvas(cvs,content){
+        this.cvs=cvs;
+        this.content=content;
+        this.initR=10;
+        this.x=128;
+        this.y=98;
+        this.color='rgba(255,102,0,';
+
+        this.ballR=this.initR;
+
+        this.linR=[this.initR,this.initR+6,this.initR+14,this.initR+20];
+        this.linO=[1,0.7,0.3,0];
+        this.changelinR=2;
+        this.changelinO=0.1;
+        this._init();
+
+    }
+    CreateRippleCanvas.prototype={
+        _init:function () {
+            //文字
+            this.cvs.beginPath();
+            this.cvs.save();
+            this.cvs.shadowOffsetX = 0;    //阴影往左边偏，横向位移量
+            this.cvs.shadowOffsetY = 0;   //阴影往左边偏，纵向位移量
+            this.cvs.shadowColor = "#05f8fc"; //阴影颜色
+            this.cvs.shadowBlur = 5; //阴影的模糊范围
+            this.cvs.font='28px/28px Microsoft Yahei';
+            this.cvs.fillStyle='#FFFFFF';
+            var num=this.cvs.measureText(this.content).width/2;
+            this.cvs.fillText(this.content,this.x-num,40);
+            this.cvs.restore();
+        },
+        draw: function () {
+            //圆球
+            this.cvs.beginPath();
+            this.cvs.save();
+            this.cvs.arc(this.x,this.y,this.ballR,0,2*Math.PI);
+            this.cvs.shadowBlur = 30; //阴影的模糊范围
+            this.cvs.shadowColor = this.color + '1)'; //阴影颜色
+            this.cvs.fillStyle=this.color+'1)';
+            this.cvs.fill();
+            this.cvs.restore();
+
+            //圆线
+            for (var i = 0, len = this.linR.length; i < len; i++) {
+                this.cvs.beginPath();
+                this.cvs.arc(this.x, this.y, this.linR[i], 0, 2 * Math.PI);
+                this.cvs.lineWidth = 3;
+                this.cvs.strokeStyle = this.color + this.linO[i] + ')';
+                this.cvs.stroke();
+            }
+
+            return this
+        },
+        change: function () {
+            for(var i=0,len=this.linR.length;i<len;i++){
+                if(this.linO[i]>0){
+                    this.linR[i]+=this.changelinR;
+                    this.linO[i]-=this.changelinO;
+                }else{
+                    this.linR[i]=this.initR;
+                    this.linO[i]=1;
+
+                }
+            }
+            return this
+        }
+
+    };
+
+    var ins=new CreateRippleCanvas(cvs,'AI矩阵全球创新中心');
+    setInterval(function () {
+        cvs.clearRect(0,50,500,500);
+        ins.draw().change();
+    },200);
+
+
+
+
+</script>
+</html>

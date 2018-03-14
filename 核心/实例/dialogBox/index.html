@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        *{
+            font-family: 'Microsoft Yahei';
+            font-size: 14px;
+        }
+        @font-face {
+            font-family: 'iconfont';  /* project id 329776 */
+            src: url('//at.alicdn.com/t/font_329776_9tir2u7wf0jgiudi.eot');
+            src: url('//at.alicdn.com/t/font_329776_9tir2u7wf0jgiudi.eot?#iefix') format('embedded-opentype'),
+            url('//at.alicdn.com/t/font_329776_9tir2u7wf0jgiudi.woff') format('woff'),
+            url('//at.alicdn.com/t/font_329776_9tir2u7wf0jgiudi.ttf') format('truetype'),
+            url('//at.alicdn.com/t/font_329776_9tir2u7wf0jgiudi.svg#iconfont') format('svg');
+        }
+        .iconfont{
+            font-family: 'iconfont';  /* project id 329776 */
+
+        }
+        .onlyLine1{
+            white-space:nowrap;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .dialogBox{
+            width: 800px;
+            height: 510px;
+            border:1px solid #e7e7e7;
+            position: fixed;
+            z-index: 999999;
+        }
+        /*title*/
+        .dialogBox .title{
+            cursor: move;
+        }
+        .dialogBox .title .left{
+            float: left;
+            padding-left:10px;
+            width: 250px;
+            height: 60px;
+            line-height:60px;
+            background: #e5e2e2;
+            box-sizing: border-box;
+        }
+        .dialogBox .title .left::selection{
+            background: transparent;
+        }
+        .dialogBox .title .right{
+            float: left;
+            width: 550px;
+            height: 59px;
+            overflow: hidden;
+            border-bottom: 1px solid #e7e7e7;
+            background: #f5f5f5;
+        }
+        .dialogBox .title .right span{
+            float: right;
+            font-size: 20px;
+            width: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dialogBox .title .right span:hover{
+            background: #e3e3e3;
+        }
+        .dialogBox .title .right span::selection{
+            background: transparent;
+        }
+        .dialogBox .title .right div:last-child{
+            height: 33px;
+            line-height: 34px;
+            padding-left:25px;
+            font-size: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .dialogBox .title .right div:last-child::selection{
+            background: transparent;
+        }
+
+        /*列表*/
+        .dialogBox .contacts{
+            width: 250px;
+            height: 450px;
+            float: left;
+            background: #ebe9e7;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;  /*自定义滚动条会以此定位*/
+        }
+
+
+
+        .dialogBox .contacts ul li{
+            height: 60px;
+            padding:10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dialogBox .contacts ul li:hover{
+            background: #bcbdbf;
+        }
+        .dialogBox .contacts ul li em{
+            content:'';
+            width: 10px;
+            height: 10px;
+            background: #ff3b30;
+            position: absolute;
+            top: 5px;
+            left: 45px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .dialogBox .contacts ul li img{
+            float: left;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .dialogBox .contacts ul li .right{
+            width:190px;
+            height: 40px;
+            float: left;
+            box-sizing: border-box;
+            padding:0 10px;
+        }
+        .dialogBox .contacts ul li .right span{
+            float: left;
+            width: 130px;
+        }
+        .dialogBox .contacts ul li .right i{
+            float: right;
+            color: #999999;
+        }
+        .dialogBox .contacts ul li .right p{
+            width: 100%;
+            color: #999999;
+        }
+
+        /*聊天*/
+        .dialogBox .chat{
+            width: 550px;
+            height: 450px;
+            float: left;
+            background: #f5f5f5;
+        }
+        .dialogBox .chat .content{
+            height: 309px;
+            overflow: hidden;
+            position: relative;  /*自定义滚动条会以此定位*/
+            border-bottom:1px solid #e7e7e7;
+            padding:0 30px;
+            box-sizing: border-box;
+        }
+
+        .dialogBox .chat .content li{
+            padding-top: 15px;
+
+        }
+        .dialogBox .chat .content .self img{
+            float: right;
+            margin-left:10px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+        .dialogBox .chat .content .self div{
+            float: right;
+            padding:10px;
+            line-height:20px;
+            max-width: 290px;
+            background: #9eea6a;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            position: relative;
+
+        }
+        .dialogBox .chat .content .self div::after{
+            content: ' ';
+            position: absolute;
+            top:15px;
+            right:-5px;
+            width: 0px;
+            height: 0px;
+            border-left:5px solid  #9eea6a;
+            border-top:5px solid  transparent;
+            border-bottom:5px solid  transparent;
+        }
+
+        .dialogBox .chat .content .other img{
+            float: left;
+            margin-right:10px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+        .dialogBox .chat .content .other div{
+            float: left;
+            padding:9px;
+            line-height:20px;
+            max-width: 290px;
+            background: #fff;
+            border:1px solid #e7e7e7;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            position: relative;
+
+        }
+
+        .dialogBox .chat .content .other div:before,.dialogBox .chat .content .other div:after{
+            content: ' ';
+            position: absolute;
+            left: 100%;
+            border: solid transparent;
+            width: 0px;
+            height: 0px;
+        }
+        .dialogBox .chat .content .other div:after{
+            left:-10px;
+            top:15px;
+            border-width: 5px;
+            border-right: 5px solid  #fff;
+        }
+        .dialogBox .chat .content .other div:before{
+            left:-12px;
+            top:14px;
+            border-width: 6px;
+            border-right: 6px solid #e7e7e7;
+        }
+
+        .dialogBox .chat .bottom{
+            background: #fff;
+            height: 140px;
+            padding:15px  25px;
+            box-sizing: border-box;
+        }
+        .dialogBox .chat .bottom .file label{
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .dialogBox .chat .bottom textarea{
+            width:100%;
+            height:63px;
+            border: none;
+            resize: none;
+        }
+        .dialogBox .chat .bottom .send i{
+            float: left;
+            line-height:25px;
+            height:25px;
+            color: red;
+            display: none;
+        }
+        .dialogBox .chat .bottom .send span{
+            float: right;
+            width: 70px;
+            height: 25px;
+            line-height:25px;
+            text-align: center;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+        .dialogBox .chat .bottom .send span:hover{
+            background: #129611;
+            color: #fff;
+        }
+        .dialogBox .chat .bottom .send b{
+            float: right;
+            height: 25px;
+            line-height:25px;
+            margin-right:25px;
+            cursor: pointer;
+            display: none;
+        }
+        .dialogBox .chat .bottom .send b:hover{
+            color: red;
+        }
+        /*滚动条*/
+        .iScrollIndicator{
+            background: #c9c7c6!important;
+            border: none!important;
+            opacity:0;
+        }
+    </style>
+
+</head>
+<body>
+<div class="dialogBox clearfix">
+    <div class="title clearfix">
+        <div class="left">最近联系人</div>
+        <div class="right">
+            <div class="clearfix">
+                <span class="close">×</span>
+                <!--<span>-</span>-->
+            </div>
+            <div class="onlyLine1">123</div>
+        </div>
+    </div>
+
+    <div class="contacts" id="listWrapper">
+            <ul>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                    <em></em>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div class="right">
+                        <div class="clearfix">
+                            <span class="onlyLine1">Oscar</span>
+                            <i>10:38</i>
+                        </div>
+                        <p class="onlyLine1">这是一段废话</p>
+                    </div>
+                </li>
+            </ul>
+    </div>
+    <div class="chat">
+        <div class="content" id="contentWrapper">
+            <ul style="padding-bottom: 12px;">
+                <li class="self clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+                <li class="other clearfix">
+                    <img src="img/chatImg.png" height="40" width="40"/>
+                    <div>这是一段废话</div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="bottom">
+            <div class="file">
+                <label class="iconfont" for="wj">&#xe689;</label><input type="file" id="wj" style="display: none;">
+            </div>
+            <textarea name="" id="" maxlength="100"></textarea>
+            <div class="send clearfix">
+                <i>请输入要发送的内容！</i>
+                <span>发送</span>
+                    <b>删除该文件</b>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/iscroll.min.js"></script>
+<script>
+    /*
+     * 真正项目中思路  上来就给区域实例化 要想实例化  必须保证 #wrapper 这个元素是存在的 display：none 不可以
+     * 之后ajax 过来数据后  refresh()
+     *
+     * */
+    var dialogBox={
+        /*拖动*/
+        drag:function () {
+                var self=$('.dialogBox');
+                var on=false;
+                var width;
+                var height;
+                self.find('.title').on('mousedown', function (e) {
+                    e.preventDefault();   //去除鼠标按下默认带出虚影行为
+                    on=true;
+                    width= e.pageX-self.offset().left;
+                    height= e.pageY-self.offset().top;
+                });
+                $(document).on('mousemove', function (e) {
+                    if(on){
+                        var left= e.clientX-width;
+                        var top= e.clientY-height;
+                        left=left<0?0:left;
+                        left=left>=document.documentElement.clientWidth-802?document.documentElement.clientWidth-802:left;
+                        top=top<0?0:top;
+                        top=top>=document.documentElement.clientHeight-512?document.documentElement.clientHeight-512:top;
+                        self.css({left:left,top:top});
+                    }
+                }).on('mouseup', function () {
+                    on=false;
+                })
+        },
+        /*列表滚动条*/
+        listWrapper:{
+            scrollbarsShow:function () {
+                $('#listWrapper').on('mouseenter',function () {
+                    $(this).find('.iScrollIndicator').css({opacity:1})
+                }).on('mouseleave',function () {
+                    $(this).find('.iScrollIndicator').css({opacity:0})
+                })
+            },
+            iScroll:function () {
+                dialogBox.listInstance=new IScroll('#listWrapper',{
+                    scrollbars: true,//默认true  启用iscroll默认的样式 样式可以根据类名定制
+                    bounce:false, //当滚动器到达容器边界时他将执行一个小反弹动画(true) 默认true
+                    mouseWheel: true, //开启滚轮 默认false 不开启
+                    snap: true, //对齐（精确捕捉元素） 默认情况下，iScroll将wrapper分成四分体，snap属性的值是滚动条将要对齐到的元素的选择器。
+                    momentum:false,//在用户快速触摸屏幕时，你可以开/关势能动画。关闭此功能将大幅度提升性能 默认true。
+                    interactiveScrollbars:true, //允许滚动条能拖动，默认false不允许。
+                    shrinkScrollbars: 'scale', //如果你的应用程序将在多种设备上运行，我建议你使用选项'scale'，或者设置'clip' 为 false (例如：在较老的设备上应该设置为'clip' ，而在桌面浏览器上应设置为'scale')。
+                });
+            },
+            init:function () {
+                this.scrollbarsShow();
+            }
+        },
+        /*对话滚动条*/
+        contentWrapper:{
+            scrollbarsShow:function () {
+                $('#contentWrapper').on('mouseenter',function () {
+                    $(this).find('.iScrollIndicator').css({opacity:1})
+                }).on('mouseleave',function () {
+                    $(this).find('.iScrollIndicator').css({opacity:0})
+                })
+            },
+            iScroll:function () {
+                dialogBox.contentInstance=new IScroll('#contentWrapper',{
+                    scrollbars: true,//默认true  启用iscroll默认的样式 样式可以根据类名定制
+                    bounce:false, //当滚动器到达容器边界时他将执行一个小反弹动画(true) 默认true
+                    mouseWheel: true, //开启滚轮 默认false 不开启
+                    snap: true, //对齐（精确捕捉元素） 默认情况下，iScroll将wrapper分成四分体，snap属性的值是滚动条将要对齐到的元素的选择器。
+                    momentum:false,//在用户快速触摸屏幕时，你可以开/关势能动画。关闭此功能将大幅度提升性能 默认true。
+                    interactiveScrollbars:true, //允许滚动条能拖动，默认false不允许。
+                    shrinkScrollbars: 'scale', //如果你的应用程序将在多种设备上运行，我建议你使用选项'scale'，或者设置'clip' 为 false (例如：在较老的设备上应该设置为'clip' ，而在桌面浏览器上应设置为'scale')。
+                });
+                dialogBox.contentInstance.scrollToElement('.content ul li:last-child',0);
+            },
+            init:function () {
+                this.scrollbarsShow();
+            }
+        },
+
+        listInstance:null,
+        contentInstance:null,
+
+        send:function(){
+            var file=$('.dialogBox .chat .bottom .file #wj');
+            var deleteFile = $('.dialogBox .chat .bottom .send b');
+            var textarea = $('.dialogBox .chat .bottom textarea');
+            var span = $('.dialogBox .chat .bottom .send span');
+
+            //file
+            file.on('change', function () {
+                if(this.value){
+                    if(this.files[0].size>10485760){     //文件大小限制不能超过10m
+                        clearFile();
+                        alert('文件大小超过限制');
+                    }else {
+                        textarea.val(this.files[0].name).attr('readonly','readonly');
+                        deleteFile.show();
+                    }
+
+                }else {
+                    clearFile()
+                }
+            });
+            //清除files
+            function clearFile(){
+                file.val('');
+                textarea.val('').removeAttr('readonly');
+                deleteFile.hide()
+            }
+            deleteFile.on('click',function () {
+                clearFile();
+            });
+
+            function send() {
+                var val = textarea.val().replace(/^\s+/, '').replace(/\s+$.''/);
+                if (val) {
+                    span.prev().hide();
+                    $('.dialogBox .chat .content ul').append('<li class="self clearfix"> <img src="img/chatImg.png" height="40" width="40"/> <div>' + val + '</div> </li>');
+
+                    dialogBox.contentInstance.refresh(); //当DOM结构发生变化的时候，需要刷新iScroll
+                    dialogBox.contentInstance.scrollToElement('.content ul li:last-child', 0);
+                    textarea.val('')
+                } else {
+                    span.prev().show();
+                }
+            }
+            span.on('click',send);
+            textarea.on('keypress',function (e) {
+                if(e.keyCode==13){
+                    send();
+                    return false
+                }
+            });
+
+        },
+        close:function () {
+            $('.dialogBox .title .right .close').on('click',function () {
+                $('.dialogBox').remove()
+            })
+        },
+        open:function () {
+            /*项目开始获取数据*/
+        },
+        bin:function() {
+            var self=this;
+            this.drag();
+            this.close();
+            this.send();
+            this.listWrapper.init();
+            this.contentWrapper.init();
+            window.onload=function () {
+                self.listWrapper.iScroll();
+                self.contentWrapper.iScroll();
+            }
+        }
+    };
+    dialogBox.bin();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular-1.3.9.js"></script>
+</head>
+<body ng-app="app">
+<div  ng-controller="ctrl1">
+    {{num}}
+</div>
+<div ng-controller="ctrl2">
+    {{num}}
+</div>
+</body>
+<script>
+    /*
+    * angular中控制器之间的传值该怎么实现?
+    * 1、event
+      一种是$scope.$emit，另一种是$scope.$broadcast，通过监听$scope的事件获取参数。
+    * 2、service
+      可以创建一个专用的事件Service，也可以按照业务逻辑切分，将数据存储在相应的Service中。
+      3、$rootScope
+      就是把数据存在$rootScope中，这样各个子$scope都可以调用，不过需要注意一下生命周期;
+    * */
+    angular.module('app',[])
+            .controller('ctrl1',function ($rootScope) {
+                $rootScope.num=1
+            })
+            .controller('ctrl2',function () {
+            })
+
+</script>
+</html>

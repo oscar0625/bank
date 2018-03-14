@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            position: relative;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<script src="jquery-1.7.2.min.js"></script>
+<script src="Tween.js"></script>
+<script>
+    var animation={};
+    for(var i in Tween){
+        var key=i[0].toLocaleLowerCase()+ i.slice(1);
+        if(typeof Tween[i]=='function'){
+            animation[key]=Tween[i];
+        }
+        for(var j in Tween[i]){
+            animation[key+'_'+j]=Tween[i][j];
+        }
+    }
+    $.extend($.easing,animation);
+//    console.log($.easing);
+    //1
+    $('div').animate({left:500},2000,'Back');
+    //2
+//    $('div').animate({left: 500}, {duration: 2000, easing: 'bounce_easeOut'})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <style>
+        #wrapper{
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;  /*自定义滚动条会以此定位*/
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!--只有wrapper里的第一个子元素（ul）才可以被实例化滚动，并且要结合外层的DOM（wrapper）才能实现滚动。-->
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li><li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</div>
+<button class="add">add</button>
+<script src="iscroll.min.js"></script>
+<script>
+    /* 注意
+    * 当DOM准备完成后iScroll需要被初始化。最保险的方式是在window的onload事件中启动它。因为脚本需要知道滚动区域的高度和宽度。如果你有一些图片在滚动区域导致不能立马获取区域的高度和宽度，iScroll的滚动尺寸有可能会错误。
+    * */
+    var myScroll;
+    window.onload=function () {
+        myScroll=new IScroll("#wrapper",{
+            scrollbars: true,//默认true  启用iscroll默认的样式 样式可以根据类名定制
+            bounce:false, //当滚动器到达容器边界时他将执行一个小反弹动画(true) 默认true
+            mouseWheel: true, //开启滚轮 默认false 不开启
+            snap: 'li', //对齐（精确捕捉元素） 默认情况下，iScroll将wrapper分成四分体，snap属性的值是滚动条将要对齐到的元素的选择器。
+            momentum:false,//在用户快速触摸屏幕时，你可以开/关势能动画。关闭此功能将大幅度提升性能 默认true。
+            interactiveScrollbars:true, //允许滚动条能拖动，默认false不允许。
+            shrinkScrollbars: 'scale', //如果你的应用程序将在多种设备上运行，我建议你使用选项'scale'，或者设置'clip' 为 false (例如：在较老的设备上应该设置为'clip' ，而在桌面浏览器上应设置为'scale')。
+//       fadeScrollbars: true,//默认false true让滚动条淡入淡出显示，只有滚动的时候滚动条才出现
+//       resizeScrollbars:false,//此属性设置为false让滚动条固定大小。这可能有助于自定义滚动条样式（参考下面）。默认true不固定
+        });
+    };
+
+    /*其他一些方法*/
+    // refresh 往wrapper ul 里添加心元素 需要重新刷新 myscroll
+    document.querySelector('.add').onclick=function () {
+        var li=document.createElement('li');
+        li.innerHTML='11';
+        document.querySelector('#wrapper ul').appendChild(li);
+        myScroll.refresh(); //当DOM结构发生变化的时候，需要刷新iScroll
+    };
+</script>
+</body>
+</html>

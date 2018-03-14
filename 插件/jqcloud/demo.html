@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQCloud Example</title>
+    <!--css-->
+    <link rel="stylesheet" type="text/css" href="jqcloud.css" />
+</head>
+<body>
+<!---->
+<div id="jqCloud" style="width: 550px; height: 350px;overflow: hidden"></div>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jqcloud-1.0.4.js"></script>
+<script type="text/javascript">
+
+    var word_array = [
+        {text: "1", weight: 1},
+        {text: "2", weight: 2},
+        {text: "3", weight: 3},
+        {text: "4", weight: 4},
+        {text: "5", weight: 5},
+        {text: "6", weight: 6},
+        {text: "7", weight: 7},
+        {text: "8", weight: 8},
+        {text: "9", weight: 9},
+        {text: "10", weight: 10},
+        // ...
+    ];
+
+    $(function() {
+        $("#jqCloud").jQCloud(word_array,{
+            shape:'rectangular',
+            removeOverflowing:true
+        });
+    });
+
+
+    /* http://blog.csdn.net/dearkerwin/article/details/10510131
+    * var word_array=[
+    *   {
+    *     text: "Lorem",
+    *     weight: 1,   //权重  越大越大 但是最多只有10种
+    *     link:{href: “www.baidu.com”, target: “_blank”},    //指定一个超链接
+    *     html:{title: “My Title”, “class”: “custom-class”}} //增加html属性
+    *     handlers:{click:function(){}}
+    *   }
+    * ]
+    * */
+    /*
+    * $("#jqCloud").jQCloud(word_array,{
+    *   width:'',   // 设置cloud的宽度，默认是原来的宽度
+    *   height:'',  // 设置cloud的高度，默认是原来的高度
+    *   center:{},  //word在相对于cloud元素的x、y坐标，默认是cloud元素的中心。如 {x: 300, y: 150}
+    *   afterCloudRender:function(){
+    *       //在cloud呈现之后的回调函数
+    *   },
+    *   delayedMode:true,       //是否用延时模式。
+    *   shape:'rectangular',    //cloud的形状。支持 elliptic（椭圆形） 和 rectangular （矩形）默认是elliptic
+    *   removeOverflowing:true  //如果设置为true, 如果一个word超出了cloud元素的大小，则自动剔除
+    * });
+    * */
+</script>
+</html>

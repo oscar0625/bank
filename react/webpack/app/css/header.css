@@ -1,0 +1,25 @@
+.nav-container{
+  float: right;
+}
+
+.nav-container ul{
+  margin-top: 10px;
+}
+
+.nav-container ul li{
+  list-style: none;
+  float: left;
+  font-weight: 700;
+  line-height: 24px;
+  margin-left: 20px;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.nav-container ul li a{
+  color: #333;
+}
+
+.nav-container p{
+  float: right;
+}

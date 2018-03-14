@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    $.ajax({
+        url:'',
+        type:'post',
+        traditional :true,      //1
+        data:{'dropIds[]':[]},  //2
+        success:function(data){
+            refreshRmb(1);
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebGL Earth</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/reset.css">
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/swiper.min.css">
+    <style>
+
+        body {
+            overflow: hidden;
+        }
+        .reset img{
+            position: absolute;
+            left: 2%;
+            top: 2%;
+            width: 2%;
+            z-index: 5;
+            cursor: pointer;
+        }
+        /*内容*/
+        #content {
+            position: fixed;
+            top: 5%;
+            left: 10%;
+            display: none;
+            background: white;
+            z-index: 100;
+        }
+
+        #content h1 {
+            padding: 5px 10px;
+            text-align: right;
+            font-size: 18px;
+        }
+
+        #control {
+            width: 15%;
+            position: fixed;
+            right: 20px;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        #control img {
+            float: left;
+            width: 50%;
+        }
+
+        #video {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            z-index: 11;
+        }
+
+        #video img:nth-child(2),#photo>img{
+            position: absolute;
+            bottom: 2%;
+            right: 2%;
+            width: 2%;
+            z-index: 2147483647;
+            cursor: pointer;
+        }
+        #video img:nth-child(3){
+            position: absolute;
+            top: 2%;
+            right: 2%;
+            width: 2%;
+            z-index: 2147483647;
+            cursor: pointer;
+        }
+        #photo {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 11;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+        }
+        .swiper-slide  img {
+            width: 100%;
+            height: 100%;
+        }
+        video::-webkit-media-controls {
+            display:none !important;
+        }
+    </style>
+
+</head> 
+<body>
+<div class="reset">
+    <img src="images/reset.png" />
+</div>
+<div id="container"></div>
+<!--信息-->
+<div id="content">
+    <h1><a href="#">×</a></h1>
+    <div>
+        <p>132132</p>
+        <p>132132</p>
+        <p>132132</p>
+        <p>132132</p>
+        <p>132132</p>
+        <p>132132</p>
+    </div>
+</div>
+<!--视频图片-->
+<div id="control" class="clearfix">
+    <img src="images/video.png" data-id="video"/>
+    <img src="images/img.png" data-id="img"/>
+</div>
+<div id="video">
+    <video src="" style="width:100%;height:100%;" ></video>
+    <img src="images/back.png"/>
+    <img src="images/reset.png" />
+</div>
+<div id="photo">
+    <img src="images/back.png"/>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!--<div class="swiper-slide"><img src="images/csfw.jpg"/></div>-->
+            <!--<div class="swiper-slide"><img src="images/fwfwjpg.jpg"/></div>-->
+            <!--<div class="swiper-slide"><img src="images/gsfw.jpg"/></div>-->
+            <!--<div class="swiper-slide"><img src="images/newsRightimg.jpg"/></div>-->
+            <!--<div class="swiper-slide"><img src="images/qyfwzh.jpg"/></div>-->
+            <!--<div class="swiper-slide"><img src="images/zkcbanner.jpg"/></div>-->
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="jquery-ui-1.12.1.custom/jquery-1.7.2.min.js"></script>
+<script src="jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="jquery-ui-1.12.1.custom/swiper.min.js"></script>
+<script src="build/three.min.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/dragAndSlide.js"></script>
+<script src="build/mine.js"></script>
+</html>

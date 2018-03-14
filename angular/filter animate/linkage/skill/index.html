@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script src="js/angular-1.3.9.js"></script>
+    <script src="js/angular-ui-router-0.2.18.js"></script>
+    <script src="js/angular-animate-1.3.9.js"></script>
+    <style>
+        .active{
+            background: red;
+        }
+        * {
+            font-family: '萝莉体';
+        }
+
+
+    </style>
+</head>
+<body ng-app="app">
+<!--
+ui.router
+    嵌套路由
+        模块.config(function($stateProvider){
+            $stateProvider.state('父状态',配置对象)
+            $stateProvider.state('父状态.子状态',配置对象)
+        })
+
+-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">AngularJs-API</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active"><a ui-sref="service"><!--服务--> SERVICE</a></li>
+                <li ui-sref-active="active"><a ui-sref="directive">DIRECTIVE</a></li>
+                <li ui-sref-active="active"><a ui-sref="route">ROUTE</a></li>
+                <li ui-sref-active="active"><a ui-sref="linkage">linkage</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" ui-view></div>
+<script src="module/linkage.js"></script>
+<script>
+    angular.module('app', ['ui.router','linkage'])
+        .config(function ($stateProvider) {
+            $stateProvider
+                .state('service',{
+                    url:'/service',
+                    templateUrl:'template/service/index-service.html'
+                })
+                .state('service.interval',{
+                    url:'/service.interval',
+                    templateUrl:'template/service/interval.html'
+                })
+                .state('service.timeout',{
+                url:'/service.timeout',
+                templateUrl:'template/service/timeout.html'
+            });
+            $stateProvider
+                    .state('directive',{
+                    url:'/directive',
+                    templateUrl:'template/directive/index-directive.html'
+                });
+            $stateProvider
+                    .state('route',{
+                    url:'/route',
+                    templateUrl:'template/route/index-route.html'
+                });
+
+        })
+
+
+
+</script>
+</body>
+</html>

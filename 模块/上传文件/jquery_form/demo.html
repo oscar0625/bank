@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="myForm" method="post" enctype="multipart/form-data" action="http://www.zgcjm.com/Handler/LaboratoryInfo.ashx?t=lablist">
+    <input type="text" name="cid" />
+    <input type="text" name="title"/>
+    <input type="number" name="pageindex" />
+    <input type="number" name="pagesize" />
+    <div>
+        <input type="checkbox" value="吃" name="like">吃
+        <input type="checkbox" value="喝" name="like">喝
+        <input type="checkbox" value="玩" name="like">玩
+    </div>
+
+    <input type="submit" value="提交"/>
+</form>
+<div id="output"></div>
+</body>
+<script src="lib/jquery-1.10.2.js"></script>
+<script src="lib/jquery.form.min.js"></script>
+<script>
+    var $myForm=$('#myForm');
+    var options ={
+        //url: url,                 //默认是form的action， 如果申明，则会覆盖
+        //type: type,               //默认是form的method（get or post），如果申明，则会覆盖
+        dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型
+        beforeSubmit: function (formData, jqForm, options) {  //提交前的回调函数
+            //formData  [Object, Object]   是要发送的数据
+
+            //return false;             //如果返回false 不会发送
+        },
+        success: function (res) {      //提交后的回调函数
+            console.log(res)
+        },
+//        clearForm: true,          //成功提交后，清除所有表单元素的值
+//        resetForm: true,          //成功提交后，重置所有表单元素的值
+        timeout: 3000               //限制请求的时间，当请求大于3秒后，跳出请求
+    };
+
+    /*方法一*/
+    $myForm.ajaxForm(options);
+
+    /*方法二*/
+    $myForm.submit(function () {
+        $(this).ajaxSubmit(options);
+
+        // 为了防止普通浏览器进行表单提交和产生页面导航（防止页面刷新？）返回false  阻止默认行为
+        return false
+    })
+    
+</script>
+</html>

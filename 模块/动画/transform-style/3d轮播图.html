@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .createmap-content>div{
+            position: relative;
+            width: 100px;
+            height: 50px;
+            margin: 58px auto 0;
+            transform-style: preserve-3d;
+        }
+        .createmap-content > div > div {
+            background:#05122a;
+            position: absolute;
+            transition:  2s ease-in-out ;
+
+
+        }
+        .createmap-content img {
+            width: 100px;
+            height: 50px;
+        }
+        .iframe1 {
+            -webkit-transform: rotateY(0deg) translate3d(0,0,1600px);
+            -moz-transform: rotateY(0deg) translate3d(0,0,1600px);
+            -ms-transform: rotateY(0deg) translate3d(0,0,1600px);
+            -o-transform: rotateY(0deg) translate3d(0,0,1600px);
+            transform: rotateY(0deg) translate3d(0,0,1600px);
+        }
+        .iframe2 {
+            -webkit-transform:  rotateY(30deg) translate3d(0,-60px,1600px);
+            -moz-transform: rotateY(30deg) translate3d(0,-60px,1600px);
+            -ms-transform: rotateY(30deg) translate3d(0,-60px,1600px);
+            -o-transform: rotateY(30deg) translate3d(0,-60px,1600px);
+            transform:  rotateY(30deg) translate3d(0,-60px,1600px);
+        }
+        .iframe3 {
+            -webkit-transform:  rotateY(150deg) translate3d(0,-60px,1600px);
+            -moz-transform:  rotateY(150deg) translate3d(0,-60px,1600px);
+            -ms-transform:  rotateY(150deg) translate3d(0,-60px,1600px);
+            -o-transform: rotateY(150deg) translate3d(0,-60px,1600px);
+            transform:  rotateY(150deg) translate3d(0,-60px,1600px);
+        }
+        .iframe4 {
+            -webkit-transform:  rotateY(180deg) translate3d(0,0,1600px);
+            -moz-transform:  rotateY(180deg) translate3d(0,0,1600px);
+            -ms-transform:  rotateY(180deg) translate3d(0,0,1600px);
+            -o-transform: rotateY(180deg) translate3d(0,0,1600px);
+            transform:  rotateY(180deg) translate3d(0,0,1600px);
+        }
+        .iframe5 {
+            -webkit-transform: rotateY(210deg) translate3d(0,-60px,1600px);
+            -moz-transform:rotateY(210deg) translate3d(0,-60px,1600px);
+            -ms-transform: rotateY(210deg) translate3d(0,-60px,1600px);
+            -o-transform: rotateY(210deg) translate3d(0,-60px,1600px);
+            transform: rotateY(210deg) translate3d(0,-60px,1600px);
+        }
+        .iframe6 {
+            -webkit-transform:  rotateY(330deg) translate3d(0,-60px,1600px);
+            -moz-transform:  rotateY(330deg) translate3d(0,-60px,1600px);
+            -ms-transform:  rotateY(330deg) translate3d(0,-60px,1600px);
+            -o-transform: rotateY(330deg) translate3d(0,-60px,1600px);
+            transform:  rotateY(330deg) translate3d(0,-60px,1600px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="createmap-content">
+    <div >
+        <div class="iframe1">
+
+
+            <img src="img/common_03.png" height="111" width="291"/></div>
+        <div class="iframe2">
+
+            <img src="img/common_09.png" height="97" width="88"/></div>
+        <div class="iframe3">
+
+            <img src="img/common_11.png" height="97" width="97"/></div>
+        <div class="iframe4">
+
+            <img src="img/common_03.png" height="111" width="291"/></div>
+        <div class="iframe5">
+
+            <img src="img/common_09.png" height="97" width="88"/></div>
+        <div class="iframe6">
+            <img src="img/common_11.png" height="97" width="97"/>
+        </div>
+
+    </div>
+
+    <span  class="forword">后退</span>
+    <span  class="gogo">前进</span>
+    </div>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var iframe1 = document.querySelector('.iframe1');
+    var iframe2 = document.querySelector('.iframe2');
+    var iframe3 = document.querySelector('.iframe3');
+    var iframe4 = document.querySelector('.iframe4');
+    var iframe5 = document.querySelector('.iframe5');
+    var iframe6 = document.querySelector('.iframe6');
+    var arr = ['rotateY(0deg) translate3d(0,0,1600px)', 'rotateY(30deg) translate3d(0,-60px,1600px)', 'rotateY(150deg) translate3d(0,-60px,1600px)', 'rotateY(180deg) translate3d(0,0,1600px)', 'rotateY(210deg) translate3d(0,-60px,1600px)', 'rotateY(330deg) translate3d(0,-60px,1600px)']
+
+    $('.createmap-content .gogo').on('click', function () {
+        var first = arr.shift();
+        var num = parseInt(first.match(/(\d+)deg/)[1])+360;
+        arr.push(first.replace(/(\d+)deg/, num + 'deg'));
+
+        $(iframe1).css({ "-webkit-transform": arr[0], '-moz-transform': arr[0], '-ms-transform': arr[0], '-o-transform': arr[0], 'transform': arr[0] });
+        $(iframe2).css({ "-webkit-transform": arr[1], '-moz-transform': arr[1], '-ms-transform': arr[1], '-o-transform': arr[1], 'transform': arr[1] });
+        $(iframe3).css({ "-webkit-transform": arr[2], '-moz-transform': arr[2], '-ms-transform': arr[2], '-o-transform': arr[2], 'transform': arr[2] });
+        $(iframe4).css({ "-webkit-transform": arr[3], '-moz-transform': arr[3], '-ms-transform': arr[3], '-o-transform': arr[3], 'transform': arr[3] });
+        $(iframe5).css({ "-webkit-transform": arr[4], '-moz-transform': arr[4], '-ms-transform': arr[4], '-o-transform': arr[4], 'transform': arr[4] });
+        $(iframe6).css({ "-webkit-transform": arr[5], '-moz-transform': arr[5], '-ms-transform': arr[5], '-o-transform': arr[5], 'transform': arr[5] });
+
+
+
+    })
+    $('.createmap-content .forword').on('click', function () {
+        var last = arr.pop();
+        var num = parseInt(last.match(/-*(\d+)deg/)[1])-360; //注意获取负号
+        arr.unshift(last.replace(/(-*\d+)deg/, num + 'deg'));
+        $(iframe1).css({ "-webkit-transform": arr[0], '-moz-transform': arr[0], '-ms-transform': arr[0], '-o-transform': arr[0], 'transform': arr[0] });
+        $(iframe2).css({ "-webkit-transform": arr[1], '-moz-transform': arr[1], '-ms-transform': arr[1], '-o-transform': arr[1], 'transform': arr[1] });
+        $(iframe3).css({ "-webkit-transform": arr[2], '-moz-transform': arr[2], '-ms-transform': arr[2], '-o-transform': arr[2], 'transform': arr[2] });
+        $(iframe4).css({ "-webkit-transform": arr[3], '-moz-transform': arr[3], '-ms-transform': arr[3], '-o-transform': arr[3], 'transform': arr[3] });
+        $(iframe5).css({ "-webkit-transform": arr[4], '-moz-transform': arr[4], '-ms-transform': arr[4], '-o-transform': arr[4], 'transform': arr[4] });
+        $(iframe6).css({ "-webkit-transform": arr[5], '-moz-transform': arr[5], '-ms-transform': arr[5], '-o-transform': arr[5], 'transform': arr[5] });
+    })
+
+</script>
+</html>

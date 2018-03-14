@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebGL Earth</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+    </style>
+
+</head>
+<body>
+<div id="container"></div>
+</body>
+<script src="build/three.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/TrackballControls.js"></script>
+<script src="js/stats.min.js"></script>
+<script>
+    /*
+     * 本示例教程:http://blog.mastermaps.com/2013/09/creating-webgl-earth-with-threejs.html
+     * */
+    var container= document.getElementById('container'), stats;
+    var camera, scene, renderer;
+    var group;
+    var sphere,clouds;
+    var controls;
+    init();
+    animate();
+
+    function init() {
+        if (!Detector.webgl) {
+            Detector.addGetWebGLMessage(container);
+            return;
+        }
+        //1.相机  相机决定了我们在渲染场景时会看到什么。
+        // params 相机的视锥体的垂直视野角度(视角)  相机视锥体的长宽比(通常1)  相机视锥体的近平面  相机视锥体的远平面(在近远之间才能看到)
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
+        //相机摄像头离物体的距离 近大远小
+        camera.position.z = 1.1;
+        camera.position.y= 1;
+        //2.渲染器  渲染器负责在浏览器中渲染场景。Three.js支持WebGL，Canvas，SVG和CSS 3D等不同的渲染器。
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);    //设置长, 宽
+
+        //3.场景  场景是用来存储和跟踪我们想渲染的对象（地球和星星）的容器。
+        scene = new THREE.Scene();
+
+        //灯光
+        scene.add(new THREE.AmbientLight(0x333333));	//环境光 作用于整个场景 这光不能用来投射阴影，因为它没有方向。
+        var light = new THREE.DirectionalLight(0xffffff, 0.5);//平行光 常见的用例是模拟日光
+        light.position.set(-5, 3, 5);						//设置光源的位置(x,y,z)
+        scene.add(light);
+
+        //创建组放进场景。它的目的是使对象组的语法更清晰。
+        group = new THREE.Group();
+        scene.add(group);
+
+        // 创建earth
+        // 创建大陆网格Mesh
+        function createSphere(radius, segments) {
+            var texture = new THREE.TextureLoader();  	//用来加载纹理图的类
+            return new THREE.Mesh(
+                    //创建几何体-->球体	 	//params:半径、水平片段数、垂直片段数(片段数越大，球体越精细，要求性能高)。
+                    new THREE.SphereGeometry(radius, segments, segments),
+                    //选择材料 MeshPhongMaterial 来绘制地图
+                    new THREE.MeshPhongMaterial({
+                        map: texture.load('images/2_no_clouds_4k.jpg'),     //普通的贴图纹理
+                        bumpMap: texture.load('images/elev_bump_4k.jpg'),    //凹凸贴图纹理 材料产生凹凸感
+                        bumpScale: 0.001,                     //粗糙度
+                        specularMap: texture.load('images/water_4k.png'),   //高光贴图纹理 用来调节镜面反射的，这里主要是调节海洋对光线的反射，增加真实性。
+                        specular: new THREE.Color('gray'),   //镜面反射的颜色
+                        overdraw: 1                         //控制拼接的线出现消失0-1
+                    })
+            );
+        }
+        sphere =createSphere(0.5, 90);
+        group.add(sphere);
+        //创建云层网格Mesh
+        function createClouds(radius, segments) {
+            var texture = new THREE.TextureLoader();  	//用来加载纹理图的类
+            return new THREE.Mesh(
+                    new THREE.SphereGeometry(radius, segments, segments),
+                    new THREE.MeshPhongMaterial({
+                        map: texture.load('images/fair_clouds_4k.png'),
+                        overdraw: 0,
+                        transparent: true  //透明
+                    })
+            );
+        }
+        clouds=createClouds(0.52, 90);
+        group.add(clouds);
+        //创建星系网格Mesh
+        function createStars(radius, segments) {
+            var texture = new THREE.TextureLoader();  	//用来加载纹理图的类
+            return new THREE.Mesh(
+                    new THREE.SphereGeometry(radius, segments, segments),
+                    new THREE.MeshBasicMaterial({
+                        map: texture.load('images/galaxy_starfield.png'),
+                        overdraw: 1,
+                        side: THREE.BackSide,  //开启全景 看到此网格里面的东西 要不看不见里面的地球
+                    })
+            );
+        }
+        group.add(createStars(90, 64));
+
+
+        //4控制器
+        controls = new THREE.TrackballControls( camera );
+
+        //5放入元素
+        stats = new Stats();
+        container.appendChild(stats.dom);
+        container.appendChild(renderer.domElement);			   // 将渲染器插入到container内
+
+        //相机一直正对场景(球)去看  否则相机的目光是平行的
+        camera.lookAt(scene.position);
+
+        //6其他事件
+        window.addEventListener( 'resize', onWindowResize, false ); //改变视口大小
+
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        render();
+        stats.update();
+
+    }
+
+    function render() {
+        controls.update();
+        //变化方式
+        group.rotation.y += 0.0005;
+        //渲染
+        renderer.render(scene, camera);
+    }
+
+
+</script>
+
+</html>

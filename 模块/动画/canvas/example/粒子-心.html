@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas{
+            border: 1px solid red;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<input type="text"/>
+<input type="text"/>
+<canvas></canvas>
+</body>
+<script>
+    /**
+     * getImageData(startX,startY,width,height) 选择指定区域的像素点信息
+     * 图像信息.data保存像素点信息。这是个数组长度是  所选宽*高*4
+     * 图像信息.width height是所区区域宽高
+     * 像素信息4个一组 分别是 r g b a  .... r g b a
+     */
+    var canvas=document.querySelector('canvas');
+    var width=1000;
+    var height=400;
+    canvas.width=width;
+    canvas.height=height;
+    var ps=canvas.getContext('2d');
+    var stage={
+        children:[],
+        write: function (str) {
+            //清除上一次所产生的粒子 //
+            ps.clearRect(0,0,width,height);
+            ps.beginPath();
+            ps.font='bold 250px Microsoft Yahei';
+            ps.textAlign='center';
+            ps.fillText(str,parseInt(width/2),parseInt(height/2)+100);
+            ps.closePath();
+            return this
+        },
+        getData: function () {
+            var imgData=ps.getImageData(0,0,width,height);
+            //清除write写上的字
+            ps.clearRect(0,0,width,height);
+            //清空孩子 上一次产生的都清空
+            this.children=[];
+            //设置遍历的间隔，每陋几个像素点取一次
+            var num = 10;
+            for(var y=0;y<height;y+=num){
+                for(var x=0;x<width;x+=num){
+                    var index=y*width+x;
+                    if(imgData.data[index*4+3]>=128){
+                        this.children.push({
+                            x:x,
+                            y:y,
+                            sx:Math.floor(Math.random()*width),
+                            sy:Math.floor(Math.random()*height)
+                        })
+                    }
+                }
+            }
+            return this
+        },
+        easeIn: function (t, b, c, d, s) {
+            if (s == undefined) s = 1.70158;
+            return c * (t /= d) * t * ((s + 1) * t - s) + b;
+        },
+        randomColor:function(){
+            function random(num){
+                return Math.floor(Math.random()*num)
+            }
+            var r = 255;
+            var g = random(255);
+            var b = random(255);
+            return 'rgb('+r+','+g+','+b+')';
+        },
+        sid:0,
+        draw: function (unit) {
+            if (this.sid) {return}
+            var children = this.children;
+            var $this = this;
+            var num = 0;
+            this.sid = setInterval(function () {
+                num++;
+                if (num >= 20) {
+                    num = 20;
+                    clearInterval($this.sid);
+                    $this.sid = 0;
+                }
+                ps.clearRect(0, 0, width, height);
+                for (var i = 0; i < children.length; i++) {
+                    ps.beginPath();
+                    var x = $this.easeIn(num, children[i].sx, children[i].x - children[i].sx, 20);
+                    var y = $this.easeIn(num, children[i].sy, children[i].y - children[i].sy, 20);
+                    ps.font='12px Microsoft Yahei';
+                    ps.textAlign='center';
+                    ps.fillStyle = $this.randomColor();
+                    ps.fillText(unit||'❤',x,y);
+                    ps.closePath();
+                }
+            }, 50);
+        },
+        init: function (str,unit) {
+            this.write(str).getData().draw(unit);
+        }
+    };
+    var input=document.querySelector('input');
+    var unit=document.querySelectorAll('input')[1];
+    input.onkeypress= function (e) {
+        if(e.keyCode==13){
+            stage.init(this.value,unit.value);
+        }
+    };
+//    stage.init('❤');
+
+</script>
+</html>

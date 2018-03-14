@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+</body>
+<script>
+    var canvas=document.querySelector('canvas');
+    var ps=canvas.getContext('2d');
+    /*描边文字*/
+//    ps.beginPath();
+//    //设置字体
+//    ps.font='normal bold 30px Microsoft Yahei';
+//    //设置居中  start/left(默认) center  end/right
+//    ps.textAlign='center';
+//    ps.strokeStyle='red';
+//    // str startX startY maxWidth
+//    ps.strokeText('啦啦啦',100,100);
+//    ps.closePath();
+
+    /*填充文字*/
+    ps.beginPath();
+    ps.font='normal bold 50px Microsoft Yahei';
+    ps.textAlign='center';
+    ps.fillStyle='red';
+    //  str startX startY maxWidth
+    ps.fillText('啦啦啦',100,100);
+    ps.closePath();
+
+</script>
+</html>

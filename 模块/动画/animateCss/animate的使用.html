@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            background: red;
+            animation-duration: 3s;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="box animated slideInLeft"></div>-->
+<div class="box"></div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script>
+    //添加
+    $('.box').addClass('animated flipInY');
+    //删除
+//    setInterval(function () {
+//        $('.box').removeClass('slideInLeft');
+//    },3000)
+
+</script>
+</html>

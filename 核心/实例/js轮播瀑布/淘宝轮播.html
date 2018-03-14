@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="initialize.css"/>
+    <style>
+        .out {
+            width: 520px;
+            height: 280px;
+            overflow: hidden;
+            margin: 100px auto;
+            position: relative;
+        }
+        .out:hover .jiantou {
+            display: block;
+        }
+        .in {
+            width: 3640px;
+            /*margin-left: -520px;*/
+            position: absolute;
+            /*left: -1040px;*/
+        }
+        .in img{
+            width: 520px;
+            height: 280px;
+            float: left;
+        }
+        .jiantou {
+            height: 36px;
+            width: 24px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 14px;
+            background-color:rgba(0, 0, 0, 0.298039);
+            color: #fff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            display: none;
+            cursor: pointer;
+        }
+        .jiantou:hover {
+            background-color: rgba(0,0,0,.5);
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            right: 0;
+        }
+        ul {
+            position: absolute;
+            width: 65px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            bottom: 15px;
+            background-color: rgba(255,255,255,.3);
+            border-radius: 10px;
+        }
+        li {
+
+            height: 9px;
+            width: 9px;
+            background-color: rgb(183, 183, 183);
+            border-radius: 50%;
+            float: left;
+            margin: 2px;
+        }
+        .on {
+            background-color: rgb(255, 68, 0);
+        }
+    </style>
+</head>
+<body>
+<div class="out">
+    <div class="in" style="left: -520px;">
+        <img src="img/t5.jpg" alt="">
+        <img src="img/t1.jpg" alt="">
+        <img src="img/t2.jpg" alt="">
+        <img src="img/t3.jpg" alt="">
+        <img src="img/t4.jpg" alt="">
+        <img src="img/t5.jpg" alt="">
+        <img src="img/t1.jpg" alt="">
+    </div>
+    <div class="left jiantou">&lt;</div>
+    <div class="right jiantou">&gt;</div>
+    <ul class=" circle clearFix">
+        <li class="on"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+<script>
+    var out=document.getElementsByClassName("out").item(0);
+    var myin=document.getElementsByClassName("in").item(0);
+    var right=document.getElementsByClassName("right").item(0);
+    var left=document.getElementsByClassName("left").item(0);
+    var li=document.getElementsByTagName("li");
+    var index=0;
+    var zt=true;
+    var timer=null;
+    var timer1=null;
+    right.onclick=function(){
+        if(zt){
+            li[index].className="";
+            move(-520);
+            if(index==4){
+                index=0
+            }else{
+                index++
+            }
+            li[index].className="on";
+
+        }
+    };
+    left.onclick=function(){
+        if(zt){
+            li[index].className="";
+            move(520);
+            if(index==0){
+                index=4
+            }else{
+                index--
+            }
+            li[index].className="on";
+        }
+    };
+    function move(dis){
+        zt=false;
+        var mubiao=parseInt(myin.style.left)+dis;
+//        myin.style.left=mubiao+"px";
+        var every=dis/40;
+        function meici(){
+            if(dis<0&&parseInt(myin.style.left)>mubiao||dis>0&&parseInt(myin.style.left)<mubiao){
+                myin.style.left=parseInt(myin.style.left)+every+"px";
+                setTimeout(meici,10)
+            }else{
+                myin.style.left=mubiao+"px";
+//                clearInterval(timer);
+                if(mubiao==0){
+                    myin.style.left="-2600px"
+                }
+                if(mubiao==-3120){
+                    myin.style.left="-520px"
+                }
+                zt=true;
+            }
+        }
+//        timer=setInterval(meici,10);
+        meici();
+    }
+    for(var i=0;i<li.length;i++){
+        li[i].onclick=(function(a){
+            return function(){
+                li[index].className="";
+                var dis=(a-index)*-520;
+                move(dis);
+                index=a;
+                li[index].className="on";
+            }
+        })(i)
+    }
+    timer1=setInterval(right.onclick,2000);
+    out.onmouseover=function(){
+        clearInterval(timer1)
+    };
+    out.onmouseout=function(){
+        timer1=setInterval(right.onclick,1000);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+
+</script>
+</html>

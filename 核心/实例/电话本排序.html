@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr=[
+        {name:"老姑"}, {name:'佳强'}, {name:"爸"},{name:"大哥"},{name:"狗剩"},{name:"佳哥"}
+    ];
+    for(var i=0;i<arr.length;i++){
+        for(var j=i+1;j<arr.length;j++){
+            if(arr[i].name.localeCompare(arr[j].name)==-1){
+                var bl=arr[i];
+                arr[i]=arr[j];
+                arr[j]=bl
+            }
+        }
+
+    }
+    console.log(arr);
+</script>
+</body>
+</html>

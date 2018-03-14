@@ -1,0 +1,13 @@
+<div>
+    <!--ng-change="proChange()"-->
+    <select name="pro" ng-model="provinceCode">
+        <option ng-repeat="x in proArr track by $index" value="{{x.code}}">{{x.name}}</option>
+    </select>
+    <!--ng-change="cityChange()"-->
+    <select name="city" ng-model="cityCode">
+        <option ng-repeat="x in cityArr track by $index" value="{{x.code}}">{{x.name}}</option>
+    </select>
+    <select name="town" ng-model="townCode">
+        <option ng-repeat="x in townArr track by $index" value="{{x.code}}">{{x.name}}</option>
+    </select>
+</div>

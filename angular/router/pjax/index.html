@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="" data-url="01">1</a></li>
+    <li><a href="" data-url="02">2</a></li>
+    <li><a href="" data-url="03">3</a></li>
+    <li><a href="" data-url="04">4</a></li>
+</ul>
+<div>
+
+</div>
+</body>
+<script src="jquery.js"></script>
+<script>
+    window.history.replaceState({},'','?type=01');
+//    $.ajax({
+//        url:'01.html',
+//        success:function (data) {
+//            $('div').html(data);
+//        }
+//    })
+    $('ul').on('click','a',function (e) {
+        e.preventDefault();
+        var url=this.dataset.url;
+        $.ajax({
+            url:url+'.html',
+            success:function (data) {
+                window.history.pushState({},'','?type='+url);
+                console.log(typeof window.history);
+                $('div').html(data);
+            }
+        })
+    });
+    window.onpopstate=function () {
+        var url=location.search.match(/type=(0[1-4])/)[1]||'01';
+        $.ajax({
+            url:url+'.html',
+            success:function (data) {
+                $('div').html(data);
+            }
+        })
+    }
+</script>
+</html>

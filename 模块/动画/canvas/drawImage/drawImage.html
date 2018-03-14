@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+<video src="img/mov_bbb.mp4" controls="controls"></video>
+</body>
+<script>
+    var canvas=document.querySelector('canvas');
+    var ps=canvas.getContext('2d');
+    /*放图片*/
+//    var img=new Image();
+//    img.src='img/xiaobao.jpg';
+//    img.onload= function () {
+//        ps.beginPath();
+//        // 元素 [原图开始裁剪的位置X 原图开始裁剪的位置Y 裁剪的w 裁剪的h] 放置的位置X 放置的位置Y [放缩之后的W 放缩之后的H]
+//        ps.drawImage(img,0,0,100,100,0,0,100,100);
+//        ps.closePath();
+//    }
+    /*放视频*/
+    var video=document.getElementsByTagName('video')[0];
+    var timer;
+    video.onplay= function () {
+        timer=setInterval(function () {
+            ps.beginPath();
+            ps.drawImage(video,0,0);
+            ps.closePath();
+        },20);
+    };
+    video.onpause= function () {
+        clearInterval(timer);
+    };
+    video.onended= function () {
+        clearInterval(timer)
+    }
+
+
+</script>
+</html>

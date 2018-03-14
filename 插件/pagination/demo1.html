@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>双分页带输入</title>
+    <link rel="stylesheet" href="./reset.css">
+    <style>
+        body{
+            height: 2000px;
+
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: "Microsoft YaHei";
+        }
+
+        *::selection {
+            background: transparent;
+        }
+
+        /*副分页*/
+        #carolinePagination {
+            display: table;
+            margin: 1500px auto 0;
+        }
+
+        #carolinePagination ul {
+            float: left;
+        }
+
+        #carolinePagination ul li {
+            float: left;
+        }
+
+        #carolinePagination span {
+            float: left;
+            cursor: pointer;
+        }
+
+        /*主分页*/
+        #oscarPagination {
+            display: table;
+            margin: 10px auto;
+        }
+
+        /*
+            ++++=
+        */
+        #oscarPagination > p {
+            float: left;
+        }
+
+        #oscarPagination > p input {
+            width: 20px;
+        }
+
+        #oscarPagination > i {
+            float: left;
+        }
+
+        /*
+            ++++=
+        */
+        #oscarPagination > span {
+            float: left;
+            padding: 10px 15px;
+            border: 1px solid #cccccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #oscarPagination .o_disabled {
+            background: red;
+
+        }
+
+        #oscarPagination > ul {
+            float: left;
+        }
+
+        #oscarPagination > ul > li {
+            float: left;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border: 1px solid #cccccc;
+            cursor: pointer;
+
+        }
+
+        #oscarPagination > ul > .o_active {
+            background: #3897cd;
+        }
+
+        #oscarPagination > ul > span {
+            float: left;
+            padding: 10px 15px;
+            margin-left: 10px;
+        }
+
+        #oscarPagination {
+        }
+
+        #oscarPagination {
+        }
+
+    </style>
+    <script src="../../Users/oscar/Documents/WeChat Files/lijiaqiang176410/Files/search_goods_list.js"></script>
+</head>
+<body>
+<div id="carolinePagination" class="clearfix"></div>
+<div id="oscarPagination" class="clearfix"></div>
+</body>
+
+<script>
+    var Pagination = {
+        createList: function () {
+            var count = this.lastPage;
+            var currentPage = this.currentPage;
+            var maxPage = this.maxPage;
+            var arr = [];
+            var strprev = currentPage == 1 ? '<span class="prev ' + this.disabledClass + '">上一页</span>' : '<span class="prev">上一页</span>';
+            var strnext = currentPage == count ? '<span class="next ' + this.disabledClass + '">下一页</span>' : '<span class="next">下一页</span>';
+            var strprev1 = currentPage == 1 ? '<span class="prev ' + this.disabledClass + '"><</span>' : '<span class="prev"><</span>';
+            var strnext1= currentPage == count ? '<span class="next ' + this.disabledClass + '">></span>' : '<span class="next">></span>';
+            var str = '';
+            for (var i = 1; i <= count; i++) {
+                arr.push(i)
+            }
+            /*判断总数页码是多少 少的不用省略*/
+            if (arr.length <= maxPage) {
+                for(var j=0,len=arr.length;j<len;j++){
+                    arr[j] == currentPage ? str += "<li class='"+this.activeClass+"'>" +arr[j]+ "</li>" : str += "<li>" + arr[j] + "</li>";
+                }
+
+            } else {
+                var middle = Math.ceil(maxPage / 2);
+                /*判断是钱几页还是后几页还是中间几页*/
+                if (currentPage >= 1 && currentPage <= middle) {
+                    var arr1=arr.splice(0, maxPage - 2);
+                    for(var k=0,len1=arr1.length;k<len1;k++){
+                        arr1[k] == currentPage ? str += "<li class='"+this.activeClass+"'>" + arr1[k] + "</li>" : str += "<li>" + arr1[k] + "</li>";
+                    }
+
+                    str += '<span>…</span><li>' + arr[arr.length - 1] + '</li>';
+                } else if (currentPage <= count && currentPage >= count - middle + 1) {
+                    str += '<li>1</li><span>…</span>';
+                    var arr2=arr.splice(arr.length - maxPage + 2, maxPage - 2);
+                    for(var l=0,len2=arr2.length;l<len2;l++){
+                        arr2[l] == currentPage ? str += "<li class='"+this.activeClass+"'>" + arr2[l] + "</li>" : str += "<li>" + arr2[l] + "</li>";
+                    }
+
+                } else {
+                    str += '<li>1</li><span>…</span>';
+                    var arr3=arr.splice(currentPage - 1 - Math.floor((maxPage - 4) / 2), maxPage - 4);
+                    for(var m=0,len3=arr3.length;m<len3;m++){
+                        arr3[m] == currentPage ? str += "<li class='"+this.activeClass+"'>" + arr3[m] + "</li>" : str += "<li>" + arr3[m] + "</li>";
+                    }
+                    str += '<span>…</span><li>' + arr[arr.length - 1] + '</li>';
+                }
+            }
+            /*写入*/
+            this.target.innerHTML = strprev + '<ul class="clearfix">' + str + '</ul>' + strnext + '<i>共' + count + '页</i><p>到第<input type="text" class="oscarPagination_input" value="'+this.currentPage+'">页<b>确定</b></p>';
+            this.otherTarget.innerHTML = '<ul class="clearfix"><li>' + currentPage + '</li><li>/</li><li>' + count + '</li></ul>' + strprev1+ strnext1;
+        },
+        addEvent: function () {
+            var self=this;
+            /*主分页事件*/
+            this.target.onclick = function (e) {
+                var e = e || window.event;
+                var mb = e.target || e.srcElement;
+                /*li事件*/
+                if (mb.nodeName === 'LI' && self.currentPage != mb.innerText) {
+                    self.currentPage = +mb.innerText;
+                    self._render();
+                }
+                /*其他事件*/
+
+                else if (mb.className == 'prev' && self.currentPage != 1) {
+                    --self.currentPage;
+                    self._render();
+                }
+                else if (mb.className == 'next' && self.currentPage != self.lastPage) {
+                    ++self.currentPage;
+                    self._render();
+                }
+                /*确定事件*/
+                else if (mb.nodeName === 'B') {
+                    var input = document.querySelector('.oscarPagination_input');
+                    var value = parseInt(input.value);
+                    if( self.currentPage==value){
+                        return
+                    }
+                    if(value>=1&&value<=self.lastPage){
+                        self.currentPage=value;
+                        self._render();
+                    }else if(value>self.lastPage){
+                        self.currentPage=self.lastPage;
+                        self._render();
+                    }else {
+                        self.currentPage=1;
+                        self._render();
+                    }
+                }else {
+                    return
+                }
+
+
+            };
+            /*副分页事件*/
+            this.otherTarget.onclick = function (e) {
+                var e = e || window.event;
+                var mb = e.target || e.srcElement;
+
+                /*其他事件*/
+                if (mb.className == 'prev' && self.currentPage != 1) {
+                    --self.currentPage;
+                    self._render();
+                }
+                else if (mb.className == 'next' && self.currentPage != self.lastPage) {
+                    ++self.currentPage;
+                    self._render();
+                } else {
+                    return
+                }
+            };
+        },
+        _render: function () {
+            this.createList();
+            this.callback(this.currentPage);
+            var z;
+            if(this.mTop===z)return;
+            document.body.scrollTop=this.mTop;
+            document.documentElement.scrollTop=this.mTop;
+
+        },
+        _init: function () {
+            this.addEvent();
+            this.createList();
+            this.paginationOnLoad(this.currentPage);
+
+        },
+        main: function (obj) {
+            this.target = document.querySelector('#' + obj.target);
+            this.otherTarget = document.querySelector('#' + obj.otherTarget) || document.createElement('div');
+            this.mTop=obj.mTop;
+            this.lastPage = obj.lastPage;
+            this.currentPage = obj.currentPage;
+            this.paginationOnLoad=obj.paginationOnLoad;
+            this.callback = obj.callback;
+            this.maxPage = obj.maxPage;
+            this.activeClass = obj.activeClass;
+            this.disabledClass = obj.disabledClass;
+
+            this._init();
+        }
+    };
+    
+//    Pagination.main(
+//            {
+//                target: 'oscarPagination', //主分页容器盒子id值
+//                otherTarget: 'carolinePagination',//副分页容器盒子id值
+//                lastPage: 5,  //最后一页的页码
+//                currentPage: 1, //初始页
+//                maxPage: 10, //当前可见最多页码个数
+//                activeClass: 'o_active',//激活时的类名
+//                disabledClass: 'o_disabled',//到头的类名
+//                mTop:500, //点击之后调到整个页面500px的位置，不写则不会跳(注意不加单位)
+//                paginationOnLoad:function (index) {  //分页列表加载完成后触发
+//                    console.log(index);
+//                },
+//                callback: function (index) {
+//                    console.log(index)
+//                }
+//
+//            }
+//    );
+
+
+
+
+
+
+
+
+
+
+    function caroline(lastPage,callback) {
+        Pagination.main(
+                {
+                    target: 'oscarPagination', //主分页容器盒子id值
+                    otherTarget: 'carolinePagination',//副分页容器盒子id值
+                    lastPage: lastPage,  //最后一页的页码 (*****)
+                    currentPage: 1, //初始页
+                    maxPage: 10, //当前可见最多页码个数
+                    activeClass: 'o_active',//激活时的类名
+                    disabledClass: 'o_disabled',//到头的类名
+                    mTop:500, //点击之后调到整个页面500px的位置，不写则不会跳(注意不加单位) (*****)
+                    callback: function (index) {
+                        callback(index)
+                    }
+
+                }
+        );
+    }
+
+    /*函数*/
+    caroline(20,function (index) {
+        console.log(index)
+    })
+
+
+
+</script>
+</html>

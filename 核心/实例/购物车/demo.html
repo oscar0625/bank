@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <div class="all"><input type="checkbox">全部</div>
+    <div class="list">
+        <div class="title"><input type="checkbox">oscar的店铺</div>
+        <ul>
+            <li><input type="checkbox">吃</li>
+            <li><input type="checkbox">喝</li>
+            <li><input type="checkbox">玩</li>
+        </ul>
+        <div class="title"><input type="checkbox">caroline的店铺</div>
+        <ul>
+            <li><input type="checkbox">吃饭</li>
+            <li><input type="checkbox">睡觉</li>
+            <li><input type="checkbox">打豆豆</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    /*点击全部事件*/
+    $('.box').on('click','.all input:checkbox',function () {
+        if(this.checked){
+            $(this).parent().next().find('input:checkbox').attr('checked','checked')
+        }else {
+            $(this).parent().next().find('input:checkbox').removeAttr('checked')
+
+        }
+    });
+    /*点击某一商家事件*/
+    $('.box').on('click','.list .title input:checkbox',function () {
+        /*选中某一商家那么该商家的所有商品被选中 反之取消*/
+        if(this.checked){
+            $(this).parent().next().find('input:checkbox').attr('checked','checked')
+        }else {
+            $(this).parent().next().find('input:checkbox').removeAttr('checked');
+        }
+
+        /*如果取消掉某一商家那么全选应该消失 反之如果所有商家都被选中那么全选应该出现*/
+        var arr=[];
+        var checks=$(this).parent().parent().find('input:checkbox');
+        checks.each(function () {
+            if(this.checked){
+                arr.push(1)
+            }
+        });
+        if(checks.length==arr.length){
+            $('.box .all input:checkbox').attr('checked','checked')
+        }else {
+            $('.box .all input:checkbox').removeAttr('checked');
+
+        }
+    })
+    /*点击某一商品事件事件*/
+    $('.box').on('click','.list ul',function () {
+        /*如果某一家店铺的所有商品被选中 那么该店铺整体被选中 反之亦然*/
+        var arr1=[];
+        var checks1=$(this).find('input:checkbox');
+        checks1.each(function () {
+            if(this.checked){
+                arr1.push(1)
+            }
+        });
+        if(checks1.length==arr1.length){
+            $(this).prev().find('input:checkbox').attr('checked','checked')
+        }else {
+            $(this).prev().find('input:checkbox').removeAttr('checked');
+
+        }
+
+        /*如果取消掉某一商家那么全选应该消失 反之如果所有商家都被选中那么全选应该出现*/
+        var arr=[];
+        var checks=$(this).parent().find('input:checkbox');
+        checks.each(function () {
+            if(this.checked){
+                arr.push(1)
+            }
+        });
+        if(checks.length==arr.length){
+            $('.box .all input:checkbox').attr('checked','checked')
+        }else {
+            $('.box .all input:checkbox').removeAttr('checked');
+
+        }
+    })
+
+
+</script>
+</html>

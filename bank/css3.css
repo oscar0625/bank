@@ -1,0 +1,14 @@
+/*禁用*/
+div{
+    cursor:not-allowed; /*出现禁用标志*/
+    pointer-events: none;/*禁用点击事件  ie11及以上*/
+}
+
+/*去掉滚动条但是可以滚动  这不是一个好办法 好的办法是让它有滚动条 再拿一个东西把滚动条挡住*/
+html {
+    -ms-overflow-style:none;  /*ie10+*/
+    overflow:-moz-scrollbars-none; /*fireFox*/
+}
+html::-webkit-scrollbar{
+    display: none;
+}

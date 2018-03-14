@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="" data-url="01">1</a></li>
+    <li><a href="" data-url="02">2</a></li>
+    <li><a href="" data-url="03">3</a></li>
+    <li><a href="" data-url="04">4</a></li>
+</ul>
+<div></div>
+</body>
+<script src="jquery.js"></script>
+<script>
+    /*首次进页面*/
+    window.history.replaceState({},'','?type=01');
+    $.ajax({
+        url:'01.html',
+        success:function (data) {
+            $('div').append(data)
+        }
+    });
+    /*点击跳转*/
+    $('ul').on('click','a',function (e) {
+        e.preventDefault();
+        var url=this.dataset.url;
+        $.ajax({
+            url:url+'.html',
+            success:function (data) {
+                window.history.pushState({num:url},'','?type='+url);
+                $('div').html(data);
+            }
+        });
+    });
+    /*前进后退触发*/
+    window.onpopstate=function () {
+        var url=location.search.match(/type=(0[1234])/)[1];
+        $.ajax({
+            url:url+'.html',
+            success:function (data) {
+                $('div').html(data);
+            }
+        });
+    }
+
+
+
+</script>
+</html>

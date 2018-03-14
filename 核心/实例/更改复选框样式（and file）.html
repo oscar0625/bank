@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body{
+            background: #f5f5f5;
+        }
+        @font-face {
+            font-family: 'iconfont';  /* project id 230452 */
+            src: url('//at.alicdn.com/t/font_7mj1c14uxboz85mi.eot');
+            src: url('//at.alicdn.com/t/font_7mj1c14uxboz85mi.eot?#iefix') format('embedded-opentype'),
+            url('//at.alicdn.com/t/font_7mj1c14uxboz85mi.woff') format('woff'),
+            url('//at.alicdn.com/t/font_7mj1c14uxboz85mi.ttf') format('truetype'),
+            url('//at.alicdn.com/t/font_7mj1c14uxboz85mi.svg#iconfont') format('svg');
+        }
+        .iconfont{
+            font-family: 'iconfont';
+        }
+        #agree+label::selection{
+            background: #FFFFFF;
+        }
+        #agree{
+            display: none;
+        }
+        #agree+label{
+            float: left;
+            width: 33px;
+            line-height: 33px;
+            text-align: center;
+            background: #FFFFFF;
+            border:1px solid #d6d6d6;
+            font-size: 30px;
+            color: #FFFFFF;
+        }
+        #agree:checked+label{
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+<div class="clearfix">
+    <input type="checkbox" id="agree" checked="checked">
+    <label for="agree" class="iconfont">&#xe615;</label>
+</div>
+<input type="submit" value="提交">
+<!--<input type="file" id="asd"><label for="asd" style="display: block;width: 200px;height: 200px;background: red;"></label>-->
+</body>
+<script>
+    var agree=document.querySelector('#agree');
+    var submit=document.querySelector('input[type="submit"]');
+    agree.onclick=function () {
+        if(agree.checked){
+            submit.removeAttribute('disabled');
+        }else {
+            submit.setAttribute('disabled','disabled')
+        }
+    }
+
+</script>
+</html>
