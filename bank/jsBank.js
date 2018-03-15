@@ -372,5 +372,13 @@ var oscar = {
         document.oncut= function () {
             e?e.preventDefault(): window.event.returnValue=false;
         };
-    }
+    },
+
+    /*寻找数组中最小值/最大值*/
+    findMin:function (arr) {
+        return Math.min.apply(Math,arr)
+    },
+    findMax:function (arr) {
+        return Math.max.apply(Math,arr)
+    },
 };
