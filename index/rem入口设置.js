@@ -20,3 +20,6 @@ var mobileReset={
     }
 };
 mobileReset.reset();
+/*
+* 元素宽度/psd宽度*10 rem
+* */
