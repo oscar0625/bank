@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p{
+            width:50px;
+            word-wrap: break-word;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<p>提高科技成果转化率，需要政府、高校、研发机构及企业多方同时发力，进一步转化成高附加值的明星成果</p>
+</body>
+<script>
+    /*
+    *
+    * javascript获取隐藏元素(display:none)的高度和宽度的方法
+    *  getComputedStyle()
+    *
+    * 注：如果这个元素是隐藏(display:none)的，尺寸又是未知自适应的 那么上次办法无法获取
+    *     $().height();可以解决
+    *     原理  先将元素弄成  position: "absolute", visibility: "hidden", display: "block"
+    *           然后获取宽高
+    *           最后将元素的属性重置回原本
+    *
+    * */
+    function swap (elem) {
+        var options={position: "absolute", visibility: "hidden", display: "block"};
+
+        var ret, name,old = {};
+
+        // Remember the old values, and insert the new ones
+        for ( name in options ) {
+            old[ name ] = elem.style[ name ];
+            elem.style[ name ] = options[ name ];
+        }
+
+        ret = elem.clientHeight;
+
+        // Revert the old values
+        for ( name in options ) {
+            elem.style[ name ] = old[ name ];
+        }
+
+        return ret;
+    }
+    console.log(swap(document.querySelector('p')))
+
+</script>
+</html>
