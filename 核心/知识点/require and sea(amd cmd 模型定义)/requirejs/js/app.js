@@ -1,122 +1,122 @@
 /*
-* require»á¶¨ÒåÈý¸öÈ«¾Ö±äÁ¿£º
-* define£ºÓÃÀ´¶¨ÒåÒ»¸öÄ£¿é
-* require===requirejs(Ò»°ãÊ¹ÓÃrequire¸ü¼ò¶Ì)£º ¼ÓÔØÒÀÀµÄ£¿é£¬²¢Ö´ÐÐ¼ÓÔØÍêºóµÄ»Øµ÷º¯Êý
-*
-* */
+ * requireä¼šå®šä¹‰ä¸‰ä¸ªå…¨å±€å˜é‡ï¼š
+ * defineï¼šç”¨æ¥å®šä¹‰ä¸€ä¸ªæ¨¡å—
+ * require===requirejs(ä¸€èˆ¬ä½¿ç”¨requireæ›´ç®€çŸ­)ï¼š åŠ è½½ä¾èµ–æ¨¡å—ï¼Œå¹¶æ‰§è¡ŒåŠ è½½å®ŒåŽçš„å›žè°ƒå‡½æ•°
+ *
+ * */
 
 
-/*Ò»¡¢ÅäÖÃÄ£¿é¼ÓÔØÎ»ÖÃ*/
+/*ä¸€ã€é…ç½®æ¨¡å—åŠ è½½ä½ç½®*/
 
 require.config({
-    // ÉèÖÃ¸ùÄ¿Â¼
+    // è®¾ç½®æ ¹ç›®å½•
     baseUrl:'./js',
-    // ÉèÖÃ±ðÃû
+    // è®¾ç½®åˆ«å
     paths:{
-        jq:'../script/jquery-1.7.2.min',  //²»´øjsºó×º
+        jq:'../script/jquery-1.7.2.min',  //ä¸å¸¦jsåŽç¼€
         d1:'define1',
         d4:'define4',
         noAmd:'notAMDMoudle'
 
     },
 
-    /*ÒÔÏÂÎª·Ç»ù´¡ÅäÖÃ ÐèÒªÊ±ÔÙÒýÈë*/
+    /*ä»¥ä¸‹ä¸ºéžåŸºç¡€é…ç½® éœ€è¦æ—¶å†å¼•å…¥*/
     //shim
-    /*×÷ÓÃ1£º¶¨ÒåÄ£¿éµÄÒÀÀµ¹ØÏµ£¬ÕâÀïÃæµÄÄ£¿é¼ÓÔØÖ®Ç°»áÏÈ°ÑdepsÀïÃæµÄÄ£¿éÏÈ¼ÓÔØÏÂÀ´
-      ×÷ÓÃ2£º¼ÓÔØ·Ç¹æ·¶µÄÄ£¿é,ÓÐÐ©¿â²»ÊÇAMD¼æÈÝµÄ£¬ÕâÊ±¾ÍÐèÒªÖ¸¶¨shimÊôÐÔµÄÖµ¡£shim¿ÉÒÔÀí½â³É¡°µæÆ¬¡±£¬ÓÃÀ´°ïÖúrequire.js¼ÓÔØ·ÇAMD¹æ·¶µÄ¿â¡£&&&&&& ºÜÖØÒª
-    */
+    /*ä½œç”¨1ï¼šå®šä¹‰æ¨¡å—çš„ä¾èµ–å…³ç³»ï¼Œè¿™é‡Œé¢çš„æ¨¡å—åŠ è½½ä¹‹å‰ä¼šå…ˆæŠŠdepsé‡Œé¢çš„æ¨¡å—å…ˆåŠ è½½ä¸‹æ¥
+     ä½œç”¨2ï¼šåŠ è½½éžè§„èŒƒçš„æ¨¡å—,æœ‰äº›åº“ä¸æ˜¯AMDå…¼å®¹çš„ï¼Œè¿™æ—¶å°±éœ€è¦æŒ‡å®šshimå±žæ€§çš„å€¼ã€‚shimå¯ä»¥ç†è§£æˆâ€œåž«ç‰‡â€ï¼Œç”¨æ¥å¸®åŠ©require.jsåŠ è½½éžAMDè§„èŒƒçš„åº“ã€‚&&&&&& å¾ˆé‡è¦
+     */
     shim:{
-        /*Ö»Ðè¼ÓÔØÒÀÀµ²»ÐèÒªµ¼³öÈÎºÎÄ£¿éÖµ*/
+        /*åªéœ€åŠ è½½ä¾èµ–ä¸éœ€è¦å¯¼å‡ºä»»ä½•æ¨¡å—å€¼*/
         d4:['jq'],
-        /*¼ÓÔØÒÀÀµ»¹ÐèÒªµ¼³öÈÎºÎÄ£¿éÖµ*/
+        /*åŠ è½½ä¾èµ–è¿˜éœ€è¦å¯¼å‡ºä»»ä½•æ¨¡å—å€¼*/
         noAmd:{
-          deps:['jq'],
-          exports:'oscar'   // ºÜÖØÒª£¬ºÍnotAMDMoudle.jsÖÐ±äÁ¿Ãû±ØÐëÒ»ÖÂ
+            deps:['jq'],
+            exports:'oscar'   // å¾ˆé‡è¦ï¼Œå’ŒnotAMDMoudle.jsä¸­å˜é‡åå¿…é¡»ä¸€è‡´
         }
     },
-    /*Requirejs¼ÓÔØ³¬Ê±ÎÊÌâµÄÒ»¸ö½â¾ö·½·¨£ºÉèÖÃwaitSeconds=0*/
+    /*RequirejsåŠ è½½è¶…æ—¶é—®é¢˜çš„ä¸€ä¸ªè§£å†³æ–¹æ³•ï¼šè®¾ç½®waitSeconds=0*/
     waitSeconds: 0
 });
 
 
-/*¶þ¡¢¼ÓÔØÄ£¿é*/
-//1.¼ÓÔØ·ûºÏamd¹æ·¶µÄÄ£¿é
-require(['d4'],                     //¼ÓÔØµÄÄ£¿é±ØÐëÊÇÊý×é¸ñÊ½£¬¿ÉÒÔ¼ÓÔØ¶à¸öÄ£¿é ¼ÓÔØ¶à¸öÄ£¿éÊ± ²ÎÊý1¶ÔÓ¦Ä£¿é1  ²ÎÊý2¶ÔÓ¦Ä£¿é2
-        function (a) {              //»Øµ÷º¯ÊýÔÚËùÓÐÄ£¿é¼ÓÔØÍê³ÉÖ®ºóÔÙÖ´ÐÐ£¬Ö»Ö´ÐÐÒ»´Î
-            console.log(a);         //»Øµ÷º¯ÊýµÄ²ÎÊý¾ÍÊÇ¼ÓÔØµÄÄ£¿éËùÀ©Õ¹³öÀ´µÄ¶«Î÷  Ïàµ±ÓÚmodule.exports
-        }
-    );
-//2.¼ÓÔØjsonp
+/*äºŒã€åŠ è½½æ¨¡å—*/
+//1.åŠ è½½ç¬¦åˆamdè§„èŒƒçš„æ¨¡å—
+require(['d4'],                     //åŠ è½½çš„æ¨¡å—å¿…é¡»æ˜¯æ•°ç»„æ ¼å¼ï¼Œå¯ä»¥åŠ è½½å¤šä¸ªæ¨¡å— åŠ è½½å¤šä¸ªæ¨¡å—æ—¶ å‚æ•°1å¯¹åº”æ¨¡å—1  å‚æ•°2å¯¹åº”æ¨¡å—2
+    function (a) {              //å›žè°ƒå‡½æ•°åœ¨æ‰€æœ‰æ¨¡å—åŠ è½½å®Œæˆä¹‹åŽå†æ‰§è¡Œï¼Œåªæ‰§è¡Œä¸€æ¬¡
+        console.log(a);         //å›žè°ƒå‡½æ•°çš„å‚æ•°å°±æ˜¯åŠ è½½çš„æ¨¡å—æ‰€æ‰©å±•å‡ºæ¥çš„ä¸œè¥¿  ç›¸å½“äºŽmodule.exports
+    }
+);
+//2.åŠ è½½jsonp
 // require(["http://example.com/api/data.json?callback=define"],
-//     //requireJSÖÐÊ¹ÓÃJSONP·þÎñ£¬ÐëÒª½«callback²ÎÊýµÄÖµÖ¸¶¨Îª"define"¡£
+//     //requireJSä¸­ä½¿ç”¨JSONPæœåŠ¡ï¼Œé¡»è¦å°†callbackå‚æ•°çš„å€¼æŒ‡å®šä¸º"define"ã€‚
 //     function (data) {
 //         console.log(data);
 //     }
 // );
 
-// //3.¼ÓÔØ²»·ûºÏamd¹æ·¶µÄÄ£¿é
+// //3.åŠ è½½ä¸ç¬¦åˆamdè§„èŒƒçš„æ¨¡å—
 // require(['noAmd'], function (a) {
-//     //ÈôÃ»ÓÐÔÚshimÀïÅäÖÃµÄ exports  aµÄÖµÎªundefined
+//     //è‹¥æ²¡æœ‰åœ¨shimé‡Œé…ç½®çš„ exports  açš„å€¼ä¸ºundefined
 //     console.log(a)
 // });
 
 
 
-/*Èý¡¢¶¨ÒåÄ£¿é  ¼¸ÖÖ¶¨Òå·½Ê½ */
+/*ä¸‰ã€å®šä¹‰æ¨¡å—  å‡ ç§å®šä¹‰æ–¹å¼ */
 
-/*1 ¶¨Òå¶ÔÏó*/
+/*1 å®šä¹‰å¯¹è±¡*/
 // define(
-//     /*¸ÃÄ£¿éÒªµ¼³öµÄÊý¾Ý ¾ÍÊÇ´Ë¶ÔÏó*/
+//     /*è¯¥æ¨¡å—è¦å¯¼å‡ºçš„æ•°æ® å°±æ˜¯æ­¤å¯¹è±¡*/
 //     {a:1, b:2}
 // );
 
-/*2 ¶¨Òåº¯Êý*/
+/*2 å®šä¹‰å‡½æ•°*/
 // define(function () {
-//     /*¸ÃÄ£¿éÒªµ¼³öµÄÊý¾Ý ¾ÍÊÇreturnµÄÖµ ×¢:Ä£¿é²»±Ø·µ»Ø¶ÔÏó¡£ÈÎºÎÓÐÐ§µÄº¯Êý·µ»ØÖµ¶¼ÊÇÔÊÐíµÄ¡£*/
+//     /*è¯¥æ¨¡å—è¦å¯¼å‡ºçš„æ•°æ® å°±æ˜¯returnçš„å€¼ æ³¨:æ¨¡å—ä¸å¿…è¿”å›žå¯¹è±¡ã€‚ä»»ä½•æœ‰æ•ˆçš„å‡½æ•°è¿”å›žå€¼éƒ½æ˜¯å…è®¸çš„ã€‚*/
 //    return function () {
 //        console.log(111)
 //    }
 // });
 
-/*3 ³£ÓÃ ¾ßÓÐÒÀÀµ¹ØÏµµÄ¶¨Òåº¯Êý µÚÒ»¸ö²ÎÊýÓ¦¸ÃÊÇÒ»¸öÒÀÀµÏîÃû³ÆÊý×é£¬¶øµÚ¶þ¸ö²ÎÊýÓ¦¸ÃÊÇÒ»¸ö¶¨Òåº¯Êý¡£*/
+/*3 å¸¸ç”¨ å…·æœ‰ä¾èµ–å…³ç³»çš„å®šä¹‰å‡½æ•° ç¬¬ä¸€ä¸ªå‚æ•°åº”è¯¥æ˜¯ä¸€ä¸ªä¾èµ–é¡¹åç§°æ•°ç»„ï¼Œè€Œç¬¬äºŒä¸ªå‚æ•°åº”è¯¥æ˜¯ä¸€ä¸ªå®šä¹‰å‡½æ•°ã€‚*/
 // define(['d1','d4'], function (a,b) {
 //     console.log(a);
 //     console.log(b);
-//     /*¸ÃÄ£¿éÒªµ¼³öµÄÊý¾Ý ¾ÍÊÇreturnµÄÖµ*/
+//     /*è¯¥æ¨¡å—è¦å¯¼å‡ºçš„æ•°æ® å°±æ˜¯returnçš„å€¼*/
 //     return 2
 // });
 
-/*4 ¶¨Òåcmd Ä£¿é*/
+/*4 å®šä¹‰cmd æ¨¡å—*/
 // define(function(require,exports,module){
-//     //¼ÓÔØd1Ä£¿é ²¢»ñÈ¡d1ÀïÃæµÄÊý¾Ý
+//     //åŠ è½½d1æ¨¡å— å¹¶èŽ·å–d1é‡Œé¢çš„æ•°æ®
 //     var a = require('d1');
 //     console.log(a);
 //
-//     /*¸ÃÄ£¿éÒªµ¼³öµÄÊý¾Ý¾ÍÊÇexports ÓÐÁ½ÖÖµ¼³ö·½Ê½*/
-//     //a.Ö±½ÓÐÞ¸Äexportsºóµ¼³ö
+//     /*è¯¥æ¨¡å—è¦å¯¼å‡ºçš„æ•°æ®å°±æ˜¯exports æœ‰ä¸¤ç§å¯¼å‡ºæ–¹å¼*/
+//     //a.ç›´æŽ¥ä¿®æ”¹exportsåŽå¯¼å‡º
 //     exports.abc = 888;
-//     //d.Ö±½Ó¸²¸Çexportsºóµ¼³ö
+//     //d.ç›´æŽ¥è¦†ç›–exportsåŽå¯¼å‡º
 //     //module.exports = {
 //     //    abc:888
 //     //}
 // });
 
-/*ËÄ¡¢ÆäËû*/
-//1.ÒÀÀµÐèÒªÌáÇ°ÒýÈëµÄ½â¾ö·½·¨
-    //a.
-    // define(['d1','d4'], function (a,b) {
-    //     //d1 d4ÒÀÀµ »áÔÚ»Øµ÷º¯ÊýÖ´ÐÐÖ®Ç°ÒýÈë
-    // });
-    //b.Í¨¹ýshim ÌáÇ°ÒýÈëÒÀÀµ
+/*å››ã€å…¶ä»–*/
+//1.ä¾èµ–éœ€è¦æå‰å¼•å…¥çš„è§£å†³æ–¹æ³•
+//a.
+// define(['d1','d4'], function (a,b) {
+//     //d1 d4ä¾èµ– ä¼šåœ¨å›žè°ƒå‡½æ•°æ‰§è¡Œä¹‹å‰å¼•å…¥
+// });
+//b.é€šè¿‡shim æå‰å¼•å…¥ä¾èµ–
 
-    /*×¢Òâ£º
-     define(['d1','d4'], function () {});
-     require(['d1','d4'], function () {});
-     shim:{
-         noAmd:{
-            deps:['d1','d4'],
-         }
-     },
-     d1 d4 ËüÁ©µÄÒýÈëË³ÐòÏÈºóË³ÐòÊÇ²»Ò»¶¨µÄ*/
+/*æ³¨æ„ï¼š
+ define(['d1','d4'], function () {});
+ require(['d1','d4'], function () {});
+ shim:{
+ noAmd:{
+ deps:['d1','d4'],
+ }
+ },
+ d1 d4 å®ƒä¿©çš„å¼•å…¥é¡ºåºå…ˆåŽé¡ºåºæ˜¯ä¸ä¸€å®šçš„*/
 
 
