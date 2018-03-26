@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="lib/jquery-1.10.2.js"></script>
-    <script src="lib/dialog.js"></script>
-
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
+    <script src="../../../核心/知识点/require and sea(amd cmd 模型定义)/requirejs/js/app.js"></script>
 </head>
 <body>
 <button>出现</button>
@@ -29,7 +29,7 @@
         //模态对话框
 //        var d = dialog({
 //            title: 'message',
-//            content: '<input autofocus />'
+//            content: '<input autofocus />',
 //        });
 //        d.showModal();
 
@@ -78,7 +78,17 @@
 //        });
 //        d.show();
 
+        //content是HTMLElement
+//        var elem = document.getElementById('test');
+//        dialog({
+//            content: elem,
+//            id: 'EF893L'
+//        }).show();
+
     })
+
+
+
 
 </script>
 </html>

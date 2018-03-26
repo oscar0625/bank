@@ -4,16 +4,17 @@ var oscar = {
     searchToOBJ: function (str) {
         //第一版使用时候出现这样一个错误 www.baidu.com?url=http://www.zgcjm.com/DefaultIndex?type=kjcgtz
         //这是优化后的版本优化版本
-        var arr = str.slice(1).split('&');
         var obj = {};
-        for (var i = 0, len = arr.length; i < len; i++) {
-            var  tail='';
-            var res = arr[i].split('=');
-            for(var j=1,lenJ=res.length;j<lenJ;j++){
-                tail+=res[j]+'=';
+        if(str){
+            var arr = str.slice(1).split('&');
+            for (var i = 0, len = arr.length; i < len; i++) {
+                var tail='';
+                var res = arr[i].split('=');
+                for(var j=1,lenJ=res.length;j<lenJ;j++){
+                    tail+=res[j]+'=';
+                }
+                obj[res[0]] = decodeURIComponent(tail.slice(0,tail.length-1))
             }
-            obj[res[0]] = decodeURIComponent(tail.slice(0,tail.length-1))
-
         }
         return obj;
     },
