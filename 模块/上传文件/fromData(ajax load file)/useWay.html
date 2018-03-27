@@ -10,7 +10,8 @@
 <body>
 
 <form action="" id="formTarget">
-    <input type="text" name="Position" value="" />
+    <input type="text" name="Position"/>
+    <input type="file"  id="myFile" >
     <input type="text" name="Company" value="" />
     <input type="text" name="Address" value="" />
     <input type="text" name="JoinYear" value="" />
@@ -27,6 +28,9 @@
 <script src="jquery-1.7.2.min.js"></script>
 <script>
     /*ie11+*/
+    /*way1和way2可以合并使用*/
+
+    /*way1*/
     $('button').on('click', function () {
         //必须放在事件里面否则有缓存 有问题
         var formData = new FormData(document.getElementById('formTarget'));
@@ -34,12 +38,32 @@
             url: "",
             type: "post",
             data: formData,      //表单序列化 input的name要和后台数据键名
+            dataType:'json',
             contentType: false,  //必须false才会自动加上正确的Content-Type
             processData: false,  //必须false才会避开jQuery对 formdata 的默认处理 XMLHttpRequest会对 formdata 进行正确的处理
             success: function (res) {
                 console.log(res)
             }
         });
-    })
+    });
+
+    /*way2 */
+//    $('button').on('click',function () {
+//        //必须放在事件里面否则有缓存 有问题
+//        var formData = new FormData();
+//        formData.append("Position",document.getElementById("Position").value);
+//        formData.append("myFile",document.getElementById("myFile").files[0]);
+//        $.ajax({
+//            url: "",
+//            type: "POST",
+//            data: formData,
+//            dataType:'json',
+//            contentType: false,  //必须false才会自动加上正确的Content-Type
+//            processData: false, //必须false才会避开jQuery对 formdata 的默认处理 XMLHttpRequest会对 formdata 进行正确的处理
+//            success: function (res) {
+//                console.log(res)
+//            }
+//        });
+//    })
 </script>
 </html>
