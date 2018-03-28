@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function sortArr(arr) {
+        for(var i =0 ;i<arr.length;i++){
+            for(var j=0;j<arr.length-1-i;j++){
+                if(arr[j]>arr[j+1]){
+                    var temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+        return arr
+    }
+    function merge(arr) {
+        var res=[];
+        var obj={};
+        for(var i =0 ;i<arr.length;i++){
+            if(!obj[arr[i]]){
+                obj[arr[i]]=true;
+                res.push(arr[i])
+            }
+        }
+        return res
+    }
+
+    function fn(arr,num) {
+        var res=[];
+        var minArr=merge(sortArr(arr));
+
+        for (var i=0;i<num;i++){
+            for(var j =0 ;j<arr.length;j++){
+                if(arr[j]==minArr[i]){
+                    res.push({
+                        min:arr[j],
+                        index:j
+                    })
+                }
+            }
+        }
+
+        return res.splice(0,num)
+    }
+    console.log(fn([1,2,45,78,54,51,2,787,5,251,57,87,515,587,8,54,54],5))
+
+</script>
+</html>
