@@ -86,10 +86,18 @@ var oscar = {
             }
         }
         return arr
-    }
+    },
+
+    //sort排序
+    sort:function (arr) {
+        arr.sort(function (a,b) {
+            return a-b
+        });
+        return arr
+    },
 
     //数组去重
-    merge:function () {
+    merge:function (arr) {
         var res=[];
         var obj={};
         for(var i =0 ;i<arr.length;i++){
@@ -99,7 +107,7 @@ var oscar = {
             }
         }
         return res
-    }
+    },
 
     /*cookie操作*/
     cookieUtil: {

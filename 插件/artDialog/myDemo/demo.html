@@ -37,7 +37,7 @@
         var d = dialog({
             id:'oscar',    //string number
             title: '提示',
-            content: '按钮点击后默认会关闭弹出框(默认移除操作)，返回 false 则不关闭，',
+            content: '确定/取消按钮点击后默认会关闭弹出框(默认移除操作)，返回 false 则不关闭，',
             okValue: '确定',
             ok: function () {
                 this.title('提交中…');
@@ -46,6 +46,7 @@
             cancelValue: '取消',
             cancel: function () {     //取消按钮也等同于标题栏的关闭按钮。回调函数this指向dialog对象
                 console.log(112233)
+                return false;
             },
 //            width:500,
 //            height:500
