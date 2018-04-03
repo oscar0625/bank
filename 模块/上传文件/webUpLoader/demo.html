@@ -132,6 +132,16 @@
         $('#' + file.id).find('.progress').fadeOut();
     });
 
+    //当验证不通过时,会以派送错误事件的形式通知调用者。
+    uploader.on('error',function (code) {
+        //code
+        //===Q_EXCEED_NUM_LIMIT     在设置了fileNumLimit且尝试给uploader添加的文件数量超出这个值时派送。
+        //===Q_EXCEED_SIZE_LIMIT    在设置了fileSizeLimit且尝试给uploader添加的文件总大小超出这个值时派送。
+        //===Q_TYPE_DENIED          当文件类型不满足时触发
+        //===F_DUPLICATE            当上传的文件出现重复的情况下
+    });
+
+
     //上传
     $btn.on('click', function () {
         uploader.upload();

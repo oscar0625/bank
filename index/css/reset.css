@@ -24,10 +24,6 @@ address, caption, cite, code, dfn, em, i, u, b, strong, th, var {
     /*清除标签默认文本样式和加粗*/
 }
 
-input, textarea {
-    outline: 0 none; /*去掉文本框的默认轮廓线*/
-}
-
 ol, ul {
     list-style: none; /*清除列表默认样式*/
 }

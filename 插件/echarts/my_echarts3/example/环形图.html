@@ -45,9 +45,9 @@
             {
                 name:'访问来源',
                 type:'pie',
-                radius: ['50%', '70%'],
+                radius: ['50%', '70%'],             //小圆半径 大圆半径
                 avoidLabelOverlap: false,
-                center:['center',170],
+                center:['center',170],              //设置圆心位置
 
 //                label: {                          //一种方式
 //                    normal: {
@@ -65,8 +65,9 @@
                 label: {                          //二种方式
                     normal: {
                         show: true,
-                        formatter:'{d}%'
-                    },
+                        formatter:'{d}%',
+                        position: 'center'        //标签的位置 outside
+                    }
 
                 },
 
