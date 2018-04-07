@@ -30,7 +30,21 @@ var oscar = {
         }
         return newObj
     },
-    
+
+    /**
+     * 种子随机数
+     * @param seed [种子]
+     * @param max  [最大]
+     * @param min  [最小]
+     */
+    seedRandom:function(seed,max, min) {
+        max = max || 1;
+        min = min || 0;
+        seed = (seed * 9301 + 49297) % 233280;
+        var rnd = seed / 233280.0;
+        return min + rnd * (max - min);
+    }
+
     //判断当前浏览类型
     browserType: function () {
         var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
@@ -369,6 +383,15 @@ var oscar = {
     /*检验手机*/
     checkPhone: function (str) {
         if (/^1[3-9]\d{9}$/.test(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    /*检验座机电话*/
+    checkTelephone:function (str) {
+        if (/(^0\d{2}-\d{8}$)|(^0\d{3}-\d{7}$)/.test(str)) {
             return true;
         } else {
             return false;
