@@ -1094,21 +1094,7 @@
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        //点击事件
-        myChart.on('click',function (e) {
-            console.log(e);
-            try{
-                if (e.data.Type == '成果') {
-                    window.open('/achievementInfo?id=' + e.data.Id)
-                } else if (e.data.Type == '需求') {
-                    window.open('/demandinfo?id=' + e.data.Id);
-                } else {
-                    console.log(222)
-                }
-            }catch(res){
-                console.log(111)
-            }
-        })
+
     }
 
 </script>

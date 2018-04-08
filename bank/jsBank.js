@@ -31,18 +31,25 @@ var oscar = {
         return newObj
     },
 
+    //普通随机数[min,max]
+    random:function (min,max) {                          //限制 max-min值为整数
+        return Math.floor(Math.random()*(max-min+1))+min;
+        //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
+    },
+
     /**
      * 种子随机数
      * @param seed [种子]
-     * @param max  [最大]
-     * @param min  [最小]
+     * @param min  [最小] 可取
+     * @param max  [最大] 取不到
      */
-    seedRandom:function(seed,max, min) {
-        max = max || 1;
+    seedRandom:function(seed,min,max) {
         min = min || 0;
+        max = max || 1;
         seed = (seed * 9301 + 49297) % 233280;
         var rnd = seed / 233280.0;
-        return min + rnd * (max - min);
+        return rnd * (max - min)+min;
+        //return Math.floor(rnd*(max-min+1))+min;  //取整
     }
 
     //判断当前浏览类型
