@@ -414,8 +414,29 @@ var oscar = {
         }
     },
 
-    /*检验正确的金额 允许保留2位小数*/
-    checkMoney:function (str) {
+    /*检验正确的数字 */
+    //不限制小数位数
+    checkRealNum:function (str) {
+        var reg=/(^[1-9]\d*(\.\d+)?$)|(^0(\.\d+)?$)/;
+        if(reg.test(str)){
+            return true
+        }else{
+            return false
+        }
+    },
+
+    //允许保留1位小数
+    checkRealNumOne:function (str) {
+        var reg=/(^[1-9]\d*(\.\d)?$)|(^0(\.\d)?$)/;
+        if(reg.test(str)){
+            return true
+        }else{
+            return false
+        }
+    },
+
+    //允许保留2位小数
+    checkRealNumTwo:function (str) {
         var reg=/(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
         if(reg.test(str)){
             return true

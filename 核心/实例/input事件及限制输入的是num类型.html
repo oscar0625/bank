@@ -6,36 +6,34 @@
 
 </head>
 <body>
-
 </body>
 <script>
 
-    /*只能输入数字*/
-    $(".container").on("input", ".num", function () {
-        var v = $(this).val();
-        if (v == 0 || v.length == 0) {
-            v = "";
-        }
-        else {
-            v = v.replace(/[^\d]/g, '');
-        }
-        $(this).val(v);
-    });
-    /*只能输入数字 且数字最多保留到一位小数*/
-    var arr=[];
-    $('#FinancingAmount').on('input', function () {
-        var v = $(this).val();
-        if (v.length == 0) {
-            arr.push(v)
-        }
-        else{
-            if (/^[1-9]\d*\.?\d?$/.test(v)) {
+    /*只能输入正确的数字*/
+    function onlyNum(ele) {
+        var arr=[],v;
+        ele.on('input', function () {
+            v = $(this).val();
+            if (/^\d+\.?\d*$/.test(v)||v.length == 0) {
                 arr.push(v)
             }
-        }
+            v = arr[arr.length - 1]||'';
+            $(this).val(v);
+        })
+    }
 
-        v = arr[arr.length - 1]||'';
-        $(this).val(v);
-    })
+    /*只能输入正确的正数 且数字最多保留到一位小数 */
+    function onlyNumOne(ele) {
+        var arr=[],v;
+        ele.on('input', function () {
+            v = $(this).val();
+
+            if (/^\d+\.?\d?$/.test(v)||v.length == 0) {
+                arr.push(v)
+            }
+            v = arr[arr.length - 1]||'';
+            $(this).val(v);
+        })
+    }
 </script>
 </html>
