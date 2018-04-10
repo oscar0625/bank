@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="javascript:;" data-url="01">1</a></li>
+    <li><a href="javascript:;" data-url="02">2</a></li>
+    <li><a href="javascript:;" data-url="03">3</a></li>
+    <li><a href="javascript:;" data-url="04">4</a></li>
+</ul>
+<div></div>
+</body>
+<script src="../script/jquery-1.7.2.min.js"></script>
+<script>
+    /*兼容到ie10*/
+    var  obj={
+        searchToOBJ: function (str) {
+            var obj = {};
+            if(str){
+                var arr = str.slice(1).split('&');
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    var tail='';
+                    var res = arr[i].split('=');
+                    for(var j=1,lenJ=res.length;j<lenJ;j++){
+                        tail+=res[j]+'=';
+                    }
+                    obj[res[0]] = decodeURIComponent(tail.slice(0,tail.length-1))
+                }
+            }
+            return obj;
+        },
+        getPage:function (page) {
+            $.ajax({
+                url:'../page/'+page+'.html',
+                success:function (data) {
+                    $('div').html(data)
+                }
+            });
+        },
+
+        pageName:['01','02','03','04'],
+        fn:function (page) {
+            if(this.pageName.indexOf(page)!==-1){
+                this.getPage(page)
+            }
+        },
+
+        currentPage:'',
+        /*首次进页面 将页面参数改为首页 加载首页*/
+        init:function () {
+            window.history.replaceState({},'','?page=01');
+            this.currentPage=this.pageName[0];
+            this.fn(this.pageName[0]);
+        },
+
+        /*点击跳转 将页面参数改为对应页面 加载对应页面*/
+        skip:function () {
+            var self=this;
+            $('ul').on('click','a',function (e) {
+                var url=this.getAttribute('data-url');
+                if(url===self.currentPage)return;
+                window.history.pushState({num:url},'','?page='+url);
+                self.currentPage=url;
+                self.fn(url);
+            });
+        },
+
+        /*前进后退触发*/
+        popState:function () {
+            var self=this;
+            window.onpopstate=function () {
+                var url = self.searchToOBJ(location.search).page;
+                self.currentPage=url;
+                self.fn(url);
+            }
+        },
+
+        bin:function () {
+            this.init();
+            this.skip();
+            this.popState();
+        }
+    };
+    obj.bin();
+
+
+    //api
+    /*
+    *
+     1.pushState是将指定的URL添加到浏览器历史里,存储当前历史记录点API:history.pushState(state, title, url)
+         // @state状态对象：记录历史记录点的额外对象，可以为空
+         // @title页面标题：目前所有浏览器都不支持
+         // @url可选的url：浏览器不会检查url是否存在，只改变url，url必须同域，不能跨域
+         history.pushState的目的
+         SEO优化
+         更少的数据请求
+         更好的用户体验
+
+     2.history.replaceState
+        replaceState是将指定的URL替换当前的URL,替换当前历史记录点
+        replaceState的api和pushState类似，不同之处在于replaceState不会在window.history里新增历史记录点，而pushState会在历史记录点里新增一个记录点的
+
+     3.history.state
+        当前URL下对应的状态信息。如果当前URL不是通过pushState或者replaceState产生的，那么history.state是null。
+
+     4.window.onpopstate事件
+        window.onpopstate事件主要是监听历史记录点，也就是说监听URL的变化 (但会忽略URL的hash部分)
+
+        history.go和history.back（包括用户按浏览器历史前进后退按钮）触发，并且页面无刷的时候（由于使用pushState修改了history）会触发popstate事件，
+        事件发生时浏览器会从history中取出URL和对应的state对象替换当前的URL和history.state。通过event.state也可以获取history.state。
+
+     注意点：javascript脚本执行window.history.pushState和window.history.replaceState不会触发onpopstate事件。
+
+    * */
+
+
+
+
+
+</script>
+</html>

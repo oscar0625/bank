@@ -46,6 +46,8 @@ require(['d4'],                 //加载的模块必须是数组格式，可以�
         console.log(a);         //回调函数的参数就是加载的模块所扩展出来的东西  相当于module.exports
     }
 );
+//注意: 在define() 中也可以使用 require()
+
 //2.加载jsonp
 // require(["http://example.com/api/data.json?callback=define"],
 //     //requireJS中使用JSONP服务，须要将callback参数的值指定为"define"。

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="#01">1</a></li>
+    <li><a href="#02">2</a></li>
+    <li><a href="#03">3</a></li>
+    <li><a href="#04">4</a></li>
+</ul>
+<div class="box"></div>
+</body>
+<script src="../script/jquery-1.7.2.min.js"></script>
+<script src="router.js"></script>
+<script>
+    var obj = {
+        getPage: function (page) {
+            $.ajax({
+                url: '../page/' + page + '.html',
+                success: function (data) {
+                    //console.log(data)
+                    $('.box').html(data)
+                }
+            });
+        },
+
+        bin: function () {
+            var self=this;
+            var route = new Router();
+            /**
+             *
+             * @param pageName      对应的页面名字  首页为 '/'  推荐必须设置'/' 因为如果当 hash 匹配不上config中的配置 都会执行 '/' 的回掉函数
+             * @param callback      对应的页面的回调函数
+             */
+            route.config('/', function () {
+                self.getPage('01');
+                console.log(1111)
+            })
+                    .config('02',function () {
+                        self.getPage('02');
+                        console.log(22222)
+                    })
+                    .config('03', function () {
+                        self.getPage('03');
+                        console.log(33333)
+
+                    })
+                    .config('04',function () {
+                        self.getPage('04');
+                        console.log(444444)
+
+                    })
+                    .init();
+
+
+
+        }
+    };
+    obj.bin()
+
+</script>
+</html>
