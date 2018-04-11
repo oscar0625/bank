@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            width: 500px;
+            height: 500px;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+<button></button>
+</body>
+<script>
+
+    //进入全屏
+    function launchFullscreen(element){
+        if (element.requestFullscreen) {
+
+            element.requestFullscreen();
+
+        }
+        else if (element.mozRequestFullScreen) {
+
+            element.mozRequestFullScreen();
+
+        }
+        else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+
+        }
+        else if (element.oRequestFullscreen) {
+
+            element.oRequestFullscreen();
+
+        }
+        else if (element.webkitRequestFullscreen) {
+
+            element.webkitRequestFullScreen();
+
+        }
+
+        else {
+
+            var docHtml = document.documentElement;
+
+            var docBody = document.body;
+
+            var videobox = element;
+
+            var cssText = 'width:100%;height:100%;overflow:hidden;';
+
+            docHtml.style.cssText = cssText;
+
+            docBody.style.cssText = cssText;
+
+            videobox.style.cssText = cssText + ';' + 'margin:0px;padding:0px;';
+
+            document.IsFullScreen = true;
+
+        }
+
+    }
+    //退出全屏
+    function exitFullscreen(element) {
+
+        if (document.exitFullscreen) {
+
+            document.exitFullscreen();
+
+
+        }
+        else if (document.msExitFullscreen) {
+
+            document.msExitFullscreen();
+
+        }
+        else if (document.mozCancelFullScreen) {
+
+            document.mozCancelFullScreen();
+
+        }
+        else if (document.oRequestFullscreen) {
+
+            document.oCancelFullScreen();
+
+
+        }
+        else if (document.webkitExitFullscreen) {
+
+            document.webkitExitFullscreen();
+
+        }
+        else {
+
+            var docHtml = document.documentElement;
+
+            var docBody = document.body;
+
+            var videobox = element;
+
+            docHtml.style.cssText = "";
+
+            docBody.style.cssText = "";
+
+            videobox.style.cssText = "";
+
+            document.IsFullScreen = false;
+
+        }
+
+    }
+
+    //注意：无法一进页面就自动全屏
+    //原因是浏览器采用安全的机制,将这种强制全屏模式意为“恶意行为”,一切非用户主观意愿带来的变化都是不允许的
+    //开启全屏模式API只能由用户手势触发。
+    //Failed to execute 'requestFullScreen' on 'Element': API can only be initiated by a user gesture
+
+
+</script>
+</html>
