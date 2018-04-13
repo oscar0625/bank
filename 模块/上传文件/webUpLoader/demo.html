@@ -62,8 +62,8 @@
         //        method:'post',       //文件上传方式，POST或者GET。
 //                duplicate :true ,     //支持反复选择  默认值可以2次
         fileNumLimit: 300,    //验证文件总数量, 超出则不允许加入队列。
-        fileSizeLimit: 5 * 1024 * 1024,    // 200 M  //验证文件总大小是否超出限制, 超出则不允许加入队列。
-        fileSingleSizeLimit: 1 * 1024 * 1024,   // 50 M  //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+        fileSizeLimit: 5 * 1024 * 1024,    // 5M  //验证文件总大小是否超出限制, 超出则不允许加入队列。
+        fileSingleSizeLimit: 1 * 1024 * 1024,   // 1M  //验证单个文件大小是否超出限制, 超出则不允许加入队列。
 
         //拖动图片到窗口上传功能
         dnd: $wrap,              //指定允许拖拽的容器
@@ -71,11 +71,27 @@
         paste: document.body,    //此功能为通过粘贴来添加截屏的图片。建议设置为document.body
     });
 
+    //1.验证
+    // 当添加文件时，验证不通过,会以派送错误事件的形式通知调用者，不会触发fileQueued。
+    uploader.on('error', function (code) {
+        //code
+        //===Q_EXCEED_NUM_LIMIT     在设置了fileNumLimit且尝试给uploader添加的文件数量超出这个值时派送。
+        //===Q_EXCEED_SIZE_LIMIT    在设置了fileSizeLimit且尝试给uploader添加的文件总大小超出这个值时派送。
+        //===F_EXCEED_SIZE          在设置了fileSingleSizeLimit且尝试给uploader添加的单个文件大小超出这个值时派送。
+        //===Q_TYPE_DENIED          当文件类型不满足时触发
+        //===F_DUPLICATE            当上传的文件出现重复的情况下
+    });
+
+    //2. 添加活删除
     // 当有文件被添加进队列的时候触发
     uploader.on('fileQueued', function (file) {
+        //文件不合格，不能重试上传。会自动从队列中移除。
+        if (file.getStatus() === 'invalid') {
+            return
+        }
         var $li = $(
                         '<div id="' + file.id + '" class="file-item thumbnail">' +
-                        '<img src="" />' +       /*指定一个失效的路径*/
+                        '<img src="" />' + /*指定一个失效的路径*/
                         '<div class="info">' + file.name + '</div>' +
                         '</div>'
                 ),
@@ -92,8 +108,26 @@
             }
             $img.attr('src', src);
         }, thumbnailWidth, thumbnailHeight);
+        //监听当前文件的状态变化
+        file.on('statuschange', function (cur, prev) {
+            /*
+             queued   已经进入队列, 等待上传
+             progress 上传中
+             interrupt 上传中断，可续传。
+
+             complete 上传成功完成
+             error    上传出错，可重试
+
+             invalid   文件不符合要求，不会被加入队列。
+             */
+        });
     });
 
+    //文件移除触发
+    uploader.on('fileDequeued', function () {
+    });
+
+    //3.上传
     // 文件上传过程中创建进度条实时显示。
     uploader.on('uploadProgress', function (file, percentage) {
         var $li = $('#' + file.id),
@@ -110,43 +144,77 @@
         $percent.css('width', percentage * 100 + '%');
     });
 
-    //文件成功、失败处理
+    //文件成功
     uploader.on('uploadSuccess', function (file, response) {
         console.log("上传成功");
     });
 
     uploader.on('uploadError', function (file) {
-        var $li = $( '#'+file.id ),
+        var $li = $('#' + file.id),
                 $error = $li.find('div.error');
 
         // 避免重复创建
-        if ( !$error.length ) {
-            $error = $('<div class="error"></div>').appendTo( $li );
+        if (!$error.length) {
+            $error = $('<div class="error"></div>').appendTo($li);
         }
 
         $error.text('上传失败');
 
     });
+
     //上传完成进度条消失
     uploader.on('uploadComplete', function (file) {
         $('#' + file.id).find('.progress').fadeOut();
     });
 
-    //当验证不通过时,会以派送错误事件的形式通知调用者。
-    uploader.on('error',function (code) {
-        //code
-        //===Q_EXCEED_NUM_LIMIT     在设置了fileNumLimit且尝试给uploader添加的文件数量超出这个值时派送。
-        //===Q_EXCEED_SIZE_LIMIT    在设置了fileSizeLimit且尝试给uploader添加的文件总大小超出这个值时派送。
-        //===Q_TYPE_DENIED          当文件类型不满足时触发
-        //===F_DUPLICATE            当上传的文件出现重复的情况下
+    //多种事件的集合
+    uploader.on('all', function (type) {
+        //(queued) uploadStart
+        //(progress) uploadBeforeSend  uploadProgress uploadAccept
+        //(complete) uploadSuccess uploadComplete 或//(error) uploadError uploadComplete
+        //uploadFinished 注意:上面的函数 上传多少个文件执行多少此   这个函数值执行一次
+        switch (type) {
+            case 'uploadFinished':
+                console.log('confirm');
+                break;
+
+            case 'uploadStart':
+                console.log('uploading');
+                break;
+
+            case 'stopUpload':
+                console.log('paused');
+                break;
+
+        }
     });
 
 
-    //上传
+    //4.上传
     $btn.on('click', function () {
         uploader.upload();
     });
 
+
+    //5.api
+    //获取文件统计信息
+    /*
+     * successNum 上传成功的文件数
+     progressNum 上传中的文件数
+     cancelNum 被删除的文件数
+     invalidNum 无效的文件数
+     uploadFailNum 上传失败的文件数
+     queueNum 还在队列中的文件数
+     interruptNum 被暂停的文件数
+     *
+     * */
+    uploader.getStats()
+    //返回指定状态的文件集合，不传参数将返回所有状态的文件。
+    uploader.getFiles('error')  //返回error的
+    //移除文件
+    uploader.removeFile();
+    //重试上传
+    uploader.retry();
 
 
 

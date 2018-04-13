@@ -11,19 +11,19 @@
         *{
             font-family: "Microsoft YaHei";
         }
-        #oscarPagination{
+        .oscarPagination{
             display: table;
             margin:0 auto 85px;
             color: #555555;
         }
-        #oscarPagination >span{
+        .oscarPagination >span{
             float: left;
             margin-left: 10px;
             cursor: pointer;
             line-height: 28px;
 
         }
-        #oscarPagination .prev,#oscarPagination .next{
+        .oscarPagination .prev,.oscarPagination .next{
             width: 74px;
             line-height: 26px;
             text-align: center;
@@ -34,21 +34,21 @@
             -ms-border-radius: 13px;
             border-radius: 13px;
         }
-        #oscarPagination .prev{
+        .oscarPagination .prev{
             margin:0 10px 0 30px;
         }
-        #oscarPagination .next{
+        .oscarPagination .next{
             margin:0 30px 0 10px;
         }
-        #oscarPagination .o_disabled{
+        .oscarPagination .o_disabled{
             cursor:not-allowed;
             opacity: 0.5;
         }
 
-        #oscarPagination>ul{
+        .oscarPagination>ul{
             float: left;
         }
-        #oscarPagination>ul >li{
+        .oscarPagination>ul >li{
             float: left;
             width: 28px;
             line-height: 28px;
@@ -60,11 +60,11 @@
             border-radius: 50%;
             margin-left:5px;
         }
-        #oscarPagination>ul>.o_active{
+        .oscarPagination>ul>.o_active{
             background: #4591e2;
             color: #fff;
         }
-        #oscarPagination>ul>span{
+        .oscarPagination>ul>span{
             float: left;
             width: 28px;
             line-height: 28px;
@@ -76,36 +76,37 @@
     </style>
 </head>
 <body>
-    <div id="oscarPagination" class="clearfix">
-
-
-    </div>
+    <div id="oscarPagination" class="clearfix"></div>
 </body>
 
 <script>
     function Pagination(obj) {
         'user strict';
-        var obj = obj || {
-                    target: 'oscarPagination', //容器盒子id值
-                    lastPage: 20,  //最后一页的页码
-                    currentPage: 1, //初始页
-                    maxPage: 10, //当前可见最多页码个数
-                    activeClass: 'o_active',//激活时的类名
-                    disabledClass: 'o_disabled',//到头的类名
-                    callback: function (index) {
-                        console.log(index)
-                    }
+        var myObj={
+            target: '#oscarPagination', //容器盒子id值
+            lastPage: 20,  //最后一页的页码
+            currentPage: 1, //初始页
+            maxPage: 10, //当前可见最多页码个数
+            activeClass: 'o_active',//激活时的类名
+            disabledClass: 'o_disabled',//到头的类名
+            callback: function (index) {
+                console.log(index)
+            },
+            paginationOnLoad: function (index) {
+                console.log('分页加载完成')
+            }
+        },i;
+        for(i in obj){myObj[i]=obj[i];}
 
-                };
-        this.target=document.getElementById(obj.target);
-        this.lastPage=obj.lastPage;
-        this.currentPage=obj.currentPage;
-        this.paginationOnLoad=obj.paginationOnLoad;
-        this.callback=obj.callback;
-        this.maxPage=obj.maxPage;
-        this.activeClass=obj.activeClass;
-        this.disabledClass=obj.disabledClass;
-        this.mTop=obj.mTop;
+        this.target = typeof myObj.target ==='string'?document.querySelector(myObj.target):myObj.target;
+        this.lastPage=myObj.lastPage;
+        this.currentPage=myObj.currentPage;
+        this.maxPage=myObj.maxPage;
+        this.activeClass=myObj.activeClass;
+        this.disabledClass=myObj.disabledClass;
+        this.paginationOnLoad=myObj.paginationOnLoad;
+        this.callback=myObj.callback;
+        this.mTop=myObj.mTop;
 
         this._init();
     }
@@ -116,6 +117,7 @@
         } else {
             this.target.style = 'display:table'
         }
+        this.target.className='oscarPagination '+this.target.className; //加样式class名
         this.addEvent();
         this.createList();
         this.paginationOnLoad(this.currentPage);
@@ -206,7 +208,7 @@
 
 
     var page=new Pagination({
-        target:'oscarPagination', //容器盒子id值
+        target:'#oscarPagination', //容器盒子id值
         lastPage:20,  //最后一页的页码
         currentPage:1 , //初始页
         maxPage:10, //当前可见最多页码个数

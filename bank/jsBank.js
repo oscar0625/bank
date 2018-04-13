@@ -19,6 +19,22 @@ var oscar = {
         return obj;
     },
 
+    //图片预加载
+    loadImage:function (url, callback) {
+        var img = new Image(); //创建一个Image对象，实现图片的预下载
+        img.src = url;
+
+        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+            callback.call(img);
+            return; // 直接返回，不用再处理onload事件
+        }
+
+        img.onload = function () { //图片下载完毕时异步调用callback函数。
+            callback.call(img);    //将回调函数的this替换为Image对象
+            img.onload = null;
+        };
+    },
+
     /*深拷贝*/
     deepClone:function(){
         if(typeof obj !='object'){
@@ -50,7 +66,7 @@ var oscar = {
         var rnd = seed / 233280.0;
         return rnd * (max - min)+min;
         //return Math.floor(rnd*(max-min+1))+min;  //取整
-    }
+    },
 
     //判断当前浏览类型
     browserType: function () {
