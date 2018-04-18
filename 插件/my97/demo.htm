@@ -8,7 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-<input class="Wdate" type="text" >
+<input class="Wdate" type="text" id="d1" >
+<input class="Wdate" type="text" id="d2" onfocus="new WdatePicker({el:'d2'})">
+<input class="Wdate" type="text" id="d3" onfocus="new WdatePicker({el:'d3'})">
 </body>
 <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script>
@@ -19,10 +21,12 @@
     * 2.WdatePicker 是js 配置
     * 3.My97DatePicker->skin->default->datepicker.css可以修改日历控件样式；
     * 4.My97DatePicker->skin->WdatePicker.css是针对 class="Wdate" 的样式  可以删掉自己写
+    * 5.el 默认是事件调用者 this
     *
     **/
     document.querySelector('.Wdate').onfocus=function () {
         var my97=new WdatePicker({
+            el:this,
             minDate:new Date()
         })
     }

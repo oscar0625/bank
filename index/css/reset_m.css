@@ -1,5 +1,13 @@
 @charset "utf-8";
+html {
+    -webkit-text-size-adjust: 100%;/*不想让iPhone横坚屏切换的时候调节文字*/
+    -ms-text-size-adjust: 100%;
+}
 
+html * {
+    -webkit-text-size-adjust: none;/*突破chrome 12px限制*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);/*当用户点击iOS的Safari浏览器中的链接或JavaScript的可点击的元素时，覆盖显示的高亮颜色。*/
+}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     margin: 0;
     padding: 0

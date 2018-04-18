@@ -20,6 +20,4 @@ var mobileReset={
     }
 };
 mobileReset.reset();
-/*
-* 元素宽度/psd宽度*10 rem
-* */
+//元素宽/高值 = psd上的元素宽/高   /  psd总宽度 * 10 rem

@@ -35,8 +35,11 @@
     console.log(str2.split(/\s+/));
 
     /*match*/
-    console.log(str.match(/李/g));   //["李", "李", "李", "李", "李", "李", "李", "李"]  换成search只能找到一个
-    console.log(str.match(/(李)/)[1]);
+    //way1
+    console.log(str.match(/李/gi));   //["李", "李", "李", "李", "李", "李", "李", "李"] 会将所有找到的都返回 找不到返回null
+                                      // 换成search只能找到一个 找不到返回-1
+    //way2
+    console.log(str.match(/(李)/)[1]);//会将（）内的单独列出 放在数组的第二项  [1]
 
 
 </script>

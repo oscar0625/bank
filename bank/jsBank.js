@@ -68,9 +68,18 @@ var oscar = {
         //return Math.floor(rnd*(max-min+1))+min;  //取整
     },
 
+    //判断当前手机类型
+    phoneType:function () {
+        var appVersion = window.navigator.appVersion, //取得浏览器的appVersion
+            isAndroid = appVersion.match(/android/gi),
+            isIPhone =appVersion.match(/iphone/gi);
+        if(isIPhone) return 'iphone';
+        if(isAndroid) return 'android';
+    }
+
     //判断当前浏览类型
     browserType: function () {
-        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var userAgent = window.navigator.userAgent; //取得浏览器的userAgent字符串
 
         var isIE = userAgent.indexOf("Trident") > -1; //判断是否IE浏览器
         var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器

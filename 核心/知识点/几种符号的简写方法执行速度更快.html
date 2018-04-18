@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    /*
+    * 几种符合的简写方法 执行速度更快
+    *   ()   &&    ||
+    *   ?:
+    *
+    * */
+
+    //  () 将多个语句化为一个整体,语句之间用逗号隔开,  这样就可以跟在  &&  ||  以及三元   后面用了
+    var res =('执行语句1','执行语句2','执行语句3');
+    // res===执行语句3    等于()内最后一个语句的返回值 返回什么是什么
+
+
+    //  &&   如果是正确才执行后面
+    //true && (console.log('执行语句1'),console.log('执行语句2'),console.log('执行语句3'));
+    var a=1,b=1;
+    var x=a > 0 && (a=100,b=1000);
+    // a =100 b=1000 x=1000
+
+
+    //  ||   如果是错误就执行后面
+    //false || (console.log('执行语句1'),console.log('执行语句2'),console.log('执行语句3'));
+    window.name || (window.name='李',window.age=18);
+
+
+    //三元
+    name
+    ?
+    (console.log(12),console.log(34))
+    :
+    (console.log(56),console.log(78));
+
+</script>
+</html>

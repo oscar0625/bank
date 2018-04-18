@@ -17,7 +17,7 @@
 
     <!--兼容-->
     <!--指定ie用当前的最高版本-->
-    <meta http-equiv ="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv ="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <!--国内的主流浏览器都是双核浏览器 优先通过Webkit内核渲染-->
     <meta name="renderer" content="webkit" />
 
@@ -34,14 +34,25 @@
     <!--去除Android平台中对邮箱地址的识别-->
     <meta name=”format-detection” content=”email=no”  />
 
-    <!--IOS私有属性，可以添加到主屏幕-->
+    <!--IOS私有属性，删除默认的苹果工具栏和菜单栏 ,当我们需要显示工具栏和菜单栏时，这个行meta就不用加了，默认就是显示。-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--IOS私有属性，添加到主屏幕后，全屏显示。-->
+    <meta name="apple-touch-fullscreen" content="yes"/>
     <!-- IOS私有属性， 它指定的iphone中safari顶端的状态条的样式 default ：状态栏背景是白色。black ：状态栏背景是黑色。black-translucent ：状态栏背景是半透明。 如果设置为 default 或 black ,网页内容从状态栏底部开始。 如果设置为 black-translucent ,网页内容充满整个屏幕，顶部会被状态栏遮挡。-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
+
+    <!--其他-->
+    <meta name="keywords" content="">
+    <meta name="Description" content="">
+    <meta name="Author" content="">
+
+
+    <link rel="apple-touch-icon" href="图片地址" />
+    <link rel="apple-touch-icon-precomposed" href="图片地址" />
+    <!-- iOS用rel="apple-touch-icon",android 用rel="apple-touch-icon-precomposed"。这样就能在用户把网页存为书签时，在手机HOME界面创建应用程序样式的图标。-->
     <style>
-        /* 禁用iPhone中Safari的字号自动调整 */
-        html { -webkit-text-size-adjust: none; }
+
         /* 设置HTML5元素为块 */
         article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
         /* 设置图片视频等自适应调整 */
