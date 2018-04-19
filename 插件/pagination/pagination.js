@@ -18,9 +18,9 @@ define(function () {
         for (i in obj) {
             myObj[i] = obj[i];
         }
-
         this.target = typeof myObj.target ==='string'?document.querySelector(myObj.target):myObj.target;
         this.lastPage = myObj.lastPage;
+        if((typeof this.lastPage) !== 'number'){console.error('参数lastPage错误');return};
         this.currentPage = myObj.currentPage;
         this.maxPage = myObj.maxPage;
         this.activeClass = myObj.activeClass;

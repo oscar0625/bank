@@ -8,9 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-<input class="Wdate" type="text" id="d1" >
-<input class="Wdate" type="text" id="d2" onfocus="new WdatePicker({el:'d2'})">
-<input class="Wdate" type="text" id="d3" onfocus="new WdatePicker({el:'d3'})">
+<input class="Wdate" type="text" id="d1" readonly />
+<input class="Wdate" type="text" id="d2" onfocus="new WdatePicker({el:'d2'})" />
+<input class="Wdate" type="text" id="d3" readonly />
 </body>
 <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script>
@@ -20,15 +20,35 @@
     * 1.以上My97DatePicker文件整体保留
     * 2.WdatePicker 是js 配置
     * 3.My97DatePicker->skin->default->datepicker.css可以修改日历控件样式；
-    * 4.My97DatePicker->skin->WdatePicker.css是针对 class="Wdate" 的样式  可以删掉自己写
+    * 4.My97DatePicker->skin->WdatePicker.css是针对 class=input"Wdate" 的样式  可以删掉自己写
     * 5.el 默认是事件调用者 this
+    * 6.每次修改时间完成 会将焦点重新回归于input
     *
     **/
-    document.querySelector('.Wdate').onfocus=function () {
+
+
+    /*监听my97时间值变化*/
+    //way1
+    document.querySelector('#d1').onfocus=function () {
         var my97=new WdatePicker({
             el:this,
             minDate:new Date()
         })
+    };
+    //change只能用dom1事件 jq都有问题
+    document.querySelector('#d1').onchange=function () {
+       console.log(this.value)
+    };
+
+    //way2
+    document.querySelector('#d3').onclick=function () {
+        var my97=new WdatePicker({
+            el:this,
+            minDate:new Date()
+        })
+    };
+    document.querySelector('#d3').onfocus=function () {
+        console.log(this.value)
     }
 </script>
 </html>

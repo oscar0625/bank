@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--首先，将您的.less样式表与rel设置为“ stylesheet/less” 的属性相关联 很重要-->
+    <link rel="stylesheet/less" type="text/css" href="index.less" />
+
+    <script>
+        less = {
+            env: "development"  //production  设置为产品模式就不会出现提示
+        };
+    </script>
+
+    <!--引入less.js  对less文件进行解析 转成css  加入到页面中 兼容到ie9-->
+    <script src="less.min.js"></script>
+
+
+</head>
+<body>
+    <div></div>
+</body>
+<!--https://less.bootcss.com/#-->
+</html>
