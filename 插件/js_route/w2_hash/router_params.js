@@ -23,16 +23,23 @@
     Router.prototype._changeRoute=function () {
         var hash=location.hash,
             currentHash=hash.match(/^#(\w+)/) ? hash.match(/^#(\w+)/)[1] :'',// 当前hash值,永不为'#'
-            isMatch=Object.keys(this._routes).indexOf(currentHash);         //判断当前hash值下是否能匹配的上_routes里的callback
+            isMatch=Object.keys(this._routes).indexOf(currentHash),         //判断当前hash值下是否能匹配的上_routes里的callback
+
+            params;                                                         //参数
+            try {
+                params = eval(hash.match(/(\(.+\))$/)[1]);
+            } catch (e){
+                params=null;
+            }
 
         if(isMatch === -1){
             //如果没有匹配上 就去执行'#'
             if(this._currentHash !=='#' && (this._currentHash='#')){   //防止多次匹配不上 重复执行
-                this._routes[this._currentHash]();
+                this._routes[this._currentHash](params);
             }
         }else {
             this._currentHash=currentHash;
-            this._routes[this._currentHash]();
+            this._routes[this._currentHash](params);
         }
 
         //每个路由都执行的部分
@@ -63,3 +70,11 @@
 // route.config('#', function () {
 //     console.log(11111)
 // }).init();
+
+// 3. 路由传参  以下格式  若参数传错 参数为null
+// <a href="#({name:'oscar'})">
+// <a href="#index({name:'oscar'})">
+// <a href="#([1,2,3])">
+// <a href="#(123)">
+// <a href="#('asd')">
+// <a href="#(true)">
