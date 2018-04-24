@@ -12,12 +12,12 @@
 </body>
 <script>
     /* http://www.daimajiayuan.com/download/201304/yulan/artDialog4.1.7/_doc/API.html
-    * 1. dialog   点击 取消按钮/标题栏的关闭按钮 默认进行的是remove()即移除该元素
-    * 2. 防止重复出现同一个对话框方法 加id
-    *
-    *
-    * */
-    $('button').on('click',function () {
+     * 1. dialog   点击 取消按钮/标题栏的关闭按钮 默认进行的是remove()即移除该元素
+     * 2. 防止重复出现同一个对话框方法 加id
+     *
+     *
+     * */
+    $('button').on('click', function () {
 
         //普通对话框
 //        var d = dialog({
@@ -35,7 +35,7 @@
 
         //确定与取消按钮：
         var d = dialog({
-            id:'oscar',    //string number
+            id: 'oscar',    //string number
             title: '提示',
             content: '确定/取消按钮点击后默认会关闭弹出框(默认移除操作)，返回 false 则不关闭，',
             okValue: '确定',
@@ -51,7 +51,7 @@
 //            width:500,
 //            height:500
         });
-       d.show();
+        d.show();
 
         //只有确定按钮：
 //        var d = dialog({
@@ -79,7 +79,7 @@
 //        });
 //        d.show();
 
-        //content是HTMLElement
+        //content是HTMLElement 还可以是jq元素
 //        var elem = document.getElementById('test');
 //        dialog({
 //            content: elem,
@@ -108,9 +108,21 @@
 //            ]
 //        }).show()
 
+        //给弹出框加className
+        dialog({
+            title: "更换手机",
+            content: '给弹出框加className',
+            width: 750,
+            cancel: function () {
+                this.close();
+                accountSafety.getData();
+                return false;
+            },
+            skin: 'accountSafetyDialog',  //给弹出框加className
+            padding: 0
+        })
+
     })
-
-
 
 
 </script>

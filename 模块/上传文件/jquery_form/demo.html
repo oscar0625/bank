@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form id="myForm" method="post" enctype="multipart/form-data" action="http://www.zgcjm.com/Handler/LaboratoryInfo.ashx?t=lablist">
+<form id="myForm" >
     <input type="text" name="cid" />
     <input type="text" name="title"/>
     <input type="number" name="pageindex" />
@@ -15,22 +15,26 @@
         <input type="checkbox" value="喝" name="like">喝
         <input type="checkbox" value="玩" name="like">玩
     </div>
-
-    <input type="submit" value="提交"/>
+    <a href="javascript:;" class="submit">提交</a>
+    <!--<input type="submit" value="提交"/>-->
 </form>
-<div id="output"></div>
 </body>
 <script src="lib/jquery-1.10.2.js"></script>
 <script src="lib/jquery.form.min.js"></script>
 <script>
+    /*官方api http://malsup.com/jquery/form/
+    * 在上传文件时 jqForm 会自动加上正确的 enctype="multipart/form-data"
+    * */
+
     var $myForm=$('#myForm');
     var options ={
-        //url: url,                 //默认是form的action， 如果申明，则会覆盖
-        //type: type,               //默认是form的method（get or post），如果申明，则会覆盖
-        dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型
+        url: '',                                // 接口地址
+        type: 'post',                           //（get or post）
+        data:{param:"额外参数"},                 // 除去表单内部额外参数要添加的参数(不会发生覆盖)
+        dataType: 'json',                       //html(默认), xml, script, json...接受服务端返回的类型
         beforeSubmit: function (formData, jqForm, options) {  //提交前的回调函数
             //formData  [Object, Object]   是要发送的数据
-
+            //根据formData做表单校验用 或者对其中某些值进行处理
             //return false;             //如果返回false 不会发送
         },
         success: function (res) {      //提交后的回调函数
@@ -41,16 +45,12 @@
         timeout: 3000               //限制请求的时间，当请求大于3秒后，跳出请求
     };
 
-    /*方法一*/
-    $myForm.ajaxForm(options);
-
-    /*方法二*/
-    $myForm.submit(function () {
-        $(this).ajaxSubmit(options);
-
-        // 为了防止普通浏览器进行表单提交和产生页面导航（防止页面刷新？）返回false  阻止默认行为
-        return false
+    /*方法一 推荐*/
+    $('.submit').on('click',function () {
+        $myForm.ajaxSubmit(options);
     })
-    
+
+    /*方法二  给该表单绑定监听事件  点击<input type="submit" value="提交"/> 就会上传*/
+//    $myForm.ajaxForm(options);
 </script>
 </html>

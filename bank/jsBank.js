@@ -470,6 +470,36 @@ var oscar = {
         }
     },
 
+    /*验证18位营业执照*/
+    checkTradingCertificate:function (code) {
+        var reg = /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{9})([0-9ABCDEFGHJKLMNPQRTUWXY]{1})$/;
+        if(code.length != 18 || reg.test(code) == false){
+            return false;
+        }
+        /*验证第18位*/
+        //不用I、O、S、V、Z
+        var str = '0123456789ABCDEFGHJKLMNPQRTUWXY',
+            ws =[1,3,9,27,19,26,16,17,20,29,25,13,8,24,10,30,28],
+            codes  = [],
+            i,sum = 0,
+            index,c18;
+
+        codes[0] = code.slice(0,code.length-1);
+        codes[1] = code.slice(code.length-1,code.length);
+
+        for(i=0;i<17;i++){
+            sum += str.indexOf(codes[0].charAt(i)) * ws[i];
+        }
+
+        index = 31 - (sum % 31);
+        index == 31&&(index = 0);
+
+        /*18位*/
+        c18=str.charAt(index);
+
+        return c18  == codes[1];
+    },
+
     /*禁止页面copy、右键功能*/
     preventCopy:function () {
         /*去掉右键菜单*/

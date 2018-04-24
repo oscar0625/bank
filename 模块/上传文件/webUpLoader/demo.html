@@ -26,6 +26,10 @@
 
 <script>
     /*http://fex.baidu.com/webuploader/getting-started.html*/
+    if (!WebUploader.Uploader.support()) {
+        alert('Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
+        throw new Error('WebUploader does not support the browser you are using.');
+    }
 
     var $wrap = $("#uploader");         //拖拽容器
     var $list = $("#thelist");          //存放信息的列表
@@ -44,6 +48,7 @@
         // 指定选择文件的按钮容器，不指定则不创建按钮。对应 核心
         pick: {
             id: '#picker',
+//            label: '点击选择文件',
             multiple: false  //不允许一次选择多个文件 默认允许true
         },
 
@@ -75,6 +80,24 @@
     // 当添加文件时，验证不通过,会以派送错误事件的形式通知调用者，不会触发fileQueued。
     uploader.on('error', function (code) {
         //code
+        switch (code){
+            case 'Q_EXCEED_NUM_LIMIT':
+                content='上传文件数量超过限制';
+                break;
+            case 'Q_EXCEED_SIZE_LIMIT':
+                content='上传文件总大小不能超过4M';
+                break;
+            case 'F_EXCEED_SIZE':
+                content='单个文件大小不能超过800k';
+                break;
+            case 'Q_TYPE_DENIED':
+                content='上传文件类型不满足要求';
+                break;
+            case 'F_DUPLICATE':
+                content='重复上传同一文件';
+                break;
+            default:content='上传出错';
+        }
         //===Q_EXCEED_NUM_LIMIT     在设置了fileNumLimit且尝试给uploader添加的文件数量超出这个值时派送。
         //===Q_EXCEED_SIZE_LIMIT    在设置了fileSizeLimit且尝试给uploader添加的文件总大小超出这个值时派送。
         //===F_EXCEED_SIZE          在设置了fileSingleSizeLimit且尝试给uploader添加的单个文件大小超出这个值时派送。
@@ -190,7 +213,7 @@
     });
 
 
-    //4.上传
+    //4.手动上传
     $btn.on('click', function () {
         uploader.upload();
     });
@@ -215,6 +238,12 @@
     uploader.removeFile();
     //重试上传
     uploader.retry();
+
+    // 添加“继续添加”的按钮，
+    uploader.addButton({
+        id: '#filePicker2',
+        label: '继续添加'
+    });
 
 
 
