@@ -19,6 +19,7 @@ define(function () {
             myObj[i] = obj[i];
         }
         this.target = typeof myObj.target ==='string'?document.querySelector(myObj.target):myObj.target;
+        if(!this.target){return}
         this.lastPage = myObj.lastPage;
         if(isNaN(this.lastPage)){console.error('参数lastPage错误');return};
         this.currentPage = myObj.currentPage;
@@ -53,6 +54,7 @@ define(function () {
     };
     Pagination.prototype.addEvent = function () {
         var self = this;
+        this.target.onclick=null;
         this.target.onclick = function (e) {
             var e = e || window.event;
             var mb = e.target || e.srcElement;
