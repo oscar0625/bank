@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #menu{
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="dist/jquery.fullpage.css">
+</head>
+<body>
+<div id="fullpage">
+    <div class="section active">firstPage</div>
+    <div class="section">secondPage</div>
+    <div class="section">thirdPage</div>
+</div>
+
+<!--<ul id="menu">-->
+    <!--<li ><a href="#firstPage">First section</a></li>-->
+    <!--<li ><a href="#secondPage">Second section</a></li>-->
+    <!--<li ><a href="#thirdPage">Third section</a></li>-->
+<!--</ul>-->
+</body>
+
+<script src="dist/jquery-1.7.2.min.js"></script>
+<script src="dist/jquery.fullpage.js"></script>
+<script>
+    /*https://github.com/alvarotrigo/fullPage.js*/
+    $(function () {
+        $('#fullpage').fullpage({
+//            menu: '#menu',                   //指定自定义的导航菜单
+            lockAnchors: true,                 //（默认false） 设置为true则不在URL上显示锚链接 menu失效
+            anchors:['firstPage','secondPage','thirdPage'], //定义要在每个部分的URL上显示的锚链接（#firstPage）
+
+            //Navigation
+            navigation: true,                //如果设置为true，它将显示由小圆圈组成的导航栏。
+            navigationPosition: 'right',     //（默认none）它可以设置为left或，right并定义导航栏将显示在哪个位置（如果使用的话）。
+            navigationTooltips: ['firstPage','secondPage','thirdPage'],       //（默认[]）定义要在导航圈中使用的工具提示。例如：navigationTooltips: ['firstSlide', 'secondSlide']
+
+            //Design
+            verticalCentered: false, //（默认true）是否开启内容垂直居中
+            sectionsColor : ['pink','deeppink','skyblue'],   //(默认none）设置每个屏的background-color。
+            responsiveWidth: 0,      //（默认0）例如，如果设置为900，则每当浏览器的宽度小于900时，插件将像正常站点一样滚动。autoScrolling:false
+            responsiveHeight: 0,     //（默认0）例如，如果设置为900，则每当浏览器的高度小于900时，插件将像正常站点一样滚动。autoScrolling:false
+            lazyLoading: true,       //（默认true）默认情况下，延迟加载处于活动状态，这意味着它将延迟加载包含该属性的任何媒体元素data-src
+
+            //Scrolling
+            scrollingSpeed: 700,       //（默认700）滚动转换的速度（以毫秒为单位）。
+            autoScrolling: true,       //（默认true）是否是一滚动就一屏幕
+            scrollBar: false,          //（默认false）确定是否为站点使用滚动条。
+            fitToSection: true,        //（默认true）最终会调整到 某一section全屏下,否则，用户可以自由地在一个部分的中间停下来。
+            fitToSectionDelay: 500,    // 如果fitToSection设置为true，则会延迟配置达到配置的毫秒数。
+            easing: 'easeInOutCubic',  //（默认easeInOutCubic）定义用于垂直和水平滚动的过渡效果。它需要文件vendors/jquery.easings.min.js或jQuery UI来使用它的一些转换。其他库可以用来代替。
+            easingcss3: 'ease',        //（默认ease）定义在使用情况下使用的过渡效果css3:true。您可以使用预先定义的人（如linear，ease-out...）
+            loopBottom: false,         //（默认false）定义在最后一节中向下滚动应该滚动到第一个滚动还是不滚动。
+            loopTop: false,            //（默认false）定义第一节中的向上滚动是否滚动到最后一个。
+            loopHorizontal: true,      //（默认true）定义水平滑块是否在到达上一张或上一张幻灯片后循环。
+            normalScrollElements:null, //（默认null）如果您想要在滚动某些元素时避免自动滚动，则需要使用此选项。
+
+            scrollOverflow: false,     //（默认false）（与IE 8不兼容）定义在内容大于其高度的情况下是否为部分/幻灯片创建滚动。 ，它需要供应商库scrolloverflow.min.js。该文件必须在fullPage.js插件之前加载，但在jQuery之后加载。
+            //resetSliders: false,     //定义是否在离开其部分后重置每个滑块。
+            //dragAndMove: 'vertical', //通过使用鼠标或手指启用或禁用部分和幻灯片的拖动和滑动。true：启用该功能。false：禁用该功能。vertical：仅在垂直方向启用该功能。horizontal：仅在水平方向启用该功能。fingersonly：仅启用触控设备的功能。mouseonly：仅为桌面设备启用该功能（鼠标和触控板）。
+
+            //Accessibility
+            keyboardScrolling: true, //（默认true）定义是否可以使用键盘浏览内容。
+            animateAnchor: true,     //（默认true）定义给定锚点（＃）时站点的负载是否会随动画一起滚动到其目标位置
+            recordHistory: true,     //（默认true）定义是否将网站的状态推送到浏览器的历史记录。
+
+            //Custom selectors
+            sectionSelector: '.section',
+            slideSelector: '.slide',
+
+            //events
+            onLeave: function(index, nextIndex, direction){
+                /*
+                 * index 是离开的“页面”的序号，从1开始计算；
+                 *  nextIndex 是滚动到的“页面”的序号，从1开始计算；
+                 *  direction 判断往上滚动还是往下滚动，值是 up 或 down。
+                 *  */
+            },                                  //离场回调函数 滚动前的回调函数
+            onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){},   //一旦用户离开幻灯片转到另一个幻灯片，就会触发此回调。
+            afterLoad: function(anchorLink, index){},                                             //入场回调函数 滚动到某一屏后的回调函数，接收 anchorLink 和 index 两个参数，anchorLink 是锚链接的名称，index 是序号，从1开始计算
+
+            afterRender: function(){},
+            afterResize: function(){},
+            afterResponsive: function(isResponsive){},
+            afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){},
+        })
+    })
+</script>
+</html>

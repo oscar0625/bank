@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+        }
+        .box li{
+            padding-top: 20px;
+        }
+        .box span,.box i{
+            float: left;
+            width: 33px;
+            line-height: 33px;
+            text-align: center;
+            height: 33px;
+            background: red;
+            color: #fff;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        .box i{
+
+            background: blue;
+        }
+    </style>
+    <link rel="stylesheet" href="myVue/src/assets/css/reset.css">
+</head>
+<body>
+<button>来一注</button>
+<div class="box">
+    <ul>
+
+    </ul>
+</div>
+</body>
+<script>
+    function  buyLottery() {
+        var red=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33];
+        var blue=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+        function getRed(red) {
+            var resRed=[];
+            for(var i=0;i<6;i++){
+                var num=Math.floor(Math.random()*red.length);
+                resRed=resRed.concat(red.splice(num,1));
+            }
+            console.log()
+            return resRed.sort(function (a,b) {
+                return a-b
+            })
+        }
+        function getBlue(blue) {
+            var num=Math.floor(Math.random()*blue.length);
+            return blue.splice(num,1);
+        }
+        return getRed(red).concat(getBlue(blue))
+    }
+
+    document.querySelector('button').onclick=function () {
+        var res=buyLottery();
+        var li=document.createElement('li');
+        li.className='clearfix';
+        var str='';
+        for (var i=0;i<res.length-1;i++){
+            str+='<span>'+res[i]+'</span>'
+        }
+        str+='<i>'+res[res.length-1]+'</i>';
+        li.innerHTML=str;
+        document.querySelector('.box ul').appendChild(li)
+    };
+
+</script>
+</html>
