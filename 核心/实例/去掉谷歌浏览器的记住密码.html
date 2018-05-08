@@ -11,6 +11,9 @@
 <input type="password" name="registerPwd" />
 <!--方法二 -->
 <input type="text" name="registerPwd" onfocus="this.type='password'"/>
-
+<!--方法三 -->
+<input type="password" readonly onfocus="this.removeAttribute('readonly');">
+<!--方法四 -->
+<input type="text" autocomplete="off"> <!-- autocomplete="new-password" -->
 </body>
 </html>
