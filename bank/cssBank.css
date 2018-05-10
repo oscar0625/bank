@@ -35,6 +35,10 @@ div{
     background:-moz-linear-gradient(to right, #012790,#54c0c3);
     background:-o-linear-gradient(to right, #012790, #54c0c3);
     background:linear-gradient(to right ,#012790,#54c0c3);
+    /*background:-webkit-gradient(linear, 0 20,0 100 , from(#001020), to(#287eff));*/
+    /*background:-moz-linear-gradient(to bottom, #001020 20px,#287eff 100px);*/
+    /*background:-o-linear-gradient(to bottom, #001020 20px, #287eff 100px);*/
+    /*background:linear-gradient(to bottom,#001020 20px,#287eff 100px);*/
     /*字体渐变*/
     background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(234, 101, 10, 1)), to(rgba(246, 199, 156, 1)));    /*起作用关键的样式*/
     -webkit-background-clip: text;
