@@ -147,7 +147,6 @@ select::-ms-expand { display: none; }
 
 /*超出2行隐藏 只有chrome支持*/
 div{
-    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
     display: -webkit-flex; /* 新版本语法: Chrome 21+ */
     display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
     -webkit-box-orient:vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/

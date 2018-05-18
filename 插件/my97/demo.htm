@@ -9,7 +9,7 @@
 </head>
 <body>
 <input class="Wdate" type="text" id="d1" readonly />
-<input class="Wdate" type="text" id="d2" onfocus="new WdatePicker({el:'d2'})" />
+<input class="Wdate" type="text" id="d2" />
 <input class="Wdate" type="text" id="d3" readonly />
 </body>
 <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
@@ -25,7 +25,17 @@
     * 6.每次修改时间完成 会将焦点重新回归于input
     *
     **/
-
+    document.querySelector('#d2').onfocus=function () {
+        var my97=new WdatePicker({
+            el:this,
+            minDate:new Date(),
+//            dateFmt:'yyyy-MM-dd',          1993-06-25
+//            dateFmt:'yyyyMMdd',            19930625
+//            dateFmt:'yyyy-MM-dd HH:mm:ss', 19930625 23:55:00
+            dateFmt:'yyyy-MM'
+//            dateFmt:'yyyy年MM月',
+        })
+    };
 
     /*监听my97时间值变化*/
     //way1

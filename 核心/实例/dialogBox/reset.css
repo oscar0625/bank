@@ -1,410 +1,84 @@
-.wrap {
-    width: 1200px;
-    box-sizing: border-box;
-    padding: 0 40px;
-    margin: 0 auto;
-}
-
-* {
-    font-family: 'Microsoft Yahei';
-    font-size: 14px;
-}
-
-/*头部*/
-header {
-    background: #fff;
-}
-
-header .wrap > div {
-    float: left;
-}
-
-header .headerLeft > a {
-    width: 220px;
-    height: 100px;
-    display: block;
-    overflow: hidden;
-    box-sizing: border-box;
-    padding-top: 25px;
-}
-
-header .headerLeft > a img {
-    float: left;
-}
-
-header .headerLeft > a p {
-    float: left;
-    /* width:130px;*/
-    box-sizing: border-box;
-    height: 55px;
-    padding-top: 6px;
-    color: #01448e;
-    text-align: center;
-}
-
-header .headerCenter ul li {
-    float: left;
-    line-height: 100px;
-    padding-right: 20px;
-}
-
-header .headerCenter ul li a {
-    display: block;
-    color: #000;
-}
-
-header .wrap .headerRight {
-    float: right;
-}
-
-header .headerRight .top {
-    line-height: 100px;
-}
-
-header .headerRight .top img {
-    display: inline-block;
-    position: relative;
-    top: 3px;
-}
-
-/*底部*/
-footer {
-    height: 276px;
-    background: url("assets/images/footerBg.jpg") no-repeat;
-    background-size: 100% 100%;
-    overflow: hidden;
-    color: #999999;
-    cursor: pointer;
-    min-width: 1200px;
-}
-
-footer .wrap > div {
-    margin: 95px 0 30px;
-    text-align: center;
-}
-
-footer .wrap > div a {
-    color: #999;
-}
-
-footer .wrap > div span {
-    display: inline-block;
-    width: 108px;
-}
-
-footer .wrap > div span:hover {
-    color: #fff;
-}
-
-footer .wrap > div span:nth-child(2) {
-    border-left: 1px solid #868687;
-    border-right: 1px solid #868687;
-}
-
-footer .wrap p {
-    text-align: center;
-}
-
-footer .wrap p span {
-    display: inline-block;
-}
-
-footer .wrap p span:hover {
-    color: #fff;
-}
-
-footer .wrap p span:nth-child(2) {
-    margin: 0 40px 0 15px;
-}
-
-footer .wrap pre {
-    text-align: center;
-    margin-top: 20px;
-}
-
-footer .wrap pre:hover {
-    color: #fff;
-}
-
-/*消息通知*/
-
-@font-face {
-    font-family: 'iconfont'; /* project id 329776 */
-    src: url('//at.alicdn.com/t/font_329776_5xnhkbw4bsmxi529.eot');
-    src: url('//at.alicdn.com/t/font_329776_5xnhkbw4bsmxi529.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_329776_5xnhkbw4bsmxi529.woff') format('woff'), url('//at.alicdn.com/t/font_329776_5xnhkbw4bsmxi529.ttf') format('truetype'), url('//at.alicdn.com/t/font_329776_5xnhkbw4bsmxi529.svg#iconfont') format('svg');
-}
-
-.iconfont {
-    font-family: 'iconfont'; /* project id 329776 */
-}
-
-.messageNoticeBox {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000000;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.messageNotice {
-    width: 490px;
-    height: 100%;
-    background: #fff;
-    float: right;
-}
-
-.messageNotice .top {
-    background: #f1f1f1;
-    line-height: 30px;
-    padding: 0 10px;
-    border-bottom: 1px solid #dadada;
-    color: #333333;
-}
-
-.messageNotice .top i {
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.messageNotice .bottom {
-    display: table;
-    margin: 20px auto 0;
-}
-
-.messageNotice .bottom .title {
-    display: table;
-    margin: 0 auto;
-    border: 1px solid #369acf;
-    border-right: none;
-}
-
-.messageNotice .bottom .title li {
-    float: left;
-    width: 130px;
-    line-height: 30px;
-    border-right: 1px solid #369acf;
-    text-align: center;
-    color: #666666;
-    cursor: pointer;
-}
-
-.messageNotice .bottom .title .active {
-    background: #369acf;
-    color: #fbfbfb;
-}
-
-.messageNotice .bottom .list {
-    width: 392px;
-    border: 1px solid #f1f1f1;
-    margin: 0 auto;
-}
-
-.messageNotice .bottom .list li {
-    border-bottom: 1px dashed #f3f3f3;
-}
-
-.messageNotice .bottom .list .zwsj {
-    line-height: 85px;
-    text-align: center;
-}
-
-.messageNotice .bottom .list li:last-child {
-    border-bottom: 1px solid #f1f1f1;
-}
-
-.messageNotice .bottom .list li span {
-    float: left;
-    width: 20px;
-    line-height: 20px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%;
-    color: #fff;
-    background: #369acf;
-    text-align: center;
-    margin: 10px 15px 0 10px;
-}
-
-.messageNotice .bottom .list li div {
-    float: left;
-    font-size: 12px;
-    line-height: 25px;
-}
-
-.messageNotice .bottom .list li div p {
-    max-width: 240px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: #666666;
-}
-
-.messageNotice .bottom .list li div pre {
-    color: #afafaf;
-}
-
-.messageNotice .bottom .list li u {
-    line-height: 20px;
-    float: left;
-    margin-left: 45px;
-    width: 300px;
-    border-radius: 15px;
-    background: #e5e5e5;
-    padding: 10px 20px;
-    box-sizing: border-box;
-    display: none;
-    margin-bottom: 10px;
-}
-
-.messageNotice .bottom .list li u a {
-    display: block;
-    color: #369acf;
-}
-
-.messageNotice .bottom .list .active {
-    display: inline;
-}
-
-.messageNotice .bottom .list li i {
-    float: right;
-    color: #369acf;
-    font-size: 22px;
-    line-height: 50px;
-    margin: 0 10px 0 20px;
-    cursor: pointer;
-}
-
-/*分页*/
-#pagination {
-    display: table;
-    margin: 40px auto;
-    color: #555555;
-}
-
-#pagination > span {
-    float: left;
-    margin-left: 10px;
-    cursor: pointer;
-    line-height: 28px;
-}
+﻿@charset "utf-8";
 
-#pagination .prev, #pagination .next {
-    width: 74px;
-    line-height: 26px;
-    text-align: center;
-    border: 1px solid #4591e2;
-    color: #555555;
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    -ms-border-radius: 13px;
-    border-radius: 13px;
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	margin: 0;
+	padding: 0
 }
 
-#pagination .prev {
-    margin: 0 10px 0 30px;
+input,textarea,select{
+	outline:0 none;/*去掉文本框的默认轮廓线*/
+	font-size: 100%
 }
 
-#pagination .next {
-    margin: 0 30px 0 10px;
+table {
+	border-collapse: collapse; /*让表格边框合并为一个单一的边框。*/
+	border-spacing: 0; /*清除边框间距*/
 }
 
-#pagination .o_disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+fieldset, img {
+	border: 0 none; /*有些浏览器默认这些标签有边框，所以要清除默认边框*/
+	display: block;
 }
 
-#pagination > ul {
-    float: left;
+abbr, acronym {
+	border: 0;
+	font-variant: normal;
 }
 
-#pagination > ul > li {
-    float: left;
-    width: 28px;
-    line-height: 28px;
-    text-align: center;
-    cursor: pointer;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%;
-    margin-left: 5px;
+del {
+	text-decoration: line-through;
 }
 
-#pagination > ul > .o_active {
-    background: #4591e2;
-    color: #fff;
+ins {
+	text-decoration: none;
 }
 
-#pagination > ul > span {
-    float: left;
-    width: 28px;
-    line-height: 28px;
-    margin-left: 5px;
+address, caption, cite, code, dfn, em, i, u, b, strong, th, var {
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	/*清除标签默认文本样式和加粗*/
 }
 
-/*实名认证弹出框*/
-.smyz {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
+ol, ul {
+	list-style: none; /*清除列表默认样式*/
 }
 
-.smyz .content {
-    width: 445px;
-    height: 230px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    background: #fff;
-    border: 5px solid #4591e2;
+caption, th {
+	text-align: left; /*清除标签默认文本居中对齐*/
 }
 
-.smyz .content span {
-    display: block;
-    text-align: right;
-    font-size: 20px;
-    padding: 0 10px;
-    cursor: pointer;
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal; /*清除标题标签的默认样式*/
 }
 
-.smyz .content .title {
-    text-align: center;
-    padding: 25px 0 20px;
+q:before, q:after {
+	content: ''
 }
 
-.smyz .content .title img {
-    display: inline-block;
+sub, sup{
+	font-size:100%;
+	vertical-align: baseline;
 }
 
-.smyz .content .title i {
-    display: inline-block;
-    line-height: 30px;
-    color: #4591E2;
-    font-size: 18px;
-    padding-left: 15px;
+a {
+	text-decoration: none; /*大部分页面中的链接没有下划线*/
+	color: #000000;
 }
 
-.smyz .content p {
-    text-align: center;
+a:hover {
+	text-decoration: none;
 }
 
-.smyz .content p:last-child {
-    padding-top: 5px;
+.clearfix:after {
+	height: 0;
+	content: " ";
+	display: block;
+	overflow: hidden;
+	clear: both;
 }
 
-.smyz .content p:last-child a {
-    color: #4591E2;
-    padding-right: 5px;
+.clearfix {
+	zoom: 1; /*IE低版本浏览器不支持after伪类所以要加这一句*/
 }
