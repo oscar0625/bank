@@ -1,0 +1,629 @@
+  new Vue({
+    el:'#app'
+    data(){
+        return{
+            //数据
+        }
+    },
+    template: '<App/>',
+    components: { App }
+  })
+  -----------------------------------------------------------------------------
+  计算属性、watch和观察者
+  1.methods  //用于绑定事件的  调用的时候加不加()都行,加()可以传参
+         methods:{
+             //this指向 VUE
+             click(){
+
+             }
+         }
+  2.computed ：用于计算的，调用的时候不能加()计算属性:对于任何复杂逻辑，你都应当使用计算属性
+         a.computed:{
+             this指向 VUE
+         }
+
+         b.计算属性的setter(可以忽略 不实用) 计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：
+         computed: {
+           fullName: {
+             // getter
+             get: function () {
+               return this.firstName + ' ' + this.lastName
+             },
+             // setter
+             set: function (newValue) {
+               var names = newValue.split(' ')
+               this.firstName = names[0]
+               this.lastName = names[names.length - 1]
+             }
+           }
+         }
+         现在再运行 vm.fullName = 'John Doe' 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新。
+
+  methods和computed区别：
+      从某种程度上来说method可以完全代替computed但是有的情况computed有优势;
+      1. methods调用的时候加不加()都行,加()可以传参
+         computed调用的时候一定不加();
+      2. 缓存区别：
+        methods  每当触发重新渲染时，调用方法将总会再次执行函数。（不缓存）
+        computed 是基于它们的依赖进行(缓存)的,只有在它的相关依赖发生改变时才会重新求值
+        如果依赖不改变会立即返回之前的计算结果，而不必再次执行函数(缓存)
+        所以在不改变的情况下只会执行一次，而且上来就会执行，不能于事件用computed，
+        正是由于它的缓存，由于它只根据依赖才改变,所以当大量用此计算结果的时候，性能更好
+
+  3.watch ：监听某个变量  &&&&&&不推荐 用computed能取代&&&&&& 但有时也要用
+          var vm = new Vue({
+            el: '#demo',
+            data: {
+              firstName: 'Foo',
+              lastName: 'Bar',
+              fullName: 'Foo Bar'
+            },
+            watch: {
+              firstName: function (val) {
+                //this指向 VUE
+                this.fullName = val + ' ' + this.lastName
+              },
+              lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val
+              }
+            }
+          })
+  -----------------------------------------------------------------------------
+  一、插值  (支持使用 JavaScript 表达式 但只支持简单的  &&&&&&单个表达式&&&&&&三元运算)(同样支持Math 和 Date)
+        1.indexText (写文本) {{oscar}}   {{ number + 1 }} {{ ok ? 'YES' : 'NO' }} {{ message.split('').reverse().join('') }}
+        2.innerHtml (写标签) v-html="oscar"
+        3.attribute (写属性)  v-bind:属性="变量"  缩写 <div :id="变量"></div>
+            /&&&&&&注：如果变量是布尔类特性，如果是 false 则该属性将会被删除：<input type="checkbox" v-bind:checked="false">&&&&&&/
+
+            多个属性同时写入的写法： v-bind="对象"
+            <div v-bind="{class:"c1",id:"d1",style:{color: 'red'}}"></div> 相当于：
+            <div v-bind:class="'c1'" v-bind:id="'d1'" v-bind:id="{color: 'red'}"></div>
+
+            a.v-bind:class="变量"
+                a.1 变量可以是对象
+                example1:
+                <div v-bind:class="classObj"></div>
+                data(){
+                      return{
+                        classObj:{
+                            active:true,
+                            oscar:false
+                        }
+                      }
+                 },
+                上面的语法表示 active/oscar 类名 存在与否将取决于是否为 true/false。
+
+                example2:   /****很强大****/
+                <div v-bind:class="classObject"></div>
+                computed: {
+                  classObject: function () {
+                    return {
+                      active: this.isActive && !this.error,
+                      'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                  }
+                }
+
+                 a.2 变量可以是数组
+                 example:
+                 <div v-bind:class="classArr"></div>
+                 data(){
+                   return{
+                     classArr:['active', 'oscar',true?'caroline':'']
+                   }
+                 },
+                 上面的语法表示类名active oscar一定有  类名caroline存在与否将取决于是否为 true。
+
+            b. v-bind:style="变量"  当 v-bind:style 使用需要添加浏览器引擎前缀的 CSS 属性时，如transform会自动侦测并添加相应的前缀。
+                b.1 变量可以是对象
+                    example:
+                    <div v-bind:style="styleObj"></div>
+                    data(){
+                      return{
+                        styleObj:{
+                            color: 'red',
+                            fontSize:'13px'
+                        }
+                      }
+                     },
+
+                b.2 变量可以是数组  数组语法可以将多个样式对象应用到同一个元素上：
+                     example:
+                     <div v-bind:style="styleArr"></div>
+                     data(){
+                       return{
+                         styleArr:[{ color: 'red'}, {fontSize:'13px'}]
+                       }
+                     },
+                b.3  从 2.3.0 起你可以为 style 绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值，例如：
+                    <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+
+
+  -----------------------------------------------------------------------------
+  二、指令_1 --> v-if v-show v-for
+  1. v-if  true出现/false消失 （操作节点）
+
+     v-else false 的时候出现  (元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。)
+
+     v-else-if  (v-else-if 也必须紧跟在带 v-if 或者 v-else-if 的元素之后。)
+            example: <div v-if="num==0">0</div>
+                     <div v-else-if="num==1">1</div>
+                     <div v-else>2</div>
+     如果想切换多个元素,此时用一个 <template> 元素将这些元素包裹起来，并在上面使用 v-if。最终的渲染结果将不包含 <template> 元素。
+  2.v-show true出现/false消失 （不操作节点，只是简单地切换元素的 CSS 属性 display。）
+
+    如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+
+  3. v-for
+          1.数组(重复无视)
+            <li v-for="x in arr">{{x}}</li>
+            <li v-for="(x,i) in arr">{{i}}{{x}}</li>
+          2.对象
+            <li v-for="x in arr">{{x}}</li>
+            <li v-for="(x,key) in arr">{{key}}{{x}}</li>
+            <li v-for="(x,key,index) in arr">{{key}}:{{x}}{{index}}</li>
+          3.组件循环 未完待续
+
+          注意：key值(否则有提示) <div v-for="(x,i) in arr" v-bind:key="i"></div>
+
+          特殊用法：
+            <li v-for="(x,i) in 100">{{i}}:{{x}}</li>    相当于遍历[1,2,3,4,……,100]的数组
+            类似于 v-if，你也可以利用带有 v-for 的 <template> 渲染多个元素。
+
+          实例：
+            example1: for computed处理后返回的数组
+                html:
+                    <li v-for="n in evenNumbers">{{ n }}</li>
+                js:
+                    data(){
+                        return{
+                          numbers: [ 1, 2, 3, 4, 5 ]
+
+                        }
+                    },
+                    computed: {
+                      evenNumbers: function () {
+                        return this.numbers.filter(function (number) {
+                          return number % 2 === 0
+                        })
+                      }
+                    }
+            example2: for methods处理后返回的数组
+                html:
+                   <li v-for="n in even(numbers)">{{ n }}</li>
+                js:
+                   data(){
+                     return {
+                        numbers: [ 1, 2, 3, 4, 5 ]
+                     }
+                   },
+                   methods: {
+                     even: function (numbers) {
+                       return numbers.filter(function (number) {
+                         return number % 2 === 0
+                       })
+                     }
+                   }
+
+   4.v-once 只渲染元素和组件一次。
+   -----------------------------------------------------------------------------
+   三、指令_2 -->事件  v-on
+    事件：v-on 简写 <a @click="doSomething"></a>
+          1.v-on:click='oscar' 函数默认接受一个参数event
+          2.v-on:click='oscar(i,$event)'   给函数传递一个参数i和事件对象
+          methods:{
+                oscar(e,params) {
+                  console.log(e);
+                }
+          }
+     事件修饰符      //修饰符可以串联:<a v-on:click.stop.prevent="doThat"></a>
+           .stop
+           .prevent
+           .once    //2.1.4开启 只执行一次
+           .capture //开启捕获模式
+           .self    //只当事件在该元素本身（而不是子元素）触发时触发回调
+     键盘修饰符
+           v-on:keyup.enter="fn"
+           v-on:keyup.13="fn"
+     鼠标修饰符
+           @click.left="fn"
+           @click.right="fn"
+           @click.middle="fn"
+
+     使用 v-on 的好处：
+     1.无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
+     2.当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。你无须担心如何自己清理它们。
+  -----------------------------------------------------------------------------
+  四、指令_3 -->双向绑定  v-model
+    v-model：双向绑定    （永远是为了拿到值 好向后台传啊！！！）;
+
+    注：v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值。因为它会选择 Vue 实例数据来作为具体的值。你应该通过 JavaScript 在组件的 data 选项中声明初始值。
+
+        a.文本 <input  type="text" v-model="message">
+               <textarea v-model="message"></textarea>
+               message是一个变量,为输入的value值
+        b.单选框
+                 <label for=""><input type="radio" name="sex" value="boy"  v-model="picked" >男</label>
+                 <label for=""><input type="radio" name="sex" value="girl"  v-model="picked" >女</label>
+                 data(){
+                     return{
+                         picked:'boy'
+                     }
+                 }
+                picked是一个变量,为被选中的单选框的value值
+        c.下拉菜单
+                <select name="sex" v-model="selected">
+                      <option value="" disabled>请选择</option>
+                      <option value="boy">男</option>
+                      <option value="girl">女</option>
+                </select>
+                data(){
+                    return{
+                         selected:''
+                    }
+                }
+                selected是一个变量,为被选中的下拉菜单的value值
+                注：如果 v-model 表达初始的值不匹配任何的选项，<select> 元素就会以”未选中”的状态渲染。在 iOS 中，这会使用户无法选择第一个选项，因为这样的情况下，iOS 不会引发 change 事件。因此，像以上提供 disabled 选项是建议的做法。
+         d.复选框
+            用法1:正常的多选物品
+                <input type="checkbox" v-model='checked' value="衣服" name="1">衣服
+                <input type="checkbox" v-model='checked' value="裤子" name="2">裤子
+                <input type="checkbox" v-model='checked' value="鞋" name="3">鞋
+                data(){
+                     return{
+                         checked:[]     //一定是数组才能取值  哪怕就一个复选框
+                     }
+                }
+                checked是一个变量,是一个数组,保存着多个复选框的value值 [ "衣服", "裤子", "鞋" ]
+            用法2:用复选框做开关时
+             两种方式 ：
+                way1:
+                <input type="checkbox" v-model='checked'>
+                data(){
+                     return{
+                         checked:true
+                     }
+                 }
+                way2:
+                <input type="checkbox" v-model='checked' true-value="开" false-value="关">
+                data(){
+                     return{
+                         checked:'关'
+                     }
+                }
+        两种用法解释：用法1正常的多选物品,目的是为了获取到用户所有选中的复选框的值，为了保存这些值，我们要用数组,所以checked是一个数组，这里有一个难理解的地方，就是比如多选框只有一个，那么checked是不是可以不用数组，该用字符串或者数字保存这个值那？？但是其实是不可以的，如果checked是一个数字/字符串，其实都会转换成布尔类型，就变成了用法2复选框做开关的way1一样了， 用法2中的way2比较特殊，一般用way1就可以解决所有了；
+        e.修饰符
+          v-model.lazy=""  在默认情况下，v-model 在 input 事件中同步输入框的值与数据 添加一个修饰符 lazy ，从而转变为在 change 事件中同步
+        f.v-model与组件  见组件3->d
+
+
+
+
+  -----------------------------------------------------------------------------
+  五、组件
+    1.组件注册
+       在npm构建的项目下,一个.vue结尾的文件就是一个组件；
+       使用：
+            在要使用组件的文件里
+                1.导入组件  import   MyComponents from 'url';
+                2.声明组件  components:{ MyComponents },
+                3.在html中写入组件
+                    方式一：<my-components></my-components > 或者 <my-components />
+                        注：当你写的html不符合规范的时候，像 <ul>、<ol>、<table>、<select> 这样的元素里允许包含的元素有限制(比如你在li中写入div是不规范的)，而另一些像 <option> 这样的元素只能出现在某些特定元素的内部。在使用上面的写法会导致渲染出错。请使用方式二
+
+                    方式二：is 方式 -> 动态组件 /&&&&&&/ 让多个组件可以使用同一个挂载点，并动态切换
+                          //核心 is属性   v-bind:is="组件名"  就会加载那个组件
+
+                          <div v-bind:is="currentView"><!-- 组件在 currentview 变化时改变！ --></div>
+                          data(){
+                              return{
+                                   currentView: '组件名'
+                              }
+                          }
+                          住：
+                          <keep-alive> 作用：把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。
+                                  <div v-bind:is="currentView"></div>
+                          </keep-alive>
+    2.data必须是函数
+        data(){
+            return{}
+        }
+
+    3.组件组合:组件设计初衷就是要配合使用的，最常见的就是形成父子组件的关系：组件 A 在它的模板中使用了组件 B。它们之间必然需要相互通信：
+      组件通信：
+           a. 父传子down  props方式
+             父：写属性 传递
+                  静态传递props方式：  <child title="1" age="2" my-props="3" />
+                  动态传递props方式：  <child  v-bind:my-props="data" />
+
+                  注：  <child age="2"/> 和 <child v-bind:age="2"/>  看起来一样 实际上是不一样的
+                        前者传递参数的类型是string类型   后者传递参数的类型是number类型
+
+             子：定义props变量 接收
+                 <div class="child">{{title}}</div>
+                 export default {
+                    //接收方法一:数组  直接接受传递过来的参数
+                    props:['title','age','myProps']
+                    //接收方法二:对象  接受并限定参数的类型  常用
+                    props:{
+                        age:String,   //限定一种 只能是字符串
+                        title:[String,Number,Boolean,Function,Object,Array]  //限定多种
+                        myProps:{       //限定类型 并给默认值
+                          type: Number, //数字类型
+                          default: 100  //不传参数的情况下 默认值100
+                        }
+                    }
+                 }
+                注1：Prop 是单向绑定的，当父组件的属性变化时，将传导给子组件，但是反过来不会。
+                    所以父更新会更新子组件，但不允许在子组件里修改props,这是为了防止子组件无意间修改了父组件的状态。
+                    在某些情况下，我们很容易忍不住想去修改 prop 中数据，
+                    a.Prop 作为初始值传入后，子组件想把它当作局部数据来用(就是只要初始值,不随着父组件的更新props去更新子组件)；
+                      props: ['title'],
+                      data: function () {
+                        return {
+                          constantTitle: this.title  //也可以这么写： this._props.title
+                         }
+                      }
+                    b.Prop 作为初始值传入后,子组件需要随着父组件更新,但是props需要做进一步的处理
+                      定义一个计算属性，处理 props 的值并返回：
+                         props: ['title'],
+                         computed: {
+                           chuLiProps: function () {
+                             return this.title  //也可以这么写：this._props.title
+                           }
+                      }
+                    绝对不允许直接对props进行修改 /&&&&&&/
+                注2：非 prop 特性 :所谓非 prop 特性，就是指它可以直接传入组件，而不需要定义相应的 prop。
+                    父:<child  data-id="50"/>
+                    子:而在子组件中 并没有写props:['dataId'] 即没有定义变量接收 那么 data-id="50" 这个属性会直接加在子组件的根模板上
+                       常见用法：
+                            父:<child  class="类名"/>
+                            子:不去定义变量接受这个class 那么这个类名会直接加在 子组件的根模板上( 如果子组件本身有类名 会和这个类名进行合并)
+
+
+           b. 子传父up  自定义事件方式
+
+                  子：<div class="child" v-on:click="transmit"></div>
+                      methods:{
+                      //本例子是点击事件的时候(也可是其他事件的时候 blur mouseenter ...) 创建这个自定义事件
+                          transmit(){
+                            //核心 创建这个自定义事件
+                            this.$emit('transmitNum',123)  //自定义事件名 传递的参数
+                          }
+                      }
+                  父：<child  v-on:transmitNum="receive"/>
+                       methods:{
+                            receive(data){
+                                console.log(data)  //data==123
+                            }
+                       }
+                  注：由于在父组件中 给子组件child 绑定的时间会解析成自定义事件,所以：
+                      <child v-on:click="console.log(111)"/>
+                      这样写 原生click事件并不会执行 若想执行原生的click事件 应:
+                      <child v-on:click.native="console.log(111)"/>
+                      加  .native后缀代表是原生的
+
+           c.父子双向绑定 .sync修饰符方式
+             由于以上两种方式,父传子 子传父 都是单向的 有的时候我们需要一个双向的方式，即父亲传给子的变量，
+             如果在子中改变这个变量,同时也要作用在父亲上;
+             父:
+             <div class="app_son">
+                   <div v-on:click="add">加1</div>
+                   {{bar}}
+                   <!--核心1-->
+                   <child :foo.sync="bar"/>
+                   <!--相当于扩展成这样-->
+                   <!--<child :foo="bar" @update:foo="val=>bar=val"/>-->
+             </div>
+             export default{
+                 name:'app_son',
+                 data(){
+                   return{
+                     bar:1
+                   }
+                 },
+                 methods:{
+                   add(){
+                     this.bar++;
+                   }
+                 },
+                 components:{child},
+             }
+             子:
+             <div class="child" >
+                 <div v-on:click="jian">减1</div>
+                 {{foo}}
+             </div>
+             export default {
+               props:['foo'],
+               methods:{
+                 jian(){
+                   <!--核心2  -->
+                   this.$emit('update:foo',this.foo-1)
+                 }
+               }
+             }
+           d.父子双向绑定 涉及到表单的 v-model方式
+            //表单文本框情况下 组件的 v-model 使用 value(prop) 和 input 事件
+            父：<div class="app_son">
+                <!--核心1-->
+                <child v-model="something" />  //相当于 <child v-bind:value="something" v-on:input="something = arguments[0]"> />
+            </div>
+            export default{
+              data(){
+                return{
+                  something:'oscar'
+                }
+              },
+              components:{ child }
+            }
+            子：<div class="child" >
+                                             <!--核心2-->
+                <input type="text" v-bind:value="value" v-on:input="updateValue($event.target.value)" />
+            </div>
+            export default {
+                props: ['value'],
+                data(){
+                  return{
+                  }
+                },
+                methods: {
+                  updateValue: function (value) {
+                    // 通过 input 事件带出数值
+                    <!--核心3-->
+                    this.$emit('input', value)
+                  }
+                }
+            }
+             //表单单选框 复选框 情况下 组件的 v-model 使用 checked(prop) 和 change 事件
+             父：<div class="app_son">
+             <!--核心1-->
+             <child v-model="foo" value="some value"/>  //相当于 <child :checked="foo" @change="val => { foo = val }" value="some value"/>
+                 </div>
+                 export default{
+                     data(){
+                       return{
+                         foo:true
+                       }
+                     },
+                     components:{ child }
+                 }
+             子:<div class="child" >
+                    <!--核心2-->
+                    <input  type="checkbox" :checked="checked" @change="updateValue($event.target.checked)" :value="value"/>
+                </div>
+                export default {
+                  model: {
+                    prop: 'checked',
+                    event: 'change'
+                  },
+                  props: ['checked','value'],
+                  data(){
+                    return{
+                    }
+                  },
+                  methods: {
+                    updateValue: function (checked) {
+                      // 通过 input 事件带出数值
+                        <!--核心3-->
+                      this.$emit('change', checked)
+                    }
+                  }
+                }
+            e.非父子组件的通信   未完待续  vuex
+
+    4.使用插槽分发内容 slot  作用：父向子传递内容,内容可也是变量也可以是组件
+      a.父单个插槽  父里面只有一个元素
+      父 : <child> {{message}}</child>
+      子 : <slot></slot>   //显示就是message变量的内容
+      注:除非子组件模板包含至少一个 <slot> 插口，否则父组件的内容将会被丢弃。
+      b. 父多个插槽 父里面有多个元素
+              父:<child>                             子：
+                  <p slot="header">1</p>                <slot name="header"></slot>
+                  <p slot="content">2</p>               <slot name="content"></slot>
+                  <p slot="footer">3</p>                <slot name="footer"></slot>
+                 </child><slot name="footer"></slot>
+
+
+
+
+
+
+ -----------------------------------------------------------------------------
+
+ 过滤器 过滤器只能在 {{}} 绑定和 v-bind 表达式
+ -----------------------------------------------------------------------------
+ 其他
+ 1  数组更新检测
+    可以被检测到发生更新---对原数组进行改变操作的（有特殊看下面）
+      a.直接给数组重新赋值
+      b.对数组使用这些方法：push()pop()shift()unshift()splice()sort()reverse();
+    不可以:
+      a.filter(), concat(), slice() 方法;
+      b.当你利用索引直接设置一个项时，例如：vm.arr[index] = newValue 不可被检测更新到  /&&&&&&/
+        解决：vm.$set(arr,index,value)   vm 是组件实例->this   （当你要对数组的某一项进行修改的时候一定要这么做）
+ 2. 对象更新检测
+    可以被检测到发生更新：
+        a.直接给对象重新赋值
+        b.对key值进行修改的时候
+    不可以:
+        Vue 不能检测对象属性的添加或删除： /&&&&&&/
+        解决：添加 vm.$set(object, key, value)   vm 是组件实例->this
+              删除 vm.$delete(object, key)
+
+    理解：对于 数组/对象 的可以/不可以的说明，这里的可以/不可以是指界面层会不会发送重新渲染，即更新界面，
+        对于变量 数组/对象 来说，你修改了一定是修改了，只是暂时没更新到界面上，
+        举个例子，你给对象添加了一个键值对，这个对象是改变了，但是由于 Vue 不能检测对象属性的添加或删除，所以没有更新界面，
+        但如果你同时又把这个对象的一个键值对进行了修改，vue是可以检测到修改的，所以vue要更新，这个时候的更新，会把你新添加的那个键值对也展现出来
+
+ 3. v-for 与v-if 的优先级。
+    a.当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用:
+    example1：
+        <li v-for="x in arr" v-if="x>5">   //渲染的结果为  数组arr中 只有大于5的才会被显示
+          {{ x }}
+        </li>
+    b.而如果你的目的是有条件地跳过循环的执行，那么可以将 v-if 置于外层元素:
+    example2：
+           <ul v-if="arr.length">          //渲染的结果为  数组arr的length不等于 才会显示 才会执行下面的循环
+             <li v-for="x in arr">
+               {{ x }}
+             </li>
+           </ul>
+
+ 4. key
+   Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。这么做除了使 Vue 变得非常快之外，还有其它一些好处。
+        example:
+        <template v-if="loginType === 'username'">
+          <label>Username</label>
+          <input placeholder="Enter your username">
+        </template>
+        <template v-else>
+          <label>Email</label>
+          <input placeholder="Enter your email address">
+        </template>
+   那么在上面的代码中切换 loginType 将不会清除用户已经输入的内容。因为两个模板使用了相同的元素，<input> 不会被替换掉——仅仅是替换了它的 placeholder。
+   这样也不总是符合实际需求，所以 Vue 为你提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 key 属性即可：
+        example:
+        <template v-if="loginType === 'username'">
+          <label>Username</label>
+          <input placeholder="Enter your username" key="username-input">
+        </template>
+        <template v-else>
+          <label>Email</label>
+          <input placeholder="Enter your email address" key="email-input">
+        </template>
+        现在，每次切换时，输入框都将被重新渲染。
+
+ 5. vue 获取dom元素  $refs
+      a:加在普通的 DOM 元素上使用，引用指向的就是 DOM 元素
+      b:加在子组件上，引用就指向组件实例
+      <template>
+        <div >
+          <div ref="target">target1</div>
+          <div ref="target">target2</div>     //重复的情况下是最后一个
+          <child ref="child"></child>
+        </div>
+      </template>
+      export default{
+          methods:{
+            click(){
+              console.log(this.$refs.target);  //dom元素
+              console.log(this.$refs.child);   //组件child
+            }
+          }
+      }
+ 6.元素直接交互 $on $emit
+      this.$emit('name',[1,2,3])
+      this.$on('name',function (a,b,c) {
+              console.log(a)
+      })
+      未完待续
+
+
+ -----------------------------------------------------------------------------
+ 生命周期
+ created mounted updated destroyed
+
+ 给vue 绑定一个全局的方法
+
+
