@@ -1,13 +1,14 @@
 /**
  * Created by Administrator on 2017/2/4.
  */
-//Ö»ÄÜÔÚjsÖĞ¶¨ÒåÄ£¿é
-//¶¨ÒåÄ£¿é
+//åªèƒ½åœ¨jsä¸­å®šä¹‰æ¨¡å—
+//å®šä¹‰æ¨¡å—
 define(function (require) {
-    //¼ÓÔØÖ¸¶¨µÄÄ£¿é ¿ÉÒÔ¶à¸ö,require¿ÉÒÔ¼ÓÔØÄ£¿éµ«ÊÇ²»Ìá¹©»Øµ÷º¯Êı   //µÈÍ¬ÓÚseajs.use
-    //requireÊÇÍ¬²½ÍùÏÂÖ´ĞĞµÄ£¬ĞèÒªµÄÒì²½¼ÓÔØÄ£¿é¿ÉÒÔÊ¹ÓÃ require.async À´½øĞĞ¼ÓÔØ£º
-    require.async('app', function (exports) {
-        //Í¨¹ıµÚÒ»¸ö²ÎÊıexports»ñÈ¡appÄ£¿éËù¶ÔÍâ¿ª·ÅµÄ½Ó¿Ú
-        console.log(exports)
-    })
+    //åŠ è½½æŒ‡å®šçš„æ¨¡å— å¯ä»¥å¤šä¸ª,requireå¯ä»¥åŠ è½½æ¨¡å—ä½†æ˜¯ä¸æä¾›å›è°ƒå‡½æ•°   //ç­‰åŒäºseajs.use
+    //requireæ˜¯åŒæ­¥å¾€ä¸‹æ‰§è¡Œçš„ï¼Œéœ€è¦çš„å¼‚æ­¥åŠ è½½æ¨¡å—å¯ä»¥ä½¿ç”¨ require.async æ¥è¿›è¡ŒåŠ è½½ï¼š
+    // require.async('app', function (exports) {
+    //     //é€šè¿‡ç¬¬ä¸€ä¸ªå‚æ•°exportsè·å–appæ¨¡å—æ‰€å¯¹å¤–å¼€æ”¾çš„æ¥å£
+    //     console.log(exports)
+    // })
+    return 123
 });
