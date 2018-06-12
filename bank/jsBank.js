@@ -257,6 +257,16 @@ var oscar = {
         return hour + ':' + minute + ':' + second;
     },
 
+    /**将数字四舍五入保留到N位小数
+     * @param num  要处理的数字  如果是string类型 会处理成number 类型
+     * @param n  0-20 [保留n位小数]
+     * @returns {string}
+     */
+    keepDecimal:function(num,n) {   //keepDecimal(3.1415926,2)
+        var times=Math.pow(10,n);
+        return (Math.round(num*times)/times).toFixed(n)
+    },
+
     /*计算已经工作时间*/
     jobTime: function (startYear, startMonth, endYear, endMonth) {
         var num = (endYear - startYear) * 12 + (endMonth - startMonth);

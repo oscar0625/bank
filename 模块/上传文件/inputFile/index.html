@@ -24,10 +24,11 @@
         if(this.value){
             var e=e||window.event;
 
-            //限制类型
-            var type=this.value;
-
             var files=this.files[0];
+
+            //限制类型
+            var type=files.type;
+
             //限制大小
             var size=files.size;
 

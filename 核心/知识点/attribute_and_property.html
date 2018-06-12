@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <input id="d1" class="c1" type="checkbox" oscar="123"/>
+</body>
+<script>
+    var in1 = document.getElementById('d1');
+
+    console.log([in1]);  //所有的property
+
+    console.log(in1.attributes);
+    console.log(in1.attributes.oscar.value);  //123
+
+    /*
+    * 1.介绍
+    *   property: js 一切都是对象 每个dom元素也是一个对象 这个对象初始化的时候会拥有其默认的基本属性 每个基本属性都有默认值  这些属性都是property  (有很多)
+    *   attribute 就是写在html标签里的属性 (写几个有几个)
+    * 2.联系
+    *   如果 attribute是默认的基本属性的一种  如 id class value  那么会将attribute的值 赋值给 property 所以导致 property和attribute相等 产生混淆他俩是一回事
+    *   但是 attribute不是默认的基本属性的一种 如 data-id data-value oscar(自定义属性名) property中不会拥有这个属性
+    *           但是可以在property中 的attributes属性中找到  这个属性中包含所有的 attribute
+    * 3.
+    *  jq中attr()相当于
+    *  读取 ele.getAttribute('oscar')  或者 ele.attributes.oscar.value
+    *  写入 ele.setAttribute('oscar','456') 或者 ele.attributes.oscar.value=456
+    *  jq中prop()相当于
+    *  读取 ele.checked   写入 ele.checked=true
+    * 4.
+    *   如果是默认的基本属性 如 id class value checked  推荐使用 property的读写方式 jq中的prop()
+    *   如果不是默认的基本属性 即自定义的一些属性  如 data-id data-value oscar(自定义属性名) 推荐使用 attribute的读写方式 jq中的attr()
+    * */
+</script>
+</html>
