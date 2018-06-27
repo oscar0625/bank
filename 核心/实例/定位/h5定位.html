@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器定位</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    function success(position){
+        //定位信息在position.coords中
+        /*
+         *coords.latitude	十进制数的纬度
+         coords.longitude	十进制数的经度
+         coords.accuracy	位置精度
+         coords.altitude	海拔，海平面以上以米计
+         coords.altitudeAccuracy	位置的海拔精度
+         coords.heading	方向，从正北开始以度计
+         coords.speed	速度，以米/每秒计
+         timestamp	响应的日期/时间
+         *
+         */
+        console.log(position);
+        var coords = position.coords;
+        alert('当前经度是:'+coords.longitude+'纬度：'+coords.latitude);
+    }
+    function error(error) {
+        console.log(error)
+    }
+    if(navigator.geolocation){
+        //获取当前定位
+        navigator.geolocation.getCurrentPosition(success,error,{
+            // 指示浏览器获取高精度的位置，默认为false
+            enableHighAcuracy: true,
+            // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+            timeout: 5000,
+            // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
+            maximumAge: 1
+        })
+    }else{
+        alert('您的浏览器太老了不支持定位!!!!!');
+    }
+</script>
+</html>

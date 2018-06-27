@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>高德定位</title>
+    <style>
+        #container {width:300px; height: 180px; }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div id="message"></div>
+</body>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=20926c33311a5c328231dab8dcb4f96a"></script>
+<script type="text/javascript">
+    /*
+    * http://lbs.amap.com/api/javascript-api/summary                        //js文档
+    * http://lbs.amap.com/dev/key/app                                       //key 控制台
+    * http://lbs.amap.com/api/javascript-api/guide/services/geolocation     //demo
+    * */
+
+    var message=document.getElementById('message');
+
+    //地图初始化加载定位到当前城市
+    var map = new AMap.Map('container');
+
+    //浏览器定位
+    map.plugin('AMap.Geolocation', function() {         //加载AMap.Geolocation组件
+
+        //1.创建浏览器定位实例
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+            convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+            showButton: true,        //显示定位按钮，默认：true
+            buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+            showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+            panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+            zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        });
+
+        //2.获取用户当前的精确位置信息
+        geolocation.getCurrentPosition();
+
+        //3.定位成功时触发此事件
+        AMap.event.addListener(geolocation, 'complete', onComplete);
+
+        //4.定位失败时触发此事件
+        AMap.event.addListener(geolocation, 'error', onError);
+
+        function onComplete (data) {
+            // data是具体的定位信息
+            console.log(data);
+            message.innerHTML='经度:'+data.position.lng+'纬度:'+data.position.lat;
+        }
+
+        function onError (error) {
+            switch(error.info){
+                case 'FAILED':
+                    //error.message原因解析：
+                    //1.'Get ipLocation failed'：IP精确定位失败，精确IP定位服务目前无法完全覆盖所有用户IP，失败率在5%左右；
+                    //2.sdk定位失败：请检查sdk的key是否设置好，以及webview的定位权限及应用和系统的定位权限是否开启。
+                    //3.浏览器定位失败，有多种情况：
+                    //'Browser not Support html5 geolocation'：浏览器不支持原生定位接口，如IE较低版本的浏览器等；
+                    //'Geolocation permission denied'：用户禁用了定位权限，需要用户开启设备和浏览器的定位权限，并在浏览器弹窗中点击“允许使用定位”选项。
+                    //'Geolocation permission denied'：浏览器禁止了非安全域的定位请求，比如Chrome、IOS10已陆续禁止，这时候需要升级站点到HTTPS。注意Chrome不会禁止localhost等域名HTTP协议下的定位；
+                    //'Get geolocation time out'：浏览器定位超时，包括原生的超时，可以适当增加超时属性的设定值以减少这一现象，另外还有个别浏览器（如google Chrome浏览器等）本身的定位接口是黑洞，通过其请求定位完全没有回应，也会超时返回失败。
+                    //'Get geolocation failed'：定位失败，Chrome、火狐以及部分套壳浏览器接入的定位服务在国外，有较大限制，失败率高。
+                    if(error.message=='Geolocation permission denied.'){
+                        message.innerHTML='获取定位失败,请开启浏览器的定位权限';
+                    }else{
+                        message.innerHTML='获取定位失败,请重试';
+                    }
+                    break;
+                case 'NOT_SUPPORTED':
+                    message.innerHTML='当前浏览器不支持定位功能';
+                    break;
+            }
+        }
+    });
+
+
+
+
+</script>
+</html>

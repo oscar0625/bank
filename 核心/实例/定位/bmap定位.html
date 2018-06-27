@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度定位</title>
+</head>
+<body>
+<div></div>
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=WXeKjBuKfQYko1XOhSQdTCe8IRCgbGY5&services=&t=20180529182003"></script>
+<script type="text/javascript">
+    /*pc网页定位不准确
+    * https://lbsyun.baidu.com/index.php?title=jspopular    //js文档
+    * http://lbsyun.baidu.com/apiconsole/key                //key 控制台
+    * http://lbsyun.baidu.com/jsdemo.htm#i8_1               //demo
+    * */
+    var div=document.querySelector('div');
+
+    //创建百度地图控件
+    var geolocation = new BMap.Geolocation();
+    // 开启SDK辅助定位
+    geolocation.enableSDKLocation();
+
+    geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            console.log('定位成功');
+
+            div.innerHTML='您的位置：'+r.point.lng+','+r.point.lat;
+
+            //以指定的经度与纬度创建一个坐标点
+            var pt = new BMap.Point(r.point.lng,r.point.lat);
+            //创建一个地理位置解析器
+            var geoc = new BMap.Geocoder();
+            geoc.getLocation(pt, function(rs){      //解析格式：城市，区县，街道
+                var addComp = rs.addressComponents;
+                console.log(addComp.city + ", " + addComp.district + ", " + addComp.street);
+            });
+        }
+        else {
+            console.log('定位失败');
+        }
+
+    },{enableHighAccuracy: true});//指示浏览器获取高精度的位置，默认false
+
+    //关于状态码
+    //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+    //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+    //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+    //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+    //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+    //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+    //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+    //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+    //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+</script>
+</html>
