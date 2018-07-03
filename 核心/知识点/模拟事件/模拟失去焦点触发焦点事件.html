@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<input type="text"/>
+<button>button</button>
+</body>
+<script src="web/script/jquery-1.7.2.min.js"></script>
+<script>
+    var input=document.querySelector('input'),
+        button=document.querySelector('button');
+
+
+    /*js*/
+//    input.addEventListener('focus', function () {
+//        console.log(123);
+//    });
+//
+//    input.addEventListener('blur', function () {
+//        console.log(456);
+//    });
+//
+//    button.addEventListener('click', function () {
+//        input.focus();   //模拟获得焦点
+//        input.blur();    //模拟失去焦点   注意 若想触发blur的事件 一定要先获得焦点 再失去焦点才触发
+//    });
+
+
+    /*jq*/
+    $(input).on('focus', function () {
+        console.log(123);
+    });
+    $(input).on('blur', function () {
+        console.log(456);
+    });
+    $(button).on('click', function () {
+        $(input).trigger('blur'); //模拟获得焦点
+        $(input).trigger('blur'); //模拟失去焦点
+    });
+
+
+</script>
+</html>

@@ -32,10 +32,22 @@ require.config({
         noAmd:{
             deps:['jq'],
             exports:'oscar'   // 很重要，和notAMDMoudle.js中变量名必须一致
-        }
+        },
+        jq:{
+            exports:'$'
+        },
     },
     /*Requirejs加载超时问题的一个解决方法：设置waitSeconds=0*/
-    waitSeconds: 0
+    waitSeconds: 0,
+    /*意味着对于除“some / oldmodule”之外的任何模块，当需要“foo”时，请改用“foo1.2”。仅对于“some / oldmodule”，当它要求“foo”时使用“foo1.0”。*/
+    map: {
+        '*': {
+            'foo': 'foo1.2'
+        },
+        'some/oldmodule': {
+            'foo': 'foo1.0'
+        }
+    }
 });
 
 
