@@ -1,6 +1,6 @@
-/*兼容到ie8 */
-(function () {
-    "use strict"
+(function (name,factory) {var hasDefine=typeof define === 'function', hasExports=typeof moudle !=='undefined' && moudle.exports;if(hasDefine){define(factory)}else if(hasExports){moudle.exports=factory();}else {window[name]=factory();}
+})('Router',function () {
+    "use strict";
     function Router() {
 
         this._routes = {'*':function () {},'#':function () {}};
@@ -26,11 +26,11 @@
             isMatch=Object.keys(this._routes).indexOf(currentHash),         //判断当前hash值下是否能匹配的上_routes里的callback
 
             params;                                                         //参数
-            try {
-                params = eval(hash.match(/(\(.+\))$/)[1]);
-            } catch (e){
-                params=null;
-            }
+        try {
+            params = eval(hash.match(/(\(.+\))$/)[1]);
+        } catch (e){
+            params=null;
+        }
 
         if(isMatch === -1){
             //如果没有匹配上 就去执行'#'
@@ -55,9 +55,10 @@
         return this
     };
 
-    window.Router=Router;
-}());
+    return Router
+});
 
+/*兼容到ie8 */
 // 1.调用
 // var route = new Router();
 

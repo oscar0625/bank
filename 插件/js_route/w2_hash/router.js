@@ -1,6 +1,6 @@
-/*兼容到ie8 */
-(function () {
-    "use strict"
+(function (name,factory) {var hasDefine=typeof define === 'function', hasExports=typeof moudle !=='undefined' && moudle.exports;if(hasDefine){define(factory)}else if(hasExports){moudle.exports=factory();}else {window[name]=factory();}
+})('Router',function () {
+    "use strict";
     function Router() {
 
         this._routes = {'*':function () {},'#':function () {}};
@@ -21,6 +21,9 @@
 
     //hash改变 路由切换
     Router.prototype._changeRoute=function () {
+        //每个路由都执行的部分
+        this._routes['*']();
+
         var hash=location.hash,
             currentHash=hash.match(/^#(\w+)/) ? hash.match(/^#(\w+)/)[1] :'',// 当前hash值,永不为'#'
             isMatch=Object.keys(this._routes).indexOf(currentHash);         //判断当前hash值下是否能匹配的上_routes里的callback
@@ -35,9 +38,6 @@
             this._routes[this._currentHash]();
         }
 
-        //每个路由都执行的部分
-        this._routes['*']();
-
     };
 
     //配置路由
@@ -48,9 +48,10 @@
         return this
     };
 
-    window.Router=Router;
-}());
+    return Router;
+});
 
+/*兼容到ie8 */
 // 1.调用
 // var route = new Router();
 
