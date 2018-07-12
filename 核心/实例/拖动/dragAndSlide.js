@@ -16,20 +16,50 @@ function DragAndSlide(obj) {
     this._up();
     this._leave();
     this._state = [];
+
 }
 DragAndSlide.prototype = {
     _down: function () {
         var self = this;
+        //触摸
+        this.ele.addEventListener('touchstart', function (e) {
+            var time=new Date();
+            self._state.push({
+                x:e.changedTouches[0].clientX,
+                time:time
+            });
+        });
+        //鼠标
         this.ele.addEventListener('mousedown', function (e) {
             var time=new Date();
             self._state.push({
                 x:e.clientX,
                 time:time
             });
-        })
+        });
     },
     _move: function () {
         var self = this;
+        //触摸
+        this.ele.addEventListener('touchmove', function (e) {
+            if (self._state.length===0)return;
+            //本次的时间
+            var time=new Date();
+            //本次之前的上一次的状态对象
+            var prevObj=self._state[self._state.length-1];
+            if (e.changedTouches[0].clientX >prevObj.x) {
+                //执行向右拖动事件
+                self._dragRight();
+            } else if(e.changedTouches[0].clientX <prevObj.x) {
+                //执行向右拖动事件
+                self._dragLeft();
+            }
+            self._state.push({
+                x:e.changedTouches[0].clientX,
+                time:time
+            });
+        });
+        //鼠标
         this.ele.addEventListener('mousemove', function (e) {
             if (self._state.length===0)return;
             //本次的时间
@@ -51,6 +81,16 @@ DragAndSlide.prototype = {
     },
     _up:function () {
         var self = this;
+        //触摸
+        this.ele.addEventListener('touchend', function (e) {
+            //抬起时判断是否执行滑动事件
+            var time=new Date();
+            self._isSlide({
+                time:time
+            });
+            self._state = [];
+        });
+        //鼠标
         this.ele.addEventListener('mouseup', function (e) {
             //抬起时判断是否执行滑动事件
             var time=new Date();
@@ -62,6 +102,16 @@ DragAndSlide.prototype = {
     },
     _leave:function () {
         var self = this;
+        //触摸
+        this.ele.addEventListener('touchcancel', function (e) {
+            //离开时判断是否执行滑动事件
+            var time=new Date();
+            self._isSlide({
+                time:time
+            });
+            self._state = [];
+        });
+        //鼠标
         this.ele.addEventListener('mouseleave', function (e) {
             //离开时判断是否执行滑动事件
             var time=new Date();
@@ -69,7 +119,7 @@ DragAndSlide.prototype = {
                 time:time
             });
             self._state = [];
-        })
+        });
     },
     //判断是否执行滑动事件
     _isSlide:function (obj) {

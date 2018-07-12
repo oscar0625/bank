@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *
+    * touches：当前触摸屏幕的每个手指的信息列表
+    * targetTouches：与触摸类似，但仅过滤为在同一节点内开始的手指触摸的信息
+    * changedTouches：事件中涉及的每个手指的信息列表
+    *   当我放下手指时，所有三个列表都将具有相同的信息。这将是changedTouches因为把手指下降是什么导致了事件
+    *   当我放下第二根手指时，touches会有两个项目，每个手指一个。targetTouches仅当手指与第一根手指放在同一节点时才会有两个项目。changedTouches将有与第二根手指相关的信息，因为它是导致事件发生的原因
+    *   如果我在同一时间放下两根手指，则可以有两个项目changedTouches，每个手指一个
+    *   如果我移动我的手指，唯一会改变的列表是changedTouches并且将包含与移动的手指（至少一个）相关的信息。
+    *   当我抬起一根手指时，它会被移除touches，targetTouches并且会出现，changedTouches因为这是造成事件的原因
+    *   删除我的最后一根手指将离开touches并targetTouches清空，并changedTouches包含最后一根手指的信息
+    *
+    * */
+</script>
+</html>
