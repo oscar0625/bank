@@ -48,14 +48,17 @@
         color: ['#c23531', '#ffc917', '#61a0a8', '#00ffec', '#91c7ae'],
         tooltip: {
             trigger: 'axis',
+
             axisPointer: {
                 show:true,
                 type: 'cross',
+                crossStyle: {     //'cross'时候的样式
+                    color: 'blue'
+                },
                 label: {
-                    backgroundColor: '#ffc917',
+                    backgroundColor: '#ffc917',     //坐标轴指示器的文本标签样式
                     textStyle: {
                         color: '#fff'
-
                     }
                 }
             }
