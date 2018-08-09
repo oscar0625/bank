@@ -21,3 +21,11 @@
     };
     return PreventClick;
 });
+
+// var preventClick=new PreventClick();
+// preventClick.isPrevent(function () {
+//      postAjax(url, {}, function (res) {
+//             /*program*/
+//             preventClick.changeParam();
+//      })
+// })
