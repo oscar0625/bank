@@ -1,28 +1,33 @@
-(function (name,factory) {var hasDefine=typeof define === 'function', hasExports=typeof moudle !=='undefined' && moudle.exports;if(hasDefine){define(factory)}else if(hasExports){moudle.exports=factory();}else {window[name]=factory();}
-})('Pagination',function () {
+(function(name, factory) {
+    var hasDefine = typeof define === 'function',
+        hasExports = typeof moudle !== 'undefined' && moudle.exports;
+    if (hasDefine) { define(factory) } else if (hasExports) { moudle.exports = factory(); } else { window[name] = factory(); }
+})('Pagination', function() {
     'use strict';
+
     function Pagination(obj) {
         var myObj = {
-            target: '#oscarPagination', //容器盒子id值
-            lastPage: 20,  //最后一页的页码
-            currentPage: 1, //初始页
-            maxPage: 10, //当前可见最多页码个数
-            activeClass: 'o_active',//激活时的类名
-            disabledClass: 'o_disabled',//到头的类名
-            callback: function (index) {
-                console.log(index)
+                target: '#oscarPagination', //容器盒子id值
+                lastPage: 20, //最后一页的页码
+                currentPage: 1, //初始页
+                maxPage: 10, //当前可见最多页码个数
+                activeClass: 'o_active', //激活时的类名
+                disabledClass: 'o_disabled', //到头的类名
+                callback: function(index) {
+                    console.log(index)
+                },
+                paginationOnLoad: function(index) {
+                    console.log('分页加载完成')
+                }
             },
-            paginationOnLoad: function (index) {
-                console.log('分页加载完成')
-            }
-        }, i;
+            i;
         for (i in obj) {
             myObj[i] = obj[i];
         }
-        this.target = typeof myObj.target ==='string'?document.querySelector(myObj.target):myObj.target;
-        if(!this.target){return}
+        this.target = typeof myObj.target === 'string' ? document.querySelector(myObj.target) : myObj.target;
+        if (!this.target) { return }
         this.lastPage = myObj.lastPage;
-        if(isNaN(this.lastPage)){console.error('参数lastPage错误');return};
+        if (isNaN(this.lastPage)) { console.error('参数lastPage错误'); return };
         this.currentPage = myObj.currentPage;
         this.maxPage = myObj.maxPage;
         this.activeClass = myObj.activeClass;
@@ -33,30 +38,30 @@
 
         this._init();
     }
-    Pagination.prototype._init = function () {
+    Pagination.prototype._init = function() {
         /*如果就一页不显示分页*/
         if (this.lastPage == 1) {
-            this.target.style = 'display:none'
+            this.target.style.display = 'none'
         } else {
-            this.target.style = 'display:table'
+            this.target.style.display = 'table'
         }
         this.target.className = 'oscarPagination ' + this.target.className; //加样式class名
         this.addEvent();
         this.createList();
         this.paginationOnLoad(this.currentPage);
     };
-    Pagination.prototype._render = function () {
+    Pagination.prototype._render = function() {
         this.createList();
         this.callback(this.currentPage);
         var z;
-        if (this.mTop === z)return;
+        if (this.mTop === z) return;
         document.body.scrollTop = this.mTop;
         document.documentElement.scrollTop = this.mTop;
     };
-    Pagination.prototype.addEvent = function () {
+    Pagination.prototype.addEvent = function() {
         var self = this;
-        this.target.onclick=null;
-        this.target.onclick = function (e) {
+        this.target.onclick = null;
+        this.target.onclick = function(e) {
             var e = e || window.event;
             var mb = e.target || e.srcElement;
             /*li事件*/
@@ -68,25 +73,21 @@
             else if (mb.className == 'prev' && self.currentPage != 1) {
                 --self.currentPage;
                 self._render();
-            }
-            else if (mb.className == 'next' && self.currentPage != self.lastPage) {
+            } else if (mb.className == 'next' && self.currentPage != self.lastPage) {
                 ++self.currentPage;
                 self._render();
-            }
-            else if (mb.className == 'prevest' && self.currentPage != 1) {
+            } else if (mb.className == 'prevest' && self.currentPage != 1) {
                 self.currentPage = 1;
                 self._render();
-            }
-            else if (mb.className == 'nextest' && self.currentPage != self.lastPage) {
+            } else if (mb.className == 'nextest' && self.currentPage != self.lastPage) {
                 self.currentPage = self.lastPage;
                 self._render();
-            }
-            else {
+            } else {
                 return
             }
         };
     };
-    Pagination.prototype.createList = function () {
+    Pagination.prototype.createList = function() {
         var count = this.lastPage;
         var currentPage = this.currentPage;
         var maxPage = this.maxPage;
