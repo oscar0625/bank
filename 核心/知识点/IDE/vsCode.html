@@ -12,86 +12,101 @@
 
 </body>
 <script>
-      //https://segmentfault.com/a/1190000006697219
+      // 1.快捷键
+      // Ctrl+P 
+      // F12  移动到当前变量定义处   Alt+F12 只看一眼而不跳转过去    Shift+F12 查看当前变量的所有引用
+      // F2                               修改当前变量名 全部修改
+      // Ctrl+F                           查找 
+      // Ctrl+H                           查找替换
+      // Ctrl+Shift+F                     整个文件夹中查找 
+      // Alt+Up 或 Alt+Down               上下移动一行
+      // Shift+Alt+Up 或 Shift+Alt+Down   向上向下复制一行
+      // Ctrl+Alt+Down/Up                 多行编辑
+      // Ctrl+Shift+N                     打开一个新窗口
+      // Ctrl+G                           跳转到行数
+      // Ctrl+Enter                       在当前行下边插入一行 
+      // Ctrl+Shift+Enter                 在当前行上方插入一行
 
-      /*
-      view
-            Chinese (Simplified) Language Pack for Visual Studio Code
-            Beautify
-            Material Icon Theme
-            Bracket Pair Colorizer
-      html+css
-            HTML Snippets
-            HTML CSS Support
-            HTMLHint
-            Atuo Rename Tag
-            Easy Less
-            Mithril Emmet
-      js    
-            jQuery Code Snippets 
-            JavaScript (ES6) code snippets
-            ESlint
-      vue   
-            vetur
-            VueHelper      
-            Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
-      other
-            Path Intellisense      
-            Npm Intellisense
-            fileheader
-            filesize 
-            svn
-            TortoiseSVN for VS Code
-      debug
-            open in browser   settings.json设置为"open-in-browser.default": "Chrome",
+      // 2.插件 https://segmentfault.com/a/1190000006697219
+      // view
+      //       Chinese (Simplified) Language Pack for Visual Studio Code
+      //       Beautify
+      //       Material Icon Theme
+      //       Bracket Pair Colorizer
+      // html+css
+      //       HTML Snippets
+      //       HTML CSS Support
+      //       HTMLHint
+      //       Atuo Rename Tag
+      //       css-auto-prefix
+      //       IntelliSense for CSS class names in HTML
+      //       Easy Less
+      // js    
+      //       jQuery Code Snippets 
+      //       JavaScript (ES6) code snippets
+      //       ESlint
+      // vue   
+      //       vetur
+      //       VueHelper      
+      //       Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
+      // other
+      //       Path Intellisense      
+      //       Npm Intellisense
+      //       fileheader
+      //       filesize 
+      //       svn
+      //       TortoiseSVN for VS Code
+      // debug
+      //       open in browser   settings.json设置为"open-in-browser.default": "Chrome",
 
-            Debugger for Chrome     
-                  launch.json->   
-                  "configurations": [
-                        {
-                              "type": "chrome",
-                              "request": "launch",
-                              "name": "Launch Google Chrome",
-                              "url": "http://localhost:8080",         //路径
-                              "webRoot": "${workspaceFolder}",
-                              "userDataDir": false,                   //相当于  "runtimeExecutable":"C:/Users/oscar/AppData/Local/Google/Chrome/Application/chrome.exe"
-                        },
-                        {
-                              "type": "node",
-                              "request": "launch",
-                              "name": "Launch NodeJS Program",
-                              "program": "${workspaceFolder}/app.js"   //要启动的文件
-                        },
-                  ]     
-                  
-      settings.json
-            {   
-                  "open-in-browser.default": "Chrome",
-                  "workbench.colorTheme": "Visual Studio Light",
-                  "workbench.colorCustomizations": {
-                        "editor.wordHighlightStrongBackground": "#E3EDCD",
-                        "editor.hoverHighlightBackground": "#E3EDCD",
-                        "editor.lineHighlightBackground": "#DCE2F1",
-                        "editor.background": "#DCE2F1",
-                  },
-                  "editor.fontSize": 18,
-                  "bracketPairColorizer.consecutivePairColors": [
-                        "()",
-                        "[]",
-                        "{}",
-                        [
-                              "Orchid",
-                              "green",
-                              "red",
-                        ],
-                        "Red"
-                  ],
-                  "emmet.includeLanguages": {
-                        "aspx": "html",
-                  },
-            }
-      */      
-    //插件路径  C:\Users\oscar\.vscode\extensions   如果换电脑了，把插件全部copy走。把extensions文件夹拷走就行。
+      //       Debugger for Chrome     
+      //             launch.json->   
+      //             "configurations": [
+      //                   {
+      //                         "type": "chrome",
+      //                         "request": "launch",
+      //                         "name": "Launch Google Chrome",
+      //                         "url": "http://localhost:8080",         //路径
+      //                         "webRoot": "${workspaceFolder}",
+      //                         "userDataDir": false,                   //相当于  "runtimeExecutable":"C:/Users/oscar/AppData/Local/Google/Chrome/Application/chrome.exe"
+      //                   },
+      //                   {
+      //                         "type": "node",
+      //                         "request": "launch",
+      //                         "name": "Launch NodeJS Program",
+      //                         "program": "${workspaceFolder}/app.js"   //要启动的文件
+      //                   },
+      //             ]     
+
+      //插件路径  C:\Users\oscar\.vscode\extensions   如果换电脑了，把插件全部copy走。把extensions文件夹拷走就行。
+
+      // 3.配置
+      // settings.json
+      // {
+      //       "open-in-browser.default": "Chrome",
+      //       "workbench.colorTheme": "Visual Studio Light",
+      //       "workbench.colorCustomizations": {
+      //             "editor.wordHighlightStrongBackground": "#E3EDCD",
+      //             "editor.hoverHighlightBackground": "#E3EDCD",
+      //             "editor.lineHighlightBackground": "#DCE2F1",
+      //             "editor.background": "#DCE2F1",
+      //       },
+      //       "editor.fontSize": 18,
+      //       "bracketPairColorizer.consecutivePairColors": [
+      //             "()",
+      //             "[]",
+      //             "{}", [
+      //                   "Orchid",
+      //                   "green",
+      //                   "red",
+      //             ],
+      //             "Red"
+      //       ],
+      //       "emmet.includeLanguages": {
+      //             "aspx": "html",
+      //       },
+      //       "editor.minimap.enabled": false
+      // }
 </script>
 
 </html>

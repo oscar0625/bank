@@ -75,7 +75,7 @@ var oscar = {
             isIPhone =appVersion.match(/iphone/gi);
         if(isIPhone) return 'iphone';
         if(isAndroid) return 'android';
-    }
+    },
 
     //判断当前浏览类型
     browserType: function () {
