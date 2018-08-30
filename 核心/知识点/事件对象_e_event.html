@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a{
+            display: block;
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://www.bootcss.com/"></a>
+</body>
+<script>
+    // 目前大部分浏览器都使用事件发生时派送的事件对象e(包括ie9))
+    // 只有ie8还使用event对象
+    document.querySelector('a').onclick=asd;
+    function asd(e){
+        var e=e||window.event;
+        if(e.preventDefault){
+            e.preventDefault();
+            console.log(123)
+        }else{
+            e.returnValue=false
+            console.log(456)
+        }
+    }
+</script>
+</html>

@@ -22,6 +22,7 @@
       // Alt+Up 或 Alt+Down               上下移动一行
       // Shift+Alt+Up 或 Shift+Alt+Down   向上向下复制一行
       // Ctrl+Alt+Down/Up                 多行编辑
+      // Ctrl+U                           回退一个光标
       // Ctrl+Shift+N                     打开一个新窗口
       // Ctrl+G                           跳转到行数
       // Ctrl+Enter                       在当前行下边插入一行 
@@ -39,7 +40,6 @@
       //       HTMLHint
       //       Atuo Rename Tag
       //       css-auto-prefix
-      //       IntelliSense for CSS class names in HTML
       //       Easy Less
       // js    
       //       jQuery Code Snippets 
@@ -80,33 +80,83 @@
 
       //插件路径  C:\Users\oscar\.vscode\extensions   如果换电脑了，把插件全部copy走。把extensions文件夹拷走就行。
 
-      // 3.配置
+      // 3.配置  https://blog.csdn.net/win7583362/article/details/79315055/
       // settings.json
-      // {
-      //       "open-in-browser.default": "Chrome",
-      //       "workbench.colorTheme": "Visual Studio Light",
-      //       "workbench.colorCustomizations": {
-      //             "editor.wordHighlightStrongBackground": "#E3EDCD",
-      //             "editor.hoverHighlightBackground": "#E3EDCD",
-      //             "editor.lineHighlightBackground": "#DCE2F1",
-      //             "editor.background": "#DCE2F1",
-      //       },
-      //       "editor.fontSize": 18,
-      //       "bracketPairColorizer.consecutivePairColors": [
-      //             "()",
-      //             "[]",
-      //             "{}", [
-      //                   "Orchid",
-      //                   "green",
-      //                   "red",
-      //             ],
-      //             "Red"
-      //       ],
-      //       "emmet.includeLanguages": {
-      //             "aspx": "html",
-      //       },
-      //       "editor.minimap.enabled": false
-      // }
+      var settings = {
+            //主题配置
+            "workbench.colorTheme": "Visual Studio Light",
+            "workbench.colorCustomizations": {
+                  "editor.wordHighlightStrongBackground": "#E3EDCD",
+                  "editor.hoverHighlightBackground": "#E3EDCD",
+                  "editor.lineHighlightBackground": "#DCE2F1",
+                  "editor.background": "#DCE2F1",
+            },
+            "editor.fontSize": 18,
+
+            //默认浏览器配置
+            "open-in-browser.default": "Chrome",
+
+            //Bracket Pair Colorizer括号颜色配置
+            "bracketPairColorizer.consecutivePairColors": [
+                  "()",
+                  "[]",
+                  "{}",
+                  [
+                        "Orchid",
+                        "green",
+                        "red",
+                  ],
+                  "Red"
+            ],
+
+            // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
+            "files.associations": {
+                  "*.vue": "vue",
+                  "*.wxss": "css"
+            },
+
+            // 配置emmet
+            // 启用tab展开缩写
+            "emmet.triggerExpansionOnTab": true,
+            // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
+            "emmet.syntaxProfiles": {
+                  "vue-html": "html",
+                  "vue": "html",
+                  "javascript": "javascriptreact",
+            },
+            "emmet.includeLanguages": {
+                  "vue-html": "html",
+                  "vue": "html",
+                  "aspx": "html",
+                  "javascript": "javascriptreact",
+            },
+
+            // eslint
+            // eslint配置文件
+            "eslint.options": {
+                  "plugins": [
+                        "html",
+                        "javascript",
+                        {
+                              "language": "vue",
+                              "autoFix": true
+                        },
+                        "vue"
+                  ]
+            },
+            // eslint能够识别的文件后缀类型
+            "eslint.validate": [
+                  "javascript",
+                  "javascriptreact",
+                  "html",
+                  "vue",
+                  "typescript",
+                  "typescriptreact"
+            ],
+
+            //不显示小图配置
+            "editor.minimap.enabled": false,
+      }
 </script>
 
 </html>
