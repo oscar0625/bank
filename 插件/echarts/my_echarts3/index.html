@@ -71,6 +71,7 @@
         myChart.dispose();   //原本销毁
         myChart = echarts.init(dom);  //初始化
         myChart.setOption(option, true); //新建
+        // myChart.setOption(option, false); //更新(设置为false为合并)
     });
 
     //渐变

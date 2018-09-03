@@ -52,6 +52,9 @@
 <script>
     /*
      * 大坑：
+     * Swiper里面的a标签无法跳转 因为阻止默认事件（preventDefault）
+     * loop模式下由于在首尾各添加一个slide单元。这会带来一些不可预支的问题。比如事件第一次点击无法触发
+     * 注意：
      * 1.一个页面中引用多个Swiper
      *   a.可以给每个容器加上ID或Class区分(要保留默认的类名swiper-container。)
      *   b.自己给选好   example: var p=new Swiper($(str).find('.swiper-container'), {})
@@ -64,6 +67,7 @@
      *    后加的三张是不会轮播的  解决办法同上
      * 4.当swiper是不可见的 会出现很多问题
      *   这种情况下 多用方法 少用属性(因为很多属性不能生效)
+
      *
      * */
     var arr = ['大数据的价值', '全国服务站点', '人性化的服务体系', '我们的合作伙伴'];
@@ -92,6 +96,7 @@
 //        spaceBetween:20, //每张图之间的距离 px
         /*禁止拖动*/
 //        noSwiping : true,//设为true时，可以在slide上（或其他元素）增加类名'swiper-no-swiping'，使该slide无法拖动
+        preventClicks:true,//当swiper在触摸时阻止默认事件（preventDefault），用于防止触摸时触发链接跳转。
         preventIntercationOnTransition : true,//切换时滑动无效直到切换结束
 
         /*其他*/
