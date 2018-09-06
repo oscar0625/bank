@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            height: 6000px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul> -->
+    <div id="test" style="width:1px;height:17px;background:#0f0;">0%</div>
+</body>
+<script>
+    (function () {
+        var lastTime = 0;
+        var vendors = ['ms', 'moz', 'webkit', 'o'];
+        for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] +
+                'CancelRequestAnimationFrame'];
+        }
+        if (!window.requestAnimationFrame) window.requestAnimationFrame = function (callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime)); //两次间隔 在0-16范围内
+            var id = window.setTimeout(function () {
+                callback(currTime + timeToCall);
+            }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+        if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function (id) {
+            clearTimeout(id);
+        };
+    }());
+</script>
+<script>
+    // 1.最佳的应用场景是在帧动画里，可以大幅优化性能；
+    var ele = document.getElementById("test");
+    var progress = 0;
+    function animate() {
+        var timer=window.requestAnimationFrame(animate);  //放在前后无所谓 相当于settimeout 会在 最后 之后执行
+
+        //dosomething
+        progress++;
+        ele.style.width = progress + "%";
+        ele.innerHTML = progress + "%";
+
+        if (progress >= 100) {
+            window.cancelAnimationFrame(timer);
+        }
+
+    }
+    function animateOher() {
+        //dosomething
+        progress++;
+        ele.style.width = progress + "%";
+        ele.innerHTML = progress + "%";
+
+        if (progress < 100) {
+            window.requestAnimationFrame(animateOher);  //放在前后无所谓 相当于settimeout 会在 最后 之后执行
+        }
+    }
+    animateOher();
+   
+
+    // 2.页面滚动事件（scroll）的监听函数，推迟到下一次重新渲染。    
+
+    // window.onscroll=function(){
+    //     window.requestAnimationFrame(callback)
+    // }
+
+
+    // 3.避免短时间内触发大量reflow。
+
+    // function elongate(element) {
+    //     var currentHeight = element.clientHeight;
+    //     window.requestAnimationFrame(function () {
+    //         element.style.height = (currentHeight * 2) + 'px';
+    //     });
+    // }
+    // document.querySelectorAll('li').forEach(function(b){
+    //     elongate(b);
+    // });
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script>
+    // 1
+    var a= function () {
+        console.log(1);
+    }();
+
+    //2 
+    (function(){
+        console.log(2);
+    })();
+
+    //3
+    (function(){
+        console.log(3);
+    }());
+
+    //4 ! + -
+    +function(){
+        console.log(4);
+    }();
+
+
+    //应用
+    eleArr = document.querySelectorAll('li');
+    for (var j = 0; j < eleArr.length; j++) {
+        // 1 
+        eleArr[j].onclick = function (n) {
+            return function(){
+                console.log(n)
+            }
+        }(j);
+
+        // 2
+        // (function(n){
+        //     eleArr[j].onclick =function(){
+        //         console.log(n)
+        //     }        
+        // })(j)
+
+        //3
+        // function auto(n){
+        //     eleArr[j].onclick =function(){
+        //         console.log(n)
+        //     } 
+        // }
+        // auto(j)
+
+    }
+</script>
+</html>
