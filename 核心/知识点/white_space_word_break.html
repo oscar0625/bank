@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            white-space: nowrap;
+            white-space: pre; /*和pre一样 完全保留空格 保留换行 但是不自动换行*/
+            white-space: pre-wrap; /*完全保留空格 保留换行 自动换行*/
+            white-space: pre-line; /*合并空格为一个 保留换行 自动换行*/
+            white-space: normal; /*合并空格为一个 不保留换行 自动换行*/
+
+            letter-spacing: 2px;    /*letter-spacing添加字母之间的空白*/   
+            word-spacing: 3px;      /*word-spacing添加每个单词之间的空白  中文无效*/
+            
+            /* 打破单词短句 */
+            word-wrap:break-word;  /* 如果不允许的话长单词就会溢出。最重要的一点是它还是会首先尝试挪到下一行，看看下一行的宽度够不够，不够的话就进行单词内的断句。 */
+            word-break: break-all; /* 粗暴方式断句 空间利用率高*/
+        }
+    </style>
+</head>
+<body>
+
+</body>
+
+</html>
