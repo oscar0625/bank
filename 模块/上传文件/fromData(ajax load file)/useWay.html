@@ -39,8 +39,8 @@
             type: "post",
             data: formData,      //表单序列化 input的name要和后台数据键名
             dataType:'json',
-            contentType: false,  //必须false才会自动加上正确的Content-Type
-            processData: false,  //必须false才会避开jQuery对 formdata 的默认处理 XMLHttpRequest会对 formdata 进行正确的处理
+            contentType: false,  //false 不使用jq给加的contentType   xhr对象能识别是fromData 自动加上正确的contentType
+            processData: false,  //false 避开jQuery对 formdata 的默认处理  xhr对象能自动识别是fromData
             success: function (res) {
                 console.log(res)
             }
@@ -58,8 +58,8 @@
 //            type: "POST",
 //            data: formData,
 //            dataType:'json',
-//            contentType: false,  //必须false才会自动加上正确的Content-Type
-//            processData: false, //必须false才会避开jQuery对 formdata 的默认处理 XMLHttpRequest会对 formdata 进行正确的处理
+//            contentType: false,  //false 不使用jq给加的contentType   xhr对象能识别是fromData 自动加上正确的contentType
+//            processData: false,  //false 避开jQuery对 formdata 的默认处理  xhr对象能自动识别是fromData
 //            success: function (res) {
 //                console.log(res)
 //            }

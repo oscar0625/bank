@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 发送ajax请求之前，jquery会调用$.param()来深度递归一个对象来满足现在脚本语言和框架，比如PHP， Ruby on Rails等。
+    $.ajax({
+        url:'',
+        type:'post',
+        data:{'age':[1,2,3],name:'oscar'},  
+    });
+    // 发送的是age[]=1&age[]=2&ge[]=3&name=o&scar
+    $.ajax({
+        url:'',
+        type:'post',
+        data:{'age':[1,2,3],name:'oscar'},  
+        traditional :true,                  //设置为true 用传统的方式来序列化数据 不调用$.param()
+    });
+    // 发送的是age=1&age=2&ge=3&name=o&scar
+</script>
+</html>

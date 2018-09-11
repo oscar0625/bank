@@ -1,54 +1,55 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-<input type="text">
-<button>
-    send
-</button>
+    <input type="text">
+    <button>
+        send
+    </button>
 </body>
 <script>
     function ws() {
-        if(window.WebSocket){
+        if (window.WebSocket) {
             // url地址  ws://IP/域名:端口  wss://IP/域名:端口
-            var url='ws://121.40.165.18:8088';
-            var ws=new WebSocket(url);
-            ws.onopen = function() {
+            var url = 'ws://121.40.165.18:8088';
+            var ws = new WebSocket(url);
+            ws.onopen = function (e) {
                 // 连接建立时触发，
                 console.log('open');
                 // 使用 send() 方法发送数据
-                ws.send("发送数据");
+                ws.send("发送数据"); //websocket只能发送纯文本的数据
             };
             ws.onmessage = function (e) {
                 //客户端接收服务端数据时触发 数据是e.data
                 console.log(e.data);
                 //关闭连接
-//                ws.close()
+                ws.close()
             };
-            ws.onclose = function() {
+            ws.onclose = function (e) {
                 // 连接关闭时触发
                 console.log("close");
             };
-            ws.onerror = function() {
+            ws.onerror = function (e) {
                 // 通信发生错误时触发
-                console.log("error");
+                console.log(e.wasClean, e.code, e.reason);
             };
-            var btn=document.getElementsByTagName('button')[0];
-            var input=document.getElementsByTagName('input')[0];
-            btn.onclick=function () {
+            var btn = document.getElementsByTagName('button')[0];
+            var input = document.getElementsByTagName('input')[0];
+            btn.onclick = function () {
                 ws.send(input.value);
             }
-        }else{
+        } else {
             alert('不支持webSocket')
         }
     }
     ws()
-
 </script>
+
 </html>
