@@ -56,7 +56,12 @@
 <!-- Initialize Swiper -->
 <script>
     /*
-        * 注意：
+        * 大坑  
+        * 1. 由于滑动 所以swiper会禁止click的冒泡 a标签的默认行为 导致：
+        *   swiper   loop：true模式下 引发绑定dom的click事件无效(时好时坏)  解决方案-->用swiper内部提供click方法  (只作用于移动端,pc无法解决)
+        *   swiper   里面的a标签有时候不触发
+        * 
+        * 注意：swiper是一款移动端好用的插件
         * 1.一个页面中引用多个Swiper
         *   a.可以给每个容器加上ID或Class区分(要保留默认的类名swiper-container。)
         *   b.自己给选好   example: var p=new Swiper($(str).find('.swiper-container'), {})
