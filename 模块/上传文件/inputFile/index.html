@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<input type="file" id="myFile" accept="image/jpg,image/jpeg,image/png">
-<button>
-    clear
-</button>
+    <input type="file" id="myFile" accept="image/jpg,image/jpeg,image/png">
+    <button>
+        clear
+    </button>
 </body>
 <script>
     /* 插件form.js
@@ -18,26 +20,44 @@
      *
      *
      * */
-
-    document.querySelector('input').onchange=function (e) {
+    document.querySelector('input').onchange = function (e) {
         //注意：file点击取消和 X 的时候，会将input的值清空
-        if(this.value){
-            var e=e||window.event;
+        if (this.value) {
+            var e = e || window.event;
 
-            var files=this.files[0];
+            //因为h5 multiple 属性支持多个上传,所以返回的是多个文件的集合
+            var files = this.files;
 
-            //限制类型
-            var type=files.type;
+            //本次教程值是上传一个文件 所以选择对应index为0的文件
+            var file = this.files[0];
 
-            //限制大小
-            var size=files.size;
+            //获取文件的文件名。
+            var name = file.name
+            //获取文件的MIME类型。
+            var type = file.type;
+            //获取文件的大小
+            var size = file.size;
+            //文件的最后修改时间
+            var lastModifiedDate = file.lastModifiedDate;
 
-            //获取路径
-            var url=URL.createObjectURL(files);
-            var newImg = new Image();
-            newImg.src = url;
-            document.body.appendChild(newImg);
-        }else {
+            //回显上传的文件    IE10开始支持
+            var reader = new FileReader();
+            if (/image/.test(type)) { //上传的是图片
+                reader.readAsDataURL(file); //读取文件并将文件数据以URL形式保存到result属性中。
+            }
+
+            reader.onload = function (e) { //当文件读取完成时，result保存的是路径信息
+                var newImg = new Image();
+                newImg.src = e.target.result;
+                document.body.appendChild(newImg);
+            }
+
+            //另一个回显图片方法 IE10开始支持
+            // var url=URL.createObjectURL(files);
+            // newImg.src = url;
+            // document.body.appendChild(newImg);
+
+        } else {
             /*其他操作*/
 
         }
@@ -46,20 +66,22 @@
     };
 
     //清空input file 的值
-    function clearInputFile(file){
-        if(file.value){
-            try{
+    function clearInputFile(file) {
+        if (file.value) {
+            try {
                 file.value = ''; //for IE11, latest Chrome/Firefox/Opera...
-            }catch(err){}
+            } catch (err) {}
 
-            if(file.value){ //for IE5 ~ IE10
-                var form = document.createElement('form'), ref = file.nextSibling, p = file.parentNode;
+            if (file.value) { //for IE5 ~ IE10
+                var form = document.createElement('form'),
+                    ref = file.nextSibling,
+                    p = file.parentNode;
                 form.appendChild(file);
                 form.reset();
-                p.insertBefore(file,ref);
+                p.insertBefore(file, ref);
             }
         }
     }
-
 </script>
+
 </html>

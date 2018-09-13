@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //支持File API的浏览器有IE10+,Firefox3.5+，Opera10.6+，Safari5+,Chrome。
+
+    var reader = new FileReader();
+
+    reader.readAsText(file,encoding);   //以纯文本的形式读取文件，将读取到的文件保存到result属性。encoding参数用于指定编码类型，是可选的。
+    reader.readAsDataURL(file);         //读取文件并将文件数据以URL形式保存到result属性中。（读取图像文件常用方法）
+    reader.readAsBinaryString(file);    //读取文件并将一个字符串保存在result属性中，字符串中的每个字符表示一字节。
+    reader.readAsArrayBuffer(file);     //读取文件并将一个包含文件内容的ArrayBuffer保存在result属性中。
+
+    reader.onerror = function () {
+
+        //出错时执行
+
+    }
+
+    reder.onprogress = function () {
+
+        //有加载新数据时执行
+
+    }
+
+    reder.onload = function () {
+
+        //完成时执行
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <input type="file" id="myFile" accept="image/jpg,image/jpeg,image/png">
+</body>
+<script src="spark-md5.min.js"></script>
+<script>
+    //  js实现文件切片上传，断点续传
+    // 四个要点  文件分割  一片一片上传   提交MD5给后台,保证文件的正确  2个接口,一个传MD5,一个传分段文件
+
+    //  1.文件分割
+    //  var blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice     //  file的slice方法，注意它的兼容性，在不同浏览器的写法不同
+    //  var chunk_file=blobSlice.call(file, start, end);   //然后指定file和开始结束的片段，就可以得到切割的文件了。
+
+    //  2.上传其中一片
+    // var form = new FormData();
+    // form.append('chunk_file', chunk_file); //文件当前分片
+    // form.append('chunk_idx', chunk_idx); //分片编号
+    // form.append('chunk_size', Math.min(data.chunk_size, (end - start))); //分片大小
+    // form.append('file_md5', file_md5); //文件md5码
+    // form.append('file_name', file_name); //文件名参数
+    // form.append('file_size', file_size); //文件大小
+
+
+    //  3.计算文件MD5  js-spark-md5
+    //  way1 针对fileReader.readAsArrayBuffer()
+    //  spark = new SparkMD5.ArrayBuffer()                      //create SparkMD5.ArrayBuffer
+    //  spark.append(filepice1); spark.append(filepice2);...    //Appends an array buffer.
+    //  var hexHash = spark.end();                              //Finishes the computation of the md5, returning the hex result. 结束后spark会重置为初始状态
+
+    //  way2 针对fileReader.readAsBinaryString()
+    //  spark = new SparkMD5()                                              //create SparkMD5           
+    //  spark.appendBinary(filepice1); spark.appendBinary(filepice2);...    //Appends a binary string 
+    //  var hexHash = spark.end();                              //Finishes the computation of the md5, returning the hex result. 结束后spark会重置为初始状态
+
+    document.getElementById('myFile').addEventListener('change', function () {
+        if (this.value) {
+            var blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
+                file = this.files[0],
+                chunkSize = 2097152, // Read in chunks of 2MB
+                // chunkSize = 30000, // Read in chunks of 2MB
+                chunks = Math.ceil(file.size / chunkSize),
+                currentChunk = 0,
+                spark = new SparkMD5.ArrayBuffer(),
+                fileReader = new FileReader(),
+                upLoadArr = [];
+
+            fileReader.onload = function (e) {
+                spark.append(e.target.result); // Append array buffer
+                currentChunk++;
+
+                if (currentChunk < chunks) {
+                    loadNext();
+                } else {
+                    //complete
+                    var md5 = spark.end(); //整个文件的md5
+                    console.log(md5);
+                    //接口一:上传给md5 给后台,由后台给出判断 如果该文件没有被上传过,那么直接上传;如果上传了一部分,就只上传剩下的部分
+                    //接口二:上传分片
+                    // upLoad(upLoadArr,md5,file.name,file.size);
+                }
+            };
+
+            fileReader.onerror = function () {
+                console.warn('oops, something went wrong.');
+            };
+
+            function loadNext() {
+                var start = currentChunk * chunkSize,
+                    end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize,
+                    chunk_file = blobSlice.call(file, start, end);
+
+                fileReader.readAsArrayBuffer(chunk_file); //读取文件并将一个包含文件内容的ArrayBuffer保存在result属性中。
+                upLoadArr.push({
+                    chunk_file: chunk_file,
+                    chunk_idx: currentChunk,
+                    chunk_size: end - start,
+                })
+            }
+
+            loadNext();
+
+        } else {
+            /*其他操作*/
+
+        }
+    });
+
+    function upLoad() {
+        var form = new FormData();
+        form.append('chunk_file', chunk_file); //文件当前分片
+        form.append('chunk_idx', chunk_idx); //分片编号
+        form.append('chunk_size', Math.min(data.chunk_size, (end - start))); //分片大小
+        form.append('file_md5', file_md5); //文件md5码
+        form.append('file_name', file_name); //文件名参数
+        form.append('file_size', file_size); //文件大小
+        //postAjax...
+    }
+</script>
+
+</html>
