@@ -21,7 +21,7 @@
                 }
             },
             i;
-        for (i in obj) {
+        for (var i in obj) {
             myObj[i] = obj[i];
         }
         this.target = typeof myObj.target === 'string' ? document.querySelector(myObj.target) : myObj.target;

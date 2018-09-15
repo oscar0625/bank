@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 传递参数(省略2种)
+    new Date(1993, 5, 25, 8, 0, 0); //month-1
+    new Date(1993, 5, 25); //month-1
+    new Date(0); //ms
+    //如果不按照这几种方式 比如 
+    var my = new Date('1993/06/25,08:00:00'); //会先调用Date.parse('1993/06/25,08:00:00') 完成转换成 new Date(0);
+    my.toLocaleString() //"1993/6/25 上午8:00:00"  本地区时
+    my.toISOString() //"1993-06-25T00:00:00.000Z"  国际标准区时
+</script>
+
+</html>
