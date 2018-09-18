@@ -65,16 +65,15 @@
         * 1.一个页面中引用多个Swiper
         *   a.可以给每个容器加上ID或Class区分(要保留默认的类名swiper-container。)
         *   b.自己给选好   example: var p=new Swiper($(str).find('.swiper-container'), {})
+        * 
         * 2.如果一开始轮播是不可见的(display：none)经过操作之后轮播才可见
-        *    这种情况轮播会出现问题
-        *    需要调用  swiper.update(); 手动更新轮播
+        *    当swiper是不可见的 会出现很多问题 
         *    observer: true,  //当swiper的样式或者修改swiper的子元素时 自动更新swiper
         *    observeParents: true, //当swiper的父元素变化时,例如window.resize自动更新swiper
+        *  
         * 3.动态swiper的情况下，比如一开始3张图，又往里加3张
-        *    后加的三张是不会轮播的  解决办法同上
-        * 4.当swiper是不可见的 会出现很多问题
-        *   这种情况下 多用方法 少用属性(因为很多属性不能生效)
-
+        *   方法1：swiper.update(); 手动更新轮播
+        *   方法2：如2方法
         *
         * */
     var arr = ['大数据的价值', '全国服务站点', '人性化的服务体系', '我们的合作伙伴'];
