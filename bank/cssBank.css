@@ -1,5 +1,6 @@
 /*css3兼容写法 低版本ie 用pie*/
-div{
+div {
+    
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -29,149 +30,169 @@ div{
     /*-o-transform: ;*/
     /*transform: ;*/
 
-    /*渐变*/
-    background:#2d79ab;/* 一些不支持背景渐变的浏览器 */
-    background:-webkit-gradient(linear, 0 0, right 0, from(#012790), to(#54c0c3));
-    background:-moz-linear-gradient(to right, #012790,#54c0c3);
-    background:-o-linear-gradient(to right, #012790, #54c0c3);
-    background:linear-gradient(to right ,#012790,#54c0c3);
-    /*background:-webkit-gradient(linear, 0 20,0 100 , from(#001020), to(#287eff));*/
-    /*background:-moz-linear-gradient(to bottom, #001020 20px,#287eff 100px);*/
-    /*background:-o-linear-gradient(to bottom, #001020 20px, #287eff 100px);*/
-    /*background:linear-gradient(to bottom,#001020 20px,#287eff 100px);*/
-    /*字体渐变*/
-    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(234, 101, 10, 1)), to(rgba(246, 199, 156, 1)));    /*起作用关键的样式*/
+    /*渐变--支持2种以上颜色*/
+    background: red;/* 一些不支持背景渐变的浏览器 */
+    background: -webkit-gradient(linear, 0% 0, 100% 0, from(red), to(green));
+    background: -moz-linear-gradient(to right, red 0%, green 100%);
+    background: -o-linear-gradient(to right, red 0%, green 100%);
+    background: linear-gradient(to right, red 0%, green 100%);
+
+    /* background: -webkit-gradient(linear, 0 0%, 0 100%, from(red), to(green));
+    background: -moz-linear-gradient(to bottom, red 0%, green 100%);
+    background: -o-linear-gradient(to bottom, red 0%, green 100%);
+    background: linear-gradient(to bottom, red 0%, green 100%); */
+    
+    /*字体渐变 */
+    /* chrome firefox edge都支持 ie不支持 */
+    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(234, 101, 10, 1)), to(rgba(246, 199, 156, 1)));/*起作用关键的样式*/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 /*弹性盒兼容(新老版本及不同浏览器) 注意弹性盒不能兼容ie9及以下的版本 如考虑ie9及一下不可用弹性盒  http://www.cnblogs.com/iriszhang/p/6102524.html*/
- div{
+div {
 
-     display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-     display: -moz-box; /* 老版本语法: Firefox  */
-     display: -ms-flexbox; /* 混合版本语法: IE 10 */
-     display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-     display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    display: -webkit-box;
+    /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;
+    /* 老版本语法: Firefox  */
+    display: -ms-flexbox;
+    /* 混合版本语法: IE 10 */
+    display: -webkit-flex;
+    /* 新版本语法: Chrome 21+ */
+    display: flex;
+    /* 新版本语法: Opera 12.1, Firefox 22+ */
 
-     /*-webkit-box-pack: center;*/
-     /*-moz-box-pack: center;*/
-     /*-ms-flex-pack: center;*/
-     /*-webkit-justify-content: center;*/
-     /*justify-content: center;*/
+    /*-webkit-box-pack: center;*/
+    /*-moz-box-pack: center;*/
+    /*-ms-flex-pack: center;*/
+    /*-webkit-justify-content: center;*/
+    /*justify-content: center;*/
 
-     /*-webkit-box-pack: justify;*/
-     /*-moz-box-pack: justify;*/
-     /*-ms-flex-pack: justify; !* WP IE 10 *!*/
-     /*-webkit-justify-content: space-between;*/
-     /*justify-content: space-between;*/
+    /*-webkit-box-pack: justify;*/
+    /*-moz-box-pack: justify;*/
+    /*-ms-flex-pack: justify; !* WP IE 10 *!*/
+    /*-webkit-justify-content: space-between;*/
+    /*justify-content: space-between;*/
 
-     /*********注：旧版盒子中  无space-around这种分布  可使用space-between 两边加margin代替********/
-     -webkit-justify-content: space-around;
-     justify-content: space-around;
+    /*********注：旧版盒子中  无space-around这种分布  可使用space-between 两边加margin代替********/
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
 
-     -webkit-box-align: center;
-     -moz-box-align: center;
-     -ms-flex-align: center;
-     -webkit-align-items: center;
-     align-items: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 
-     -webkit-box-orient: vertical;
-     -webkit-box-direction: normal;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-     -ms-flex-direction: column;
-     -webkit-flex-direction: column;
-     flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 
-     -webkit-box-ordinal-group: 1;
-     -moz-box-ordinal-group: 1;
-     -ms-flex-order:1;
-     order: 1;
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    order: 1;
 
-     -webkit-box-flex: 1;
-     -moz-box-flex: 1;
-     -ms-flex: 1;
-     -webkit-flex-grow: 1;
-     flex-grow: 1;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
 
- }
+}
 
 /*不设置宽用margin auto*/
-div{
+div {
     display: table;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 /*其他*/
-div{
+div {
     /*禁止用户选中文字*/
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
 }
 
 /*placeholder 颜色*/
-input ::-webkit-input-placeholder {
+input ::-webkit-input-placeholder {}
 
-}
-input:-moz-placeholder {
-}
-input::-moz-placeholder {
-}
-input:-ms-input-placeholder {
-}
+input:-moz-placeholder {}
+
+input::-moz-placeholder {}
+
+input:-ms-input-placeholder {}
 
 /*自定义下拉框样式 */
 select {
     /*很关键：将默认的select选择框样式清除  只到ie10 手机端好用*/
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
     border: none;
-    outline:none;
+    outline: none;
 
     /*在选择框的最右侧中间显示小箭头图片*/
     background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
 
     /*为下拉小箭头留出一点位置，避免被文字覆盖*/
-    padding-right: 14px!important;
+    padding-right: 14px !important;
 }
 
 /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
-select::-ms-expand { display: none; }
+select::-ms-expand {
+    display: none;
+}
 
 
 /*超出2行隐藏 只有chrome支持*/
-div{
-    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-    -webkit-box-orient:vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
-    -webkit-line-clamp:2; /** 显示的行数 **/
-    text-overflow:ellipsis;
-    overflow:hidden;
+div {
+    display: -webkit-flex;
+    /* 新版本语法: Chrome 21+ */
+    display: -webkit-box;
+    /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    -webkit-box-orient: vertical;
+    /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+    -webkit-line-clamp: 2;
+    /** 显示的行数 **/
+    text-overflow: ellipsis;
+    overflow: hidden;
     /*只有谷歌支持     其他浏览器给个    max-height: 36px; 解决*/
 
 }
+
 /*opacity兼容*/
-div{
-    opacity:0.5;
-    filter:alpha(opacity=50);  /*filter 过滤器   兼容IE678*/     /*注css3出现filter属性 目前只有chrome支持*/
+div {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    /*filter 过滤器   兼容IE678*/
+    /*注css3出现filter属性 目前只有chrome支持*/
 }
+
 /*z-index 最大值*/
-div{
-    z-index:  2147483647;  /*因为2147483647是计算机32位二进制最大有符号数,设置的值大于此值 也为此值*/
+div {
+    z-index: 2147483647;
+    /*因为2147483647是计算机32位二进制最大有符号数,设置的值大于此值 也为此值*/
     /*video全屏就是设置为这个值  如果有元素需要在全屏之上 就将这个元素设置为z-index:  2147483647 并放在video下面(文档流) 只适用于chrome*/
 }
 
 /*chrome下小于12px的字体设置*/
-span{
-    font-size: 10px;  /*如果是chrome下 会设置成12px  如果不是chrome 那就是10px*/
-    display: block; /*注意 -webkit-transform: scale(0.5); 收缩的是整个span的大小，这时候，必须要将span转换成块元素*/
-    -webkit-transform: scale(0.5) ;   /*12px *0.5   此时的字体打小就是6px*/
+span {
+    font-size: 10px;
+    /*如果是chrome下 会设置成12px  如果不是chrome 那就是10px*/
+    display: block;
+    /*注意 -webkit-transform: scale(0.5); 收缩的是整个span的大小，这时候，必须要将span转换成块元素*/
+    -webkit-transform: scale(0.5);
+    /*12px *0.5   此时的字体打小就是6px*/
     /*mobile*/
     -webkit-text-size-adjust: none;
 }

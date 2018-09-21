@@ -1,0 +1,57 @@
+.border-radius (@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+.box-shadow (@x, @y, @blur, @spread, @color) {
+    box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+    /*           水平阴影的位置 x  垂直阴影的位置 y 模糊距离(应为正值)b 阴影的尺寸s
+       实际效果   if X>0/y>0 则为x/y轴在正方向上  效果为  x+b+s/y+b+s的效果
+                 if X<0/y<0 则为x/y轴在负方向上  效果为  |x|+b+s/|y|+b+s的效果
+                 if x=0/y=0 则为x/y轴在正负两个方向上 效果为  b+s/b+s的效果
+       只有右阴影    box-shadow: 5px 0 5px -5px #9c9d9d;
+       只有左阴影    box-shadow: -5px 0 5px -5px #9c9d9d;
+       只有上阴影    box-shadow:  0 -5px 5px -5px #9c9d9d;
+       只有下阴影    box-shadow:  0 5px 5px -5px #9c9d9d;
+    */
+}
+
+.box-shadow (@x, @y, @blur, @spread, @color, @inset) {
+    box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+}
+
+.transition(@prop: all, @duration: 0s, @timing: ease, @delay: 0s) {
+    -webkit-transition: @arguments;
+    -moz-transition: @arguments;
+    -o-transition: @arguments;
+    transition: @arguments;
+}
+
+.transform(@param) {
+    -webkit-transform: @param;
+    -moz-transform: @param;
+    -ms-transform: @param;
+    -o-transform: @param;
+    transform: @param;
+}
+
+.linear-gradient(right, @col1, @col2, @start: 0%, @end: 100%) {
+    background: @col1;
+    background: -webkit-gradient(linear, @start 0, @end 0, from(@col1), to(@col2));
+    background: -moz-linear-gradient(to right, @col1 @start, @col2 @end);
+    background: -o-linear-gradient(to right, @col1 @start, @col2 @end);
+    background: linear-gradient(to right, @col1 @start, @col2 @end);
+}
+
+.linear-gradient(bottom, @col1, @col2, @start: 0%, @end: 100%) {
+    background: @col1;
+    background: -webkit-gradient(linear, 0 @start, 0 @end , from(@col1), to(@col2));
+    background: -moz-linear-gradient(to bottom, @col1 @start, @col2 @end);
+    background: -o-linear-gradient(to bottom, @col1 @start, @col2 @end);
+    background: linear-gradient(to bottom, @col1 @start, @col2 @end);
+}
