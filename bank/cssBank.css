@@ -1,13 +1,17 @@
 /*css3兼容写法 低版本ie 用pie*/
+
+/*border-radius*/
 div {
-    
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+}
 
-    /*-webkit-box-shadow: x-shadow y-shadow  blur spread color inset;*/
-    /*-moz-box-shadow: x-shadow y-shadow  blur spread color inset;*/
-    /*box-shadow: x-shadow y-shadow  blur spread color inset;*/
+/*box-shadow*/
+div {
+    /* -webkit-box-shadow: x-shadow y-shadow  blur spread color inset;
+    -moz-box-shadow: x-shadow y-shadow  blur spread color inset;
+    box-shadow: x-shadow y-shadow  blur spread color inset; */
     /*           水平阴影的位置 x  垂直阴影的位置 y 模糊距离(应为正值)b 阴影的尺寸s
        实际效果   if X>0/y>0 则为x/y轴在正方向上  效果为  x+b+s/y+b+s的效果
                  if X<0/y<0 则为x/y轴在负方向上  效果为  |x|+b+s/|y|+b+s的效果
@@ -17,21 +21,44 @@ div {
        只有上阴影    box-shadow:  0 -5px 5px -5px #9c9d9d;
        只有下阴影    box-shadow:  0 5px 5px -5px #9c9d9d;
     */
-    /*box-shadow: 2px 2px 10px 5px rgba(118,118,121,0.2),-2px -2px 10px 5px rgba(118,118,121,0.2) ;*/
+    -webkit-box-shadow: 2px 2px 10px 5px rgba(118, 118, 121, 0.2), -2px -2px 10px 5px rgba(118, 118, 121, 0.2);
+    -moz-box-shadow: 2px 2px 10px 5px rgba(118, 118, 121, 0.2), -2px -2px 10px 5px rgba(118, 118, 121, 0.2);
+    box-shadow: 2px 2px 10px 5px rgba(118, 118, 121, 0.2), -2px -2px 10px 5px rgba(118, 118, 121, 0.2);
+}
 
-    /*-webkit-transition: prop time;*/
-    /*-moz-transition: prop time;*/
-    /*-o-transition: prop time;*/
-    /*transition: prop time;*/
+/*transition*/
+div {
+    -webkit-transition: prop time;
+    -moz-transition: prop time;
+    -o-transition: prop time;
+    transition: prop time;
+}
 
-    /*-webkit-transform: ;*/
-    /*-moz-transform: ;*/
-    /*-ms-transform: ;*/
-    /*-o-transform: ;*/
-    /*transform: ;*/
+/*transform*/
+div {
+    -webkit-transform: translate();
+    -moz-transform: translate();
+    -ms-transform: translate();
+    -o-transform: translate();
+    transform: translate();
 
+    /* 保留3d轨迹 */
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    
+    /*  隐藏被旋转的 div 元素的背面 */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+}
+
+/*linear-gradient*/
+div {
     /*渐变--支持2种以上颜色*/
-    background: red;/* 一些不支持背景渐变的浏览器 */
+    background: red;
+    /* 一些不支持背景渐变的浏览器 */
     background: -webkit-gradient(linear, 0% 0, 100% 0, from(red), to(green));
     background: -moz-linear-gradient(to right, red 0%, green 100%);
     background: -o-linear-gradient(to right, red 0%, green 100%);
@@ -41,10 +68,11 @@ div {
     background: -moz-linear-gradient(to bottom, red 0%, green 100%);
     background: -o-linear-gradient(to bottom, red 0%, green 100%);
     background: linear-gradient(to bottom, red 0%, green 100%); */
-    
+
     /*字体渐变 */
     /* chrome firefox edge都支持 ie不支持 */
-    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(234, 101, 10, 1)), to(rgba(246, 199, 156, 1)));/*起作用关键的样式*/
+    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(234, 101, 10, 1)), to(rgba(246, 199, 156, 1)));
+    /*起作用关键的样式*/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -112,47 +140,13 @@ div {
     margin: 0 auto;
 }
 
-/*其他*/
+/*禁止用户选中文字*/
 div {
-    /*禁止用户选中文字*/
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
-
-/*placeholder 颜色*/
-input ::-webkit-input-placeholder {}
-
-input:-moz-placeholder {}
-
-input::-moz-placeholder {}
-
-input:-ms-input-placeholder {}
-
-/*自定义下拉框样式 */
-select {
-    /*很关键：将默认的select选择框样式清除  只到ie10 手机端好用*/
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
-    border: none;
-    outline: none;
-
-    /*在选择框的最右侧中间显示小箭头图片*/
-    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
-
-    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
-    padding-right: 14px !important;
-}
-
-/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
-select::-ms-expand {
-    display: none;
-}
-
 
 /*超出2行隐藏 只有chrome支持*/
 div {
@@ -167,7 +161,6 @@ div {
     text-overflow: ellipsis;
     overflow: hidden;
     /*只有谷歌支持     其他浏览器给个    max-height: 36px; 解决*/
-
 }
 
 /*opacity兼容*/
@@ -195,4 +188,35 @@ span {
     /*12px *0.5   此时的字体打小就是6px*/
     /*mobile*/
     -webkit-text-size-adjust: none;
+}
+
+/*placeholder 颜色*/
+input::-webkit-input-placeholder {}
+
+input::-moz-placeholder {}
+
+input::-moz-placeholder {}
+
+input::-ms-input-placeholder {}
+
+/*自定义下拉框样式 */
+select {
+    /*很关键：将默认的select选择框样式清除  只到ie10 手机端好用*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: none;
+    outline: none;
+
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 14px !important;
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand {
+    display: none;
 }

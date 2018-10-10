@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html style="height: 100%">
+
 <head>
     <meta charset="utf-8">
     <style>
@@ -9,8 +10,9 @@
         }
     </style>
 </head>
-<body >
-<div id="container"></div>
+
+<body>
+    <div id="container"></div>
 </body>
 <script src="../script/css/echarts.js"></script>
 <script src="../script/map/china.js"></script>
@@ -26,29 +28,45 @@
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
 
-    function randomValue() {
-        return Math.round(Math.random()*100);
-    }
-
     var option = {
         tooltip: {},
-        visualMap: {
-            type:'piecewise',
-            splitNumber:2,
-            min: 0,
-            max: 100,
-            seriesIndex: [0],    //给第一个series设定
-            inRange: {
-                color: ['#e0ffff', '#006edd']
-            },
-            left: 'left',
-            top: 'bottom',
-            formatter:'{value2}'
-        },
-
-        geo: {
+        /*方法一*/
+        // geo: {
+        //     map: 'china',
+        //     roam: true,
+        //     zoom: 1.2,
+        //     aspectScale: 0.75,
+        //     label: {
+        //         normal: {
+        //             show: true,
+        //             textStyle: {
+        //                 color: 'rgba(0,0,0,0.4)'
+        //             }
+        //         }
+        //     },
+        //     itemStyle: {
+        //         normal: {
+        //             areaColor: 'rgba(0,255,236,0.1)',
+        //             borderColor: 'rgba(118,237,236,1)',
+        //         },
+        //         emphasis: {
+        //             areaColor: 'rgba(118,237,236,0.8)',
+        //             shadowOffsetX: 0,
+        //             shadowOffsetY: 0,
+        //             shadowBlur: 20,
+        //             borderWidth: 0,
+        //             shadowColor: 'rgba(0, 0, 0, 0.5)'
+        //         }
+        //     }
+        // },
+        /*方法二 */
+        series: [{
+            name: '省',
+            type: 'map',
             map: 'china',
             roam: true,
+            zoom: 1.2,
+            aspectScale: 0.75,
             label: {
                 normal: {
                     show: true,
@@ -58,11 +76,12 @@
                 }
             },
             itemStyle: {
-                normal:{
-                    borderColor: 'rgba(0, 0, 0, 0.2)'
+                normal: {
+                    areaColor: 'rgba(0,255,236,0.1)',
+                    borderColor: 'rgba(118,237,236,1)',
                 },
-                emphasis:{
-                    areaColor: null,
+                emphasis: {
+                    areaColor: 'rgba(118,237,236,0.8)',
                     shadowOffsetX: 0,
                     shadowOffsetY: 0,
                     shadowBlur: 20,
@@ -70,62 +89,13 @@
                     shadowColor: 'rgba(0, 0, 0, 0.5)'
                 }
             }
-        },
-
-        series : [
-            {
-                name: '省',
-                type: 'map',
-                geoIndex: 0,  // 必要采用geo中第一个组件
-                data:[
-                    {name: '北京', value: randomValue()},
-                    {name: '天津', value: randomValue()},
-                    {name: '上海', value: randomValue()},
-                    {name: '重庆', value: randomValue()},
-                    {name: '河北', value: randomValue()},
-                    {name: '河南', value: randomValue()},
-                    {name: '云南', value: randomValue()},
-                    {name: '辽宁', value: randomValue()},
-                    {name: '黑龙江', value: randomValue()},
-                    {name: '湖南', value: randomValue()},
-                    {name: '安徽', value: randomValue()},
-                    {name: '山东', value: randomValue()},
-                    {name: '新疆', value: randomValue()},
-                    {name: '江苏', value: randomValue()},
-                    {name: '浙江', value: randomValue()},
-                    {name: '江西', value: randomValue()},
-                    {name: '湖北', value: randomValue()},
-                    {name: '广西', value: randomValue()},
-                    {name: '甘肃', value: randomValue()},
-                    {name: '山西', value: randomValue()},
-                    {name: '内蒙古', value: randomValue()},
-                    {name: '陕西', value: randomValue()},
-                    {name: '吉林', value: randomValue()},
-                    {name: '福建', value: randomValue()},
-                    {name: '贵州', value: randomValue()},
-                    {name: '广东', value: randomValue()},
-                    {name: '青海', value: randomValue()},
-                    {name: '西藏', value: randomValue()},
-                    {name: '四川', value: randomValue()},
-                    {name: '宁夏', value: randomValue()},
-                    {name: '海南', value: randomValue()},
-                    {name: '台湾', value: randomValue()},
-                    {name: '香港', value: randomValue()},
-                    {name: '澳门', value: randomValue()}
-                ]
-            }
-        ]
+        }]
     };
-
-
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
 
     };
-
-
-
-
 </script>
+
 </html>

@@ -1,124 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>2d</title>
     <style>
-        div{
-            line-height:50px;
+        div {
+            line-height: 50px;
         }
     </style>
 </head>
+
 <body>
-    <canvas width="500"  height="500" id="drawing" ></canvas>
+    <canvas width="500" height="500" id="drawing"></canvas>
 </body>
 <script>
     /*
-    * 参考手册 http://www.runoob.com/tags/ref-canvas.html
-    *
-    *
-    * */
-    var drawing=document.getElementById('drawing');
-    if(drawing.getContext){
-        var ps=drawing.getContext('2d');          //2d上下文 canvas
-
-        //1.绘制路径
-
-//        //1.1直线路径
-//        ps.beginPath();     // 开始绘制新路径 清除上一点
-//        ps.moveTo(0,0);     // 起点,将路径笔放到(x,y)位置 此时不绘制路径
-//        ps.lineTo(100,100); // 从上一点开始绘制一条直线路径,到(x,y)为止;
-//        ps.lineTo(100,150); // 从上一点开始绘制一条直线路径,到(x,y)为止;
-//        ps.closePath();     // 从上一点开始绘制一条直线路径,到起点为止;
-//        if(ps.isPointInPath(100,120)){  //判断点(100,120)是否在当前路径上
-//            ps.stroke();        // 按照当前路径描边
-//        }
-
-//        //1.2矩形路径
-//        ps.beginPath();        // 开始绘制新路径 清除上一点
-//        ps.rect(0,0,100,100);  // 创建矩形路径  params:(startX startY width height)
-//        ps.clip();             // 按照当前路径裁剪出一个区域(封闭)  超出这个区域不可见
-//        ps.stroke();           // 按照当前路径描边
-
-//        //1.3圆路径
-//        ps.beginPath();                        // 开始绘制新路径 清除上一点
-//        ps.arc(100,100,50,0,2*Math.PI,true) ;  // 创建圆路径  params:圆点X 圆点Y 半径 起始弧度 终止弧度 顺时针false/逆时针true
-//        ps.fill();                             // 按照当前路径填充
-
-//        //1.4 弧路径——圆角  borderRadius
-//        ps.beginPath();                    // 开始绘制新路径 清除上一点
-////        ps.moveTo(x1,y1);                // 起点,将路径笔放到(x1,y1)位置 此时不绘制路径
-////        ps.arcTo(x1+r,y1,x1+r,y1+r,r);   // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  顺时针
-////        ps.arcTo(x1,y1+r,x1+r,y1+r,r);   // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  逆时针
-//        // 顺时针例子
-//        ps.moveTo(100,20);
-//        ps.arcTo(100+50,20,100+50,20+50,50);
-//        // 逆时针例子
-//        ps.moveTo(100,20);
-//        ps.arcTo(100,20+50,100+50,20+50,50);
-//        ps.stroke();                       // 按照当前路径描边
+     * 参考手册 http://www.runoob.com/tags/ref-canvas.html
+     * */
+    var drawing = document.getElementById('drawing');
+    if (drawing.getContext) {
+        var ps = drawing.getContext('2d'); //2d上下文 canvas
 
 
-       //2. fill/stroke相关
+        //1. fill/stroke相关
 
-//        //2.1 填充/描边
-//        ps.fillStyle='rgba(0,0,0,1)'; // 设置填充颜色
-//        ps.strokeStyle='#0000ff';     // 设置描边颜色
-//        ps.fill();         // 填充
-//        ps.stroke();       // 描边
+        //1.1 填充/描边
+        ps.fillStyle = 'rgba(0,0,0,1)'; // 设置或返回用于填充绘画的颜色、渐变或模式(纹理)。
+        ps.strokeStyle = '#0000ff'; // 设置或返回用于描边的颜色、渐变或模式(纹理)。
+        ps.fill(); // 填充当前路径
+        ps.stroke(); // 描边当前路径
 
-//        //2.2 清除画布和填充/描边矩形  fillRect() | strokeRect() | clearRect()    params:(startX,startY,width,height)
-//        ps.fillRect(0,0,50,50);
-//        ps.strokeRect(50,50,50,50);
-//        ps.clearRect(0,0,0,100);   //清除画布
+        //1.2 清除画布和填充/描边矩形  fillRect() | strokeRect() | clearRect()    params:(startX,startY,width,height)
+        ps.fillRect(0, 0, 50, 50); //填充矩形。
+        ps.strokeRect(50, 50, 50, 50); //描边矩形
+        ps.clearRect(0, 0, 0, 100); //清除画布
 
-//        //2.3 填充/描边文本 fillText() | strokeText() params:('content',x,y[,(允许的最大文本宽度px)])
-//        ps.font='italic bold 20px/20px Microsoft YaHei';
-//        var w=ps.measureText('oscar').width;  //返回在当前font下 文本'oscar'的宽 可以用此方法来做限制
-//        ps.textAlign='center';         //过(x,y)点做平行于Y轴的线  以此线为 start/center/end
-//        ps.fillText('oscar',20,20);
-//        ps.strokeText('oscar',50,50);
-
-        //3. 变换
-        ps.translate(50,50);    //将坐标原点(0,0) 移动到  
+        //1.3 填充/描边文本 fillText() | strokeText() params:('content',x,y[,(允许的最大文本宽度px)])
+        ps.font = 'italic bold 20px/20px Microsoft YaHei'; //设置或返回文本内容的当前字体属性。
+        var w = ps.measureText('oscar').width; //返回在当前font下 文本'oscar'的宽 可以用此方法来做限制
+        ps.textAlign = 'center'; //过(x,y)点做平行于Y轴的线  以此线为 start/center/end
+        ps.fillText('oscar', 20, 20);
+        ps.strokeText('oscar', 50, 50);
 
 
+        //2. 绘制路径
+
+        //2.1 直线路径
+        ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
+        ps.moveTo(0, 0); // 把笔移动到画布中的指定点(x,y)，此时不创建路径，起点。
+        ps.lineTo(100, 100); // 添加一个新点(x,y)，然后在画布中创建从当前点到指定点的直线路径。
+        ps.lineTo(100, 150); // 添加一个新点(x,y)，然后在画布中创建从当前点到指定点的直线路径。
+        ps.closePath(); // 创建从当前点到起点路径。回到起点;
+        if (ps.isPointInPath(100, 120)) { //判断点(100,120)是否在当前路径上
+            ps.stroke(); // 按照当前路径描边
+        }
+
+        //2.2 矩形路径
+        ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
+        ps.rect(0, 0, 100, 100); // 创建矩形路径  params:(startX startY width height)
+        ps.clip(); // 按照当前路径裁剪出一个区域(封闭)  超出这个区域不可见
+        ps.stroke(); // 按照当前路径描边
+
+        //2.3 圆路径
+        ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
+        ps.arc(100, 100, 50, 0, 2 * Math.PI, true); // 创建圆路径  params:(圆点X 圆点Y 半径 起始弧度 终止弧度 顺时针false/逆时针true)
+        ps.fill(); // 按照当前路径填充
+
+        //2.4 弧路径——圆角  borderRadius
+        ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
+        ps.moveTo(x1, y1); // 把笔移动到画布中的指定点(x,y)，此时不创建路径，起点。
+        ps.arcTo(x1 + r, y1, x1 + r, y1 + r, r); // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  顺时针
+        ps.arcTo(x1, y1 + r, x1 + r, y1 + r, r); // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  逆时针
+        // 顺时针例子
+        ps.moveTo(100, 20);
+        ps.arcTo(100 + 50, 20, 100 + 50, 20 + 50, 50);
+        // 逆时针例子
+        ps.moveTo(100, 20);
+        ps.arcTo(100, 20 + 50, 100 + 50, 20 + 50, 50);
+        ps.stroke(); // 按照当前路径描边
 
 
-        //4.方法
-        //save()	保存当前环境的状态。
-        //restore()	返回之前保存过的路径状态和属性。
-        //两者连用可以达到2个圆形，一个包含阴影，一个不包含阴影。
-
-/*requestAnimationFrame*/
+        //3. 保留状态和返回状态
+        ps.save() //保存当前环境的状态。
+        ps.restore() //返回之前保存过的路径状态和属性。 
 
 
+        //4. 变换 在开始绘制路径前就使用
+
+        //4.1 缩放当前绘图至更大或更小。 params:(scalewidth,scaleheight)
+        ps.save();
+        ps.scale(2,2);              
+        ps.fillRect(0,0,50,50);
+
+        //4.2 旋转当前绘图。
+        ps.restore();
+        ps.rotate(20*Math.PI/180);  
+        ps.fillRect(0,0,50,50);
+
+        //4.3 允许您缩放、旋转、移动并倾斜当前的环境 
+        //4.3.1 transform 请注意，每当您调用 transform() 时，它都会在前一个变换矩阵上构建;
+        ps.restore();
+        ps.transform(1,0,0,1,0,0); //(水平缩放绘图,水平倾斜绘图,垂直倾斜绘图,垂直缩放绘图,水平移动绘图,垂直移动绘图)
+        ps.fillRect(0,0,50,50);
+        //4.3.2 setTransform 请注意，每当您调用 setTransform() 时，它都会重置前一个变换矩阵然后构建新的矩阵
+
+        //4.4 将坐标原点(0,0) 移动到 (50,50)
+        ps.restore();
+        ps.translate(50, 50);       
+        ps.fillRect(0,0,50,50);
+        
+
+        //5. ImageData对象
+        // 图像信息.data保存像素点信息。这是个数组长度是  所选宽*高*4
+        // 图像信息.width height是所区区域宽高
+        // 像素信息4个一组 分别是 r g b a  .... r g b a
+
+        //5.1 返回 ImageData 对象，该对象为画布上指定的矩形复制像素数据。
+        ps.getImageData(); //params:(startX,startY,width,height) 选择指定区域的像素点信息
+
+        //5.2 把图像数据（从指定的 ImageData 对象）放回画布上。
+        ps.putImageData(); //params:(ImageData,放置的位置X,放置的位置Y[,ImageData开始裁剪的位置X ImageData开始裁剪的位置Y 裁剪的w 裁剪的h])
+        //5.3 createImageData()
 
 
+        //6. 其他
 
+        //6.1 线条样式
+        ps.lineWidth = 10; //设置或返回当前的线条宽度。
+        ps.lineCap = "round"; //设置或返回线条的结束端点样式。 round：圆形线帽。
+        ps.lineJoin = "round"; //设置或返回两条线相交时，所创建的拐角类型。 round：创建圆角。
 
+        //6.2 阴影
+        ps.shadowOffsetX = 0; //设置或返回阴影与形状的水平距离。
+        ps.shadowOffsetY = 0; //设置或返回阴影与形状的垂直距离。
+        ps.shadowBlur = 10; //设置或返回用于阴影的模糊级别。
+        ps.shadowColor = "black"; //设置或返回用于阴影的颜色。
 
+        //6.3 向画布上绘制图像、画布或视频。
+        ps.drawImage(img, 0, 0, 100, 100, 0, 0, 100, 100) // ([原图开始裁剪的位置X 原图开始裁剪的位置Y 裁剪的w 裁剪的h] 放置的位置X 放置的位置Y [放缩之后的W 放缩之后的H])
 
+        //6.4 渐变
+        //6.4.1 创建径向渐变
+        var linearGradient = ps.createLinearGradient(0, 0, 170, 0) // params:(startX startY endX endX);
+        linearGradient.addColorStop(0, "black");
+        linearGradient.addColorStop(0.5, "red");
+        linearGradient.addColorStop(1, "white");
+        //6.4.2 创建放射状/圆形渐变
+        var radialGradient = ps.createRadialGradient(75, 50, 5, 90, 60, 100); // params:(开始圆的圆心X,开始圆的圆心Y,	开始圆的半径,结束圆的圆心X,结束圆的圆心Y,结束圆的半径);
+        radialGradient.addColorStop(0, "black");
+        radialGradient.addColorStop(0.5, "red");
+        radialGradient.addColorStop(1, "white");
 
+        //6.5 透明度
+        ps.globalAlpha = 0.2; //设置或返回绘图的当前 alpha 或透明值。
 
+        //6.6 设置或返回新图像如何绘制到已有的图像上。 http://www.runoob.com/tags/canvas-globalcompositeoperation.html
+        ps.globalCompositeOperation = "source-over"; //默认。在目标图像上显示源图像。
 
+        //6.7重复指定的元素
+        // var pat=ps.createPattern(img,"repeat"); //params:(规定要使用的模式的图片、画布或视频,重复模式)
 
+        //6.8贝塞尔曲线
+        // ps.quadraticCurveTo();
+        // ps.bezierCurveTo();
 
-
-
-
-
-
-
-
-
-
-
-
-        var imgURL=drawing.toDataURL('image/png'); //取得canvas 里面的内容转换成png的图片的路径
     }
-
-
-
+    var imgURL = drawing.toDataURL('image/png'); //取得canvas 里面的内容转换成png的图片的路径
 </script>
+
 </html>
