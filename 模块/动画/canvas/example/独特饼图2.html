@@ -21,7 +21,8 @@
         var times = Math.pow(10, n);
         return (Math.round(num * times) / times).toFixed(n)
     }
-    function Pie(obj) {
+
+    function Pie2(obj) {
         this.ps = obj.canvas.getContext('2d'); //2d上下文 canvas
         this.width = obj.width; //宽
         this.height = obj.height; //高
@@ -33,8 +34,7 @@
         this.color = obj.color; //圆环颜色
         this.data = obj.data; // 数据
     }
-    Pie.prototype.draw = function (imgRotate) {
-
+    Pie2.prototype.draw = function (imgRotate) {
         var ps = this.ps,
             centerX = this.centerX,
             centerY = this.centerY,
@@ -45,14 +45,11 @@
             data = this.data,
             lineWidth = radiusMax - radiusMin, //线宽
             radius = radiusMax - lineWidth / 2, //当前线宽下的半径
-            gap = 5 * Math.PI / 180, //分割的角度
+            gap = 14 * Math.PI / 180, //分割的角度
             biasLong = 20, //斜线长度
-            straightLong = 50; //直线长度
+            straightLong = 5; //直线长度
+
         ps.clearRect(0, 0, this.width, this.height)
-        //渐变颜色
-        var radialGradient = ps.createRadialGradient(centerX, centerY, radiusMin, centerX, centerY, radiusMax);
-        radialGradient.addColorStop(0, "rgba(" + color + ",0)");
-        radialGradient.addColorStop(1, "rgba(" + color + ",0.5)");
 
         //画图片
         ps.save();
@@ -78,47 +75,29 @@
             //画扇形
             ps.beginPath();
             ps.lineWidth = lineWidth;
+            ps.lineCap = "round"; //设置或返回线条的结束端点样式。 round：圆形线帽。
             ps.arc(centerX, centerY, radius, sum, sum + angle - gap, false);
-            ps.strokeStyle = radialGradient;
+            ps.strokeStyle = color;
             ps.stroke();
-
-            //画导引线
-            ps.beginPath();
-            ps.lineWidth = 3;
-            ps.moveTo(coordinate.starX, coordinate.starY);
-            ps.lineTo(coordinate.middleX, coordinate.middleY);
-            ps.lineTo(coordinate.endX, coordinate.endY);
-            ps.strokeStyle = radialGradient;
-            ps.stroke();
-
-            //画点
-            ps.beginPath();
-            ps.shadowBlur = 20;
-            ps.shadowColor = "rgb(" + color + ")";
-            ps.arc(coordinate.endX, coordinate.endY, 5, 0, 2 * Math.PI, false);
-            ps.fillStyle = "rgb(" + color + ")";
-            ps.fill();
-            ps.shadowBlur = 0;
 
             //画文字
             ps.beginPath();
             ps.font = '14px/14px Microsoft YaHei';
             ps.fillStyle = '#fdfdfd';
-            ps.fillText(data[i].title, coordinate.endX + (coordinate.isPlus ? 20 : -(20 + ps.measureText(data[i].title)
+            ps.fillText(data[i].title, coordinate.starX + (coordinate.isPlus ? 20 : -(20 + ps.measureText(data[i].title)
                     .width)),
-                coordinate.endY);
-            ps.fillStyle = "rgb(" + color + ")";
-            ps.fillText('解密数量：' + data[i].value + '（' + (percentage * 100).toFixed(1) + '%）', coordinate.endX + (
+                coordinate.starY);
+            ps.fillText('解密数量：' + data[i].value + '（' + (percentage * 100).toFixed(1) + '%）', coordinate.starX + (
                 coordinate.isPlus ? 0 : -(ps.measureText('解密数量：' + data[i].value + '（' + (percentage * 100)
-                    .toFixed(1) + '%）').width)), coordinate.endY + 20);
+                    .toFixed(1) + '%）').width)), coordinate.starY + 20);
 
             //加sum
             sum += angle;
         }
 
     }
-    Pie.prototype.toXY = function (centerX, centerY, radius, angle, biasLong, straightLong) {
-        var starX, starY, middleX, middleY, endX, endY, isPlus = true,
+    Pie2.prototype.toXY = function (centerX, centerY, radius, angle, biasLong, straightLong) {
+        var starX, starY, isPlus = true,
             sin = Math.abs(Math.sin(angle)),
             cos = Math.abs(Math.cos(angle));
         if (angle >= 0 && angle < Math.PI / 2) {
@@ -146,19 +125,12 @@
             }
             return this.toXY(centerX, centerY, radius, angle, biasLong, straightLong);
         }
-        starX = centerX + radius * cos;
-        starY = centerY + radius * sin;
-        middleX = centerX + (radius + biasLong) * cos;
-        middleY = centerY + (radius + biasLong) * sin;
-        endX = middleX + straightLong;
-        endY = middleY;
+        starX = centerX + (radius + biasLong) * cos + straightLong;
+        starY = centerY + (radius + biasLong) * sin;
+
         return {
             starX: starX,
             starY: starY,
-            middleX: middleX,
-            middleY: middleY,
-            endX: endX,
-            endY: endY,
             isPlus: isPlus
         }
     }
@@ -166,16 +138,16 @@
     var img = new Image();
     img.src = 'img/azureDragonrc1.png';
     img.onload = function () {
-        var circle = new Pie({
+        var circle = new Pie2({
             canvas: document.getElementById('drawing'),
             width: 700,
             height: 312,
             centerX: 350,
-            centerY: 156,
+            centerY: 150,
             radiusMax: 120,
-            radiusMin: 90,
+            radiusMin: 100,
             img: img,
-            color: '1,109,215',
+            color: '#033598',
             data: [{
                     value: 1,
                     count: 15,

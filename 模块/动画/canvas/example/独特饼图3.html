@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: #051232;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="jfxxly"></div>
+</body>
+<script>
+    function keepDecimal(num, n) { //keepDecimal(3.1415926,2)
+        var times = Math.pow(10, n);
+        return (Math.round(num * times) / times).toFixed(n)
+    }
+
+    function Pie3(obj) {
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = obj.width;
+        this.canvas.height = obj.height;
+        obj.taregt.appendChild(this.canvas);
+
+        this.ps = this.canvas.getContext('2d'); //2d上下文 canvas
+        this.width = obj.width; //宽
+        this.height = obj.height; //高
+        this.centerX=obj.centerX;   //初始centerX
+        this.centerplus=obj.centerplus; //每次加centerplus
+        this.centerY=obj.height/2;      //centerY
+        this.radiusMax = obj.radiusMax; //圆环外层半径
+        this.radiusMin = obj.radiusMin; //圆环内层半径 
+        this.color = obj.color; //圆环颜色
+        this.data = obj.data; // 数据
+        this.count = obj.count;
+    }
+    Pie3.prototype.draw = function (imgRotate) {
+        var ps = this.ps,
+            centerX = this.centerX,
+            centerY = this.centerY,
+            radiusMax = this.radiusMax,
+            radiusMin = this.radiusMin,
+            color = this.color,
+            data = this.data,
+            count = this.count,
+            lineWidth = radiusMax - radiusMin, //线宽
+            radius = radiusMax - lineWidth / 2; //当前线宽下的半径
+
+        ps.clearRect(0, 0, this.width, this.height)
+
+        var percentageSum = 0;
+        for (var i = 0; i < data.length; i++) {
+            var percentage, angle;
+            if (i == data.length - 1) {
+                percentage = keepDecimal(1 - percentageSum, 4);
+            } else {
+                percentage = keepDecimal(data[i].value / count, 4);
+                percentageSum += percentage * 1;
+            }
+            angle = percentage * Math.PI * 2;
+            
+            //画扇形
+            ps.beginPath();
+            ps.shadowBlur = 20; 
+            ps.shadowColor = color; 
+            ps.lineWidth = lineWidth;
+            ps.arc(centerX, centerY, radius,imgRotate*Math.PI/180+Math.PI, imgRotate*Math.PI/180+Math.PI + angle , false);
+            ps.strokeStyle = color;
+            ps.stroke();
+            
+            //画圆线
+            ps.shadowBlur = 0; 
+            ps.lineWidth = 1;
+            ps.strokeStyle = '#fdfdfd';
+
+            ps.beginPath();
+            ps.arc(centerX, centerY, radiusMax, 0, 2*Math.PI, false);
+            ps.stroke();
+
+            ps.beginPath();
+            ps.arc(centerX, centerY, radiusMin, 0, 2*Math.PI, false);
+            ps.stroke();
+
+            //画文字
+            ps.beginPath();
+            ps.font = '18px/18px Microsoft YaHei';
+            ps.fillStyle = '#fdfdfd';
+            ps.fillText(data[i].title,centerX-(ps.measureText(data[i].title).width/2), centerY-5);
+            var content=(percentage * 100).toFixed(2)+'%';
+            ps.fillText(content,centerX-(ps.measureText(content).width/2), centerY+20);
+
+            //加centerX
+            centerX+=this.centerplus
+        }
+    }
+    
+    var rem=252;
+    var circle = new Pie3({
+        taregt: document.getElementById("jfxxly"),
+        width: 960 / 252 * rem,
+        height: 145 / 252 * rem,
+        centerX:80 / 252 * rem,
+        centerplus:200 / 252 * rem,
+        radiusMax: 70 / 252 * rem,
+        radiusMin: 45 / 252 * rem,
+        color: '#3576f7',
+        data: [{
+                value: 1,
+                title: '乌鲁木齐'
+            },
+            {
+                value: 2,
+                title: '北京'
+            },
+            {
+                value: 3,
+                title: '北京'
+            },
+            {
+                value: 4,
+                title: '北京'
+            },
+            {
+                value: 5,
+                title: '其他'
+            },
+        ],
+        count: 15,
+    });
+
+    var progress = 0;
+    function animate() {
+        //dosomething
+        circle.draw(progress);
+        progress+=2;
+        window.requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+
+</html>

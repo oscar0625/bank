@@ -17,6 +17,9 @@
 <script>
     /*
      * 参考手册 http://www.runoob.com/tags/ref-canvas.html
+     * 注意：
+     * 1. ps.translate(0, 0);这个方法很有用
+     * 
      * */
     var drawing = document.getElementById('drawing');
     if (drawing.getContext) {
@@ -88,24 +91,27 @@
 
         //4. 变换 在开始绘制路径前就使用
 
-        //4.1 缩放当前绘图至更大或更小。 params:(scalewidth,scaleheight)
+        //4.1 移动原点的位置到(x,y)   用save和restore进行返回操作
+        ps.translate(0, 0);
+
+        //4.2 缩放当前绘图至更大或更小。 params:(scalewidth,scaleheight)
         ps.save();
         ps.scale(2,2);              
         ps.fillRect(0,0,50,50);
 
-        //4.2 旋转当前绘图。根据原定(0,0)进行旋转
+        //4.3 旋转当前绘图。根据原定(0,0)进行旋转
         ps.restore();
         ps.rotate(20*Math.PI/180);  
         ps.fillRect(0,0,50,50);
 
-        //4.3 允许您缩放、旋转、移动并倾斜当前的环境 
-        //4.3.1 transform 请注意，每当您调用 transform() 时，它都会在前一个变换矩阵上构建;
+        //4.4 允许您缩放、旋转、移动并倾斜当前的环境 
+        //4.4.1 transform 请注意，每当您调用 transform() 时，它都会在前一个变换矩阵上构建;
         ps.restore();
         ps.transform(1,0,0,1,0,0); //(水平缩放绘图,水平倾斜绘图,垂直倾斜绘图,垂直缩放绘图,水平移动绘图,垂直移动绘图)
         ps.fillRect(0,0,50,50);
-        //4.3.2 setTransform 请注意，每当您调用 setTransform() 时，它都会重置前一个变换矩阵然后构建新的矩阵
+        //4.4.2 setTransform 请注意，每当您调用 setTransform() 时，它都会重置前一个变换矩阵然后构建新的矩阵
 
-        //4.4 将坐标原点(0,0) 移动到 (50,50) 从此(50,50)相当于原点
+        //4.5 将坐标原点(0,0) 移动到 (50,50) 从此(50,50)相当于原点
         ps.restore();
         ps.translate(50, 50);       
         ps.fillRect(0,0,50,50);
