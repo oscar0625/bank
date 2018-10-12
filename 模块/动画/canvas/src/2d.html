@@ -46,7 +46,7 @@
 
         //2. 绘制路径
 
-        //2.1 直线路径
+        //2.1 创建直线路径
         ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
         ps.moveTo(0, 0); // 把笔移动到画布中的指定点(x,y)，此时不创建路径，起点。
         ps.lineTo(100, 100); // 添加一个新点(x,y)，然后在画布中创建从当前点到指定点的直线路径。
@@ -56,18 +56,18 @@
             ps.stroke(); // 按照当前路径描边
         }
 
-        //2.2 矩形路径
+        //2.2 创建矩形路径
         ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
         ps.rect(0, 0, 100, 100); // 创建矩形路径  params:(startX startY width height)
         ps.clip(); // 按照当前路径裁剪出一个区域(封闭)  超出这个区域不可见
         ps.stroke(); // 按照当前路径描边
 
-        //2.3 圆路径
+        //2.3 创建弧/曲线（用于创建圆形或部分圆）
         ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
         ps.arc(100, 100, 50, 0, 2 * Math.PI, true); // 创建圆路径  params:(圆点X 圆点Y 半径 起始弧度 终止弧度 顺时针false/逆时针true)
         ps.fill(); // 按照当前路径填充
 
-        //2.4 弧路径——圆角  borderRadius
+        //2.4 创建两切线之间的弧/曲线。—— 圆角  borderRadius
         ps.beginPath(); // 起始一条路径，或重置当前路径(清除上一点)。
         ps.moveTo(x1, y1); // 把笔移动到画布中的指定点(x,y)，此时不创建路径，起点。
         ps.arcTo(x1 + r, y1, x1 + r, y1 + r, r); // 从(x1,y1)到(x1+r,y1+r)做一条半径为r的弧  顺时针
@@ -93,7 +93,7 @@
         ps.scale(2,2);              
         ps.fillRect(0,0,50,50);
 
-        //4.2 旋转当前绘图。
+        //4.2 旋转当前绘图。根据原定(0,0)进行旋转
         ps.restore();
         ps.rotate(20*Math.PI/180);  
         ps.fillRect(0,0,50,50);
@@ -105,7 +105,7 @@
         ps.fillRect(0,0,50,50);
         //4.3.2 setTransform 请注意，每当您调用 setTransform() 时，它都会重置前一个变换矩阵然后构建新的矩阵
 
-        //4.4 将坐标原点(0,0) 移动到 (50,50)
+        //4.4 将坐标原点(0,0) 移动到 (50,50) 从此(50,50)相当于原点
         ps.restore();
         ps.translate(50, 50);       
         ps.fillRect(0,0,50,50);
@@ -146,11 +146,15 @@
         linearGradient.addColorStop(0, "black");
         linearGradient.addColorStop(0.5, "red");
         linearGradient.addColorStop(1, "white");
+        ps.fillStyle=linearGradient; 
+
         //6.4.2 创建放射状/圆形渐变
         var radialGradient = ps.createRadialGradient(75, 50, 5, 90, 60, 100); // params:(开始圆的圆心X,开始圆的圆心Y,	开始圆的半径,结束圆的圆心X,结束圆的圆心Y,结束圆的半径);
         radialGradient.addColorStop(0, "black");
         radialGradient.addColorStop(0.5, "red");
         radialGradient.addColorStop(1, "white");
+        ps.fillStyle=radialGradient; 
+        
 
         //6.5 透明度
         ps.globalAlpha = 0.2; //设置或返回绘图的当前 alpha 或透明值。

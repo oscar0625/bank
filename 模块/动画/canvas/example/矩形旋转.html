@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="drawing" width="500" height="500"></canvas>
+
+</body>
+<script type="text/javascript">
+    /**
+     * 将矩形按照其几何中心旋转
+     * @param {*} centerX  几何中心的坐标X
+     * @param {*} centerY  几何中心的坐标y
+     * @param {*} width    矩形宽
+     * @param {*} height   矩形高
+     */
+    function centerRotate(canvas, centerX, centerY, width, height) {
+        var cvs = canvas.getContext("2d");
+        cvs.translate(centerX, centerY);
+
+        setInterval(function () {
+            cvs.clearRect(-centerX, -centerY, canvas.width, canvas.height);
+            cvs.rotate(1 * Math.PI / 180);
+            cvs.fillRect(-width/2, -height/2, width, height);
+        }, 1000 / 60);
+    }
+    var drawing = document.getElementById("drawing");
+    centerRotate(drawing,200, 200,300,20);
+</script>
+
+</html>
