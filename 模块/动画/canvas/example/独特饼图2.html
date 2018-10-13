@@ -31,6 +31,7 @@
         this.radiusMax = obj.radiusMax; //圆环外层半径
         this.radiusMin = obj.radiusMin; //圆环内层半径 
         this.img = obj.img; //图片
+        this.imgWidth = obj.imgWidth; //图片宽度
         this.color = obj.color; //圆环颜色
         this.data = obj.data; // 数据
     }
@@ -55,7 +56,7 @@
         ps.save();
         ps.translate(centerX, centerY);
         ps.rotate(imgRotate * Math.PI / 180);
-        ps.drawImage(img, -radiusMax, -radiusMax);
+        ps.drawImage(img,0,0,img.width,img.height,-this.imgWidth/2, -this.imgWidth/2,this.imgWidth,this.imgWidth);
         ps.restore();
 
         var sum = 0,
@@ -144,9 +145,10 @@
             height: 312,
             centerX: 350,
             centerY: 150,
-            radiusMax: 120,
+            radiusMax: 115,
             radiusMin: 100,
             img: img,
+            imgWidth: 240,
             color: '#033598',
             data: [{
                     value: 1,
