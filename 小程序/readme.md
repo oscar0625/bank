@@ -78,7 +78,7 @@
             // 监听用户上拉触底事件。 可以在app.json的window选项中或页面配置中设置触发距离onReachBottomDistance。
         },
         onTabItemTap(item) {
-            //点击 tab 时触发
+            //点击 tabBar 时触发
             console.log(item.index)
             console.log(item.pagePath)
             console.log(item.text)
@@ -131,7 +131,7 @@
 ```
 ### 1.2列表渲染 
 ```
-    <view wx:for="{{array}}">
+    <view wx:for="{{array}}" wx:key="index">
         {{index}}: {{item.message}}
     </view>
     //默认数组的当前项的下标变量名默认为 index，数组当前项的变量名默认为 item
@@ -145,9 +145,9 @@
 ```
 ### 1.3条件渲染
 ```
-    <view wx:if="{{length > 5}}"> 1 </view>
-    <view wx:elif="{{length > 2}}"> 2 </view>
-    <view wx:else> 3 </view>
+    <block  wx:if="{{length > 5}}"> 1 </block >
+    <block  wx:elif="{{length > 2}}"> 2 </block >
+    <block  wx:else> 3 </block >
 ```
 ### 1.4引用
     import  可以在该文件中使用目标文件定义的template
@@ -161,6 +161,15 @@
 
 ## 2.WXSS
 ### 2.1 尺寸单位 rpx
+    rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。
+    建议： 开发微信小程序时设计师可以用 iPhone6 作为视觉稿的标准。
+
+    例如：设计稿750px宽度
+    那么恭喜您，你ps上量出宽度是多少，那么你就定义多少rpx，也就是 1px = 1rpx
+
+    例如：设计稿640px宽度
+    那么很遗憾，你需要转换一下 1px = 750/640 rpx
+    
 ### 2.2 class_style
     class="{{className}}" 
     style="color:{{className}};"
@@ -235,6 +244,7 @@
 ## 5. progress
 ## 6. 表单组件
 ## 7. navigator 导航a标签
+## 8. <block></block >
 
     
 
@@ -274,6 +284,9 @@
     wx.hideLoading(Object)	隐藏 loading 提示框
     wx.showLoading(Object)	显示 loading 提示框
     wx.showActionSheet(Object)	​显示操作菜单
+## 5.图片选择上传
+    wx.chooseImage();
+    wx.uploadFile()
 
 
 # 八、WXS (暂时认为没用)
