@@ -288,14 +288,28 @@
     wx.chooseImage();
     wx.uploadFile()
 
+# 八、地图  
+## 1.使用腾讯地图的功能
+    wx.getLocation(Object object)       //获取当前的地理位置、速度。
+    wx.chooseLocation(Object object)    //打开腾讯地图搜索/选择位置。
+    wx.openLocation(Object object)      //​使用微信内置地图查看位置。(可以用做导航用)
+    更多扩展功能 使用腾讯地图微信小程序JavaScript SDK  https://lbs.qq.com/qqmap_wx_jssdk/index.html
+## 2.使用本网页中地图的功能    
+### 2.1 map组件
+```
+    <map id="map" style="width: 100%; height: 420px;" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location="true" markers="{{markers}}" bindtap="clickMap" ></map>
+```
+### 2.2 MapContext Api
+     wx.createMapContext(string mapId, Object this)
 
-# 八、WXS (暂时认为没用)
+# 九、WXS (暂时认为没用)
     WXS（WeiXin Script）是小程序的一套脚本语言，结合 WXML，可以构建出页面的结构。
     wxs可以说就是为了满足能在页面中使用js存在的。
     wxs 与 javascript 是不同的语言，有自己的语法，并不和 javascript 一致。
     wxs 的运行环境和其他 javascript 代码是隔离的，wxs 中不能调用其他 javascript 文件中定义的函数，也不能调用小程序提供的API。
     wxs 函数不能作为组件的事件回调。
     由于运行环境的差异，在 iOS 设备上小程序内的 wxs 会比 javascript 代码快 2 ~ 20 倍。在 android 设备上二者运行效率无差异。
+
 
 
 
