@@ -13,6 +13,10 @@
         navigateToMiniProgramAppIdList  需要跳转的小程序列表
 ## 2. 页面配置    
     page.json 页面的配置只能设置 app.json 中部分 window 配置项的内容，页面中配置项会覆盖 app.json 的 window 中相同的配置项。
+    backgroundColor  窗口的背景色是指页面下拉之后 后面的背景色 要是想给body设置颜色 
+    page{
+        background: #30c68c;
+    }
 ## 3. 开发者工具的配置
     project.config.json 
 
@@ -254,7 +258,8 @@
    事件监听：我们约定，以 on 开头的 API 用来监听某个事件是否触发。
    同步API：我们约定，以 Sync 结尾的 API 都是同步 API。
    异步 API：大多数 API 都是异步 API，这类 API 接口通常都接受一个 Object 类型的参数
-## 2. 发起请求（ajax）
+## 2. 前后端交互（ajax）
+### 2.1 get/post
 ```
     wx.request({
         url: 'test.php', 
@@ -269,24 +274,43 @@
         }
     })
 ```
+### 2.2 上传文件
+```
+    wx.uploadFile({        
+        url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+        filePath: tempFilePaths[0], //一次只能上传一个，多个文件上传使用递归传
+        name: 'file',
+        formData: {
+            'user': 'test'
+        },
+        success (res){
+            const data = res.data
+            //do something
+        }
+    })
+```
+### 2.3 form提交方式
 ## 3. 页面路由
     wx.navigateTo(Object), wx.redirectTo(Object) 只能打开非 tabBar 页面。前者能返回 后者不能返回
     wx.switchTab(Object) 只能打开 tabBar 页面。并关闭其他所有非 tabBar 页面
-    wx.reLaunch(Object) 可以打开任意页面。 并关闭之前所有页面。
+    wx.reLaunch(Object) 可以打开任意页面。 并关闭之前所有页面。(可做刷新用)
     wx.navigateBack(Object) 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
     调用页面路由带的参数可以在目标页面的onLoad中获取。
-## 4. 窗口  
+## 4. 窗口(弹出框)  
     wx.onWindowResize(callback) //监听窗口尺寸变化事件
     wx.pageScrollTo(Object)  //将页面滚动到目标位置
-    wx.hideToast(Object)	隐藏消息提示框
-    wx.showToast(Object)	显示消息提示框
-    wx.showModal(Object)	显示模态对话框
-    wx.hideLoading(Object)	隐藏 loading 提示框
+
     wx.showLoading(Object)	显示 loading 提示框
+    wx.hideLoading(Object)	隐藏 loading 提示框
+
+    wx.showModal(Object)	显示模态(对话框)
+
+    wx.showToast(Object)	显示消息(提示框)
+    wx.hideToast(Object)	隐藏消息(提示框)
+
     wx.showActionSheet(Object)	​显示操作菜单
-## 5.图片选择上传
+## 5.图片选择
     wx.chooseImage();
-    wx.uploadFile()
 
 # 八、地图  
 ## 1.使用腾讯地图的功能
