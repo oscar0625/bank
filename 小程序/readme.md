@@ -295,6 +295,8 @@
     wx.switchTab(Object) 只能打开 tabBar 页面。并关闭其他所有非 tabBar 页面
     wx.reLaunch(Object) 可以打开任意页面。 并关闭之前所有页面。(可做刷新用)
     wx.navigateBack(Object) 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
+          wx.navigateBack({delta: 1}) 返回上一层
+    wx.redirectTo(Object object)关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
     调用页面路由带的参数可以在目标页面的onLoad中获取。
 ## 4. 窗口(弹出框)  
     wx.onWindowResize(callback) //监听窗口尺寸变化事件
@@ -309,8 +311,10 @@
     wx.hideToast(Object)	隐藏消息(提示框)
 
     wx.showActionSheet(Object)	​显示操作菜单
-## 5.图片选择
-    wx.chooseImage();
+## 5. 图片相关
+    wx.chooseImage();   //从本地相册选择图片或使用相机拍照(选择图片)
+    wx.previewImage()   //在新页面中全屏预览图片(预览图片)
+    wx.getImageInfo()   //获取图片信息  
 
 # 八、地图  
 ## 1.使用腾讯地图的功能
