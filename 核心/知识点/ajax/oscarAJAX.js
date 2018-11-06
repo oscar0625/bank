@@ -36,7 +36,7 @@
             },
             processData: true, //默认true,通过data选项传递进来的数据，如果是一个对象(技术上讲只要不是字符串)，都会处理转化成一个查询字符串
             
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型 contentType:"application/json",
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型 支持contentType:"application/json"
         };
         for (var i in params) {
             obj[i] = params[i];
@@ -46,7 +46,12 @@
         if (Object.prototype.toString.call(obj.data) === '[object Object]') {
             //是否允许处理obj.data
             if (obj.processData) {
-                obj.data = data_parse(obj.data);
+                if(/application\/x-www-form-urlencoded/i.test(obj.contentType)){
+                    obj.data = data_parse(obj.data);
+                }
+                if(/application\/json/.test(obj.contentType)){
+                    obj.data= JSON.stringify(obj.data);
+                }
             }
         }
 
