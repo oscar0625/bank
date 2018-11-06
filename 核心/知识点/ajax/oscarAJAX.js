@@ -35,7 +35,8 @@
                 //下载进度
             },
             processData: true, //默认true,通过data选项传递进来的数据，如果是一个对象(技术上讲只要不是字符串)，都会处理转化成一个查询字符串
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型
+            
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型 contentType:"application/json",
         };
         for (var i in params) {
             obj[i] = params[i];
@@ -103,7 +104,7 @@
             // 3.open不会真正的发送请求,只是启动一个请求以备发送。 xhr.open(type,url,async)
             xhr.open(obj.type, obj.url, obj.async);
 
-            if (obj.contentType) { //如果contentType存在添加请求头
+            if (obj.contentType) { //如果contentType不为false则添加请求头
                 // 3.1 自定义http请求头 (此方法必须放在open()后 send()前面)
                 xhr.setRequestHeader('content-type', obj.contentType);
             }

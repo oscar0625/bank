@@ -22,5 +22,13 @@
         traditional :true,                  //设置为true 用传统的方式来序列化数据 不调用$.param()
     });
     // 发送的是age=1&age=2&ge=3&name=o&scar
+
+    $.ajax({
+        url:'',
+        type:'post',
+        contentType: 'application/json',
+        data: JSON.stringify({a: [{b:1, a:1}]})
+    })
+    // 传json数据
 </script>
 </html>

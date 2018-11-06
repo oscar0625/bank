@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./oscarAJAX.js"></script>
+<script>
+    oscarAJAX({
+            type: "post",
+            url: "http://47.94.205.149:9021/api/auth",
+            dataType: 'json',
+            contentType:"application/json",
+            data: JSON.stringify({
+                "username": "a",
+                "password": "aaaaaa"
+            }),
+            success: function (res) {
+                console.log(res)
+            },
+            error: function (res) {
+                console.log(res)
+            }
+        })
+        //contentType: "application/x-www-form-urlencoded;charset=UTF-8" $.ajax默认解析办法常用 如果数据是简单、平面的key-value键值对，那么使用application/x-www-form-urlencoded简单实用，不需要额外的编解码
+        //contentType: "multipart/form-data" 上传文件时候时候用 formData加的默认的请求头就是这个
+
+        //contentType: "application/json"   传  data: JSON.stringify({a: [{b:1, a:1}]})}) 时候用 如果数据是复杂的嵌套关系，有多层数据，那么使用application/json会简化数据的处理
+        
+
+</script>
+</html>
