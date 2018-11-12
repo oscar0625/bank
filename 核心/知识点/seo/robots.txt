@@ -1,0 +1,135 @@
+User-agent: Baiduspider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Googlebot
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent:  Bingbot
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: MSNBot
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Baiduspider-image
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: YoudaoBot
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-Agent:  360Spider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-Agent:  Sogouspider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou web spider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou inst spider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou spider2
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou blog
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou News Spider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sogou Orion spider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: ChinasoSpider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: Sosospider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: yisouspider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: EasouSpider
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-Agent:  Yahoo!  Slurp
+Disallow: /web
+Disallow: /register
+Disallow: /bindPhone
+Disallow: /retrievePassword
+Disallow: /myhome
+
+User-agent: *
+Disallow: /
