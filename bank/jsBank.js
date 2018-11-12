@@ -5,22 +5,22 @@ var oscar = {
         //第一版使用时候出现这样一个错误 www.baidu.com?url=http://www.zgcjm.com/DefaultIndex?type=kjcgtz
         //这是优化后的版本优化版本
         var obj = {};
-        if(str){
+        if (str) {
             var arr = str.slice(1).split('&');
             for (var i = 0, len = arr.length; i < len; i++) {
-                var tail='';
+                var tail = '';
                 var res = arr[i].split('=');
-                for(var j=1,lenJ=res.length;j<lenJ;j++){
-                    tail+=res[j]+'=';
+                for (var j = 1, lenJ = res.length; j < lenJ; j++) {
+                    tail += res[j] + '=';
                 }
-                obj[res[0]] = decodeURIComponent(tail.slice(0,tail.length-1))
+                obj[res[0]] = decodeURIComponent(tail.slice(0, tail.length - 1))
             }
         }
         return obj;
     },
 
     //图片预加载
-    loadImage:function (url, callback) {
+    loadImage: function (url, callback) {
         var img = new Image(); //创建一个Image对象，实现图片的预下载
         img.src = url;
 
@@ -30,26 +30,26 @@ var oscar = {
         }
 
         img.onload = function () { //图片下载完毕时异步调用callback函数。
-            callback.call(img);    //将回调函数的this替换为Image对象
+            callback.call(img); //将回调函数的this替换为Image对象
             img.onload = null;
         };
     },
 
     /*深拷贝*/
-    deepClone:function(){
-        if(typeof obj !='object'){
+    deepClone: function () {
+        if (typeof obj != 'object') {
             return obj
         }
-        var newObj=Array.isArray(obj)?[]:{};
-        for (var i in obj){
-            newObj[i]=deepClone(obj[i]);
+        var newObj = Array.isArray(obj) ? [] : {};
+        for (var i in obj) {
+            newObj[i] = deepClone(obj[i]);
         }
         return newObj
     },
 
     //普通随机数[min,max]
-    random:function (min,max) {                          //限制 max-min值为整数
-        return Math.floor(Math.random()*(max-min+1))+min;
+    random: function (min, max) { //限制 max-min值为整数
+        return Math.floor(Math.random() * (max - min + 1)) + min;
         //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
     },
 
@@ -59,75 +59,23 @@ var oscar = {
      * @param min  [最小] 可取
      * @param max  [最大] 取不到
      */
-    seedRandom:function(seed,min,max) {
+    seedRandom: function (seed, min, max) {
         min = min || 0;
         max = max || 1;
         seed = (seed * 9301 + 49297) % 233280;
         var rnd = seed / 233280.0;
-        return rnd * (max - min)+min;
+        return rnd * (max - min) + min;
         //return Math.floor(rnd*(max-min+1))+min;  //取整
     },
 
-    //判断当前手机类型
-    phoneType:function () {
-        var appVersion = window.navigator.appVersion, //取得浏览器的appVersion
-            isAndroid = appVersion.match(/android/gi),
-            isIPhone =appVersion.match(/iphone/gi);
-        if(isIPhone) return 'iphone';
-        if(isAndroid) return 'android';
-    },
-
-    //判断当前浏览类型
-    browserType: function () {
-        var userAgent = window.navigator.userAgent; //取得浏览器的userAgent字符串
-
-        var isIE = userAgent.indexOf("Trident") > -1; //判断是否IE浏览器
-        var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
-        var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
-        var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
-        if (isIE) {
-            if (userAgent.indexOf("MSIE") == -1) {
-                return "IE11";
-            }
-            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-            reIE.test(userAgent);
-            var fIEVersion = parseFloat(RegExp["$1"]);
-            if (fIEVersion == 7) {
-                return "IE7";
-            }
-            else if (fIEVersion == 8) {
-                return "IE8";
-            }
-            else if (fIEVersion == 9) {
-                return "IE9";
-            }
-            else if (fIEVersion == 10) {
-                return "IE10";
-            }
-            else {
-                return "0"
-            }//IE版本过低
-        }//isIE end
-
-        if (isFF) {
-            return "FF";
-        }
-        if (isChrome) {
-            return "Chrome";
-        }
-        if (isSafari) {
-            return "Safari";
-        }
-    },
-
     //冒泡排序
-    bubbleSort:function (arr) {
-        for(var i =0 ;i<arr.length;i++){
-            for(var j=0;j<arr.length-1-i;j++){
-                if(arr[j]>arr[j+1]){
-                    var temp=arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
+    bubbleSort: function (arr) {
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }
@@ -135,20 +83,20 @@ var oscar = {
     },
 
     //sort排序
-    sort:function (arr) {
-        arr.sort(function (a,b) {
-            return a-b
+    sort: function (arr) {
+        arr.sort(function (a, b) {
+            return a - b
         });
         return arr
     },
 
     //数组去重
-    merge:function (arr) {
-        var res=[];
-        var obj={};
-        for(var i =0 ;i<arr.length;i++){
-            if(!obj[arr[i]]){
-                obj[arr[i]]=true;
+    merge: function (arr) {
+        var res = [];
+        var obj = {};
+        for (var i = 0; i < arr.length; i++) {
+            if (!obj[arr[i]]) {
+                obj[arr[i]] = true;
                 res.push(arr[i])
             }
         }
@@ -169,7 +117,7 @@ var oscar = {
         get: function (name) {
             //获取cookie
             var cookieName = name + "=";
-            var cookieStart = document.cookie.indexOf(cookieName);//如果存在返回当恰的位置
+            var cookieStart = document.cookie.indexOf(cookieName); //如果存在返回当恰的位置
             var cookieValue = null;
             if (cookieStart > -1) {
                 var cookieEnd = document.cookie.indexOf(";", cookieStart);
@@ -197,7 +145,8 @@ var oscar = {
 
     //判断滚动条是往上还是往下
     scrollUpDown: function () {
-        var currentTop = 0, lastTop = 0;
+        var currentTop = 0,
+            lastTop = 0;
         window.onscroll = function () {
             currentTop = document.body.scrollTop || document.documentElement.scrollTop;
             if (currentTop >= lastTop) {
@@ -262,9 +211,9 @@ var oscar = {
      * @param n  0-20 [保留n位小数]
      * @returns {string}
      */
-    keepDecimal:function(num,n) {   //keepDecimal(3.1415926,2)
-        var times=Math.pow(10,n);
-        return (Math.round(num*times)/times).toFixed(n)
+    keepDecimal: function (num, n) { //keepDecimal(3.1415926,2)
+        var times = Math.pow(10, n);
+        return (Math.round(num * times) / times).toFixed(n)
     },
 
     /*计算已经工作时间*/
@@ -291,12 +240,41 @@ var oscar = {
     /*检验身份证*/
     checkCard: {
         vcity: {
-            11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古",
-            21: "辽宁", 22: "吉林", 23: "黑龙江", 31: "上海", 32: "江苏",
-            33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南",
-            42: "湖北", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆",
-            51: "四川", 52: "贵州", 53: "云南", 54: "西藏", 61: "陕西", 62: "甘肃",
-            63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外"
+            11: "北京",
+            12: "天津",
+            13: "河北",
+            14: "山西",
+            15: "内蒙古",
+            21: "辽宁",
+            22: "吉林",
+            23: "黑龙江",
+            31: "上海",
+            32: "江苏",
+            33: "浙江",
+            34: "安徽",
+            35: "福建",
+            36: "江西",
+            37: "山东",
+            41: "河南",
+            42: "湖北",
+            43: "湖南",
+            44: "广东",
+            45: "广西",
+            46: "海南",
+            50: "重庆",
+            51: "四川",
+            52: "贵州",
+            53: "云南",
+            54: "西藏",
+            61: "陕西",
+            62: "甘肃",
+            63: "青海",
+            64: "宁夏",
+            65: "新疆",
+            71: "台湾",
+            81: "香港",
+            82: "澳门",
+            91: "国外"
         },
         //1.检查号码是否符合规范，包括长度，类型
         isCardNo: function (obj) {
@@ -363,7 +341,8 @@ var oscar = {
             if (len == '18') {
                 var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
                 var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-                var cardTemp = 0, i, valnum;
+                var cardTemp = 0,
+                    i, valnum;
                 for (i = 0; i < 17; i++) {
 
                     cardTemp += obj.substr(i, 1) * arrInt[i];
@@ -382,7 +361,8 @@ var oscar = {
             if (obj.length == '15') {
                 var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
                 var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-                var cardTemp = 0, i;
+                var cardTemp = 0,
+                    i;
                 obj = obj.substr(0, 6) + '19' + obj.substr(6, obj.length - 6);
                 for (i = 0; i < 17; i++) {
                     cardTemp += obj.substr(i, 1) * arrInt[i];
@@ -392,7 +372,7 @@ var oscar = {
             }
             return obj;
         },
-        init: function (obj) {   //字符串
+        init: function (obj) { //字符串
             //校验长度，类型
             if (this.isCardNo(obj) === false) {
                 return false;
@@ -432,7 +412,7 @@ var oscar = {
     },
 
     /*检验座机电话*/
-    checkTelephone:function (str) {
+    checkTelephone: function (str) {
         if (/(^0\d{2}-\d{8}$)|(^0\d{3}-\d{7}$)/.test(str)) {
             return true;
         } else {
@@ -441,96 +421,147 @@ var oscar = {
     },
 
     /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
-    checkChineseName:function (str) {
-        if(/^[\u4E00-\u9FA5]+·?[\u4E00-\u9FA5]+$/.test(str)){
+    checkChineseName: function (str) {
+        if (/^[\u4E00-\u9FA5]+·?[\u4E00-\u9FA5]+$/.test(str)) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 
     /*检验正确的数字 */
     //不限制小数位数
-    checkRealNum:function (str) {
-        var reg=/(^[1-9]\d*(\.\d+)?$)|(^0(\.\d+)?$)/;
-        if(reg.test(str)){
+    checkRealNum: function (str) {
+        var reg = /(^[1-9]\d*(\.\d+)?$)|(^0(\.\d+)?$)/;
+        if (reg.test(str)) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 
     //允许保留1位小数
-    checkRealNumOne:function (str) {
-        var reg=/(^[1-9]\d*(\.\d)?$)|(^0(\.\d)?$)/;
-        if(reg.test(str)){
+    checkRealNumOne: function (str) {
+        var reg = /(^[1-9]\d*(\.\d)?$)|(^0(\.\d)?$)/;
+        if (reg.test(str)) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 
     //允许保留2位小数
-    checkRealNumTwo:function (str) {
-        var reg=/(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
-        if(reg.test(str)){
+    checkRealNumTwo: function (str) {
+        var reg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
+        if (reg.test(str)) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 
     /*验证18位营业执照*/
-    checkTradingCertificate:function (code) {
+    checkTradingCertificate: function (code) {
         var reg = /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{9})([0-9ABCDEFGHJKLMNPQRTUWXY]{1})$/;
-        if(code.length != 18 || reg.test(code) == false){
+        if (code.length != 18 || reg.test(code) == false) {
             return false;
         }
         /*验证第18位*/
         //不用I、O、S、V、Z
         var str = '0123456789ABCDEFGHJKLMNPQRTUWXY',
-            ws =[1,3,9,27,19,26,16,17,20,29,25,13,8,24,10,30,28],
-            codes  = [],
-            i,sum = 0,
-            index,c18;
+            ws = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28],
+            codes = [],
+            i, sum = 0,
+            index, c18;
 
-        codes[0] = code.slice(0,code.length-1);
-        codes[1] = code.slice(code.length-1,code.length);
+        codes[0] = code.slice(0, code.length - 1);
+        codes[1] = code.slice(code.length - 1, code.length);
 
-        for(i=0;i<17;i++){
+        for (i = 0; i < 17; i++) {
             sum += str.indexOf(codes[0].charAt(i)) * ws[i];
         }
 
         index = 31 - (sum % 31);
-        index == 31&&(index = 0);
+        index == 31 && (index = 0);
 
         /*18位*/
-        c18=str.charAt(index);
+        c18 = str.charAt(index);
 
-        return c18  == codes[1];
+        return c18 == codes[1];
     },
 
     /*禁止页面copy、右键功能*/
-    preventCopy:function () {
+    preventCopy: function () {
         /*去掉右键菜单*/
-        document.oncontextmenu=function(e){
-            e?e.preventDefault(): window.event.returnValue=false;
+        document.oncontextmenu = function (e) {
+            e ? e.preventDefault() : window.event.returnValue = false;
         };
         //禁止copy
-        document.oncopy=function () {
-            e?e.preventDefault(): window.event.returnValue=false;
+        document.oncopy = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
         };
         //禁止cut
-        document.oncut= function () {
-            e?e.preventDefault(): window.event.returnValue=false;
+        document.oncut = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
         };
     },
 
     /*寻找数组中最小值/最大值*/
-    findMin:function (arr) {
-        return Math.min.apply(Math,arr)
+    findMin: function (arr) {
+        return Math.min.apply(Math, arr)
     },
-    findMax:function (arr) {
-        return Math.max.apply(Math,arr)
+    findMax: function (arr) {
+        return Math.max.apply(Math, arr)
     },
+    browser: {
+        //移动/pc终端浏览器版本信息 
+        versions: function () {
+            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
+                app = window.navigator.appVersion;
+            return {
+                //判断浏览器内核
+                trident: userAgent.indexOf('Trident') > -1, //IE内核
+                webKit: userAgent.indexOf('AppleWebKit') > -1, //webkit内核/苹果、谷歌内核
+                gecko: userAgent.indexOf("Firefox") > -1, //火狐内核
+                presto: userAgent.indexOf('Presto') > -1, //opera内核
+                //判断是否移动端  (满足任一就应跳转到手机端)
+                mobile: /AppleWebKit.*Mobile.*/.test(userAgent), //windows移动终端
+                ios: /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(userAgent), //ios移动终端
+                android: userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: userAgent.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: userAgent.indexOf('iPad') > -1, //是否iPad  
+                //判断是否微信qq
+                weixin: userAgent.indexOf('MicroMessenger') > -1, //是否微信 
+                qq: userAgent.match(/\sQQ/i) == " qq" //是否QQ
+            };
+        }(),
+
+        //当前语言 比如"zh-CN"
+        language: (navigator.browserLanguage || navigator.language).toLowerCase(),
+
+        //判断ie几
+        ieNum: function () {
+            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
+                isIE = userAgent.indexOf("Trident") > -1; //判断是否IE浏览器
+            if (isIE) {
+                if (userAgent.indexOf("MSIE") == -1) {
+                    return "IE11";
+                }
+                var fIEVersion = parseFloat(userAgent.match(/MSIE (\d+\.\d+)/)[1]);
+                if (fIEVersion == 7) {
+                    return "IE7";
+                } else if (fIEVersion == 8) {
+                    return "IE8";
+                } else if (fIEVersion == 9) {
+                    return "IE9";
+                } else if (fIEVersion == 10) {
+                    return "IE10";
+                } else {
+                    return "0" //IE版本过低
+                }
+            } else {
+                return false
+            }
+        }(),
+    }
 };
