@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义插件</title>
+    <style>
+        .demo{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <!--默认样式-->
+    <link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+</head>
+<body>
+<div class="demo"></div>
+</body>
+<!--加载核心js-->
+<script src="kindeditor/kindeditor-min.js"></script>
+<!--加载语言包-->
+<script src="kindeditor/lang/zh_CN.js"></script>
+<script>
+    /** 
+    *目录结构
+    * asp - ASP程序  asp.net - ASP.NET程序 php - PHP程序 jsp - JSP程序
+    * lang 语言包
+    * themes css样式以及图片背景 提供几种 default qq simple common
+    * plugins 第三方插件
+    * **/
+   /**
+    * 文档 http://kindeditor.net/doc.php
+    * 参数配置 http://kindeditor.net/docs/option.html
+    * 
+    * **/
+   /**
+    * 问题一：kindeditor编辑器微软雅黑样式font-family值变成&quot; 最新版4.1.11以及官网上的演示demo都存在这个问题.
+    * 暂时解决方法，zh_CN.js中搜索 fontname.fontName，修改字体名称，将 Microsoft Yahei 改为 微软雅黑 中文字。
+    * 
+    * **/
+   KindEditor.ready(function(K) {
+       //实例化一个编辑器 指定标签
+       window.editor = K.create('.demo',{
+           //自定义选择插件
+           items :["fontsize", "bold", "italic","justifyleft","justifycenter","justifyright","image","hr","forecolor"],
+           //设置不允许动 0 1 2(默认)
+           resizeType:0,
+           //指定主题风格
+           themeType : 'default',
+           //指定语言
+           langType:'zh-CN',
+           //设置宽度
+           width:'100%',
+           //设置高度
+           height:420/64*(window.innerWidth/10)+'px',
+           //指定上传文件的服务器端程序。
+           uploadJson:'php/upload_json.php',
+           //指定浏览远程图片的服务器端程序。
+           fileManagerJson:'php/file_manager_json.php'
+       });
+   });
+
+</script>
+</html>

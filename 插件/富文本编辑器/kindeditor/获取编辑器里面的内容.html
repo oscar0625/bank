@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>获取编辑器里面的内容</title>
+    <style>
+        .demo{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <!--默认样式-->
+    <link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+</head>
+<body>
+<div class="demo"></div>
+<button>获取编辑器里面的内容</button>
+</body>
+<!--加载核心js-->
+<script src="kindeditor/kindeditor-min.js"></script>
+<!--加载语言包-->
+<script src="kindeditor/lang/zh_CN.js"></script>
+<script>
+    var button=document.querySelector('button');
+
+    /*核心内容*/
+    var editor;
+    KindEditor.ready(function(K) {
+        //实例化一个编辑器 指定标签
+        editor = K.create('.demo');
+    });
+
+    button.onclick= function () {
+        //通过编辑器.html方法可以获取编辑器里面的内容
+        var data=editor.html();
+        console.log(data)
+    }
+
+</script>
+</html>

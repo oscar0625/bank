@@ -1,5 +1,6 @@
 # 一、配置 
 ## 1. 全局配置
+    小程序官方框架MINA
     app.json 小程序的配置
         pages       用于指定小程序由哪些页面组成，
         window      用于设置小程序的状态栏、导航条、标题、窗口背景色、是否全局开启下拉刷新。
@@ -337,6 +338,9 @@
     wxs 的运行环境和其他 javascript 代码是隔离的，wxs 中不能调用其他 javascript 文件中定义的函数，也不能调用小程序提供的API。
     wxs 函数不能作为组件的事件回调。
     由于运行环境的差异，在 iOS 设备上小程序内的 wxs 会比 javascript 代码快 2 ~ 20 倍。在 android 设备上二者运行效率无差异。
+# 十、小程序插件
+    小程序社区
+    http://www.wxapp-union.com/forum.php?mod=forumdisplay&fid=37&filter=typeid&typeid=10    
 
 
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义插件</title>
+    <style>
+        .demo{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <!--默认样式-->
+    <link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+</head>
+<body>
+<div class="demo"></div>
+</body>
+<!--加载核心js-->
+<script src="kindeditor/kindeditor-min.js"></script>
+<!--加载语言包-->
+<script src="kindeditor/lang/zh_CN.js"></script>
+<script>
+    /*全部插件名*/
+    var arr = ["source", "|", "undo", "redo", "|", "preview", "print", "template", "code", "cut", "copy", "paste", "plainpaste", "wordpaste", "|", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "subscript", "superscript", "clearhtml", "quickformat", "selectall", "|", "fullscreen", "/", "formatblock", "fontname", "fontsize", "|", "forecolor", "hilitecolor", "bold", "italic", "underline", "strikethrough", "lineheight", "removeformat", "|", "image", "multiimage", "flash", "media", "insertfile", "table", "hr", "emoticons", "baidumap", "pagebreak", "anchor", "link", "unlink", "|", "about"];
+
+    var editor;
+    KindEditor.ready(function(K) {
+        //实例化一个编辑器 指定标签
+        editor = K.create('.demo',{
+            //自定义选择插件
+            items :["preview", "print", "template"],
+            //设置不允许动 0 1 2(默认)
+            resizeType:0
+        });
+    });
+</script>
+</html>
