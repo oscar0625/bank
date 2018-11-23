@@ -17,7 +17,8 @@ MP4 = MPEG 4文件使用 H264 视频编解码器和AAC音频编解码器
 WebM = WebM 文件使用 VP8 视频编解码器和 Vorbis 音频编解码器
 Ogg = Ogg 文件使用 Theora 视频编解码器和 Vorbis音频编解码器
 -->
-<video width="500" height="250" controls="controls" autoplay>
+                                                        <!-- 不加muted  不自动播放 -->
+<video width="500" height="250" controls="controls" autoplay="autoplay" loop="loop" muted>
     <source src="movie.ogg" type="video/ogg">
     <source src="movie.mp4" type="video/mp4">
     您的浏览器不支持此种视频格式。

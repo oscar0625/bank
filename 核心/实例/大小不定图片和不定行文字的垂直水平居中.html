@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>大小不定图片和不定行文字的垂直水平居中</title>
+    <style>
+        .wrap {
+            display: table;
+            width: 1000px;
+            height: 200px;
+        }
+
+        .box {
+            /* 核心代码 */
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            /* 核心代码 */
+            width: 50%;
+            background-color: yellow;
+        }
+
+        img {
+            /* 核心代码 */
+            vertical-align: middle;
+        }
+
+        span {
+            /* 核心代码 */
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box">
+            <!-- 大小不定图片 -->
+            <img src="./logo.png" />
+        </div>
+        <div class="box">
+            <!-- 不定行文字 -->
+            <span>会议认为，党的十八大以来，我国经济发展取得历史性成就、发生历史性变革，为其他领域改革发展提供了重要物质条件。经济实力再上新台阶，经济年均增长7.1%，成为世界经济增长的主要动力源和稳定器。</span>
+        </div>
+    </div>
+</body>
+
+</html>

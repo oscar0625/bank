@@ -1,6 +1,5 @@
 # 一、配置 
 ## 1. 全局配置
-    小程序官方框架MINA
     app.json 小程序的配置
         pages       用于指定小程序由哪些页面组成，
         window      用于设置小程序的状态栏、导航条、标题、窗口背景色、是否全局开启下拉刷新。
@@ -154,15 +153,10 @@
     <block  wx:elif="{{length > 2}}"> 2 </block >
     <block  wx:else> 3 </block >
 ```
-### 1.4引用
-    import  可以在该文件中使用目标文件定义的template
-    include 可以将目标文件除了 <template/> <wxs/> 外的整个代码引入
-    <include src="header.wxml"/>
-    <include src="footer.wxml"/>
-### 1.5自定义属性
+### 1.4自定义属性
     data-*
     data-id="1"
-### 1.6 hidden="false" 是否隐藏    
+### 1.5 hidden="false" 是否隐藏    
 
 ## 2.WXSS
 ### 2.1 尺寸单位 rpx
@@ -223,9 +217,10 @@
     </template>
 ```    
 ## 2.使用模板    
-``` wxml引入
+``` wxml引用
     <import src="../../template/template.wxml"/>
-    wxss引入 可以直接在app.wxss中引入,这样只需要一次引入
+
+    wxss引用 可以直接在app.wxss中用,这样只需要一次引用
     @import "./template/template.wxss";
 ```
 ```
@@ -234,7 +229,12 @@
 
     //is 属性可以使用 Mustache 语法，来动态决定具体需要渲染哪个模板：
     <template is="{{item % 2 == 0 ? 'even' : 'odd'}}"/>
-```    
+```
+## 3.引用
+    import  可以在该文件中使用目标文件定义的template
+    include 可以将目标文件除了 <template/> <wxs/> 外的整个代码引用
+    <include src="header.wxml"/>
+    <include src="footer.wxml"/>    
 
 
 
@@ -249,7 +249,7 @@
 ## 5. progress
 ## 6. 表单组件
 ## 7. navigator 导航a标签
-## 8. <block></block >
+## 8. <block> </block >
 
     
 
@@ -263,15 +263,25 @@
 ### 2.1 get/post
 ```
     wx.request({
-        url: 'test.php', 
-        success(res) {
-            console.log(res.code)
+        url: 'test.php',
+        method:'post',
+        header: {
+            'content-type': 'application/json' // 默认值
         },
-        fail(){
-
+        dataType:'json',
+        data: {
+            username: 'a',
+            password:'aaaaaa1'
         },
-        complete(){
-
+        success:function (res) {
+            if(res.statusCode == 200){
+            console.log(res.data.token)
+            }else{
+            console.log(res.data.userMessage);
+            }
+        },
+        fail:function (res) {
+            console.log(res)
         }
     })
 ```
@@ -316,8 +326,72 @@
     wx.chooseImage();   //从本地相册选择图片或使用相机拍照(选择图片)
     wx.previewImage()   //在新页面中全屏预览图片(预览图片)
     wx.getImageInfo()   //获取图片信息  
+## 6. 数据缓存
+    wx.setStorage(Object)
+    wx.getStorage(Object)
+    wx.removeStorage(Object)
+    wx.clearStorage(Object)     
 
-# 八、地图  
+# 八、用户信息
+## 1.小程序登录
+```
+    wx.login({
+        success (res) {
+            if (res.code) {
+                //发起网络请求
+
+            } else {
+                console.log('登录失败！' + res.errMsg)
+            }
+        }
+    }) 
+```
+## 2.授权
+    https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html
+
+### 2.1 获取用户已经授权的设置
+```
+    wx.getSetting({
+      success(res) {
+        console.log(res.authSetting)
+        //如果没有开启用户信息权限
+        if (!res.authSetting['scope.userInfo']) {
+          
+        }
+      }
+    })
+```
+### 2.2 打开授权设置页
+```
+    //必须由点击行为触发wx.openSetting接口的调用
+    <view bindtap="openSetting">打开设置页</view>  openSetting() {  wx.openSetting()}
+```
+### 2.3 提前发起授权请求
+```          
+    wx.authorize({
+        scope: 'scope.record',      //不支持 scope.userInfo了
+        //同意授权
+        success (res) {},
+        //拒绝授权
+        fail(res){}
+    })
+```
+
+### 2.4 wx.getUserInfo()
+```
+    //必须使用 button 来授权登录
+    <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    bindGetUserInfo (e) {
+        console.log(e.detail.userInfo)
+    }
+```
+### 2.5 授权流程
+    scope.userInfo
+    程序一开始  wx.getSetting() (2.1)  如果没有res.authSetting['scope.userInfo']授权  跳转到授权页面 进行授权操作 (2.4)  如果不授权不可以
+    scope.userLocation等等...
+    wx.authorize() (2.3)  调取授权弹框  如果同意ok 不同意 给用户主动点击的操作空间 用 wx.openSetting() (2.2) 再次进行授权
+
+# 九、地图  
 ## 1.使用腾讯地图的功能
     wx.getLocation(Object object)       //获取当前的地理位置、速度。
     wx.chooseLocation(Object object)    //打开腾讯地图搜索/选择位置。
@@ -331,17 +405,18 @@
 ### 2.2 MapContext Api
      wx.createMapContext(string mapId, Object this)
 
-# 九、WXS (暂时认为没用)
+
+
+# 十、WXS (暂时认为没用)
     WXS（WeiXin Script）是小程序的一套脚本语言，结合 WXML，可以构建出页面的结构。
     wxs可以说就是为了满足能在页面中使用js存在的。
     wxs 与 javascript 是不同的语言，有自己的语法，并不和 javascript 一致。
     wxs 的运行环境和其他 javascript 代码是隔离的，wxs 中不能调用其他 javascript 文件中定义的函数，也不能调用小程序提供的API。
     wxs 函数不能作为组件的事件回调。
     由于运行环境的差异，在 iOS 设备上小程序内的 wxs 会比 javascript 代码快 2 ~ 20 倍。在 android 设备上二者运行效率无差异。
-# 十、小程序插件
-    小程序社区
-    http://www.wxapp-union.com/forum.php?mod=forumdisplay&fid=37&filter=typeid&typeid=10    
 
+# 十一、小程序社区
+    http://www.wxapp-union.com/
 
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise</title>
+</head>
+<body>
+</body>
+<script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+    var a = new Promise(function (resolve, reject) {
+        var timeOut = Math.random() * 2;
+        setTimeout(function (a) {
+            if (timeOut < 1) {
+                console.log('a_resolve');
+                resolve('a_resolve');
+            } else {
+                console.log('a_reject');
+                reject('a_reject');
+            }
+        }, timeOut * 1000, );
+    })
+    
+    // 1. Promise.prototype.then()
+    a.then(function (value) {
+        console.log(value);
+        return 'a_resolve_end'
+    },function(reason){
+        console.log(reason);
+        return 'a_reject_end'
+    })
+    .then(function (value) {
+        console.log(value);
+    })
+    
+    // // 2. Promise.prototype.catch()
+    // a.then(function (value) {
+    //     console.log(value);
+    // }).catch(function(reason){
+    //     console.log(reason);
+    // })
+
+
+
+
+    //api
+    // var b=new Promise(function(resolve, reject){
+    //     var timeOut = Math.random() * 2;
+    //     setTimeout(function () {
+    //         if (timeOut < 1) {
+    //             console.log('b_resolve');
+    //             resolve('b_resolve');
+    //         } else {
+    //             console.log('b_reject');
+    //             reject('b_reject');
+    //         }
+    //     }, timeOut * 1000);
+    // });
+
+    // 3. all 两个都 resolve 才成功
+    // Promise.all([a,b]).then(function (result) {
+    //     console.log('成功');
+    //     console.log(result);  //['a_resolve','b_resolve']
+    // }).catch(function (reason) {
+    //     console.log('失败');
+    //     console.log(reason);  //只返回其中一个失败的 'a_reject' 或者 'b_reject'
+    // })
+
+    // 4. race 只要有一个 resolve 就成功
+    // Promise.race([a,b]).then(function (result) {
+    //     console.log('成功');
+    //     console.log(result);   //只返回其中一个成功的   'a_resolve' 或者 'b_resolve'
+    // }).catch(function (reason) {
+    //     console.log('失败');
+    //     console.log(reason);   //只返回其中一个失败的 'a_reject' 或者 'b_reject'
+    // })
+
+</script>
+
+</html>

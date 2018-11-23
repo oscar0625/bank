@@ -25,7 +25,6 @@ table {
 
 fieldset, img {
     border: 0 none; /*有些浏览器默认这些标签有边框，所以要清除默认边框*/
-    display: block;
 }
 
 abbr, acronym {
