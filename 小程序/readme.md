@@ -32,11 +32,11 @@
 ```
     App({
         onLaunch: function(options) {
-            // 小程序初始化完成时触发，全局只触发一次。
+            // 小程序初始化完成时触发(全局只触发一次。)
             // options.scene  打开小程序的场景值
         },
         onShow: function(options) {
-            // 小程序启动，或从后台进入前台显示时触发。a
+            // 小程序启动，或从后台进入前台显示时
         },
         onHide: function() {
             // 小程序从前台进入后台时触发。
@@ -54,7 +54,11 @@
         "其他":'开发者可以添加任意的函数或数据到 Object 参数中，用 this 可以访问'
     })
 ```
+### 注意
+    前台、后台定义： 当用户点击左上角关闭，或者按了设备 Home 键离开微信，小程序并没有直接销毁，而是进入了后台；当再次进入微信或再次打开小程序，又会从后台进入前台。需要注意的是：只有当小程序进入后台一定时间，或者系统资源占用过高，才会被真正的销毁。
 ## 2.注册页面  page.js
+### 注意
+    注意onLoad和onShow的区别
 ```
     Page({
         data: {
@@ -96,6 +100,7 @@
             //页面加载时触发。一个页面只会调用一次，可以在 onLoad 的参数中获取打开当前页面路径中的参数。
         },
         onShow: function() {
+            //获取数据放在这里最好
             // 页面显示/切入前台时触发。
         },
         onReady: function() {
@@ -160,14 +165,27 @@
 
 ## 2.WXSS
 ### 2.1 尺寸单位 rpx
+#### 2.1.1 px和rpx转化
     rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。
+    如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
+``` 
+    function rpxTopx (num) {
+        //px = 屏幕宽度/750 * num
+        var px=wx.getSystemInfoSync().screenWidth/750*num;
+        return px
+    },
+    function pxTorpx (num) {
+        // 750 / 屏幕宽度 * num
+        var rpx= 750 / wx.getSystemInfoSync().screenWidth*num;
+        return rpx
+    }
+```
+#### 2.1.2 设计稿对应的rpx
     建议： 开发微信小程序时设计师可以用 iPhone6 作为视觉稿的标准。
+    例如：设计稿750px宽度 那么恭喜您，你ps上量出宽度是多少，那么你就定义多少rpx，也就是 1px = 1rpx
 
-    例如：设计稿750px宽度
-    那么恭喜您，你ps上量出宽度是多少，那么你就定义多少rpx，也就是 1px = 1rpx
+    例如：设计稿640px宽度  那么很遗憾，你需要转换一下 640px = 750rpx   在psd量出的尺寸 num*750/640 的得到的对应 rpx数量
 
-    例如：设计稿640px宽度
-    那么很遗憾，你需要转换一下 1px = 750/640 rpx
     
 ### 2.2 class_style
     class="{{className}}" 
@@ -303,12 +321,15 @@
 ### 2.3 form提交方式
 ## 3. 页面路由
     wx.navigateTo(Object), wx.redirectTo(Object) 只能打开非 tabBar 页面。前者能返回 后者不能返回
+    wx.redirectTo(Object object)关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
     wx.switchTab(Object) 只能打开 tabBar 页面。并关闭其他所有非 tabBar 页面
     wx.reLaunch(Object) 可以打开任意页面。 并关闭之前所有页面。(可做刷新用)
     wx.navigateBack(Object) 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
-          wx.navigateBack({delta: 1}) 返回上一层
-    wx.redirectTo(Object object)关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
+          wx.navigateBack({delta: 1}) 返回上一层 （）
     调用页面路由带的参数可以在目标页面的onLoad中获取。
+### 3.1 bug 存在返回的页面无刷新的问题 由于小程序生命周期 导致 onload 不会反复触发
+    解决办法 1.  数据有的应该放在onshow 不都放在onload (优秀)
+            2.wx.reLaunch(Object) 打开解决
 ## 4. 窗口(弹出框)  
     wx.onWindowResize(callback) //监听窗口尺寸变化事件
     wx.pageScrollTo(Object)  //将页面滚动到目标位置
@@ -330,7 +351,9 @@
     wx.setStorage(Object)
     wx.getStorage(Object)
     wx.removeStorage(Object)
-    wx.clearStorage(Object)     
+    wx.clearStorage(Object)   
+## 7.系统(获取手机型号 宽度 高度等)    
+    wx.getSystemInfoSync()
 
 # 八、用户信息
 ## 1.小程序登录
@@ -417,6 +440,8 @@
 
 # 十一、小程序社区
     http://www.wxapp-union.com/
+# 十二、bug
+    1.map、canvas、video、textarea 是由客户端创建的原生组件，原生组件的层级是最高的。
 
 
 

@@ -1,7 +1,7 @@
 /*
 * 实际上像素分为两种：设备像素和设备独立像素
-* 1.设备像素dp(device pixels):又称物理像素（physical pixel）
-* 2.设备独立像素dips(device-independent pixels):也是css像素
+* 1.设备像素dp(device pixels) = 物理像素（physical pixel）
+* 2.设备独立像素dips(device-independent pixels) = css像素 = 逻辑像素
 * 3.设备像素比(device pixel ratio )=dp/dips
 *
 * 在普通屏幕下，1个css像素 对应 1个物理像素(1:1)。 在retina 屏幕下，1个css像素对应 4个物理像(1:4)。
