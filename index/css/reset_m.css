@@ -71,7 +71,7 @@ sub, sup{
 
 a {
     text-decoration: none; /*大部分页面中的链接没有下划线*/
-    color: #000000;
+	color: inherit;
 }
 
 a:hover {

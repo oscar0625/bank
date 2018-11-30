@@ -2,7 +2,7 @@
 ## 1. 全局配置
     app.json 小程序的配置
         pages       用于指定小程序由哪些页面组成，
-        window      用于设置小程序的状态栏、导航条、标题、窗口背景色、是否全局开启下拉刷新。
+        window      用于设置小程序的状态栏、导航条、标题、窗口背景色、下拉 loading 的样式、是否全局开启下拉刷新。
         tabBar      如果小程序是一个多 tab 应用（客户端窗口的底部或顶部有 tab 栏可以切换页面）
         networkTimeout  各类网络请求的超时时间，单位均为毫秒。
         debug       是否开启 debug 模式，默认关闭
@@ -59,6 +59,7 @@
 ## 2.注册页面  page.js
 ### 注意
     注意onLoad和onShow的区别
+    onShow使用要注意 从后台进入前台就会触发 小心使用 避免修改用户主动操作这种错误
 ```
     Page({
         data: {
@@ -80,7 +81,13 @@
             // 监听用户滑动页面事件。
         },
         onPullDownRefresh: function() {
-            // 监听用户下拉刷新事件。 需要在app.json的window选项中或页面配置中开启enablePullDownRefresh。
+            // 监听用户下拉刷新事件。 
+            // dosomething
+            wx.stopPullDownRefresh();
+            
+            // 1.需要在app.json的window选项中或页面配置中开启enablePullDownRefresh。
+            // 2.处理完数据刷新后，wx.stopPullDownRefresh可以停止当前页面的下拉刷新。(必须否则页面回不去)
+            // 3.可以通过wx.startPullDownRefresh触发下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致。
         },
         onReachBottom: function() {
             // 监听用户上拉触底事件。 可以在app.json的window选项中或页面配置中设置触发距离onReachBottomDistance。
@@ -100,7 +107,7 @@
             //页面加载时触发。一个页面只会调用一次，可以在 onLoad 的参数中获取打开当前页面路径中的参数。
         },
         onShow: function() {
-            //获取数据放在这里最好
+            //获取数据放在这里最好***
             // 页面显示/切入前台时触发。
         },
         onReady: function() {
@@ -169,14 +176,14 @@
     rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。
     如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
 ``` 
-    function rpxTopx (num) {
-        //px = 屏幕宽度/750 * num
-        var px=wx.getSystemInfoSync().screenWidth/750*num;
+    function rpxTopx (rpx) {
+        // rpx / 750 * 屏幕宽度  
+        var px= rpx / 750 * wx.getSystemInfoSync().screenWidth;
         return px
     },
-    function pxTorpx (num) {
-        // 750 / 屏幕宽度 * num
-        var rpx= 750 / wx.getSystemInfoSync().screenWidth*num;
+    function pxTorpx (px) {
+        // px / 屏幕宽度 * 750 
+        var rpx= px / wx.getSystemInfoSync().screenWidth * 750;
         return rpx
     }
 ```
