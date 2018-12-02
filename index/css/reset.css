@@ -24,15 +24,19 @@ abbr, acronym {
 	font-variant: normal;
 }
 
-del {
-	text-decoration: line-through;
+i, cite, em, var, address, dfn {
+	font-style: normal;
 }
 
-ins {
+u, ins {
 	text-decoration: none;
 }
 
-address, caption, cite, code, dfn, em, i, u, b, strong, th, var {
+strong, b {
+	font-weight: normal;
+}
+
+caption,code,th {
 	font-style: normal;
 	font-weight: normal;
 	text-decoration: none;

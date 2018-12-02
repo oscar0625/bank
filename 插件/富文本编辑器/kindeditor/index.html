@@ -8,6 +8,15 @@
             width: 300px;
             height: 300px;
         }
+        i, cite, em, var, address, dfn {
+            font-style: italic;
+        }
+        u, ins {
+            text-decoration: underline;
+        }
+        strong, b {
+            font-weight: bold;
+        }
     </style>
     <!--默认样式-->
     <link rel="stylesheet" href="kindeditor/themes/default/default.css" />
@@ -35,7 +44,7 @@
    /**
     * 问题一：kindeditor编辑器微软雅黑样式font-family值变成&quot; 最新版4.1.11以及官网上的演示demo都存在这个问题.
     * 暂时解决方法，zh_CN.js中搜索 fontname.fontName，修改字体名称，将 Microsoft Yahei 改为 微软雅黑 中文字。
-    * 
+    * 问题二：kindeditor加粗 倾斜 下划线 是用标签 strong em u做的 注意恢复初始化文件
     * **/
    KindEditor.ready(function(K) {
        //实例化一个编辑器 指定标签

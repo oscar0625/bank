@@ -32,19 +32,23 @@ abbr, acronym {
     font-variant: normal;
 }
 
-del {
-    text-decoration: line-through;
+i, cite, em, var, address, dfn {
+	font-style: normal;
 }
 
-ins {
-    text-decoration: none;
+u, ins {
+	text-decoration: none;
 }
 
-address, caption, cite, code, dfn, em, i, u, b, strong, th, var {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    /*清除标签默认文本样式和加粗*/
+strong, b {
+	font-weight: normal;
+}
+
+caption,code,th {
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	/*清除标签默认文本样式和加粗*/
 }
 
 ol, ul {
