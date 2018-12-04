@@ -43,21 +43,28 @@
       //       css-auto-prefix
       //       Easy Less      在保存时自动编译LESS到CSS
       //       px to rem
+      //       aspx-html      在 ASPX 文件中提供语法高亮、括号匹配和代码片段功能
       // js    
       //       jQuery Code Snippets 
       //       JavaScript (ES6) code snippets
       //       ESlint
       // vue   
       //       vetur
-      //       VueHelper      
-      //       Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
-      // other
-      //       Path Intellisense      
-      //       Npm Intellisense
-      //       fileheader
-      //       filesize 
+      //       vue 2 Snippets
+      //       Vue Theme
+      // svn
       //       svn
       //       TortoiseSVN for VS Code
+      // npm
+      //       Npm   
+      //       Npm Intellisense
+
+      // other
+      //       Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
+      //       Path Intellisense     
+      //       vscode-fileheader
+      //       filesize 
+      //       Markdown Preview Enhanced  预览
       // 小程序
       //       minapp
       // debug
@@ -116,7 +123,9 @@
             // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
             "files.associations": {
                   "*.vue": "vue",
-                  "*.wxss": "css"
+                  "*.wxss": "css",
+                  "*.cjson": "jsonc",
+                  "*.wxs": "javascript"
             },
 
             // 配置emmet
@@ -160,6 +169,8 @@
 
             //不显示小图配置
             "editor.minimap.enabled": false,
+            "files.autoSave": "off",
+            "editor.wordWrap": "on",
             //px-to-rem
             "px-to-rem.px-per-rem": 16,
       }
