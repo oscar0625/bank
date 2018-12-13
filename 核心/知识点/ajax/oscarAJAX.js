@@ -44,8 +44,7 @@
                 case 4: //完成     已经接受到全部的相应数据 可是使用了 
                     obj.complete();
                     if ((xhr.status >= 200 && xhr.status < 300 || xhr.status == 304)) {
-                        var res = obj.dataType === 'json' ? JSON.parse(xhr.responseText) : xhr.responseText;
-                        obj.success(res, xhr)
+                        obj.success(xhr.response, xhr)
                     } else {
                         obj.error(xhr.statusText, xhr)
                     }
@@ -54,8 +53,7 @@
             // 1. xhr.readyState  ajax请求/相应的阶段 
             // 2.  xhr.status http状态码
             // 3.  xhr.statusText http状态吗的说明 
-            // 4.  xhr.responseText 返回的文本内容
-            // 5.  xhr.responseXML  如果返回的是xml内容 那么这个属性将保存相应的xml Dom文档
+            // 4.  xhr.response 返回响应的正文。返回的类型可以是 ArrayBuffer 、 Blob 、 Document 、 JavaScript Object 或 DOMString 。 这取决于 responseType 属性。
         };
 
         // 上传进度事件 get不触发
@@ -81,6 +79,9 @@
             console.log(res);
         };
 
+        //设置返回数据的类型  text json blob(二进制数据的Blob 对象 ) arraybuffer(二进制数据的 JavaScript ArrayBuffer)
+        xhr.responseType=obj.dataType;
+
         if (/^get$/i.test(obj.type)) { //get
 
             var params = (obj.url.indexOf('?') == -1 ? '?' : '&') + obj.data + (obj.cache ? "" : "&_Oscar_=" + new Date().getTime());
@@ -91,9 +92,6 @@
             // 定义超时时间
             xhr.timeout = obj.timeout;
 
-            if (obj.dataType === 'json') { //如果值设置则指定返回的必须是json
-                xhr.setRequestHeader('accept', 'application/json, text/javascript, */*; q=0.01');
-            }
             //添加额外的自定义http请求头
             setHeaders(xhr,obj.headers)
 
@@ -112,9 +110,6 @@
                 xhr.setRequestHeader('content-type', obj.contentType);
             }
 
-            if (obj.dataType === 'json') { //如果值设置则指定返回的必须是json
-                xhr.setRequestHeader('accept', 'application/json, text/javascript, */*; q=0.01');
-            }
             //添加额外的自定义http请求头
             setHeaders(xhr,obj.headers)
 
@@ -129,7 +124,7 @@
         var obj = {
             type: "get",
             url: "",
-            dataType: '', //设置dataType: 'json' 则返回json格式数据
+            dataType: '',
             data: {}, //数据--支持传object / string
             async: true,
             cache: false, //是否缓存
