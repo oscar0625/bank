@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+    /**https://www.cnblogs.com/hhhyaaon/p/5928152.html  https://juejin.im/entry/5937c98eac502e0068cf31ae
+     *Blob对象表示一个不可变、原始数据的类文件对象。HTML5新增API。 
+     *Blob表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+     * 
+     *
+     * **/
+    // 1.构造Blob对象
+    var obj = { hello: "world" };
+    var blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
+    //还可通过canvas.toBlob()创建blob
+
+
+    // 2.slice方法创建一个包含源 Blob的指定字节范围内的数据的新 Blob 对象。
+    var blobSlice=blob.slice(6,blob.size,'application/json')
+
+
+    // 3.处理解析Blob
+    // FileReader(), URL.createObjectURL()
+    // createImageBitmap() XMLHttpRequest.send() 
+
+
+    // 4.Blob的使用
+    //  a.分片上传
+
+    //  b.通过url显示图片
+    var testFilePath = "DSCN0614_small.jpg";
+    function test() {
+        var http = new XMLHttpRequest();
+        http.open("GET", testFilePath, true);
+        http.responseType = "blob";
+
+        http.onload = function (e) {
+            if (this.status === 200) {
+                var image = new Image();
+                var reader = new FileReader();
+                reader.readAsDataURL(http.response);
+                reader.onload = function (e) { //当文件读取完成时，result保存的是路径信息
+                    image.src = e.target.result;
+                    document.body.appendChild(image);
+                }
+            }
+        };
+        http.send();
+    }
+
+    // c.通过url下载文件
+    // 只有 Firefox 和 Chrome 支持 a标签 download 属性。 
+    function createDownload(fileName, content){
+        var blob = new Blob([content],{type: 'text/plain'});
+
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.innerHTML = fileName;
+        link.download = fileName;
+        document.getElementsByTagName("body")[0].appendChild(link);
+    }
+    createDownload("download.doc","download file");
+
+    
+</script>
+
+</html>

@@ -17,7 +17,7 @@
     var reader = new FileReader();
 
     reader.readAsText(file,encoding);   //以纯文本的形式读取文件，将读取到的文件保存到result属性。encoding参数用于指定编码类型，是可选的。
-    reader.readAsDataURL(file);         //读取文件并将文件数据以URL形式保存到result属性中。（读取图像文件常用方法）
+    reader.readAsDataURL(file);         //读取文件并将文件数据以URL形式保存到result属性中。(文件的 base64 编码)（读取图像文件常用方法）
     reader.readAsBinaryString(file);    //读取文件并将一个字符串保存在result属性中，字符串中的每个字符表示一字节。
     reader.readAsArrayBuffer(file);     //读取文件并将一个包含文件内容的ArrayBuffer保存在result属性中。
 

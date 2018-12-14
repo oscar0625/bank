@@ -74,7 +74,11 @@
                         console.log(EXIF.getAllTags(this));
                     });
                 };
-                image.src = URL.createObjectURL(http.response);
+                var reader = new FileReader();
+                reader.readAsDataURL(http.response);
+                reader.onload = function (e) { //当文件读取完成时，result保存的是路径信息
+                    image.src = e.target.result;
+                }
             }
         };
         http.send();
