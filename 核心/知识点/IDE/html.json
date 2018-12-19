@@ -1,0 +1,21 @@
+{
+	"Print to console": {
+		"prefix": "templateHTML",
+		"body": [
+			"<!DOCTYPE html>",
+			"<html lang=\"en\">",
+			"<head>",
+			"\t<meta charset=\"UTF-8\">",
+			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+			"\t<meta http-equiv =\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/>",
+			"\t<meta name=\"renderer\" content=\"webkit\"/>",
+			"\t<title>${0:title}</title>",
+			"</head>",
+			"<body>",
+			"\t${1}",
+			"</body>",
+			"</html>"
+		],
+		"description": "create html template"
+	}
+}
