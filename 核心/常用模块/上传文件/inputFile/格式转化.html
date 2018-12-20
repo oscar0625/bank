@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 1. File(图片) Blob  转 base64 / ArrayBuffer
+    // way1   FileReader
+    // way2   var url=URL.createObjectURL(files);  
+
+    // 2. base64 转 Blob 
+    function dataURLToBlob(dataurl) {
+        let arr = dataurl.split(',');
+        let mime = arr[0].match(/:(.*?);/)[1];
+        let bstr = atob(arr[1]);
+        let n = bstr.length;
+        let u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {
+            type: mime
+        });
+    }
+    
+    // 3. canvas转base64
+    canvas.toDataURL();
+    // 4. canvas转 Blob
+    canvas.toBlob()
+</script>
+
+</html>

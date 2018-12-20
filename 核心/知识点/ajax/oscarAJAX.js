@@ -7,22 +7,19 @@
         window[name] = factory();
     }
 })('oscarAJAX', function () {
-    //除了支持普通的ajax 还支持传数组、formData(processData:false,contentType:false)
     function oscarAJAX(params) {
 
         //合并参数和默认值
-        var obj=merge(params)
+        var obj = merge(params)
 
         //如果obj.data是对象
         if (Object.prototype.toString.call(obj.data) === '[object Object]') {
-            //是否允许处理obj.data
-            if (obj.processData) {
-                if(/application\/x-www-form-urlencoded/i.test(obj.contentType)){
-                    obj.data = data_parse(obj.data);
-                }
-                if(/application\/json/.test(obj.contentType)){
-                    obj.data= JSON.stringify(obj.data);
-                }
+            //根据contentType类型处理数据
+            if (/application\/x-www-form-urlencoded/i.test(obj.contentType)) {
+                obj.data = data_parse(obj.data);
+            }
+            if (/application\/json/.test(obj.contentType)) {
+                obj.data = JSON.stringify(obj.data);
             }
         }
 
@@ -64,7 +61,7 @@
                 obj.uploadProgress(e);
             }
         };
-        
+
         // 接受进度事件
         xhr.onprogress = function (e) {
             if (e.lengthComputable) { //进度信息是否可用
@@ -79,8 +76,8 @@
             console.log(res);
         };
 
-        //设置返回数据的类型  text json blob(二进制数据的Blob 对象 ) arraybuffer(二进制数据的 JavaScript ArrayBuffer)
-        xhr.responseType=obj.dataType;
+        //设置返回数据的类型
+        xhr.responseType = obj.dataType;
 
         if (/^get$/i.test(obj.type)) { //get
 
@@ -93,7 +90,7 @@
             xhr.timeout = obj.timeout;
 
             //添加额外的自定义http请求头
-            setHeaders(xhr,obj.headers)
+            setHeaders(xhr, obj.headers)
 
             // 4.发送请求
             xhr.send();
@@ -111,23 +108,23 @@
             }
 
             //添加额外的自定义http请求头
-            setHeaders(xhr,obj.headers)
+            setHeaders(xhr, obj.headers)
 
             // 4.发送请求
             xhr.send(obj.data);
-            
+
         }
 
     }
 
-    function merge(params) { 
+    function merge(params) {
         var obj = {
             type: "get",
             url: "",
-            dataType: '',
+            dataType: '', //设置返回数据的类型  text json blob(二进制数据的Blob 对象 ) arraybuffer(二进制数据的 JavaScript ArrayBuffer)
             data: {}, //数据--支持传object / string
             async: true,
-            cache: false, //是否缓存
+            cache: false,
             success: function (res, xhr) {
 
             },
@@ -146,17 +143,14 @@
             downloadProgress: function (e) {
                 //下载进度
             },
-            processData: true, //默认true,通过data选项传递进来的数据，如果是一个对象(技术上讲只要不是字符串)，都会处理转化成一个查询字符串
 
-            timeout:0,
+            timeout: 0,
 
-            headers:{      //额外自定义请求头
+            headers: { //额外自定义请求头
 
             },
-
-            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型 
-            //还支持contentType:"application/json"  
-            //multipart/form-data 目前不支持
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8", //发送信息至服务器时内容编码类型 还支持 "application/json"
+            //当传formData时候设置 contentType:false; formData会自动加上正确的contentType:multipart/form-data 
         };
         for (var i in params) {
             obj[i] = params[i];
@@ -179,11 +173,13 @@
         return url.slice(0, url.length - 1);
     }
 
-    function setHeaders(xhr,headers) {
-        for(var key in headers){
+    function setHeaders(xhr, headers) {
+        for (var key in headers) {
             xhr.setRequestHeader(key, headers[key]);
         }
     }
 
     return oscarAJAX;
 });
+//除了支持传普通的ajax 还支持传数组、传formData(contentType:false)、传"application/json"的数据
+//支持设置返回数据的类型 dataType,支持 text json blob(二进制数据的Blob 对象 ) arraybuffer(二进制数据的 JavaScript ArrayBuffer)

@@ -29,14 +29,9 @@
 
 
     //  3.计算文件MD5  js-spark-md5
-    //  way1 针对fileReader.readAsArrayBuffer()
+    //  way 针对fileReader.readAsArrayBuffer()
     //  spark = new SparkMD5.ArrayBuffer()                      //create SparkMD5.ArrayBuffer
     //  spark.append(filepice1); spark.append(filepice2);...    //Appends an array buffer.
-    //  var hexHash = spark.end();                              //Finishes the computation of the md5, returning the hex result. 结束后spark会重置为初始状态
-
-    //  way2 针对fileReader.readAsBinaryString()
-    //  spark = new SparkMD5()                                              //create SparkMD5           
-    //  spark.appendBinary(filepice1); spark.appendBinary(filepice2);...    //Appends a binary string 
     //  var hexHash = spark.end();                              //Finishes the computation of the md5, returning the hex result. 结束后spark会重置为初始状态
 
     document.getElementById('myFile').addEventListener('change', function () {

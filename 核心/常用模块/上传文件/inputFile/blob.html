@@ -11,28 +11,36 @@
 <body>
 </body>
 <script>
-    /**https://www.cnblogs.com/hhhyaaon/p/5928152.html  https://juejin.im/entry/5937c98eac502e0068cf31ae
+    /**
+     *https://juejin.im/post/5b32fb5cf265da598223df9e 
      *Blob对象表示一个不可变、原始数据的类文件对象。HTML5新增API。 
      *Blob表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
-     * 
      *
      * **/
-    // 1.构造Blob对象
+    // 1.构造Blob对象 Blob(array[, options])
+    // array 是一个由ArrayBuffer, ArrayBufferView, Blob, string 等对象构成的 Array ，或者其他类似对象的混合体，它将会被放进 Blob。string会被编码为UTF-8。
+    // options 是一个可选的对象，它可能会指定如下两个属性：
+    //      type，默认值为 ""，它代表了将会被放入到blob中的数组内容的MIME类型
+    //      endings，默认值为"transparent"，用于指定包含行结束符\n的字符串如何被写入。
+    
     var obj = { hello: "world" };
     var blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
     //还可通过canvas.toBlob()创建blob
 
+    // 2.属性
+    // size	只读 Blob 对象中所包含数据的大小（字节）。
+    // type	只一个字符串，表明该Blob对象所包含数据的MIME类型。如果类型未知，则该值为空字符串。例如 "image/png".
 
-    // 2.slice方法创建一个包含源 Blob的指定字节范围内的数据的新 Blob 对象。
+    // 3.slice方法 创建一个包含源 Blob的指定字节范围内的数据的新 Blob 对象。
     var blobSlice=blob.slice(6,blob.size,'application/json')
 
 
-    // 3.处理解析Blob
-    // FileReader(), URL.createObjectURL()
-    // createImageBitmap() XMLHttpRequest.send() 
+    // 4.处理解析Blob
+    // FileReader(), URL.createObjectURL() XMLHttpRequest.send()
+    // createImageBitmap()  
 
 
-    // 4.Blob的使用
+    // 5.Blob的使用
     //  a.分片上传
 
     //  b.通过url显示图片
@@ -41,7 +49,6 @@
         var http = new XMLHttpRequest();
         http.open("GET", testFilePath, true);
         http.responseType = "blob";
-
         http.onload = function (e) {
             if (this.status === 200) {
                 var image = new Image();
@@ -55,6 +62,7 @@
         };
         http.send();
     }
+    // test();
 
     // c.通过url下载文件
     // 只有 Firefox 和 Chrome 支持 a标签 download 属性。 
@@ -67,7 +75,7 @@
         link.download = fileName;
         document.getElementsByTagName("body")[0].appendChild(link);
     }
-    createDownload("download.doc","download file");
+    // createDownload("download.doc","download file");
 
     
 </script>

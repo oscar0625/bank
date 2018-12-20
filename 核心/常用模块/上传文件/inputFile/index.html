@@ -13,13 +13,12 @@
     </button>
 </body>
 <script>
-    /* 插件form.js
+    /* 
      * 实际问题
      * 1.在截图模式下 要注意每次执行onchange之后将 value设置为""   否则不能多次上传一张图片 并且点击取消时反而会继续触发onchange;
      *
-     *
-     *
      * */
+    //1.选择文件回显
     document.querySelector('input').onchange = function (e) {
         //注意：file点击取消和 X 的时候，会将input的值清空
         if (this.value) {
@@ -51,7 +50,6 @@
                 newImg.src = e.target.result;
                 document.body.appendChild(newImg);
             }
-
             //另一个回显图片方法 IE10开始支持
             // var url=URL.createObjectURL(files);
             // newImg.src = url;
@@ -59,13 +57,18 @@
 
         } else {
             /*其他操作*/
-
         }
-
-
     };
+    
+    //2.上传文件
+    function upload() {
+        // formData上传
+        // XMLHttpRequest对象的send方法已被增强,可以通过简单的传入一个ArrayBuffer, Blob, 或者 File对象来发送二进制数据.
+        //      XMLHttpRequest.send(Blob|ArrayBuffer)
+        // base64上传
+    }
 
-    //清空input file 的值
+    //3.清空input file 的值
     function clearInputFile(file) {
         if (file.value) {
             try {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv ="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>title</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /**https://juejin.im/post/5b32fb5cf265da598223df9e
+     * File 对象是特殊类型的 Blob，继承于Blob
+     *
+     * **/
+     // 1.构造File对象
+     // 我们接触的多数关于 File 的操作都是读取，比如<input> 元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 mozGetAsFile() API。
+     
+     // js也为我们提供了手动创建 File 对象的构造函数 File(bits, name[, options])
+     // bits (required) ArrayBuffer，ArrayBufferView，Blob，或者 Array[string] — 或者任何这些对象的组合。这是 UTF-8 编码的文件内容。。
+     // name [String] (required) 文件名称，或者文件路径.
+     // options [Object] (optional) 选项对象，包含文件的可选属性。可用的选项如下：
+     //     type: string, 表示将要放到文件中的内容的MIME类型。默认值为 '' 。
+     //     lastModified: 数值，表示文件最后修改时间的 Unix 时间戳（毫秒）。默认值为 Date.now()。
+
+     var file1 = new File(['text1', 'text2'], 'test.txt', {type: 'text/plain'});
+
+     // 2.属性
+     // name 只读 返回文件的名称.由于安全原因,返回的值并不包含文件路径 。
+     // type 只读 返回 File 对象所表示文件的媒体类型（MIME）。例如 PNG 图像是 "image/png".
+     // lastModified 只读 number, 返回所引用文件最后修改日期,自 1970年1月1日0:00 以来的毫秒数。
+     // lastModifiedDate 只读 Date, 返回当前文件的最后修改日期,如果无法获取到文件的最后修改日期,则使用当前日期来替代。
+
+     // 3.slice方法 继承于Blob
+
+     // 4.处理解析File
+     // FileReader(), URL.createObjectURL() XMLHttpRequest.send() 
+     // createImageBitmap() 
+</script>
+</html>

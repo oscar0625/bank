@@ -12,32 +12,47 @@
 
 </body>
 <script>
-    //支持File API的浏览器有IE10+,Firefox3.5+，Opera10.6+，Safari5+,Chrome。
-
+    /**
+    *https://juejin.im/post/5b32fb5cf265da598223df9e
+    *支持File API的浏览器有IE10+,Firefox3.5+，Opera10.6+，Safari5+,Chrome。
+    *FileReader对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。
+    *
+    **/
+    // 1.构造FileReader对象
     var reader = new FileReader();
 
-    reader.readAsText(file,encoding);   //以纯文本的形式读取文件，将读取到的文件保存到result属性。encoding参数用于指定编码类型，是可选的。
-    reader.readAsDataURL(file);         //读取文件并将文件数据以URL形式保存到result属性中。(文件的 base64 编码)（读取图像文件常用方法）
-    reader.readAsBinaryString(file);    //读取文件并将一个字符串保存在result属性中，字符串中的每个字符表示一字节。
-    reader.readAsArrayBuffer(file);     //读取文件并将一个包含文件内容的ArrayBuffer保存在result属性中。
+    // 2.属性
+    //result	   只读	文件的内容，该属性仅在读取操作完成后(load)后才有效，格式取决于读取方法
+    //readyState   只读	表示读取文件时状态的数字 {0:还没有加载任何数据,1:数据正在被加载,2:已完成全部的读取请求}
+    //error	       只读	DOMException 的实例，表示在读取文件时发生的错误
 
-    reader.onerror = function () {
-
-        //出错时执行
-
-    }
-
-    reder.onprogress = function () {
-
-        //有加载新数据时执行
-
-    }
-
+    // 3.event
     reder.onload = function () {
-
         //完成时执行
-
     }
+    reader.onerror = function () {
+        //出错时执行
+    }
+    reder.onprogress = function () {
+        //有加载新数据时执行
+    }
+    reader.onabort = function() {
+        //读取操作被中断时触发。
+    }
+
+    // 4.方法
+    //读取指定的Blob 或 File 对象。读取操作完成后(触发loadend事件)，result属性将包含一个 ArrayBuffer 对象表示所读取的文件的数据。
+    //  (可以将 ArrayBuffer  再转回babel : new Blob( ArrayBuffer, options ))
+    reader.readAsArrayBuffer(file);     
+
+    //读取指定的Blob 或 File 对象。读取操作完成后(触发loadend事件)，result属性将包含一个 data:URL 格式的字符串(base64编码)（读取图像文件常用方法）
+    reader.readAsDataURL(file);     
+
+    //将 Blob 或者 File 对象转根据特殊的编码格式转化为内容(字符串形式), encoding参数用于指定编码类型，默认编码是 utf-8 是可选的。(认为没用)
+    reader.readAsText(file,encoding);  
+
+    //手动终止读取操作，只有当 readyState 为 1 时才能调用，调用后，readyState 值为 2
+    reader.abort()     
 </script>
 
 </html>
