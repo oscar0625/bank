@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>zepto</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a">1</div>
+    <div class="b">2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</body>
+<script src="zepto.min.js"></script>
+<script>
+    /**
+     * https://www.css88.com/doc/zeptojs_api/#download
+     * 
+     * 一、zepto和jquery的区别
+     * 1.Zepto更轻量级,Zepto是jQuery的精简，针对移动端去除了大量jQuery的兼容代码,部分API的实现方式不同
+     * 2.针对移动端程序，Zepto有一些基本的触摸事件可以用来做触摸屏交互（tap事件、swipe事件）
+     * 3.width()和height()的区别
+     * 4.offset()的区别
+     * 5.Zepto无法获取隐藏元素宽高，jQuery 可以。
+     * 6.Zepto中没有为原型定义extend方法而jQuery有。
+     * 7.Zepto 的each 方法只能遍历 数组，不能遍历JSON对象。
+     * 8.事件委托的区别：
+     *   Zepto ：在代码解析的时候，所有document的所有 click 委托事件都依次放入一个队列里，click 的时候先看当前元素是不是.a，符合就执行，然后查看是不是.b，符合就执行。
+     *   jQuery ：document上委托了2个 click 事件，click 后判断是否当前符合条件（选择符），然后把事件拿出来执行。   
+     * **/
+
+    /**
+     * 二、zepto_touch
+     * 1.tap比singleTap快；
+     * 2.doubleTap触发tap会执行两次，而singleTap不会执行;
+     * longTap(长按)
+     * swipe(滑动)  上下左右滑
+     * */
+    /**
+     * @description 给zepto加tag事件(一次触摸(单击)) (相当于tap)
+     * @example
+     * $('div').tag(function (e) { console.log(e); console.log(this)})
+     * @param {function} callback
+     * @returns  返回调用者
+     */
+    $.fn.tag = function (callback) {
+        var self = this;
+        self.on('touchstart', function (e) {
+            var date = new Date().getTime();
+            e = e.changedTouches[0];
+            this.oscar_data = {
+                x: e.clientX,
+                y: e.clientY,
+                time: date
+            };
+        }).on('touchend', function (event) {
+            var date = new Date().getTime();
+            var e = event.changedTouches[0];
+            var changeTime = date - this.oscar_data.time;
+            var changeX = Math.abs(e.clientX - this.oscar_data.x);
+            var changeY = Math.abs(e.clientY - this.oscar_data.y);
+            if (changeTime < 200 && changeTime > 0 && changeX < 5 && changeY < 5) {
+                callback.call(this, event)
+            }
+        });
+        return this
+    };
+</script>
+
+</html>
