@@ -57,7 +57,7 @@
     // 1. 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过setOption完成，ECharts 会合并新的参数和数据，然后刷新图表。如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
     myChart.setOption();
     //获取当前实例中维护的option对象，返回的option对象中包含了用户多次setOption合并得到的配置项和数据，也记录了用户交互的状态，例如图例的开关，数据区域缩放选择的范围等等。
-    myChart.getOption(); 
+    myChart.getOption();
     // 2. 触发图表行为api
     myChart.dispatchAction()
     // 3.loading状态
@@ -82,6 +82,17 @@
     // 5. 渐变
     //    new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由上而下
     //    new echarts.graphic.LinearGradient(0, 0, 1, 0,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由左到右
+    // new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [{
+    //             offset: 0,
+    //             color: '#cc0099' // 0% 处的颜色
+    //         },
+    //         {
+    //             offset: 1,
+    //             color: '#99ff99' // 100% 处的颜色
+    //         }
+    //     ],
+    //     false)
+
 
     // 6. 监听geo组件缩放/移动事件
     // myChart.on('georoam', function (e) {

@@ -84,7 +84,7 @@
     autoplay: 5000, //是否自动滑动及间隔时间,
     // autoplayDisableOnInteraction: false, //用户操作swiper之后，是否禁止autoplay。默认为true：停止。
     effect: 'slide', //slide的切换效果，默认为"slide"（位移切换），可设置为"fade"（淡入）"cube"（方块）"coverflow"（3d流）"flip"（3d翻转）。
-    loop: true, //开启无缝模式
+    // loop: true, //开启无缝模式
 
     /*分页  滚动条*/
     // pagination: '.swiper-pagination',//设置分页(小圆点)
@@ -120,9 +120,9 @@
 
     /*其他*/
     // initialSlide :2,  //设定初始化时slide的索引值 从0开始。
-    // direction : 'vertical', //Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)
-    // centeredSlides:false, //默认居左  true为居中
-    autoHeight: true, //自动高度,wrapper和container会随着当前slide的高度而发生变化。有些场景下不合理
+    // centeredSlides:false, //第一张图片的位置 默认居左  true为居中
+    // direction : 'vertical', //Slides的滑动方向，可设置水平(horizontal)或垂直(vertical) （记得设置.swiper-container高度）
+    autoHeight: true, //自动高度,wrapper和container会随着当前slide的高度而发生变化。有些场景下不合理 比如direction
 
     observer: true, //当swiper的样式或者修改swiper的子元素时 自动更新swiper
     observeParents: true, //当swiper的父元素变化时,例如window.resize自动更新swiper
@@ -143,7 +143,7 @@
         swiper.stopAutoplay();
 
         //更新
-        swiper.update();
+        swiper.update();//可选参数：updateTranslate，默认false，设置为true则重新计算Wrapper的位移。
 
         //重置参数
         swiper.params.autoplay = 5000;
