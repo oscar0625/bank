@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 6000px;
+        }
+
+        div {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            padding: 10px;
+            border: 10px solid red;
+            /* overflow: scroll; */
+        }
+
+        p {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px!important;
+            height: 50px;
+            padding: 20px 15px 10px 5px!important;
+            border: 10px solid green;
+            margin: 10px;
+            overflow: scroll;
+        }
+        a{
+            display: block;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p> 
+            123
+            <!-- <a href=""></a> -->
+        </p>
+    </div>
+</body>
+<script>
+    //一、...width |...height
+
+    //0. width/heigt和滚动条
+    //      如果当前元素明确指定宽高时 滚动条的位置在 宽高规定区域 内部
+    //      如果当前元素没指定宽高是由内容撑起 滚动条的位置在 内容区域 外部
+
+    //1. offsetHeight和offsetWidth(只读属性)(w+p+b)
+    //      返回的是元素的 高度或宽度 (包括padding、border,不包括margin) (包括滚动条)
+    //      offsetWidth = width(不包括滚动条) + leftborder + rightborder + leftpadding + rightpadding + 滚动条
+
+    //2. clientWidth和clientHeight(只读属性)(w+p)
+    //      返回当前元素的 可视区域的宽度或高度 (包括padding,不包括border和margin) (不包括滚动条)
+    //      clientWidth = width(不包括滚动条) + leftPadding + rightPadding
+
+    //3. scrollWidth和scrolltHeight(只读属性)
+    //      返回当前元素的 实际的宽度或高度 (包括padding,不包括border、滚动条和margin) (不包括滚动条) (当前元素内容都可见时，和clientWidth/clientHeight一样)
+    //      当前元素内容有不可见时(需要滚动才能看见,或被overflow:hidden彻底隐藏)
+    //      scrolltHeight=内容的高度+topPadding + bottomPadding
+    //      scrollWidth=内容的宽度+leftpadding 
+
+    //4. style.width和style.width 和上面几个的区别
+    //      a 以上只读，本项读写
+    //      b 以上返回的是数值，本项返回的是字符串，单位是“px”
+    //      c 本项读写元素行内样式的width
+
+    //5. window.innerWidth和window.innerHeight / document.documentElement.clientWidth和document.documentElement.clientHeight(只读属性)
+    //      返回视口(viewport) 的高度或宽度 
+    //      window.innerWidth (包含滚动条) 
+    //      document.documentElement.clientWidth (不包含滚动条)
+
+    //6. window.outerWidth和window.outerHeight(只读属性)
+    //      返回窗口 的高度或宽度，包括所有界面元素（如工具栏/F12开发者）
+
+
+
+    //二、...left |...right
+
+    //0. position定位距离top/left
+    //      从定位的父元素的 border内 作为起点，到定位的子元素的 margin外 作为终点的距离
+
+    //1. offsetLeft和offsetTop (只读属性)
+    //1.1 offsetParent
+    //      指的是距该元素最近的 position 不为static的祖先元素，如果没有则指向 body 元素。
+    //1.2 offsetLeft和offsetTop
+    //      从该元素的 border外 作为起点，到该元素的offsetParent元素的 border内 作为终点的距离
+    //      若当前元素具有固定定位(position:fixed)，那么返回的是当前元素与可视窗口的距离
+
+    //2. clientTop和clientLeft(只读属性)
+    //      就是border-top和border-left
+
+    //3. scrollTop和scrollLeft(读写属性)
+    //      scrollTop：设置或返回网页滚动条垂直方向已经滚去的距离； 
+    //      scrollLeft：设置或返回网页滚动条水平方向已经滚去的距离；
+
+    
+
+    //三、ele.getBoundingClientRect() (只读) == ele.getClientRects()[0]
+    //      返回一个 DOMRect 对象，包含left, top, width, height, bottom, right六个属性
+    //      width/height 相当于 offsetHeight和offsetWidth (ie8下没有这个属性)
+    //      left/top 元素相对于 当前视口 左边/上边的距离。(注意是相对于视口的，如果想获取相对于页面要加上document.body.scrollTop||document.documentElement.scrollTop)
+    //      right/bottom =left/top+width/height
+    ///     getClientRects() 和 getBoundingClientRect没区别（几乎）
+
+
+
+    var p = document.querySelector('p');
+    console.log(p.offsetWidth)
+    console.log(p.offsetHeight)
+
+    console.log(p.clientWidth)
+    console.log(p.clientHeight)
+
+    console.log(p.scrollWidth)
+    console.log(p.scrollHeight)
+
+    console.log(p.getClientRects())
+    console.log(p.getBoundingClientRect())
+</script>
+
+</html>

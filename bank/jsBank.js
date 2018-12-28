@@ -1,4 +1,56 @@
 var oscar = {
+    //判断当前浏览器
+    browser: {
+        //移动/pc终端浏览器版本信息 
+        versions: function () {
+            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
+                app = window.navigator.appVersion;
+            return {
+                //判断浏览器内核
+                trident: userAgent.indexOf('Trident') > -1, //IE内核
+                webKit: userAgent.indexOf('AppleWebKit') > -1, //webkit内核/苹果、谷歌内核
+                gecko: userAgent.indexOf("Firefox") > -1, //火狐内核
+                presto: userAgent.indexOf('Presto') > -1, //opera内核
+                //判断是否移动端  (满足任一就应跳转到手机端)
+                mobile: /AppleWebKit.*Mobile.*/.test(userAgent), //windows移动终端
+                ios: /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(userAgent), //ios移动终端
+                android: userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: userAgent.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: userAgent.indexOf('iPad') > -1, //是否iPad  
+                //判断是否微信qq
+                weixin: userAgent.indexOf('MicroMessenger') > -1, //是否微信 
+                qq: userAgent.match(/\sQQ/i) == " qq" //是否QQ
+            };
+        }(),
+
+        //当前语言 比如"zh-CN"
+        language: (navigator.browserLanguage || navigator.language).toLowerCase(),
+
+        //判断ie几
+        ieNum: function () {
+            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
+                isIE = userAgent.indexOf("Trident") > -1; //判断是否IE浏览器
+            if (isIE) {
+                if (userAgent.indexOf("MSIE") == -1) {
+                    return "IE11";
+                }
+                var fIEVersion = parseFloat(userAgent.match(/MSIE (\d+\.\d+)/)[1]);
+                if (fIEVersion == 7) {
+                    return "IE7";
+                } else if (fIEVersion == 8) {
+                    return "IE8";
+                } else if (fIEVersion == 9) {
+                    return "IE9";
+                } else if (fIEVersion == 10) {
+                    return "IE10";
+                } else {
+                    return "0" //IE版本过低
+                }
+            } else {
+                return false
+            }
+        }(),
+    },
 
     /*location search =>obj*/
     searchToOBJ: function (str) {
@@ -19,53 +71,14 @@ var oscar = {
         return obj;
     },
 
-    //图片预加载
-    loadImage: function (url, callback) {
-        var img = new Image(); //创建一个Image对象，实现图片的预下载
-        img.src = url;
-
-        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
-            callback.call(img);
-            return; // 直接返回，不用再处理onload事件
-        }
-
-        img.onload = function () { //图片下载完毕时异步调用callback函数。
-            callback.call(img); //将回调函数的this替换为Image对象
-            img.onload = null;
-        };
-    },
-
-    /*深拷贝*/
-    deepClone: function () {
-        if (typeof obj != 'object') {
-            return obj
-        }
-        var newObj = Array.isArray(obj) ? [] : {};
-        for (var i in obj) {
-            newObj[i] = deepClone(obj[i]);
-        }
-        return newObj
-    },
-
-    //普通随机数[min,max]
-    random: function (min, max) { //限制 max-min值为整数
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-        //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
-    },
-
-    /**
-     * 种子随机数
-     * @param seed [种子]
-     * @param min  [最小] 可取
-     * @param max  [最大] 取不到
+    /**将数字四舍五入保留到N位小数
+     * @param num  要处理的数字  如果是string类型 会处理成number 类型
+     * @param n  0-20 [保留n位小数]
+     * @returns {string}
      */
-    seedRandom: function (seed, min, max) {
-        min = min || 0;
-        max = max || 1;
-        seed = (seed * 9301 + 49297) % 233280;
-        var rnd = seed / 233280.0;
-        return rnd * (max - min) + min;
-        //return Math.floor(rnd*(max-min+1))+min;  //取整
+    keepDecimal: function (num, n) { //keepDecimal(3.1415926,2)
+        var times = Math.pow(10, n);
+        return (Math.round(num * times) / times).toFixed(n)
     },
 
     //冒泡排序
@@ -101,6 +114,14 @@ var oscar = {
             }
         }
         return res
+    },
+
+    /*寻找数组中最小值/最大值*/
+    findMin: function (arr) {
+        return Math.min.apply(Math, arr)
+    },
+    findMax: function (arr) {
+        return Math.max.apply(Math, arr)
     },
 
     /*cookie操作*/
@@ -195,6 +216,55 @@ var oscar = {
         }
     },
 
+    //图片预加载
+    loadImage: function (url, callback) {
+        var img = new Image(); //创建一个Image对象，实现图片的预下载
+        img.src = url;
+
+        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+            callback.call(img);
+            return; // 直接返回，不用再处理onload事件
+        }
+
+        img.onload = function () { //图片下载完毕时异步调用callback函数。
+            callback.call(img); //将回调函数的this替换为Image对象
+            img.onload = null;
+        };
+    },
+
+    /*深拷贝*/
+    deepClone: function () {
+        if (typeof obj != 'object') {
+            return obj
+        }
+        var newObj = Array.isArray(obj) ? [] : {};
+        for (var i in obj) {
+            newObj[i] = deepClone(obj[i]);
+        }
+        return newObj
+    },
+
+    //普通随机数[min,max]
+    random: function (min, max) { //限制 max-min值为整数
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+        //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
+    },
+
+    /**
+     * 种子随机数
+     * @param seed [种子]
+     * @param min  [最小] 可取
+     * @param max  [最大] 取不到
+     */
+    seedRandom: function (seed, min, max) {
+        min = min || 0;
+        max = max || 1;
+        seed = (seed * 9301 + 49297) % 233280;
+        var rnd = seed / 233280.0;
+        return rnd * (max - min) + min;
+        //return Math.floor(rnd*(max-min+1))+min;  //取整
+    },
+
     /*second => hour+':'+minute+':'+second  120 => 00:02:00*/
     hms: function (num) {
         var hour = Math.floor(num / 3600);
@@ -204,24 +274,6 @@ var oscar = {
         var second = Math.floor((num % 3600) % 60);
         second < 10 ? second = "0" + second : second = "" + second;
         return hour + ':' + minute + ':' + second;
-    },
-
-    /**将数字四舍五入保留到N位小数
-     * @param num  要处理的数字  如果是string类型 会处理成number 类型
-     * @param n  0-20 [保留n位小数]
-     * @returns {string}
-     */
-    keepDecimal: function (num, n) { //keepDecimal(3.1415926,2)
-        var times = Math.pow(10, n);
-        return (Math.round(num * times) / times).toFixed(n)
-    },
-
-    /*计算已经工作时间*/
-    jobTime: function (startYear, startMonth, endYear, endMonth) {
-        var num = (endYear - startYear) * 12 + (endMonth - startMonth);
-        var year = Math.floor(num / 12) ? Math.floor(num / 12) + '年' : '';
-        var month = num % 12 ? num % 12 + '月' : '';
-        return year + month
     },
 
     /*打印*/
@@ -235,6 +287,55 @@ var oscar = {
         window.document.body.innerHTML = prnhtml;
         window.print();
         window.document.body.innerHTML = bdhtml;
+    },
+
+    /*禁止页面copy、右键功能*/
+    preventCopy: function () {
+        /*去掉右键菜单*/
+        document.oncontextmenu = function (e) {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+        //禁止copy
+        document.oncopy = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+        //禁止cut
+        document.oncut = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+    },
+
+    //获取元素某一css属性值方法 没有返回空字符串(兼容到ie8)
+    computedStyle: function (elem, prop) {
+        var cs, obj = {};
+        if (window.getComputedStyle) {
+            cs = window.getComputedStyle(elem, null);
+            if (prop) {
+                return cs.getPropertyValue(prop);
+            }
+            for (var i = 0; i < cs.length; i++) {
+                var style = cs[i];
+                obj[style] = cs.getPropertyValue(style);
+            }
+            return obj
+        } else {
+            //兼容ie8操作 currentStyle
+            cs = elem.currentStyle;
+            if (prop) {
+                return cs[prop]
+            }
+            return cs
+        }
+    }
+};
+var oscarCheck = {
+    /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
+    checkChineseName: function (str) {
+        if (/^[\u4E00-\u9FA5]+·?[\u4E00-\u9FA5]+$/.test(str)) {
+            return true
+        } else {
+            return false
+        }
     },
 
     /*检验身份证*/
@@ -420,13 +521,34 @@ var oscar = {
         }
     },
 
-    /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
-    checkChineseName: function (str) {
-        if (/^[\u4E00-\u9FA5]+·?[\u4E00-\u9FA5]+$/.test(str)) {
-            return true
-        } else {
-            return false
+    /*验证18位营业执照*/
+    checkTradingCertificate: function (code) {
+        var reg = /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{9})([0-9ABCDEFGHJKLMNPQRTUWXY]{1})$/;
+        if (code.length != 18 || reg.test(code) == false) {
+            return false;
         }
+        /*验证第18位*/
+        //不用I、O、S、V、Z
+        var str = '0123456789ABCDEFGHJKLMNPQRTUWXY',
+            ws = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28],
+            codes = [],
+            i, sum = 0,
+            index, c18;
+
+        codes[0] = code.slice(0, code.length - 1);
+        codes[1] = code.slice(code.length - 1, code.length);
+
+        for (i = 0; i < 17; i++) {
+            sum += str.indexOf(codes[0].charAt(i)) * ws[i];
+        }
+
+        index = 31 - (sum % 31);
+        index == 31 && (index = 0);
+
+        /*18位*/
+        c18 = str.charAt(index);
+
+        return c18 == codes[1];
     },
 
     /*检验正确的数字 */
@@ -458,110 +580,5 @@ var oscar = {
         } else {
             return false
         }
-    },
-
-    /*验证18位营业执照*/
-    checkTradingCertificate: function (code) {
-        var reg = /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{9})([0-9ABCDEFGHJKLMNPQRTUWXY]{1})$/;
-        if (code.length != 18 || reg.test(code) == false) {
-            return false;
-        }
-        /*验证第18位*/
-        //不用I、O、S、V、Z
-        var str = '0123456789ABCDEFGHJKLMNPQRTUWXY',
-            ws = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28],
-            codes = [],
-            i, sum = 0,
-            index, c18;
-
-        codes[0] = code.slice(0, code.length - 1);
-        codes[1] = code.slice(code.length - 1, code.length);
-
-        for (i = 0; i < 17; i++) {
-            sum += str.indexOf(codes[0].charAt(i)) * ws[i];
-        }
-
-        index = 31 - (sum % 31);
-        index == 31 && (index = 0);
-
-        /*18位*/
-        c18 = str.charAt(index);
-
-        return c18 == codes[1];
-    },
-
-    /*禁止页面copy、右键功能*/
-    preventCopy: function () {
-        /*去掉右键菜单*/
-        document.oncontextmenu = function (e) {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
-        //禁止copy
-        document.oncopy = function () {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
-        //禁止cut
-        document.oncut = function () {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
-    },
-
-    /*寻找数组中最小值/最大值*/
-    findMin: function (arr) {
-        return Math.min.apply(Math, arr)
-    },
-    findMax: function (arr) {
-        return Math.max.apply(Math, arr)
-    },
-    browser: {
-        //移动/pc终端浏览器版本信息 
-        versions: function () {
-            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
-                app = window.navigator.appVersion;
-            return {
-                //判断浏览器内核
-                trident: userAgent.indexOf('Trident') > -1, //IE内核
-                webKit: userAgent.indexOf('AppleWebKit') > -1, //webkit内核/苹果、谷歌内核
-                gecko: userAgent.indexOf("Firefox") > -1, //火狐内核
-                presto: userAgent.indexOf('Presto') > -1, //opera内核
-                //判断是否移动端  (满足任一就应跳转到手机端)
-                mobile: /AppleWebKit.*Mobile.*/.test(userAgent), //windows移动终端
-                ios: /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(userAgent), //ios移动终端
-                android: userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1, //android终端或者uc浏览器
-                iPhone: userAgent.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-                iPad: userAgent.indexOf('iPad') > -1, //是否iPad  
-                //判断是否微信qq
-                weixin: userAgent.indexOf('MicroMessenger') > -1, //是否微信 
-                qq: userAgent.match(/\sQQ/i) == " qq" //是否QQ
-            };
-        }(),
-
-        //当前语言 比如"zh-CN"
-        language: (navigator.browserLanguage || navigator.language).toLowerCase(),
-
-        //判断ie几
-        ieNum: function () {
-            var userAgent = window.navigator.userAgent, //取得浏览器的userAgent字符串
-                isIE = userAgent.indexOf("Trident") > -1; //判断是否IE浏览器
-            if (isIE) {
-                if (userAgent.indexOf("MSIE") == -1) {
-                    return "IE11";
-                }
-                var fIEVersion = parseFloat(userAgent.match(/MSIE (\d+\.\d+)/)[1]);
-                if (fIEVersion == 7) {
-                    return "IE7";
-                } else if (fIEVersion == 8) {
-                    return "IE8";
-                } else if (fIEVersion == 9) {
-                    return "IE9";
-                } else if (fIEVersion == 10) {
-                    return "IE10";
-                } else {
-                    return "0" //IE版本过低
-                }
-            } else {
-                return false
-            }
-        }(),
     }
-};
+}
