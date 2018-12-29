@@ -18,6 +18,10 @@ input,textarea,select{
     font-size: 100%
 }
 
+textarea{
+	overflow-y: auto;
+}
+
 table {
     border-collapse: collapse; /*让表格边框细线*/
     border-spacing: 0; /*清除边框间距*/
