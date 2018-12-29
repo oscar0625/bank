@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <title>index</title>
     <style>
         #container{
             width: 1000px;
@@ -16,13 +17,9 @@
 </body>
 <script src="script/css/echarts.js"></script>
 <script type="text/javascript">
-    /*  下载实例
-     *   https://ecomfe.github.io/echarts-examples/public/index.html
-     *   http://www.echartsjs.com/gallery/index.html
+    /*   文档
+     *   http://www.echartsjs.com/api.html#echarts
      *
-     *   http://echarts.baidu.com/option.html  option
-     *
-     *  在echarts3中 markPoint和markLine变成画死线的了
      * */
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
@@ -32,40 +29,38 @@
      *
      * */
 
-
-
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
-        //点击事件
-        myChart.on('click', function (e) {
-            console.log(e);
-            try {
-                if (e.data.Type == '成果') {
-                    window.open('/achievementInfo?id=' + e.data.Id)
-                } else if (e.data.Type == '需求') {
-                    window.open('/demandinfo?id=' + e.data.Id);
-                } else {
-                    console.log(222)
-                }
-            } catch (res) {
-                console.log(111)
-            }
-        })
     };
+
     //api
 
     // 1. 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过setOption完成，ECharts 会合并新的参数和数据，然后刷新图表。如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
-    myChart.setOption();
+    myChart.setOption(option, true);
+    // myChart.setOption(option, false); //更新(设置为false为合并)
     //获取当前实例中维护的option对象，返回的option对象中包含了用户多次setOption合并得到的配置项和数据，也记录了用户交互的状态，例如图例的开关，数据区域缩放选择的范围等等。
     myChart.getOption();
-    // 2. 触发图表行为api
-    myChart.dispatchAction()
-    // 3.loading状态
+
+
+    // 2.事件
+    // 点击事件
+    myChart.on('click', function (e) {})
+    // 监听geo组件缩放/移动事件
+    myChart.on('georoam', function (e) {})
+    // 切换图例选中状态后的事件
+    myChart.on('legendselectchanged', function (e) {})
+
+
+    // 3. 触发图表行为api
+    myChart.dispatchAction();
+
+
+    // 4.loading状态
     myChart.showLoading();
     myChart.hideLoading();
 
 
-    // 4.重置地图的两种方法
+    // 5.重置地图的两种方法
     //重置option  但存在轨迹问题
     myChart.dispatchAction({
         type: 'restore'
@@ -75,14 +70,14 @@
         myChart.dispose(); //原本销毁
         myChart = echarts.init(dom); //初始化
         myChart.setOption(option, true); //新建
-        // myChart.setOption(option, false); //更新(设置为false为合并)
     });
 
 
-    // 5. 渐变
+    // 6. 渐变
     //    new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由上而下
     //    new echarts.graphic.LinearGradient(0, 0, 1, 0,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由左到右
-    // new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [{
+    //    new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [   //径向渐变
+    //         {
     //             offset: 0,
     //             color: '#cc0099' // 0% 处的颜色
     //         },
@@ -90,13 +85,13 @@
     //             offset: 1,
     //             color: '#99ff99' // 100% 处的颜色
     //         }
-    //     ],
-    //     false)
+    //     ],false)
 
 
-    // 6. 监听geo组件缩放/移动事件
-    // myChart.on('georoam', function (e) {
-    // })
+    // 7. 获取json地图
+    $.get('./script/json/beijing.json', function (geoJson) {
+        echarts.registerMap('beijing', geoJson);
+    });
 </script>
 
 </html>

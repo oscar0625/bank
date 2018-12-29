@@ -2,6 +2,7 @@
 <html style="height: 100%">
 <head>
     <meta charset="utf-8">
+    <title>雷达图</title>
     <style>
         #container{
             width: 1000px;
@@ -14,15 +15,11 @@
 </body>
 <script src="../script/css/echarts.js"></script>
 <script type="text/javascript">
-    /*http://www.echartsjs.com/gallery/editor.html?c=radar-aqi*/
+    // http://www.echartsjs.com/gallery/editor.html?c=radar-aqi
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
-    /*
-     * option ...
-     *
-     *
-     * */
-    option = {
+    
+    var option = {
         backgroundColor: '#161627',
         title: {
             text: '雷达图'
@@ -96,7 +93,6 @@
             }
         ]
     };
-
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);

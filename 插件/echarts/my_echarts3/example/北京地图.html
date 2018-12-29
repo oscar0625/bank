@@ -2,6 +2,7 @@
 <html style="height: 100%">
 <head>
     <meta charset="utf-8">
+    <title>北京地图</title>
     <link rel="stylesheet" href="../script/css/reset.css">
     <style>
         body{
@@ -25,11 +26,6 @@
 
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
-    /*
-     * option ...
-     *
-     *
-     * */
 
     $.get('../script/json/beijing.json', function (geoJson) {
         echarts.registerMap('beijing', geoJson);

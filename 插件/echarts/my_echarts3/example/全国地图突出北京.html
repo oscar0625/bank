@@ -2,6 +2,7 @@
 <html style="height: 100%">
 <head>
     <meta charset="utf-8">
+    <title>全国地图突出北京</title>
     <style>
         #container{
             width: 1000px;
@@ -22,13 +23,8 @@
 
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
-    /*
-     * option ...
-     *
-     *
-     * */
-
-    option = {
+    
+    var option = {
         backgroundColor: '#404a59',  //整体背景
         title: {                     //标题
             text: '成果/需求对接分布图',
@@ -102,10 +98,7 @@
 //                ]
 //            }
 //        ]
-
     };
-
-
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);

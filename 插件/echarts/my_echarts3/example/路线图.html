@@ -2,6 +2,7 @@
 <html style="height: 100%">
 <head>
     <meta charset="utf-8">
+    <title>路线图</title>
     <style>
         #container{
             width: 1000px;
@@ -16,22 +17,10 @@
 <script src="../script/css/echarts.js"></script>
 <script src="../script/map/china.js"></script>
 <script type="text/javascript">
-    /*  下载实例
-    *   https://ecomfe.github.io/echarts-examples/public/index.html
-    *   http://www.echartsjs.com/gallery/index.html
-    *
-    *   http://echarts.baidu.com/option.html  option
-    *
-    * */
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
-    /*
-    * option ...
-    *
-    *
-    * */
 
-    option = {
+    var option = {
         backgroundColor: '#404a59',  //整体背景
         title: {                     //标题
             text: '成果/需求对接分布图',
@@ -115,8 +104,6 @@
 
         ]
     };
-
-
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);

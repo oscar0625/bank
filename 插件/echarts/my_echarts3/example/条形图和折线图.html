@@ -2,6 +2,7 @@
 <html style="height: 100%">
 <head>
     <meta charset="utf-8">
+    <title>条形图和折线图</title>
     <style>
         #container{
             width: 1000px;
@@ -18,10 +19,7 @@
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
 
-
-
-    option = null;
-    option = {
+    var option = {
         tooltip: {
             trigger: 'axis',
             axisPointer: {
