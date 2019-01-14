@@ -247,26 +247,25 @@
             }
         },
         visualMap: {
-            min: 0,
-            max: 500,
-            splitNumber: 5,
-            inRange: {
-                color: ['#d94e5d','#eac736','#50a3ba'].reverse()
-            },
+            // show: false,
+            type: 'piecewise', 
             textStyle: {
                 color: '#fff'
+            },
+            min: 0,
+            max: 300,
+            splitNumber: 5,
+            seriesIndex: 0,
+            inRange: {
+                color: ['blue', 'blue', 'green', 'yellow', 'red']
             }
         },
         series: [{
-            name: '热力值',
             type: 'heatmap',
+            name: '热力值',
             coordinateSystem: 'geo',
-            pointSize:20,           //每个点的大小
-            blurSize:20,             //每个点模糊的大小，在地理坐标系(coordinateSystem: 'geo')上有效。
-            minOpacity:0,           //最小的透明度，在地理坐标系(coordinateSystem: 'geo')上有效。
-            maxOpacity:1,           //最大的透明度，在地理坐标系(coordinateSystem: 'geo')上有效。
-            silent:false,           //图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。
-            zlevel:0,
+            pointSize:10,           //每个点的大小
+            blurSize:20,            //每个点模糊的大小，在地理坐标系(coordinateSystem: 'geo')上有效。
             data: convertData(
                 [
                 {name: "海门", value: 9},
@@ -460,12 +459,19 @@
                 {name: "武汉", value: 273},
                 {name: "大庆", value: 279}
             ]
-            )
+            ),
+            minOpacity:0,           //最小的透明度，在地理坐标系(coordinateSystem: 'geo')上有效。
+            maxOpacity:1,           //最大的透明度，在地理坐标系(coordinateSystem: 'geo')上有效。
+            silent:false,           //图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。
+            zlevel:0,
         }]
     };
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
+        myChart.on('click', function (e) {
+            console.log(e);
+        })
     };
 
 </script>
