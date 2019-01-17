@@ -68,6 +68,7 @@
       // 小程序
       //       minapp
       // debug
+      //       Live Server       自动刷新   
       //       open in browser   settings.json设置为"open-in-browser.default": "Chrome",
 
       //       Debugger for Chrome     
@@ -102,10 +103,33 @@
                   "editor.lineHighlightBackground": "#DCE2F1",
                   "editor.background": "#DCE2F1",
             },
-            "editor.fontSize": 18,
 
             //默认浏览器配置
             "open-in-browser.default": "Chrome",
+
+
+            //editor配置
+            // 控制是否在键入时自动显示建议。
+            "editor.quickSuggestions": {
+                  "other": true,
+                  "comments": true,
+                  "strings": true
+            },
+            //不显示小图配置
+            "editor.minimap.enabled": false,
+            "editor.wordWrap": "on",
+            "editor.fontSize": 18,
+
+            // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
+            "files.associations": {
+                  "*.vue": "vue",
+                  "*.wxss": "css",
+                  "*.cjson": "jsonc",
+                  "*.wxs": "javascript",
+            },
+
+            "files.autoSave": "off",
+
 
             //Bracket Pair Colorizer括号颜色配置
             "bracketPairColorizer.consecutivePairColors": [
@@ -120,17 +144,9 @@
                   "Red"
             ],
 
-            // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
-            "files.associations": {
-                  "*.vue": "vue",
-                  "*.wxss": "css",
-                  "*.cjson": "jsonc",
-                  "*.wxs": "javascript"
-            },
-
             // 配置emmet
             // 启用tab展开缩写
-            "emmet.triggerExpansionOnTab": true,
+            // "emmet.triggerExpansionOnTab": true,
             // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
             "emmet.syntaxProfiles": {
                   "vue-html": "html",
@@ -142,9 +158,10 @@
                   "vue": "html",
                   "aspx": "html",
                   "javascript": "javascriptreact",
+                  "wxml": "html"
             },
 
-            // eslint
+            // eslint 配置
             // eslint配置文件
             "eslint.options": {
                   "plugins": [
@@ -167,12 +184,19 @@
                   "typescriptreact"
             ],
 
-            //不显示小图配置
-            "editor.minimap.enabled": false,
-            "files.autoSave": "off",
-            "editor.wordWrap": "on",
-            //px-to-rem
-            "px-to-rem.px-per-rem": 16,
+            //px to rem 配置
+            "px-to-rem.px-per-rem": 252,
+
+            //LiveServer
+            "liveServer.settings.CustomBrowser": "chrome",
+            "liveServer.settings.port": 8080,
+            "liveServer.settings.donotShowInfoMsg": true,
+
+            //其他
+            "window.zoomLevel": 0,
+            "minapp-vscode.disableAutoConfig": true,
+            "breadcrumbs.enabled": true,
+            "search.location": "sidebar",
       }
 </script>
 
