@@ -20,7 +20,7 @@
 </body>
 <script src="jquery-1.7.2.min.js"></script>
 <script>
-    /*
+    /*https://github.com/daneden/animate.css
     * 只能兼容到ie10
     * */
 
@@ -44,7 +44,7 @@
             this.addClass('animated ' + animationName).one(animationEnd, function() {
                 $(this).removeClass('animated ' + animationName);
 
-                if (typeof callback === 'function') callback();
+                if (typeof callback === 'function') callback.call(this);
             });
 
             return this;
@@ -52,7 +52,7 @@
     });
     $('button').on('click',function () {
         /*执行动画*/
-        $('.box').animateCss('animated bounceInLeft',function () {});
+        $('.box').animateCss('animated bounceOutLeft',function () {});
     });
 
 

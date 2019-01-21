@@ -73,7 +73,6 @@
         },
         yAxis: {
             type: 'value',
-            boundaryGap: [0, 0.1],
             splitLine: {                  //坐标轴在 grid 区域中的分隔线设置。
                 show: true,
                 lineStyle:{
@@ -88,13 +87,12 @@
             axisTick: { show: false },     //坐标轴刻度相关设置。
             axisLabel: {                    //坐标轴标签的相关设置。轴下面的字
                 show: true,
-                textStyle: {
-                    color: 'cyan'
-                }
+                color: 'cyan'
             }
         },
         xAxis: {
             type: 'category',
+            boundaryGap: false,   //坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。
             data: arr1.reverse(),
             nameGap:0,
             splitLine: {                  //坐标轴在 grid 区域中的分隔线设置。
@@ -111,9 +109,7 @@
             axisTick: { show: false },     //坐标轴刻度相关设置。
             axisLabel: {                    //坐标轴标签的相关设置。轴下面的字
                 show: true,
-                textStyle: {
-                    color: 'cyan'
-                }
+                color: 'cyan'
             }
         },
 
@@ -122,6 +118,28 @@
                 name: '高新企业',
                 type: 'line',
                 data: arr2.reverse(),
+                // step:true,      //是否是阶梯线图
+                // smooth: true,   //是否平滑曲线显示。   
+                label:{         //图形上的文本标签
+                    normal:{
+                        show:false
+                    }
+                },
+                itemStyle:{     //折线拐点标志的样式。
+                    normal:{
+                        shadowBlur: 10
+                    }
+                },
+                lineStyle:{     //线条样式。
+                    normal:{
+                        width: 10
+                    }
+                },
+                areaStyle:{     //区域填充样式。
+                    normal:{
+                        color: 'green'
+                    }
+                },
                 markPoint: {
                     data: [
                         {type: 'max', name: '最大值'},
