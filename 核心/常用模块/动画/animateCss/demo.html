@@ -22,6 +22,7 @@
 <script>
     /*https://github.com/daneden/animate.css
     * 只能兼容到ie10
+    * animate.css动画执行的终点是元素当前的位置
     * */
 
     $.fn.extend({
@@ -42,9 +43,8 @@
             })(document.createElement('div'));
 
             this.addClass('animated ' + animationName).one(animationEnd, function() {
-                $(this).removeClass('animated ' + animationName);
-
                 if (typeof callback === 'function') callback.call(this);
+                $(this).removeClass('animated ' + animationName);
             });
 
             return this;

@@ -136,3 +136,6 @@
 * */
 
 //元素宽/高值 = psd上的元素宽/高   /  psd总宽度 * 10 rem
+
+//js中设置像素值时需 num*remParam  可以理解为将num根据当前视口与设计稿的比例进行放/缩 单位一直是px
+// remParam=flexible.rem/147(设计稿)
