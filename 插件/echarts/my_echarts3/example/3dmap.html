@@ -14,7 +14,7 @@
 <body >
 <div id="container"></div>
 </body>
-<script src="../script/echarts.js"></script>
+<script src="../script/echarts4.js"></script>
 <script src="../script/echarts-gl.js"></script>
 <script src="../script/map/china.js"></script>
 
@@ -265,9 +265,10 @@
             type: 'continuous',
             seriesIndex: 0,
             text: ['bar3D'],
-            calculable: true,
+            calculable: true,   //开启手柄
+            realtime:true,      //拖拽时，是否实时更新。
             max: 300,
-            inRange: {
+            inRange: {  //定义被选中时 selected:true 的样式
                 color: ['#87aa66', '#eba438', '#d94d4c']
             }
         }, {
@@ -276,8 +277,9 @@
             text: ['scatter3D'],
             left: 'right',
             max: 100,
-            calculable: true,
-            inRange: {
+            calculable: true,   //开启手柄
+            realtime:true,      //拖拽时，是否实时更新。
+            inRange: {  //定义被选中时的样式
                 color: ['#000', 'blue', 'purple']
             }
         }],
@@ -339,7 +341,9 @@
                     show: false,
                     formatter: '{b}'
                 },
-                data: convertData([{
+                data: convertData(
+                    [
+                        {
                     name: "海门",
                     value: (Math.random() * 300).toFixed(2)
                 }, {

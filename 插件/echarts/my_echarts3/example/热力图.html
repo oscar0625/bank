@@ -15,7 +15,7 @@
 <body>
     <div id="container"></div>
 </body>
-<script src="../script/echarts.js"></script>
+<script src="../script/echarts4.js"></script>
 <script src="../script/map/china.js"></script>
 <script type="text/javascript">
     //热力图主要通过颜色去表现数值的大小，必须要配合 visualMap 组件使用。
@@ -1022,9 +1022,14 @@
             max: 300,
             splitNumber: 5,     //分几段
             seriesIndex: 0,     //指定取哪个系列的数据，即哪个系列的 series.data。默认取所有系列。
-            inRange: {          //定义 在选中范围中 的视觉元素。
+            inRange: {          //定义被选中时 selected:true 的样式
                 symbol:'roundRect',
                 color: ['blue', 'blue', 'green', 'yellow', 'red']
+            },
+            outOfRange:{        //定义未被选中时 selected:false 的样式 
+                symbol:'circle',
+                color: ['blue', 'blue', 'green', 'yellow', 'red']
+
             }
         },
         series: [{
