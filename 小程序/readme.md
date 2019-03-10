@@ -11,6 +11,11 @@
         requiredBackgroundModes 需要在后台使用的能力，如「音乐播放」	
         plugins                 使用到的插件
         navigateToMiniProgramAppIdList  需要跳转的小程序列表
+        permission:{            小程序接口权限相关设置
+            "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+            }
+        }
 ## 2. 页面配置    
     page.json 页面的配置只能设置 app.json 中部分 window 配置项的内容，页面中配置项会覆盖 app.json 的 window 中相同的配置项。
     backgroundColor  窗口的背景色是指页面下拉之后 后面的背景色 要是想给body设置颜色 
