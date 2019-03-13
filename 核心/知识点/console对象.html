@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>console对象</title>
+</head>
+
+<body>
+    <ul>
+        <li>北京海淀科宝科技发展有</li>
+        <li>北京海淀科宝科技发展有</li>
+        <li class="active">北京海淀科宝科技发展有</li>
+        <li>北京海淀科宝科技发展有</li>
+        <li>北京海淀科宝科技发展有</li>
+    </ul>
+</body>
+<script>
+    //  一、显示信息的命令
+    // console.log("normal");           // 用于输出普通信息
+    // console.info("information");     // 用于输出提示性信息
+    // console.error("error");          // 用于输出错误信息
+    // console.warn("warn");            // 用于输出警示信息
+
+    //  二、将复合类型的数据转为表格显示
+    // var arr = [{
+    //         name: 'oscar',
+    //         age: 18
+    //     },
+    //     {
+    //         name: 'iwen',
+    //         age: 81
+    //     }
+    // ]
+    // console.table(arr);
+
+    //  三、追踪函数的调用轨迹
+    function add(a, b) {
+        // console.trace();
+        return a + b;
+    }
+    function add1(a, b) {
+        return add(a, b);
+    }
+    function add2(a, b) {
+        return add1(a, b);
+    }
+    function add3(a, b) {
+        return add2(a, b);
+    }
+    var x = add3(1, 1);
+
+    //  四、计时功能
+    // console.time('t1');
+    // for (var i = 0; i < 100; i++) {
+    //     for (var j = 0; j < 100; j++) {}
+    // }
+    // console.timeEnd('t1');
+
+    // 五、性能分析
+    function All() {
+        for (var i = 0; i < 10; i++) {
+            funcA(1000);
+        }
+        funcB(10000);
+    }
+    function funcA(count) {
+        for (var i = 0; i < count; i++) {}
+    }
+    function funcB(count) {
+        for (var i = 0; i < count; i++) {}
+    }
+    console.profile('性能分析器');
+    All();
+    console.profileEnd();
+</script>
+</html>
