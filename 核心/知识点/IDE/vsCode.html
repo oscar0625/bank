@@ -51,7 +51,9 @@
       // vue   
       //       vetur
       //       vue 2 Snippets
-      //       Vue Theme
+      //       Vue VSCode Snippets
+      //       Element UI Snippets
+
       // svn
       //       svn
       //       TortoiseSVN for VS Code
@@ -130,7 +132,6 @@
 
             "files.autoSave": "off",
 
-
             //Bracket Pair Colorizer括号颜色配置
             "bracketPairColorizer.consecutivePairColors": [
                   "()",
@@ -146,18 +147,16 @@
 
             // 配置emmet
             // 启用tab展开缩写
-            // "emmet.triggerExpansionOnTab": true,
+            "emmet.triggerExpansionOnTab": false,
             // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
             "emmet.syntaxProfiles": {
                   "vue-html": "html",
                   "vue": "html",
-                  "javascript": "javascriptreact",
             },
             "emmet.includeLanguages": {
                   "vue-html": "html",
                   "vue": "html",
                   "aspx": "html",
-                  "javascript": "javascriptreact",
                   "wxml": "html"
             },
 
@@ -191,12 +190,30 @@
             "liveServer.settings.CustomBrowser": "chrome",
             "liveServer.settings.port": 8080,
             "liveServer.settings.donotShowInfoMsg": true,
+            "liveServer.settings.donotVerifyTags": true,
+
+
+            //vetur
+            //html格式化依赖  默认为none
+            "vetur.format.defaultFormatter.html": "none",
+            //函数前加空格
+            "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+            //没有下边这个 上边不生效
+            "vetur.format.defaultFormatter.js": "vscode-typescript",
+            //去双引号和分号可以用一下 将上面设置为prettier
+            "vetur.format.defaultFormatterOptions": {
+                  "prettier": {
+                        "semi": false,
+                        "singleQuote": true
+                  }
+            },
 
             //其他
             "window.zoomLevel": 0,
             "minapp-vscode.disableAutoConfig": true,
             "breadcrumbs.enabled": true,
             "search.location": "sidebar",
+            "workbench.iconTheme": "material-icon-theme",
       }
 </script>
 
