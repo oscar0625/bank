@@ -473,6 +473,7 @@
                 name: '已对接成果',
                 type: 'scatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data).slice(0,50),
                 symbolSize: function (val) {
                     return val[2] / 15;
@@ -498,6 +499,7 @@
                 name: '未对接成果',
                 type: 'scatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data).slice(50,100),
                 symbolSize: function (val) {
                     return val[2] / 15;
@@ -523,6 +525,7 @@
                 name: '已对接需求',
                 type: 'scatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data).slice(100,150),
                 symbolSize: function (val) {
                     return val[2] / 15;
@@ -548,6 +551,7 @@
                 name: '未对接需求',
                 type: 'scatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data).slice(150,190),
                 symbolSize: function (val) {
                     return val[2] / 15;

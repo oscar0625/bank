@@ -474,6 +474,7 @@
                 name: '创客城市',
                 type: 'scatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data),
                 symbolSize: function (val) {
                     return val[2] / 15;
@@ -499,6 +500,7 @@
                 name: 'Top 5',
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
+                progressive: 0, //不启用渐进式渲染  因为数据量在3000-10000有问题
                 data: convertData(data.sort(function (a, b) {
                     return b.value - a.value;
                 }).slice(0, 6)),
