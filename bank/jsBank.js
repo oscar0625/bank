@@ -326,6 +326,51 @@ var oscar = {
             }
             return cs
         }
+    },
+
+    //防抖 把触发非常频繁的事件合并成一次去执行(搜索框关键词匹配)
+    debounce: function (fn, delayTime) {
+        var timeId;
+        return function () {
+            var context = this,
+                args = arguments;
+            timeId && clearTimeout(timeId);
+            timeId = setTimeout(function () {
+                fn.apply(context, args);
+            }, delayTime)
+        }
+    },
+
+    //节流 频繁触发事件时，触发时间间隔大于等于指定的时间才会执行回调函数(滚动事件)
+    throttle: function (fn, delayTime) {
+        var flag;
+        return function () {
+            var context = this,
+                args = arguments;
+            if (!flag) {
+                //限制 关锁
+                flag = setTimeout(function () {
+                    flag = false;
+                }, delayTime);
+                //执行
+                fn.apply(context, args);
+            }
+        }
+    },
+    throttle1: function (fn) {
+        var flag;
+        return function () {
+            var context = this,
+                args = arguments;
+            if (!flag) {
+                //限制 关锁
+                flag = window.requestAnimationFrame(function () {
+                    flag = false;
+                });
+                //执行
+                fn.apply(context, args);
+            }
+        }
     }
 };
 var oscarCheck = {

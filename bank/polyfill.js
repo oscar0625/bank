@@ -6,7 +6,7 @@
         };
     }
 
-    //Array.map() ie9+ 有返回值 所有的返回值集合成一个新的数组
+    //Array.map() ie9+ 创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。(有返回值)
     if (!Array.prototype.map) {
         Array.prototype.map = function (callback, thisArg) {
 
@@ -64,7 +64,35 @@
         };
     }
 
-    //Array.forEach() ie9+ 无返回值
+    //Array.filter() ie9+ 过滤 返回一个通过测试的元素的数组，没有通过返回空数组(有返回值) 
+    if (!Array.prototype.filter) {
+        Array.prototype.filter = function (fun /* , thisArg*/ ) {
+            "use strict";
+
+            if (this === void 0 || this === null)
+                throw new TypeError();
+
+            var t = Object(this);
+            var len = t.length >>> 0;
+            if (typeof fun !== "function")
+                throw new TypeError();
+
+            var res = [];
+            var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+            for (var i = 0; i < len; i++) {
+                if (i in t) {
+                    var val = t[i];
+
+                    if (fun.call(thisArg, val, i, t))
+                        res.push(val);
+                }
+            }
+
+            return res;
+        };
+    }
+
+    //Array.forEach() ie9+ 对数组的每个元素执行一次提供的函数。(无返回值) 
     if (!Array.prototype.forEach) {
 
         Array.prototype.forEach = function (callback, thisArg) {
@@ -105,34 +133,6 @@
                 }
                 k++;
             }
-        };
-    }
-
-    //Array.filter() ie9+ 过滤 返回一个通过测试的元素的数组，没有通过返回空数组    
-    if (!Array.prototype.filter) {
-        Array.prototype.filter = function (fun /* , thisArg*/ ) {
-            "use strict";
-
-            if (this === void 0 || this === null)
-                throw new TypeError();
-
-            var t = Object(this);
-            var len = t.length >>> 0;
-            if (typeof fun !== "function")
-                throw new TypeError();
-
-            var res = [];
-            var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-            for (var i = 0; i < len; i++) {
-                if (i in t) {
-                    var val = t[i];
-
-                    if (fun.call(thisArg, val, i, t))
-                        res.push(val);
-                }
-            }
-
-            return res;
         };
     }
 
@@ -184,6 +184,210 @@
 
             return false;
         };
+    }
+
+    //Array.includes() ie不支持 用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。
+    if (!Array.prototype.includes) {
+        Object.defineProperty(Array.prototype, 'includes', {
+            value: function (valueToFind, fromIndex) {
+
+                if (this == null) {
+                    throw new TypeError('"this" is null or not defined');
+                }
+
+                // 1. Let O be ? ToObject(this value).
+                var o = Object(this);
+
+                // 2. Let len be ? ToLength(? Get(O, "length")).
+                var len = o.length >>> 0;
+
+                // 3. If len is 0, return false.
+                if (len === 0) {
+                    return false;
+                }
+
+                // 4. Let n be ? ToInteger(fromIndex).
+                //    (If fromIndex is undefined, this step produces the value 0.)
+                var n = fromIndex | 0;
+
+                // 5. If n ≥ 0, then
+                //  a. Let k be n.
+                // 6. Else n < 0,
+                //  a. Let k be len + n.
+                //  b. If k < 0, let k be 0.
+                var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+                function sameValueZero(x, y) {
+                    return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+                }
+
+                // 7. Repeat, while k < len
+                while (k < len) {
+                    // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+                    // b. If SameValueZero(valueToFind, elementK) is true, return true.
+                    if (sameValueZero(o[k], valueToFind)) {
+                        return true;
+                    }
+                    // c. Increase k by 1. 
+                    k++;
+                }
+
+                // 8. Return false
+                return false;
+            }
+        });
+    }
+
+    //Array.find() ie不支持 返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+    if (!Array.prototype.find) {
+        Object.defineProperty(Array.prototype, 'find', {
+            value: function (predicate) {
+                // 1. Let O be ? ToObject(this value).
+                if (this == null) {
+                    throw new TypeError('"this" is null or not defined');
+                }
+
+                var o = Object(this);
+
+                // 2. Let len be ? ToLength(? Get(O, "length")).
+                var len = o.length >>> 0;
+
+                // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+                if (typeof predicate !== 'function') {
+                    throw new TypeError('predicate must be a function');
+                }
+
+                // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+                var thisArg = arguments[1];
+
+                // 5. Let k be 0.
+                var k = 0;
+
+                // 6. Repeat, while k < len
+                while (k < len) {
+                    // a. Let Pk be ! ToString(k).
+                    // b. Let kValue be ? Get(O, Pk).
+                    // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+                    // d. If testResult is true, return kValue.
+                    var kValue = o[k];
+                    if (predicate.call(thisArg, kValue, k, o)) {
+                        return kValue;
+                    }
+                    // e. Increase k by 1.
+                    k++;
+                }
+
+                // 7. Return undefined.
+                return undefined;
+            }
+        });
+    }
+
+    //Array.findIndex() ie不支持 返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。
+    if (!Array.prototype.findIndex) {
+        Object.defineProperty(Array.prototype, 'findIndex', {
+            value: function (predicate) {
+                // 1. Let O be ? ToObject(this value).
+                if (this == null) {
+                    throw new TypeError('"this" is null or not defined');
+                }
+
+                var o = Object(this);
+
+                // 2. Let len be ? ToLength(? Get(O, "length")).
+                var len = o.length >>> 0;
+
+                // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+                if (typeof predicate !== 'function') {
+                    throw new TypeError('predicate must be a function');
+                }
+
+                // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+                var thisArg = arguments[1];
+
+                // 5. Let k be 0.
+                var k = 0;
+
+                // 6. Repeat, while k < len
+                while (k < len) {
+                    // a. Let Pk be ! ToString(k).
+                    // b. Let kValue be ? Get(O, Pk).
+                    // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+                    // d. If testResult is true, return k.
+                    var kValue = o[k];
+                    if (predicate.call(thisArg, kValue, k, o)) {
+                        return k;
+                    }
+                    // e. Increase k by 1.
+                    k++;
+                }
+
+                // 7. Return -1.
+                return -1;
+            }
+        });
+    }
+
+    //Array.reduce() ie10+ 对数组中的每个元素执行一个由您提供的函数callback(升序执行)，将其结果汇总为单个返回值 arr.reduce(callback[, initialValue])
+    if (!Array.prototype.reduce) {
+        Object.defineProperty(Array.prototype, 'reduce', {
+            value: function (callback /*, initialValue*/ ) {
+                if (this === null) {
+                    throw new TypeError('Array.prototype.reduce ' +
+                        'called on null or undefined');
+                }
+                if (typeof callback !== 'function') {
+                    throw new TypeError(callback +
+                        ' is not a function');
+                }
+
+                // 1. Let O be ? ToObject(this value).
+                var o = Object(this);
+
+                // 2. Let len be ? ToLength(? Get(O, "length")).
+                var len = o.length >>> 0;
+
+                // Steps 3, 4, 5, 6, 7      
+                var k = 0;
+                var value;
+
+                if (arguments.length >= 2) {
+                    value = arguments[1];
+                } else {
+                    while (k < len && !(k in o)) {
+                        k++;
+                    }
+
+                    // 3. If len is 0 and initialValue is not present,
+                    //    throw a TypeError exception.
+                    if (k >= len) {
+                        throw new TypeError('Reduce of empty array ' +
+                            'with no initial value');
+                    }
+                    value = o[k++];
+                }
+
+                // 8. Repeat, while k < len
+                while (k < len) {
+                    // a. Let Pk be ! ToString(k).
+                    // b. Let kPresent be ? HasProperty(O, Pk).
+                    // c. If kPresent is true, then
+                    //    i.  Let kValue be ? Get(O, Pk).
+                    //    ii. Let accumulator be ? Call(
+                    //          callbackfn, undefined,
+                    //          « accumulator, kValue, k, O »).
+                    if (k in o) {
+                        value = callback(value, o[k], k, o);
+                    }
+
+                    // d. Increase k by 1.      
+                    k++;
+                }
+
+                // 9. Return accumulator.
+                return value;
+            }
+        });
     }
 
     //String.trim()
