@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>index</title>
     <style>
-        #container{
+        #container {
             width: 1000px;
             height: 800px;
         }
@@ -76,9 +76,11 @@
 
 
     // 6. 渐变
+    // 线性渐变
     //    new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由上而下
     //    new echarts.graphic.LinearGradient(0, 0, 1, 0,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由左到右
-    //    new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [   //径向渐变
+    // 径向渐变
+    //    new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [   
     //         {
     //             offset: 0,
     //             color: '#cc0099' // 0% 处的颜色
@@ -88,6 +90,11 @@
     //             color: '#99ff99' // 100% 处的颜色
     //         }
     //     ],false)
+    //  纹理填充
+    // color: {
+    //     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串
+    //     repeat: 'repeat' // 是否平铺, 可以是 'repeat-x', 'repeat-y', 'no-repeat'
+    // }
 
 
     // 7. 获取json地图
