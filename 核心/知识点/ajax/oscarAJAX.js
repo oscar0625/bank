@@ -181,5 +181,8 @@
 
     return oscarAJAX;
 });
-//除了支持传普通的ajax 还支持传数组、传formData(contentType:false)、传"application/json"的数据
+//支持传普通的ajax 还支持传数组、传formData  (用法设置 contentType:false)
+//支持传 contentType:"application/json" 的数据
 //支持设置返回数据的类型 dataType,支持 text json blob(二进制数据的Blob 对象 ) arraybuffer(二进制数据的 JavaScript ArrayBuffer)
+//支持额外添加自定义的请求头headers对象形式
+//支持上传进度事件uploadProgress 下载进度事件downloadProgress
