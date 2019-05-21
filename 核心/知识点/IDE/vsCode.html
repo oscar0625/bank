@@ -42,7 +42,6 @@
       //       HTML CSS Support 在html导入css名字
       //       css-auto-prefix
       //       Easy Less      在保存时自动编译LESS到CSS
-      //       px to rem
       // js    
       //       JavaScript (ES6) code snippets
       //       ESlint
@@ -180,8 +179,11 @@
                   "typescriptreact"
             ],
 
-            //px to rem 配置
-            "px-to-rem.px-per-rem": 252,
+            //easyLess配置
+            "less.compile": {
+                  "sourceMap": true,  // true => generate source maps (.css.map files)
+                  "compress":  true,  // true => remove surplus whitespace
+            },
 
             //LiveServer
             "liveServer.settings.CustomBrowser": "chrome",
