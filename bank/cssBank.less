@@ -8,7 +8,7 @@
     box-shadow: @arguments;
     -moz-box-shadow: @arguments;
     -webkit-box-shadow: @arguments;
-    /* 偏移量 x  偏移量 y 阴影模糊半径(值越大，模糊面积越大，阴影就越大越淡。不能为负值)b 阴影扩散半径(取正值时，阴影扩大；取负值时，阴影收缩。)s
+    /*           水平阴影的位置 x  垂直阴影的位置 y 模糊距离(应为正值)b 阴影的尺寸s
        实际效果   if X>0/y>0 则为x/y轴在正方向上  效果为  x+b+s/y+b+s的效果
                  if X<0/y<0 则为x/y轴在负方向上  效果为  |x|+b+s/|y|+b+s的效果
                  if x=0/y=0 则为x/y轴在正负两个方向上 效果为  b+s/b+s的效果
@@ -19,7 +19,7 @@
     */
 }
 
-.box-shadow (@inset,@x, @y, @blur, @spread, @color) {
+.box-shadow (@inset, @x, @y, @blur, @spread, @color) {
     box-shadow: @arguments;
     -moz-box-shadow: @arguments;
     -webkit-box-shadow: @arguments;
@@ -54,4 +54,12 @@
     background: -moz-linear-gradient(to bottom, @col1 @start, @col2 @end);
     background: -o-linear-gradient(to bottom, @col1 @start, @col2 @end);
     background: linear-gradient(to bottom, @col1 @start, @col2 @end);
+}
+
+.line-camp(@clamp: 2) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @clamp;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

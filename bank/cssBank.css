@@ -150,8 +150,6 @@ div {
 
 /*超出2行隐藏 只有chrome支持*/
 div {
-    display: -webkit-flex;
-    /* 新版本语法: Chrome 21+ */
     display: -webkit-box;
     /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
     -webkit-box-orient: vertical;

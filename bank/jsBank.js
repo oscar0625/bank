@@ -74,11 +74,11 @@ var oscar = {
     /**将数字四舍五入保留到N位小数
      * @param num  要处理的数字  如果是string类型 会处理成number 类型
      * @param n  0-20 [保留n位小数]
-     * @returns {string}
+     * @returns {number}
      */
     keepDecimal: function (num, n) { //keepDecimal(3.1415926,2)
         var times = Math.pow(10, n);
-        return (Math.round(num * times) / times).toFixed(n)
+        return (Math.round(num * times) / times).toFixed(n) * 1
     },
 
     //冒泡排序
@@ -114,6 +114,13 @@ var oscar = {
             }
         }
         return res
+    },
+
+    //数组扁平化 使用 reduce、concat 和递归无限反嵌套多层嵌套的数组
+    flattenDeep: function (arr) {
+        return arr.reduce(function (acc, cur) {
+            return Array.isArray(cur) ? acc.concat(oscar.flattenDeep(cur)) : acc.concat(cur);
+        }, [])
     },
 
     /*寻找数组中最小值/最大值*/
@@ -370,6 +377,24 @@ var oscar = {
                 //执行
                 fn.apply(context, args);
             }
+        }
+    },
+
+    //函数柯里化
+    currying: function (fn, args) {
+        var _this = this;
+        var len = fn.length;
+        var args = args || [];
+
+        return function () {
+            var curArg = Array.prototype.slice.apply(arguments);
+            args = args.concat(curArg);
+
+            if (args.length < len) {
+                return oscar.currying.call(_this, fn, args)
+            }
+
+            return fn.apply(this, args);
         }
     }
 };

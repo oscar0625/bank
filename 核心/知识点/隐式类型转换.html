@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>隐式类型转换</title>
+</head>
+
+<body>
+</body>
+<script>
+    //js隐式类型转换
+
+    //1. 隐式转换介绍
+    //在js中，当运算符在运算时，如果两边数据不统一，CPU就无法计算，这时我们编译器会自动将运算符两边的数据做一个数据类型转换，转成一样的数据类型再计算
+
+    //2. 隐式转换规则
+    // 转成string类型： +（字符串连接符）
+    // 转成number类型：++/--(自增自减运算符) + - * / %(算术运算符) > < >= <= == != === !=== (关系运算符)
+    // 转成boolean类型：!（逻辑运算符）
+
+    //3. 复杂数据类型的隐式转换
+    // 先使用valueOf()方法获取其原始值，如果不是number类型，则使用toString()方法转成字符串，在将字符串转成number 
+    // valueOf方法可以重写！！！
+    // console.log({}.valueOf().toString());   //[object Object]
+    // console.log([].valueOf().toString());   //空字符串
+
+    //4. 两边数据统一的情况
+    // 当关系运算符俩边都是字符串，按照字符串对应的unicode编码来转成数字
+    // console.log("2" > "10"); //true
+    // console.log("2".charCodeAt() > "10".charCodeAt());//true
+    // 当关系运算符俩边是复杂类型
+    // console.log({} == {}); //false
+    // console.log([] == []); //false
+
+    //5. 特殊情况
+    // console.log(undefined == undefined) //true
+    // console.log(undefined = null) //true
+    // console.log(null == null) //true
+    // console.log(NaN == NaN) //false
+</script>
+
+</html>
