@@ -8,7 +8,7 @@
     <title>font-family_font-face</title>
     <style>
         body{
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
         }
 
         @font-face {
@@ -27,11 +27,17 @@
 </body>
 <script>
     /**
-     * https://www.cnblogs.com/hellman/p/6773461.html
+     * 
      * **/
-    // 1.什么是安全字体
-    //  font-family: Arial, Helvetica, sans-serif;
-    
+    // https://segmentfault.com/a/1190000006110417?utm_source=tag-newest
+    // 1.最优字体 越靠前优先级越高
+    // Helvetica, Tahoma, Arial,                                    最好英文字体
+    // "PingFang SC", "Hiragino Sans GB", "Heiti SC",               mac下最好的中文字体
+    // "Microsoft YaHei",                                           win下最好的中文字体
+    // "WenQuanYi Micro Hei",                                       linux下最好的中文字体         
+    // sans-serif;                                                  所有字体都失效最后选择无衬线体
+
+    // https://www.cnblogs.com/hellman/p/6773461.html 
     // 2.@font-face 允许您在网页中使用电脑中没有安装的字体，完全摆脱安全字体的限制。只需将字体包安装在服务器上，当用户加载网页时，字体包会自动下载到用户机器上，保证字体能够正确渲染。
 
     // 3.fontsquirrel ttf在线转换字体成eot,otf,svg,wotf 

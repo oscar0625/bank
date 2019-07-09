@@ -52,6 +52,11 @@ var oscar = {
         }(),
     },
 
+    //获取数据类型，返回结果为 Number、String、Object、Array等
+    getRawType: function (value) {
+        return Object.prototype.toString.call(value).slice(8, -1)
+    },
+
     /*location search =>obj*/
     searchToOBJ: function (str) {
         //第一版使用时候出现这样一个错误 www.baidu.com?url=http://www.zgcjm.com/DefaultIndex?type=kjcgtz
@@ -171,74 +176,6 @@ var oscar = {
         }
     },
 
-    //判断滚动条是往上还是往下
-    scrollUpDown: function () {
-        var currentTop = 0,
-            lastTop = 0;
-        window.onscroll = function () {
-            currentTop = document.body.scrollTop || document.documentElement.scrollTop;
-            if (currentTop >= lastTop) {
-                //下滚
-                console.log('下滚')
-            } else {
-                //上滚
-                console.log('上滚')
-            }
-            /*关键点*/
-            setTimeout(function () {
-                lastTop = currentTop;
-            }, 0);
-        }
-
-    },
-
-    //鼠标滚轮事件
-    mouseWheel: function (downCallback, upCallback) {
-        if (navigator.userAgent.indexOf("Firefox") > -1) {
-            //火狐下
-            document.addEventListener('DOMMouseScroll', function (e) {
-                var isUp = e.detail;
-                if (isUp > 0) {
-                    //向下
-                    downCallback();
-                } else {
-                    //向上
-                    upCallback();
-                }
-            });
-        } else {
-            //非火狐下
-            document.onmousewheel = function (e) {
-                var e = e || window.event;
-                var isUp = e.wheelDelta;
-                if (isUp < 0) {
-                    //向下
-                    downCallback();
-                } else {
-                    //向上
-                    upCallback();
-                }
-            };
-
-        }
-    },
-
-    //图片预加载
-    loadImage: function (url, callback) {
-        var img = new Image(); //创建一个Image对象，实现图片的预下载
-        img.src = url;
-
-        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
-            callback.call(img);
-            return; // 直接返回，不用再处理onload事件
-        }
-
-        img.onload = function () { //图片下载完毕时异步调用callback函数。
-            callback.call(img); //将回调函数的this替换为Image对象
-            img.onload = null;
-        };
-    },
-
     /*深拷贝*/
     deepClone: function () {
         if (typeof obj != 'object') {
@@ -257,8 +194,8 @@ var oscar = {
         //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
     },
 
-    /**
-     * 种子随机数
+    /** 种子随机数
+     * 
      * @param seed [种子]
      * @param min  [最小] 可取
      * @param max  [最大] 取不到
@@ -272,44 +209,28 @@ var oscar = {
         //return Math.floor(rnd*(max-min+1))+min;  //取整
     },
 
-    /*second => hour+':'+minute+':'+second  120 => 00:02:00*/
-    hms: function (num) {
-        var hour = Math.floor(num / 3600);
-        hour < 10 ? hour = "0" + hour : hour = "" + hour;
-        var minute = Math.floor((num % 3600) / 60);
-        minute < 10 ? minute = "0" + minute : minute = "" + minute;
-        var second = Math.floor((num % 3600) % 60);
-        second < 10 ? second = "0" + second : second = "" + second;
-        return hour + ':' + minute + ':' + second;
-    },
-
-    /*打印*/
-    doPrint: function () {
-        // <!--startprint-->要打印的部分<!--endprint-->
-        bdhtml = window.document.body.innerHTML;
-        sprnstr = "<!--startprint-->";
-        eprnstr = "<!--endprint-->";
-        prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-        prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-        window.document.body.innerHTML = prnhtml;
-        window.print();
-        window.document.body.innerHTML = bdhtml;
-    },
-
-    /*禁止页面copy、右键功能*/
-    preventCopy: function () {
-        /*去掉右键菜单*/
-        document.oncontextmenu = function (e) {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
-        //禁止copy
-        document.oncopy = function () {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
-        //禁止cut
-        document.oncut = function () {
-            e ? e.preventDefault() : window.event.returnValue = false;
-        };
+    /** 格式化时间
+     * 
+     * @param {String} formater 
+     * @param {Date} t 
+     * dateFormater('YYYY-MM-DD HH:mm', t) ==> 2019-06-26 18:30 
+     * dateFormater('YYYYMMDDHHmm', t) ==> 201906261830
+     */
+    dateFormater: function (formater, t) {
+        var date = t ? new Date(t) : new Date(),
+            Y = date.getFullYear() + '',
+            M = date.getMonth() + 1,
+            D = date.getDate(),
+            H = date.getHours(),
+            m = date.getMinutes(),
+            s = date.getSeconds();
+        return formater.replace(/YYYY|yyyy/g, Y)
+            .replace(/YY|yy/g, Y.substr(2, 2))
+            .replace(/MM/g, (M < 10 ? '0' : '') + M)
+            .replace(/DD/g, (D < 10 ? '0' : '') + D)
+            .replace(/HH|hh/g, (H < 10 ? '0' : '') + H)
+            .replace(/mm/g, (m < 10 ? '0' : '') + m)
+            .replace(/ss/g, (s < 10 ? '0' : '') + s)
     },
 
     //获取元素某一css属性值方法 没有返回空字符串(兼容到ie8)
@@ -396,7 +317,23 @@ var oscar = {
 
             return fn.apply(this, args);
         }
-    }
+    },
+
+    //图片预加载
+    loadImage: function (url, callback) {
+        var img = new Image(); //创建一个Image对象，实现图片的预下载
+        img.src = url;
+
+        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+            callback.call(img);
+            return; // 直接返回，不用再处理onload事件
+        }
+
+        img.onload = function () { //图片下载完毕时异步调用callback函数。
+            callback.call(img); //将回调函数的this替换为Image对象
+            img.onload = null;
+        };
+    },
 };
 var oscarCheck = {
     /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
@@ -650,5 +587,148 @@ var oscarCheck = {
         } else {
             return false
         }
+    }
+}
+var other = {
+    //利用performance.timing进行性能分析
+    performance: function () {
+        window.onload = function () {
+            setTimeout(function () {
+                var t = performance.timing
+                console.log('DNS查询耗时 ：' + (t.domainLookupEnd - t.domainLookupStart).toFixed(0))
+                console.log('TCP链接耗时 ：' + (t.connectEnd - t.connectStart).toFixed(0))
+                console.log('request请求耗时 ：' + (t.responseEnd - t.responseStart).toFixed(0))
+                console.log('解析dom树耗时 ：' + (t.domComplete - t.domInteractive).toFixed(0))
+                console.log('白屏时间 ：' + (t.responseStart - t.navigationStart).toFixed(0))
+                console.log('domready时间 ：' + (t.domContentLoadedEventEnd - t.navigationStart).toFixed(0))
+                console.log('onload时间 ：' + (t.loadEventEnd - t.navigationStart).toFixed(0))
+
+                if (t = performance.memory) {
+                    console.log('js内存使用占比 ：' + (t.usedJSHeapSize / t.totalJSHeapSize * 100).toFixed(2) + '%')
+                }
+            })
+        }
+    },
+
+    //鼠标滚轮事件
+    mouseWheel: function (downCallback, upCallback) {
+        if (navigator.userAgent.indexOf("Firefox") > -1) {
+            //火狐下
+            document.addEventListener('DOMMouseScroll', function (e) {
+                var isUp = e.detail;
+                if (isUp > 0) {
+                    //向下
+                    downCallback();
+                } else {
+                    //向上
+                    upCallback();
+                }
+            });
+        } else {
+            //非火狐下
+            document.onmousewheel = function (e) {
+                var e = e || window.event;
+                var isUp = e.wheelDelta;
+                if (isUp < 0) {
+                    //向下
+                    downCallback();
+                } else {
+                    //向上
+                    upCallback();
+                }
+            };
+
+        }
+    },
+    //判断滚动条是往上还是往下
+    scrollUpDown: function () {
+        var currentTop = 0,
+            lastTop = 0;
+        window.onscroll = function () {
+            currentTop = document.body.scrollTop || document.documentElement.scrollTop;
+            if (currentTop >= lastTop) {
+                //下滚
+                console.log('下滚')
+            } else {
+                //上滚
+                console.log('上滚')
+            }
+            /*关键点*/
+            setTimeout(function () {
+                lastTop = currentTop;
+            }, 0);
+        }
+
+    },
+
+    //全屏
+    toFullScreen: function () {
+        var elem = document.body;
+        elem.webkitRequestFullScreen ?
+            elem.webkitRequestFullScreen() :
+            elem.mozRequestFullScreen ?
+            elem.mozRequestFullScreen() :
+            elem.msRequestFullscreen ?
+            elem.msRequestFullscreen() :
+            elem.requestFullScreen ?
+            elem.requestFullScreen() :
+            alert("浏览器不支持全屏");
+    },
+    //退出全屏
+    exitFullscreen: function () {
+        var elem = parent.document;
+        elem.webkitCancelFullScreen ?
+            elem.webkitCancelFullScreen() :
+            elem.mozCancelFullScreen ?
+            elem.mozCancelFullScreen() :
+            elem.cancelFullScreen ?
+            elem.cancelFullScreen() :
+            elem.msExitFullscreen ?
+            elem.msExitFullscreen() :
+            elem.exitFullscreen ?
+            elem.exitFullscreen() :
+            alert("切换失败,可尝试Esc退出");
+    },
+
+    /*禁止页面copy、右键功能*/
+    preventCopy: function () {
+        /*去掉右键菜单*/
+        document.oncontextmenu = function (e) {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+        //禁止copy
+        document.oncopy = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+        //禁止cut
+        document.oncut = function () {
+            e ? e.preventDefault() : window.event.returnValue = false;
+        };
+    },
+    //禁止某些键盘事件
+    forbidKeyboard: function () {
+        document.addEventListener('keydown', function (event) {
+            return !(
+                112 == event.keyCode || //F1
+                123 == event.keyCode || //F12
+                event.ctrlKey && 82 == event.keyCode || //ctrl + R
+                event.ctrlKey && 78 == event.keyCode || //ctrl + N
+                event.shiftKey && 121 == event.keyCode || //shift + F10
+                event.altKey && 115 == event.keyCode || //alt + F4
+                "A" == event.srcElement.tagName && event.shiftKey //shift + 点击a标签
+            ) || (event.returnValue = false)
+        });
+    },
+    /*打印*/
+    doPrint: function () {
+        // <!--startprint-->要打印的部分<!--endprint-->
+        bdhtml = window.document.body.innerHTML;
+        sprnstr = "<!--startprint-->";
+        eprnstr = "<!--endprint-->";
+        prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+        prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+        window.document.body.innerHTML = prnhtml;
+        window.print();
+        window.document.body.innerHTML = bdhtml;
     }
 }

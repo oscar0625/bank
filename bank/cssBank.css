@@ -1,5 +1,9 @@
-/*css3兼容写法 低版本ie 用pie*/
+/* 最好的字体 */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
 
+/*css3兼容写法 低版本ie 用pie*/
 /*border-radius*/
 div {
     -webkit-border-radius: 50%;
@@ -46,7 +50,7 @@ div {
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    
+
     /*  隐藏被旋转的 div 元素的背面 */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;

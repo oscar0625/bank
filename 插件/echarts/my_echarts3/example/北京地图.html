@@ -28,9 +28,10 @@
 <script type="text/javascript">
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
+    var oscar=[];
 
-    $.get('../script/json/beijing.json', function (geoJson) {
-        echarts.registerMap('beijing', geoJson);
+    $.get('../script/json/sichuan.json', function (geoJson) {
+        echarts.registerMap('sichuan', geoJson);
 
         myChart.setOption({
             backgroundColor: 'transparent', //整体背景
@@ -59,7 +60,7 @@
             },
             /*方法一*/
             geo: {
-                map: 'beijing', //中国地图
+                map: 'sichuan', //中国地图
                 label: { //控制省份名
                     normal: { //正常模式
                         show: false,
@@ -69,7 +70,7 @@
                     }
                 },
                 roam: true, //是否开启平移和缩放
-                center: [116.25, 40.02],
+                // center: [116.25, 40.02],
                 zoom: 6,
                 itemStyle: { //控制省份区域（省份块）
                     normal: {
@@ -81,7 +82,7 @@
                     }
                 },
                 regions: [{ //海淀
-                    name: '海淀区',
+                    name: '成都市',
                     label: { //控制省份名
                         normal: { //正常模式
                             show: true,
@@ -138,6 +139,10 @@
             // console.log(e.event);
             var arr = this.convertFromPixel('geo', [e.event.event.x, e.event.event .y ]); // 'geo' 等同于 {geoIndex: 0}
             console.log(arr);
+            oscar.push({
+                "x": arr[0],
+                "y":  arr[1]
+            })
         })
     });
 </script>
