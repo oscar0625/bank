@@ -42,6 +42,7 @@
         },
         onShow: function(options) {
             // 小程序启动，或从后台进入前台显示时
+            // 注意切换页面不会再次触发***
         },
         onHide: function() {
             // 小程序从前台进入后台时触发。
@@ -62,9 +63,6 @@
 ### 注意
     前台、后台定义： 当用户点击左上角关闭，或者按了设备 Home 键离开微信，小程序并没有直接销毁，而是进入了后台；当再次进入微信或再次打开小程序，又会从后台进入前台。需要注意的是：只有当小程序进入后台一定时间，或者系统资源占用过高，才会被真正的销毁。
 ## 2.注册页面  page.js
-### 注意
-    注意onLoad和onShow的区别
-    onShow使用要注意 从后台进入前台就会触发 小心使用 避免修改用户主动操作这种错误
 ```
     Page({
         data: {
@@ -91,7 +89,7 @@
             wx.stopPullDownRefresh();
             
             // 1.需要在app.json的window选项中或页面配置中开启enablePullDownRefresh。
-            // 2.处理完数据刷新后，wx.stopPullDownRefresh可以停止当前页面的下拉刷新。(必须否则页面回不去)
+            // 2.处理完数据刷新后，wx.stopPullDownRefresh可以停止当前页面的下拉刷新。
             // 3.可以通过wx.startPullDownRefresh触发下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致。
         },
         onReachBottom: function() {
@@ -112,8 +110,9 @@
             //页面加载时触发。一个页面只会调用一次，可以在 onLoad 的参数中获取打开当前页面路径中的参数。
         },
         onShow: function() {
+            //页面显示/切入前台时触发。
+            //注意切换页面会再次触发***
             //获取数据放在这里最好***
-            // 页面显示/切入前台时触发。
         },
         onReady: function() {
             // 页面初次渲染完成时触发。一个页面只会调用一次，
@@ -339,8 +338,8 @@
     wx.navigateBack(Object) 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
           wx.navigateBack({delta: 1}) 返回上一层 （）
     调用页面路由带的参数可以在目标页面的onLoad中获取。
-### 3.1 bug 存在返回的页面无刷新的问题 由于小程序生命周期 导致 onload 不会反复触发
-    解决办法 1.  数据有的应该放在onshow 不都放在onload (优秀)
+### 3.1 由于小程序生命周期 onload 不会反复触发 存在返回的页面无刷新的问题 
+    解决办法 1.数据有的应该放在onshow 不都放在onload (优秀)
             2.wx.reLaunch(Object) 打开解决
 ## 4. 窗口(弹出框)  
     wx.onWindowResize(callback) //监听窗口尺寸变化事件
@@ -428,6 +427,7 @@
 
 # 九、地图  
 ## 1.使用腾讯地图的功能
+    注意：gcj02 比 wgs84 定位准确
     wx.getLocation(Object object)       //获取当前的地理位置、速度。
     wx.chooseLocation(Object object)    //打开腾讯地图搜索/选择位置。
     wx.openLocation(Object object)      //​使用微信内置地图查看位置。(可以用做导航用)

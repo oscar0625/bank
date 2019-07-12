@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>SuperSlide</title>
+    <style type="text/css">
+        /* css 重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            background: #fff;
+            font: normal 12px/22px 宋体;
+        }
+
+        img {
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* 本例子css */
+        .slideBox {
+            width: 450px;
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .slideBox .hd {
+            height: 15px;
+            overflow: hidden;
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            z-index: 1;
+        }
+
+        .slideBox .hd ul {
+            overflow: hidden;
+            zoom: 1;
+            float: left;
+        }
+
+        .slideBox .hd ul li {
+            float: left;
+            margin-right: 2px;
+            width: 15px;
+            height: 15px;
+            line-height: 14px;
+            text-align: center;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .slideBox .hd ul li.on {
+            background: #f00;
+            color: #fff;
+        }
+
+        .slideBox .bd {
+            position: relative;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slideBox .bd li {
+            zoom: 1;
+            vertical-align: middle;
+        }
+
+        .slideBox .bd img {
+            width: 450px;
+            height: 230px;
+            display: block;
+        }
+
+        /* 下面是前/后按钮代码，如果不需要删除即可 */
+        .slideBox .prev,
+        .slideBox .next {
+            position: absolute;
+            left: 3%;
+            top: 50%;
+            margin-top: -25px;
+            display: block;
+            width: 32px;
+            height: 40px;
+            background: url(./images/slider-arrow.png) -110px 5px no-repeat;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+        }
+
+        .slideBox .next {
+            left: auto;
+            right: 3%;
+            background-position: 8px 5px;
+        }
+
+        .slideBox .prev:hover,
+        .slideBox .next:hover {
+            filter: alpha(opacity=100);
+            opacity: 1;
+        }
+
+        .slideBox .prevStop {
+            display: none;
+        }
+
+        .slideBox .nextStop {
+            display: none;
+        }
+
+        /* 页码 */
+        .slideBox .pageState {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slideBox" class="slideBox">
+        <div class="hd">
+            <ul> </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic1.jpg" /></a></li>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic2.jpg" /></a></li>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic3.jpg" /></a></li>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic4.jpg" /></a></li>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic5.jpg" /></a></li>
+                <li><a href="http://www.SuperSlide2.com" target="_blank"><img src="./images/pic6.jpg" /></a></li>
+            </ul>
+        </div>
+        <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+        <a class="prev" href="javascript:void(0)"></a>
+        <a class="next" href="javascript:void(0)"></a>
+        <!-- 页码 -->
+        <div class="pageState"></div>
+    </div>
+</body>
+<script type="text/javascript" src="./jquery1.42.min.js"></script>
+<script type="text/javascript" src="./jquery.SuperSlide.2.1.3.js"></script>
+<script type="text/javascript">
+
+    //不支持响应式布局  容器slideBox要固定宽高
+    $(".slideBox").slide({
+        autoPage: true, //开启自动分页，需结合titCell使用
+        titCell: ".hd ul", //导航元素对象（鼠标的触发元素对象） 启动自动分页时是".hd ul"  默认".hd li"
+        mainCell: ".bd ul", //要切换元素的包裹层对象  本例要切换的是li所以是".bd ul"  默认".bd"
+        // titOnClassName:'.on',
+
+        //效果
+        effect: 'leftLoop', //动画效果
+        easing: 'easeOutCubic', //缓动效果
+
+        //运行状态
+        autoPlay: true, //自动运行	
+        interTime: 3000, //自动运行间隔
+        delayTime: 500, //切换效果持续时间（一次切换效果执行所用的时间长度）。	
+
+        //分页前进后退
+        pageStateCell: ".pageState", //分页状态对象，用于显示分页状态，例如：2/3
+        prevCell: ".prev",
+        nextCell: ".next",
+
+        //其他
+        mouseOverStop: true, //鼠标移到容器层（无缝滚动是mainCell）是否停止播放
+        trigger: "click", //titCell触发方式  mouseover：|| click
+        scroll: 1, //每次滚动个数。	
+        defaultIndex: 0, //默认的当前位置索引。
+
+        //回调
+        endFun: function () {
+            console.log(123);
+        }
+    });
+</script>
+
+</html>

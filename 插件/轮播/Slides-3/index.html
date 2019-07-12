@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SlidesJS Basic Code Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* Prevent the slideshow from flashing on load */
+    .slides {
+      display: none;
+      width: 1000px;
+    }
+
+    .slidesjs-pagination .active {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="slides" class="slides">
+    <img src="img/example-slide-1.jpg">
+    <img src="img/example-slide-2.jpg">
+    <img src="img/example-slide-3.jpg">
+    <img src="img/example-slide-4.jpg">
+
+    <!-- 前进后退按钮 -->
+    <a href="#" class="slidesjs-previous slidesjs-navigation">prev</a>
+    <a href="#" class="slidesjs-next slidesjs-navigation">next</a>
+  </div>
+</body>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.slides.min.js"></script>
+<script>
+  $(function () {
+    $('#slides').slidesjs({
+      //如果里面是图片 width和height为图片原始宽高
+      width: 940, //.slidesjs-container的初始宽度尺寸 .slidesjs-container的实际宽度为.slides的实际宽度 (保留伸缩比)
+      height: 529, //.slidesjs-container的初始高度尺寸 .slidesjs-container的实际高度会根据 伸缩比 进行伸缩
+
+      //前进后退按钮 
+      navigation: {
+        active: false, //关闭默认
+        effect: "slide"
+      },
+      //小圆点
+      pagination: {
+        active: true,
+        effect: "slide"
+      },
+      //效果
+      effect: {
+        slide: {
+          speed: 500
+        },
+        fade: {
+          speed: 500,
+        }
+      },
+      //播放设置
+      play: {
+        auto: true,
+        interval: 3000,
+        effect: "slide",
+        pauseOnHover: true,
+        restartDelay: 5000, //暂替后重启的时间间隔
+      },
+      //回调
+      callback: {
+        loaded: function (number) {},
+        start: function (number) {},
+        complete: function (number) {}
+      }
+    });
+  });
+</script>
+
+</html>
