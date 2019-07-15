@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>有序预加载图片</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function preloadImg(url, callback) {
+        var img = new Image();
+
+        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+            callback.call(img); //将回调函数的this替换为Image对象
+        } else {
+            img.onload = function () { //图片下载完毕时异步调用callback函数。
+                callback.call(img);
+                img.onload = null;
+            };
+        }
+
+        //注意，最好是先定义onload，再赋值src，不然会出现资源返回，但是onload还没有挂载的情况。
+        img.src = url;
+    };
+
+    //有序预加载图片
+    var orderly = (function () {
+        var index = 0;
+        return function (imgArr) {
+            console.log(index);
+            if (index < imgArr.length) {
+                preloadImg(imgArr[index], function () {
+                    //do something
+                    console.log(this);
+
+                    //继续递归执行
+                    index++;
+                    orderly(imgArr);
+                })
+            }
+        }
+    })();
+
+    var imgs = [
+        "http://www.zgcjm.org/web/images/default_qlq.jpg",
+        "http://www.zgcjm.org/web/images/default_xdd.jpg",
+        "http://www.zgcjm.org/web/images/successfulCase1.jpg",
+        "http://www.zgcjm.org/web/images/successfulCase2.jpg",
+        "http://www.zgcjm.org/web/images/successfulCase3.jpg",
+        "http://www.zgcjm.org/web/images/successfulCase4.jpg"
+    ];
+
+    orderly(imgs)
+</script>
+
+</html>

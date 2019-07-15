@@ -9,7 +9,7 @@
 </head>
 
 <body>
-      
+
 </body>
 <script>
       // 1.快捷键
@@ -69,6 +69,7 @@
       // 小程序
       //       minapp
       // debug
+      //       open in browser
       //       Live Server       自动刷新   
 
       //       Debugger for Chrome     
@@ -107,7 +108,6 @@
             //默认浏览器配置
             "open-in-browser.default": "Chrome",
 
-
             //editor配置
             // 控制是否在键入时自动显示建议。
             "editor.quickSuggestions": {
@@ -145,7 +145,7 @@
 
             // 配置emmet
             // 启用tab展开缩写
-            "emmet.triggerExpansionOnTab": false,
+            "emmet.triggerExpansionOnTab": true,
             // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
             "emmet.syntaxProfiles": {
                   "vue-html": "html",
@@ -183,17 +183,16 @@
 
             //easyLess配置
             "less.compile": {
-                  "sourceMap": true,  // true => generate source maps (.css.map files)
-                  "compress":  true,  // true => remove surplus whitespace
-                  "out": "..\\css\\"  // 将css输出重定向到特定文件夹 与当前文件夹less平级的css中
+                  "sourceMap": true, // true => generate source maps (.css.map files)
+                  "compress": true, // true => remove surplus whitespace
+                  "out": "..\\css\\" // 将css输出重定向到特定文件夹 与当前文件夹less平级的css中
             },
 
             //LiveServer
             "liveServer.settings.CustomBrowser": "chrome",
-            "liveServer.settings.port": 8080,
+            "liveServer.settings.port": 8008,
             "liveServer.settings.donotShowInfoMsg": true,
             "liveServer.settings.donotVerifyTags": true,
-
 
             //vetur
             //html格式化依赖  默认为none
@@ -210,15 +209,22 @@
                   }
             },
 
+            //Settings Sync
+            "sync.gist": "3a154e1b4a5707027d436504a4328440",
+
             //其他
             "window.zoomLevel": 0,
             "minapp-vscode.disableAutoConfig": true,
             "breadcrumbs.enabled": true,
             "search.location": "sidebar",
             "workbench.iconTheme": "material-icon-theme",
-            //解决内存爆满
-            "search.followSymlinks": false      
 
+            //解决内存爆满
+            "search.followSymlinks": false,
+            //搜索排除某个文件
+            "search.exclude": {
+                  "**/obj": true
+            }
       }
 </script>
 

@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+     <meta name="renderer" content="webkit" />
+     <title>图片懒加载</title>
+     <style>
+         body {
+             height: 6000px;
+         }
+
+         img {
+             display: block;
+             margin-top: 500px;
+         }
+     </style>
+ </head>
+
+ <body>
+     <img src="http://www.zgcjm.org/web/images/default_qlq.jpg"
+         data-src="http://www.zgcjm.org/web/images/default_xdd.jpg" />
+     <img src="http://www.zgcjm.org/web/images/default_qlq.jpg"
+         data-src="http://www.zgcjm.org/web/images/successfulCase1.jpg" />
+     <img src="http://www.zgcjm.org/web/images/default_qlq.jpg"
+         data-src="http://www.zgcjm.org/web/images/successfulCase2.jpg" />
+     <img src="http://www.zgcjm.org/web/images/default_qlq.jpg"
+         data-src="http://www.zgcjm.org/web/images/successfulCase3.jpg" class="i1" />
+     <img src="http://www.zgcjm.org/web/images/default_qlq.jpg"
+         data-src="http://www.zgcjm.org/web/images/successfulCase4.jpg" class="i2" />
+ </body>
+
+ <script>
+     var lazyload = (function () {
+         var imgs = Array.prototype.slice.apply(document.getElementsByTagName("img"));
+         return function () {
+             var clientHeight = document.documentElement.clientHeight; //可见区域高度
+             for (var i = 0; i < imgs.length; i++) {
+                 if (imgs[i].getBoundingClientRect().top < clientHeight) {
+                     imgs[i].src = imgs[i].getAttribute("data-src");
+                     //删除已经加载完成的
+                     imgs.splice(i, 1);
+                 }
+             }
+         }
+     })();
+
+     lazyload(); //页面载入完毕加载可是区域内的图片
+
+     window.onscroll = lazyload;
+ </script>
+
+
+ </html>

@@ -256,32 +256,49 @@ var oscar = {
         }
     },
 
-    //防抖 把触发非常频繁的事件合并成一次去执行(搜索框关键词匹配)
-    debounce: function (fn, delayTime) {
-        var timeId;
+    /**防抖 把触发非常频繁的事件合并成一次去执行(搜索框关键词匹配)
+     * @param fn [Function]  
+     * @param delay [Number]   延时执行函数
+     * @return [Function]
+     * debounce(fn,0)
+     */
+    debounce: function (fn, delay) {
+        var timer;
         return function () {
             var context = this,
                 args = arguments;
-            timeId && clearTimeout(timeId);
-            timeId = setTimeout(function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
                 fn.apply(context, args);
-            }, delayTime)
+            }, delay);
         }
     },
 
-    //节流 频繁触发事件时，触发时间间隔大于等于指定的时间才会执行回调函数(滚动事件)
-    throttle: function (fn, delayTime) {
-        var flag;
+    /**节流 适合于需要频繁调用，要延时执行,但又在一定的时间内必须要执行逻辑的场景。(滚动事件)
+     * 
+     * @param fn [Function]
+     * @param delay [Function]  延时执行函数  
+     * @param time [Function]   在time时间内必须执行一次(不去延时) 
+     * @return [Function]
+     * throttle(fn, 500, 1000)
+     */
+    throttle: function (fn, delay, time) {
+        var timer,
+            previous;
         return function () {
-            var context = this,
+            var current = new Date(),
+                context = this,
                 args = arguments;
-            if (!flag) {
-                //限制 关锁
-                flag = setTimeout(function () {
-                    flag = false;
-                }, delayTime);
-                //执行
+            //如果时间间隔大于等于指定的时间 或 第一次则必须执行
+            if ((!previous) || current - previous >= time) {
                 fn.apply(context, args);
+                previous = current;
+            } else {
+                //否则 延时执行
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    fn.apply(context, args);
+                }, delay);
             }
         }
     },
@@ -320,20 +337,21 @@ var oscar = {
     },
 
     //图片预加载
-    loadImage: function (url, callback) {
-        var img = new Image(); //创建一个Image对象，实现图片的预下载
-        img.src = url;
+    preloadImg: function (url, callback) {
+        var img = new Image();
 
         if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
-            callback.call(img);
-            return; // 直接返回，不用再处理onload事件
+            callback.call(img); //将回调函数的this替换为Image对象
+        } else {
+            img.onload = function () { //图片下载完毕时异步调用callback函数。
+                callback.call(img);
+                img.onload = null;
+            };
         }
 
-        img.onload = function () { //图片下载完毕时异步调用callback函数。
-            callback.call(img); //将回调函数的this替换为Image对象
-            img.onload = null;
-        };
-    },
+        //注意，最好是先定义onload，再赋值src，不然会出现资源返回，但是onload还没有挂载的情况。
+        img.src = url;
+    }
 };
 var oscarCheck = {
     /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
