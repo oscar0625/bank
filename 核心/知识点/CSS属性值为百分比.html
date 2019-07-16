@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>CSS属性值为百分比</title>
+</head>
+
+<body>
+</body>
+<script>
+    // CSS属性值为百分比的情况下
+
+    // 1.基于包含块的宽来计算的（包含块的宽*百分比）
+    //  width max-width min-width 
+    //  left right 
+    //  margin padding
+    //  text-indent
+    /**注意
+     * margin-top，margin-bottom，padding-top和padding-bottom都是基于包含块的宽来计算的
+     * **/
+
+    // 2.基于包含块的高来计算的（包含块的高*百分比）
+    //  height max-width min-width 
+    //  top bottom
+
+    /**注意
+     * 关于包含块（containing block）的概念，不能简单地理解成是父元素。
+     * 如果是静态定位和相对定位，包含块一般就是其父元素。
+     * 但是对于绝对定位的元素，包含块应该是离它最近的 position 不为 static 的祖先元素。
+     * **/
+
+    // 3.杂项
+    //  border-radius
+    //  横轴上的百分比参考的是元素自身的宽度，纵轴上的百分比参考的是元素自身的高度
+    //  font-size
+    //  这个属性的百分比参考值是它的父元素的font-size
+    //  line-height
+    //  这个属性的百分比参考的是自身的font-size大小
+    //  transform: translate
+    //  参考其自身元素的宽度或者高度
+    //  background-size 
+    //  以父元素的百分比来设置背景图像的宽度和高度。第一个值设置宽度，第二个值设置高度。如果只设置一个值，则第二个值会被设置为 “auto”。
+    //  backgroud-position
+    //  计算过程 (设置区域的宽/高度 - 背景图片的宽/高度) * 百分比
+    //  正式由于采用上述计算 所以 backgroud-position:50% 50%; 背景图片才在设置区域的正中心
+
+    // 4.百分比的继承
+    //  如果某个元素设置了百分比的属性，则后代元素继承的是计算后的值。
+    //  如 p { font-size: 10px } p { line-height: 120% } 那么p的子元素继承到的值是 line-height: 12px，而不是 line-height: 120%。
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+     <meta name="renderer" content="webkit" />
+     <title>图片懒加载</title>
+     <style>
+         * {
+             margin: 0;
+             padding: 0;
+         }
+
+         body {
+             height: 6000px;
+             border-top: 1px solid transparent;
+         }
+
+         img {
+             display: block;
+             margin-top: 600px;
+             width: 276px;
+             height: 248px;
+         }
+
+         div {
+             margin-top: 600px;
+             width: 276px;
+             height: 248px;
+         }
+     </style>
+ </head>
+
+ <body>
+     <img class="lazyload" src="default.img" data-src="http://www.zgcjm.org/web/images/successfulCase1.jpg" />
+     <img class="lazyload" src="default.img" data-src="http://www.zgcjm.org/web/images/successfulCase2.jpg" />
+     <div class="lazyload" src="default.img" data-src="http://www.zgcjm.org/web/images/successfulCase3.jpg"></div>
+     <img class="lazyload" src="default.img" data-src="http://www.zgcjm.org/web/images/successfulCase4.jpg" />
+ </body>
+ <script src="./lazyload.min.js"></script>
+ <script>
+     /**
+      * https://github.com/tuupola/lazyload
+      * **/
+     var lazy = lazyload();
+
+     // api jq下不能用
+     // lazy.loadImages() 强制加载所有图片
+     // lazy.destroy()    销毁插件
+     // lazy.loadAndDestroy() 加载所有图片之后销毁插件
+ </script>
+
+ </html>

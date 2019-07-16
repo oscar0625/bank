@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+     <meta name="renderer" content="webkit" />
+     <title>图片懒加载</title>
+     <style>
+         * {
+             margin: 0;
+             padding: 0;
+         }
+
+         body {
+             height: 6000px;
+             border-top: 1px solid transparent;
+         }
+
+         div {
+             /* 自适应宽度的图片样式 */
+             width: 100%;
+             height: 0;
+             padding-top: 39.625%;
+             background-image: url("http://www.zgcjm.org/web/images/issueCompanyBanner.jpg");
+             background-size: 100% 100%;
+             
+             margin-top: 600px;
+         }
+
+         img {
+             display: block;
+             width: 276px;
+             height: 248px;
+             margin-top: 600px;
+         }
+     </style>
+ </head>
+
+ <body>
+     <div class="lazy" data-original="http://www.zgcjm.org/web/images/default_qlq.jpg"></div>
+     <div class="lazy" data-original="http://www.zgcjm.org/web/images/default_ykj.jpg"></div>
+     <div class="lazy" data-original="http://www.zgcjm.org/web/images/default_xdd.jpg"></div>
+
+     <img class="lazy" src="default.img" data-original="http://www.zgcjm.org/web/images/successfulCase1.jpg" />
+     <img class="lazy" src="default.img" data-original="http://www.zgcjm.org/web/images/successfulCase2.jpg" />
+     <img class="lazy" src="default.img" data-original="http://www.zgcjm.org/web/images/successfulCase3.jpg" />
+ </body>
+ <script src="https://cdn.bootcss.com/jquery/1.7.1/jquery.min.js"></script>
+ <script src="./lazyload.min.js"></script>
+ <script>
+     /**
+      * https://github.com/jieyou/lazyload
+      * **/
+     $(".lazy").lazyload();
+ </script>
+
+ </html>

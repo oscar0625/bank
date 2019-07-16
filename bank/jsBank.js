@@ -302,21 +302,6 @@ var oscar = {
             }
         }
     },
-    throttle1: function (fn) {
-        var flag;
-        return function () {
-            var context = this,
-                args = arguments;
-            if (!flag) {
-                //限制 关锁
-                flag = window.requestAnimationFrame(function () {
-                    flag = false;
-                });
-                //执行
-                fn.apply(context, args);
-            }
-        }
-    },
 
     //函数柯里化
     currying: function (fn, args) {
@@ -351,6 +336,36 @@ var oscar = {
 
         //注意，最好是先定义onload，再赋值src，不然会出现资源返回，但是onload还没有挂载的情况。
         img.src = url;
+    },
+
+    //图片懒加载
+    lazyload: function lazyload() {
+        //等待加载的图片数组
+        var imgs = Array.prototype.slice.apply(document.querySelectorAll('.lazyload')),
+            //主要函数
+            main = function () {
+                var clientHeight = document.documentElement.clientHeight; //可见区域高度
+
+                //如果图片全部加载完毕 清除滚动事件
+                if (imgs.length === 0) {
+                    window.removeEventListener('scroll', main);
+                }
+
+                for (var i = 0; i < imgs.length; i++) {
+                    if (imgs[i].getBoundingClientRect().top < clientHeight) {
+                        if (imgs[i].tagName === 'IMG') {
+                            imgs[i].src = imgs[i].getAttribute("data-src");
+                        } else {
+                            imgs[i].style.backgroundImage = 'url("' + imgs[i].getAttribute("data-src") + '")';
+                        }
+                        //删除已经加载完成的
+                        imgs.splice(i, 1);
+                    }
+                }
+            };
+        window.addEventListener('scroll', main);
+        //主动执行一次
+        main();
     }
 };
 var oscarCheck = {

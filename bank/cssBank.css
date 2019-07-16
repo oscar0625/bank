@@ -165,6 +165,17 @@ div {
     /*只有谷歌支持     其他浏览器给个    max-height: 36px; 解决*/
 }
 
+/* 当图片作为背景时 要宽度自适应 高度按比例伸缩 的样式*/
+div {
+    width: 100%;
+    height: 0;
+    /* 假设高宽比为 1080:1920，即56.25%， */
+    padding-top: 56.25%;
+    /* padding的百分比是宽度的百分比 */
+    background-image: url("http://www.zgcjm.org/web/images/issueCompanyBanner.jpg");
+    background-size: 100% 100%;
+}
+
 /*opacity兼容*/
 div {
     opacity: 0.5;
