@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>index</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div data-x="10rem"></div>
+</body>
+<script src="./lib/anime.min.js"></script>
+<script>
+    /**
+     * https://github.com/juliangarnier/anime/
+     * 文档 http://www.animejs.cc/documentation/
+     * 教程 https://www.jianshu.com/p/39fc8a837b31
+     * **/
+    var myAnimation = anime({
+        // 动画的目标对象
+        // css选择器 如：'div','#el path';
+        // DOM元素 /元素序列 如： document.querySelector('.item')  document.querySelectorAll('.item')
+        // js对象
+        // 数组 如：['div', '.item', domNode]
+        targets: 'div',
+
+        //1.可动画的目标属性  注：属性的值可以是 值(可以是对象读value)、范围（数组）、function、关键帧
+
+        //a. css属性   
+        //大多数CSS属性都会导致布局更改或重新绘制，并会导致动画不稳定。 因此尽可能优先考虑opacity和CSS transforms。
+        //常用 opacity backgroundColor borderRadius
+
+        //b. transforms属性 
+        translateX: '10rem',
+        translateY: function (el, i) {
+            return el.getAttribute('data-x');
+        },
+        rotate: ['.5turn', '1turn'],
+        scale: {
+            value: 2
+        },
+        //c. js对象属性和DOM属性
+
+        //2.动画基础参数  注：支持为某一动画属性单独设置参数
+        duration: 3000, //持续时间 默认1000
+        easing: 'easeInOutElastic', //缓动函数
+        autoplay: true, //是否自动播放
+        loop: false, //是否循环/循环次数 boolean，number
+
+        delay: 0, //延迟 交错动画非常有用
+        endDelay: 0, //末端延迟
+        round: false, //四舍五入 类型 boolean，function(target, index, totalTargets)，number 例：round:100 两位小数 round: 1整数
+        direction: 'normal', //执行的方向 类型 'normal' 正方向动画 'reverse' 反方向动画  'alternate'往返
+
+        //3.回调函数
+        update: function () {
+            console.log('动画开始播放后 每帧都会触发此回调');
+        },
+        begin: function () {
+            console.log('动画开始播放');
+        },
+        complete: function () {
+            console.log('动画完成后');
+        }
+    });
+
+    //播放控制
+    // myAnimation.play(); //播放
+    // myAnimation.pause(); //暂停
+    // myAnimation.restart() //重新播放
+    // myAnimation.reverse() //反转执行的方向direction
+    // myAnimation.seek(500) //将动画当前时间设置为500ms
+    // 时间轴控制与动画控制的方法一样。
+
+    //方法
+    // anime.remove(targets); //从动画中删除一个或多个元素
+    // anime.random(minValue, maxValue);; //返回两个数字之间的一个随机数
+    // anime.get(target, propertyName, unit);; //从元素中获取当前有效值
+    // anime.set(targets, {property: value});//设定值
+    // anime.running; //返回所有活动Anime实例的数组   
+
+    //关键帧
+    //时间轴 timeLine
+</script>
+
+</html>

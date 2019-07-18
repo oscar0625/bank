@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>demo_js对象</title>
+</head>
+
+<body>
+    <!-- JS对象 -->
+    <div class="battery-log"></div>
+    <!-- dom对象 -->
+    <input class="text-output">
+</body>
+<script src="./lib/anime.min.js"></script>
+<script>
+    // JS对象
+    var logEl = document.querySelector('.battery-log');
+
+    var battery = {
+        charged: '0%',
+        cycles: 120
+    }
+
+    anime({
+        targets: battery,
+        charged: '100%',
+        cycles: 130,
+        round: 1,
+        easing: 'linear',
+        update: function () {
+            logEl.innerHTML = JSON.stringify(battery);
+        }
+    });
+    // dom对象
+    var domAttributes = anime({
+        targets: 'input',
+        value: [0,1000], // value 0变化为1000
+        round: 1,
+        easing: 'easeInOutExpo'
+    });
+</script>
+
+</html>

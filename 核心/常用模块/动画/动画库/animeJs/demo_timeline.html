@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>demo_timeline</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+        }
+
+        .square {
+            background: red;
+        }
+
+        .circle {
+            border-radius: 50%;
+            background: green;
+        }
+        .triangle {
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="square"></div>
+    <div class="circle"></div>
+    <div class="triangle"></div>
+</body>
+<script src="./lib/anime.min.js"></script>
+<script>
+    //父时间轴实例中设置的参数将由所有子项继承。
+    var myTimeline = anime.timeline({
+        loop: true,
+        autoplay: true
+    });
+    myTimeline
+        .add({
+            targets: '.square',
+            translateX: 250,
+        })
+        .add({
+            targets: '.circle',
+            translateX: 250,
+            offset: '5000'
+        }, '+=1000') // 相对偏移量
+        .add({
+            targets: '.triangle',
+            translateX: 250,
+            offset: '5000'
+        }, '1000') // 相对偏移量
+</script>
+
+</html>
