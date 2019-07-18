@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="animate.min.css">
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            background: red;
+            /*动画时间*/
+            animation-duration: 3s;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<button>执行动画</button>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    /*https://github.com/daneden/animate.css
+    * 只能兼容到ie10
+    * animate.css动画执行的终点是元素当前的位置
+    * */
+
+    $.fn.extend({
+        animateCss: function(animationName, callback) {
+            var animationEnd = (function(el) {
+                var animations = {
+                    animation: 'animationend',
+                    OAnimation: 'oAnimationEnd',
+                    MozAnimation: 'mozAnimationEnd',
+                    WebkitAnimation: 'webkitAnimationEnd'
+                };
+
+                for (var t in animations) {
+                    if (el.style[t] !== undefined) {
+                        return animations[t];
+                    }
+                }
+            })(document.createElement('div'));
+
+            this.addClass('animated ' + animationName).one(animationEnd, function() {
+                if (typeof callback === 'function') callback.call(this);
+                $(this).removeClass('animated ' + animationName);
+            });
+
+            return this;
+        }
+    });
+    $('button').on('click',function () {
+        /*执行动画*/
+        $('.box').animateCss('animated bounceOutLeft',function () {});
+    });
+
+
+
+</script>
+</html>
