@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>mockJS</title>
+</head>
+<body>
+</body>
+
+<script>
+
+</script>
+<script src="script/require.js"></script>
+<script>
+    require.config({
+        // 设置根目录
+        baseUrl:'./',
+        // 设置别名
+        paths:{
+            jq:'script/jquery-1.7.2.min',  //不带js后缀
+            mock: 'http://mockjs.com/dist/mock',
+            index:'index',
+            demo:'demo',
+        }
+    });
+    require(['index']);
+    require(['demo']);
+</script>
+</html>
