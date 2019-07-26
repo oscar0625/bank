@@ -1,0 +1,12 @@
+{
+  "name": "jsdoc",
+  "version": "1.0.0",
+  "description": "使用教程",
+  "main": "main.js",
+  "scripts": {
+    "build:doc": "jsdoc -c jsdoc.json"
+  },
+  "author": "oscar",
+  "license": "ISC",
+  "dependencies": {}
+}
