@@ -2,6 +2,7 @@
 
 /**
  * @module
+ * @name 书
  * @description 书籍
  * @param {string} content 书籍内容
  * @param {number} pageIndex 书籍页码 

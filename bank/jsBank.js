@@ -1,4 +1,10 @@
 var oscar = {
+    //检测数据类型
+    isType: function (target) {
+        // String Number Boolean Undefined Null Object Function Array Date RegExp
+        var res = Object.prototype.toString.call(target);
+        return res.slice(8, res.length - 1);
+    },
     //判断当前浏览器
     browser: {
         //移动/pc终端浏览器版本信息 
@@ -77,13 +83,13 @@ var oscar = {
     },
 
     /**将数字四舍五入保留到N位小数
-     * @param num  要处理的数字  如果是string类型 会处理成number 类型
-     * @param n  0-20 [保留n位小数]
-     * @returns {number}
+     * @param {string|number} num 要处理的数字
+     * @param {number} n 保留的小数位数 0-20
+     * @return {string}
      */
     keepDecimal: function (num, n) { //keepDecimal(3.1415926,2)
         var times = Math.pow(10, n);
-        return (Math.round(num * times) / times).toFixed(n) * 1
+        return (Math.round(num * times) / times).toFixed(n)
     },
 
     //冒泡排序
@@ -194,11 +200,11 @@ var oscar = {
         //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
     },
 
-    /** 种子随机数
-     * 
-     * @param seed [种子]
-     * @param min  [最小] 可取
-     * @param max  [最大] 取不到
+    /**种子随机数
+     * @param {number} seed 种子
+     * @param {number} min 最小值 可取
+     * @param {number} max 最大值 取不到
+     * @return {number}
      */
     seedRandom: function (seed, min, max) {
         min = min || 0;
@@ -209,10 +215,11 @@ var oscar = {
         //return Math.floor(rnd*(max-min+1))+min;  //取整
     },
 
-    /** 格式化时间
-     * 
-     * @param {String} formater 
-     * @param {Date} t 
+    /**格式化时间
+     * @param {string} formater 格式
+     * @param {Date} t 时间
+     * @return {string}
+     * @example
      * dateFormater('YYYY-MM-DD HH:mm', t) ==> 2019-06-26 18:30 
      * dateFormater('YYYYMMDDHHmm', t) ==> 201906261830
      */
@@ -257,9 +264,10 @@ var oscar = {
     },
 
     /**防抖 把触发非常频繁的事件合并成一次去执行(搜索框关键词匹配)
-     * @param fn [Function]  
-     * @param delay [Number]   延时执行函数
-     * @return [Function]
+     * @param {function} fn 
+     * @param {number} delay 延时的时间
+     * @return {function}
+     * @example
      * debounce(fn,0)
      */
     debounce: function (fn, delay) {
@@ -275,11 +283,11 @@ var oscar = {
     },
 
     /**节流 适合于需要频繁调用，要延时执行,但又在一定的时间内必须要执行逻辑的场景。(滚动事件)
-     * 
-     * @param fn [Function]
-     * @param delay [Function]  延时执行函数  
-     * @param time [Function]   在time时间内必须执行一次(不去延时) 
-     * @return [Function]
+     * @param {function} fn 
+     * @param {number} delay 延时的时间
+     * @param {number} time 间隔的时间 在time时间内必须执行一次(不去延时) 
+     * @return {function}
+     * @example
      * throttle(fn, 500, 1000)
      */
     throttle: function (fn, delay, time) {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>变量的声明</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ES6 一共有6种声明变量的方法。 var、function、let、const、class、import
+    // ps:从ES6开始，全局变量将逐步与顶层对象的属性脱钩,let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性
+
+    
+    //  let和const
+    //    a.只作用于当前块级作用域 {}
+    //    b.不存在变量提升
+    //    c.不允许重复声明
+    //    d.暂时性死区 
+    //      ES6 明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
+    //      var a = 123; if (true) { a = 456; let a; } //报错
+    //    e.const 声明一个只读的常量 一旦声明变量，就必须立即初始化(赋值),且常量的值不能改变
+</script>
+
+</html>

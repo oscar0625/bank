@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script src="js/sea.js"></script>
+<script>
+    /*
+    * 1. seajs负责模块化文件，管理组织项目中的js文件（代码）
+    * 2. requirejs与seajs不同的是  requirejs是AMD规范 且也有CMD规范
+    *   AMD与CMD都是模块化开发规范，前者是异步后者是本地。
+    * */
+
+    /*
+    * 1. seajs遵循模块化开发
+    * 2. 一个文件就是一个模块！模块、功能都一个意思
+    * 3. 模块只能在js文件中定义
+    * 4. 引用模块 seajs.use 或者require.async 引用模块
+    * */
+    seajs.config({
+        //设置根目录
+        base:'./js',
+        //设置别名
+        alias:{
+            jq:'jquery-1.7.2.min.js',
+            index:'index.js',
+            app:'app.js'
+        }
+    });
+
+    /*
+    * use可以同时加载多个文件以数组格式，单个是字符串格式
+    * 通过别名加载文件
+    * */
+    seajs.use(['index'],function (exports) {
+        console.log(exports);
+    })
+</script>
+</html>
