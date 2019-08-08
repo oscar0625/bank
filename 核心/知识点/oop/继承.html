@@ -1,45 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>继承</title>
 </head>
+
 <body>
-<ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-    <li>7</li>
-    <li>8</li>
-    <li>9</li>
-    <li>10</li>
-</ul>
+
 </body>
 <script>
-    /*继承*/
-    function Animal() {
-        this.species = "动物";
-    }
-    Animal.prototype.fn=function () {
-        console.log()
+    /**
+     * 几种继承
+     *   1.类式继承
+     *      将子类的prototype指向父类的实例 
+     *      缺点有两点  一是父类公有属性如果是引用类型就会在被所有子类的实例公用  二是无法向父类传递参数
+     *   2.构造函数继承
+     *      在子类的构造函数中执行一次父类的构造函数
+     *      Super.call(this, header, footer);
+     *   3.组合继承 也叫伪经典继承 类式继承+构造函数继承 (常用)
+     *      12的结合
+     *      缺点有两点 一是调用了两次父类构造函数 二是子类的原型中有本不需要的属性或方法
+     * 
+     *   4.原型式继承
+     *      不创建新的类的情况下,借助原型prototype,根据已有的对象创建一个新对象,原型式继承是完全可以胜任的
+     *      Sub.prototype = Object.create(Super.prototype);
+     *   5.寄生式继承
+     *      是对原型式继承的二次封装,在封装的过程中对继承的对象进行一些扩展
+     * 
+     *   6.寄生组合式继承 是组合继承的升级版 寄生式继承+构造函数继承 (最完美)
+     * 
+     **/
+
+    //父类
+    function Super(header, footer) {
+        this.header = header;
+        this.footer = footer;
     };
-    function Cat() {
-        this.name='猫'
+    Super.prototype.eat = function () {
+        console.log('吃东西');
+    };
+
+    //子类
+    // //组合继承
+    // function Sub(header, footer, name) {
+    //     Super.call(this, header, footer);
+    //     this.name = name;
+    // };
+    // Sub.prototype = new Super();
+    // Sub.prototype.constructor = Sub;
+    // Sub.prototype.like = function () {
+    //     console.log('写代码');
+    // }
+
+    //寄生组合式继承
+    function Sub(header, footer, name) {
+        Super.call(this, header, footer);
+        this.name = name;
     }
-    /*完全继承*/
-//    Cat.prototype=new Animal();
-//    Cat.prototype.constructor=Cat;
 
-    /*只继承prototype*/
-    Cat.prototype=Object.create(Animal.prototype);
-    Cat.prototype.constructor=Cat;
+    // Sub.prototype = Object.create(Super.prototype);
+    // Sub.prototype.constructor = Sub;
+    // Sub.prototype.like = function () {
+    //     console.log('写代码');
+    // };
 
-    var p=new Cat();
-    console.log(p);
+    function perfectInherit(son, father, extend) {
+        var o = Object.create(father.prototype, {
+            constructor: {
+                value: son
+            }
+        });
+        son.prototype = Object.assign(o, extend);
+    };
+    perfectInherit(Sub, Super, {
+        like: function () {
+            console.log('写代码')
+        }
+    });
 
-
+    var ins = new Sub('头', '脚', 'oscar');
+    console.log(ins);
 </script>
+
 </html>
