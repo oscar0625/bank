@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+    <style>
+        div {
+            width: 1664px;
+            height: 768px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="starrySky">
+
+    </div>
+</body>
+<script src="./universe.js"></script>
+<script>
+    var uni = new Universe({
+            ele: document.getElementById('starrySky'),
+            starColor: '#046dfd',
+            starSize: [1, 10],
+            starSpeed: [1, 50]
+            // background: './web/images/indexBG.jpg'
+        }),
+        animation = function () {
+            uni.draw();
+            window.requestAnimationFrame(animation);
+        };
+    animation();
+</script>
+
+</html>

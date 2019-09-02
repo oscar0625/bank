@@ -1,9 +1,22 @@
-var oscar = {
+var oscarDetection = {
     //检测数据类型
     isType: function (target) {
         // String Number Boolean Undefined Null Object Function Array Date RegExp
         var res = Object.prototype.toString.call(target);
         return res.slice(8, res.length - 1);
+    },
+    //检测是不是dom元素
+    isDom: function () {
+        return (typeof HTMLElement === 'object') ?
+            (obj instanceof HTMLElement) :
+            (obj && typeof obj === 'object' && (obj.nodeType === 1 || obj.nodeType === 9) && typeof obj.nodeName === 'string');
+    },
+    //检测是不是合法的颜色
+    isColor: function (color) {
+        var re1 = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i,
+            re2 = /^rgb\(([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\,([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\,([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\)$/i,
+            re3 = /^rgba\(([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\,([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\,([0-9]|[0-9][0-9]|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])\,(1|1.0|0.[0-9])\)$/i;
+        return re2.test(color) || re1.test(color) || re3.test(color);
     },
     //判断当前浏览器
     browser: {
@@ -57,12 +70,8 @@ var oscar = {
             }
         }(),
     },
-
-    //获取数据类型，返回结果为 Number、String、Object、Array等
-    getRawType: function (value) {
-        return Object.prototype.toString.call(value).slice(8, -1)
-    },
-
+};
+var oscarMethod = {
     /*location search =>obj*/
     searchToOBJ: function (str) {
         //第一版使用时候出现这样一个错误 www.baidu.com?url=http://www.zgcjm.com/DefaultIndex?type=kjcgtz
@@ -196,6 +205,17 @@ var oscar = {
 
     //普通随机数[min,max]
     random: function (min, max) { //限制 max-min值为整数
+        if (arguments.length < 2) {
+            max = min;
+            min = 0;
+        }
+
+        if (min > max) {
+            var hold = max;
+            max = min;
+            min = hold;
+        }
+
         return Math.floor(Math.random() * (max - min + 1)) + min;
         //return Math.round(Math.random()*(max-min))+min; //四舍五入  从概率上来说 不合适 因为两端的出现几率小
     },
@@ -333,17 +353,16 @@ var oscar = {
     preloadImg: function (url, callback) {
         var img = new Image();
 
+        img.src = url;
+
         if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
-            callback.call(img); //将回调函数的this替换为Image对象
+            callback(img); //将Image对象传入回调函数中
         } else {
             img.onload = function () { //图片下载完毕时异步调用callback函数。
-                callback.call(img);
+                callback(img);
                 img.onload = null;
             };
         }
-
-        //注意，最好是先定义onload，再赋值src，不然会出现资源返回，但是onload还没有挂载的情况。
-        img.src = url;
     },
 
     //图片懒加载
@@ -629,8 +648,8 @@ var oscarCheck = {
             return false
         }
     }
-}
-var other = {
+};
+var oscarOther = {
     //利用performance.timing进行性能分析
     performance: function () {
         window.onload = function () {
@@ -771,5 +790,29 @@ var other = {
         window.document.body.innerHTML = prnhtml;
         window.print();
         window.document.body.innerHTML = bdhtml;
+    },
+    hexToRgb: function () {
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+
+        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+
+            return r + r + g + g + b + b;
+
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+        return result ? {
+
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+
+        } : null;
+    },
+    rgbToHex: function () {
+        var rgb = b | (g << 8) | (r << 16);
+
+        return '#' + (0x1000000 + rgb).toString(16).slice(1);
     }
-}
+};
