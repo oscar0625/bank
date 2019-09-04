@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <style>
+        #container {
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="script/echarts.js"></script>
+<script type="text/javascript">
+    /*   文档
+     *   http://www.echartsjs.com/api.html#echarts
+     *
+     * */
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    /*
+     * option ...
+     * 调色盘颜色列表
+     * color:['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
+     * 
+     *
+     * */
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    };
+
+    //api
+
+    // 1. 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过setOption完成，ECharts 会合并新的参数和数据，然后刷新图表。如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
+    myChart.setOption(option, true);
+    // myChart.setOption(option, false); //更新(设置为false为合并)
+    //获取当前实例中维护的option对象，返回的option对象中包含了用户多次setOption合并得到的配置项和数据，也记录了用户交互的状态，例如图例的开关，数据区域缩放选择的范围等等。
+    myChart.getOption();
+
+
+    // 2.事件
+    // 点击事件
+    myChart.on('click', function (e) {})
+    // 监听地图缩放/移动事件    georoam bmaproam amaproam
+    myChart.on('georoam', function (e) {})
+
+    // 切换图例选中状态后的事件
+    myChart.on('legendselectchanged', function (e) {})
+
+
+    // 3. 触发图表行为api
+    myChart.dispatchAction();
+
+
+    // 4.loading状态
+    myChart.showLoading({
+        text: '加载中',
+        color: '#c23531',
+        textColor: '#fff',
+        maskColor: 'rgba(3, 67, 144, .2)',
+        zlevel: 100
+    });
+    myChart.hideLoading();
+
+
+    // 5.重置地图的两种方法
+    //重置option  但存在轨迹问题
+    myChart.dispatchAction({
+        type: 'restore'
+    });
+    //销毁重建
+    $('#button').on('click', function () {
+        myChart.dispose(); //原本销毁
+        myChart = echarts.init(dom); //初始化
+        myChart.setOption(option, true); //新建
+    });
+
+
+    // 6. 渐变
+    // 线性渐变
+    //    new echarts.graphic.LinearGradient(0, 0, 0, 1,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由上而下
+    //    new echarts.graphic.LinearGradient(0, 0, 1, 0,[{offset: 0, color: '#186bd0'},{offset: 1, color: '#24b9b5'}]); //由左到右
+    // 径向渐变
+    //    new echarts.graphic.RadialGradient(0.5, 0.5, 0.5, [   
+    //         {
+    //             offset: 0,
+    //             color: '#cc0099' // 0% 处的颜色
+    //         },
+    //         {
+    //             offset: 1,
+    //             color: '#99ff99' // 100% 处的颜色
+    //         }
+    //     ],false)
+    //  纹理填充
+    // color: {
+    //     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串
+    //     repeat: 'repeat' // 是否平铺, 可以是 'repeat-x', 'repeat-y', 'no-repeat'
+    // }
+
+
+    // 7. 获取json地图
+    $.get('./script/json/beijing.json', function (geoJson) {
+        echarts.registerMap('beijing', geoJson);
+    });
+
+    // 8.转换像素坐标值到逻辑坐标系上的点(经纬度)
+    myChart.on('click', function (e) {
+        // console.log(e.event);
+        var arr = this.convertFromPixel('geo', [e.event.event.x, e.event.event.y]); // 'geo' 等同于 {geoIndex: 0}
+    })
+
+
+    // 常见问题
+    // 1.georoam事件会和click 冲突***
+    // 2.开启监禁渲染回有很多问题 progressive 比如1的问题  还当数据量大于3000 小于10000 特别容易出现点和geo组件分层 
+</script>
+
+</html>

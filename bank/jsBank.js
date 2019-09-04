@@ -302,7 +302,7 @@ var oscarMethod = {
         }
     },
 
-    /**节流 适合于需要频繁调用，要延时执行,但又在一定的时间内必须要执行逻辑的场景。(滚动事件)
+    /**节流 适合于需要频繁调用，要延时执行,但又在一定的时间内必须要执行逻辑的场景。(滚动事件 resize事件)
      * @param {function} fn 
      * @param {number} delay 延时的时间
      * @param {number} time 间隔的时间 在time时间内必须执行一次(不去延时) 

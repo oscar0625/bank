@@ -62,6 +62,27 @@
         }
     }
 
+    function throttle(fn, delay, time) {
+        var timer,
+            previous;
+        return function () {
+            var current = new Date(),
+                context = this,
+                args = arguments;
+            //如果时间间隔大于等于指定的时间 或 第一次则必须执行
+            if ((!previous) || current - previous >= time) {
+                fn.apply(context, args);
+                previous = current;
+            } else {
+                //否则 延时执行
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    fn.apply(context, args);
+                }, delay);
+            }
+        }
+    }
+
     function random(min, max) {
         if (arguments.length < 2) {
             max = min;
@@ -135,9 +156,9 @@
         this.stars = this._createStars();
 
         //监听窗口变化
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', throttle(function () {
             this.resize()
-        }.bind(this));
+        }.bind(this), 500, 1000));
     }
 
     Universe.prototype._createStarCVS = function () {
