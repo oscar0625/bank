@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Promise</title>
 </head>
+
 <body>
 </body>
 <script>
@@ -21,9 +22,9 @@
             } else {
                 reject('a_reject');
             }
-        }, timeOut * 1000, );
+        }, timeOut * 1000);
     })
-    
+
     // //1. Promise.prototype.then(onFulfilled, onRejected)
     // a.then(function (value) {
     //     console.log(value);
@@ -35,14 +36,14 @@
     // .then(function (value) {
     //     console.log(value);
     // })
-    
+
     // 2. Promise.prototype.catch(onRejected)
     a.then(function (value) {
         console.log(value);
-    }).catch(function(reason){
+    }).catch(function (reason) {
         console.log(reason);
     })
-    
+
     //api
     // var b=new Promise(function(resolve, reject){
     //     var timeOut = Math.random() * 2;

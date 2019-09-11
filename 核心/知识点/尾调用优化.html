@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>尾调用优化</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //  尾调用优化
+    //  尾调用：函数的最后一部是调用另一个函数 (没有其他操作)
+    //  尾调用优化:只保留内层函数的调用帧，如果所有函数都是尾调用，那么完全可以做到每次执行时调用帧只有一项，这将大大节省内存。
+    //  尾递归：函数调用自身，称为递归。如果尾调用自身，就称为尾递归。
+    //  “尾调用优化”对递归操作意义重大，所以一些函数式编程语言将其写入了语言规格。ES6 亦是如此，第一次明确规定，所有 ECMAScript 的实现，都必须部署“尾调用优化”。这就是说，ES6 中只要使用尾递归，就不会发生栈溢出（或者层层递归造成的超时），相对节省内存。
+
+    //  非尾递归的 Fibonacci 数列实现如下。
+    function Fibonacci(n) {
+        if (n <= 1) { return 1 };
+        return Fibonacci(n - 1) + Fibonacci(n - 2);
+    }
+    // Fibonacci(10) // 89
+    // Fibonacci(100) // 超时
+    
+    //  尾递归优化过的 Fibonacci 数列实现如下。
+    function Fibonacci2(n, ac1 = 1, ac2 = 1) {
+        if (n <= 1) { return ac2 };
+
+        return Fibonacci2(n - 1, ac2, ac1 + ac2);
+    }
+    // Fibonacci2(100) // 573147844013817200000
+    // Fibonacci2(1000) // 7.0330367711422765e+208
+</script>
+
+</html>

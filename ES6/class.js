@@ -14,26 +14,26 @@
     }
 
 * */
-class person{
-    constructor(name,age){
-        this.name=name;
-        this.age=age;
+class person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
     }
     // Person.prototype.getName = function(){}
-    getName(){
+    getName () {
         return this.name;
     }
-    testSetTimeout() {
+    testSetTimeout () {
         setTimeout(() => {
             //this谁调用就是谁
             console.log(this.name);
         }, 10)
     }
-    static asd(){
+    static asd () {
         return 1
     }
 }
-let p=new person('oscar',18);
+let p = new person('oscar', 18);
 // console.log(p.getName());
 p.testSetTimeout();
 console.log(person.asd());
