@@ -13,7 +13,9 @@
 
 </body>
 <script>
-    
+     const { name, ...others } = { name: 'oscar', age: 18, sex: 'boy' };
+     console.log(name); // 'oscar'
+     console.log(others); // {age: 18, sex: "boy"}
 </script>
 
 </html>

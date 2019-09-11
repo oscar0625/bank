@@ -36,9 +36,17 @@
     //          应用： 
     //              复制数组 
     //              合并数组
+    //              与解构赋值结合  必须是最后一位
+    //                  const [first, ...last] = [1, 2, 3, 4, 5];
+    //                  console.log(first); // 1
+    //                  console.log(last); // [2, 3, 4, 5]
+    
+    //                  const { name, ...others } = { name: 'oscar', age: 18, sex: 'boy' };
+    //                  console.log(name); // 'oscar'
+    //                  console.log(others); // {age: 18, sex: "boy"}
     //              将字符串转为真正的数组
-    //              任何定义了遍历器（Iterator）接口的对象（参阅 Iterator 一章），都可以用扩展运算符转为真正的数组。
-    //              Map 和 Set 结构，Generator 函数
+    //              任何定义了遍历器（Iterator）接口的对象（参阅 Iterator 一章），都可以用扩展运算符转为真正的数组。(待续)
+    //              Map 和 Set 结构，Generator 函数 (待续)
     //  其他方法
     //  Array.from()  可以将各种值转为真正的数组，并且还提供map功能。
     //  适用范围如 类似数组的对象(有length属性) nodeList对象 arguments对象 部署了Iterator接口的数据结构

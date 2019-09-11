@@ -17,7 +17,7 @@
     function log(x, y = 'World') {
         console.log(x, y);
     }
-    //  1. 应用 利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。
+    //  1.应用 利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。
     function throwIfMissing() {
         throw new Error('Missing parameter');
     }
@@ -25,7 +25,7 @@
     function foo(mustBeProvided = throwIfMissing()) {
         return mustBeProvided;
     }
-    //  2. 注意：指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。
+    //  2.注意：指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。
     // (function (a) { }).length; // 1
     // (function (a = 5) { }).length; // 0
     // (function (a, b, c = 5) { }).length; // 2
@@ -34,17 +34,10 @@
 
 
     // 二 rest参数 （形式为 ...变量名） 变量是一个数组，将函数多余的参数放入数组中。 注意，rest参数之后不能再有其他参数 必须是最后一位
-    //在函数中运用  替代arguments
+    //    可以替代arguments
     function log(...params) {
         console.log.call(null, params);
     }
-    //结构赋值中运用
-    // const [first, ...rest] = [1, 2, 3, 4, 5];
-    // console.log(first); // 1
-    // console.log(rest); // [2, 3, 4, 5]
-    // const { name, ...others } = { name: 'oscar', age: 18, sex: 'boy' };
-    // console.log(name); // 'oscar'
-    // console.log(others); // {age: 18, sex: "boy"}
 
     // 三 箭头函数  ()=>{ }
     //  1. 应用  用来做回调函数 从而简化回调函数
@@ -52,7 +45,7 @@
     //      （1）箭头函数不改变this指向 (实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。)
     //      （2）所以不可以当作构造函数
     //      （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
-    //      （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+    //      （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。 (待续)
 
     //  四 尾调用优化
     //  尾调用：函数的最后一部是调用另一个函数 (没有其他操作)
@@ -62,14 +55,18 @@
 
     //  非尾递归的 Fibonacci 数列实现如下。
     function Fibonacci(n) {
-        if (n <= 1) { return 1 };
+        if (n <= 1) {
+            return 1
+        };
         return Fibonacci(n - 1) + Fibonacci(n - 2);
     }
     // Fibonacci(10) // 89
     // Fibonacci(100) // 超时
     //  尾递归优化过的 Fibonacci 数列实现如下。
     function Fibonacci2(n, ac1 = 1, ac2 = 1) {
-        if (n <= 1) { return ac2 };
+        if (n <= 1) {
+            return ac2
+        };
 
         return Fibonacci2(n - 1, ac2, ac1 + ac2);
     }
