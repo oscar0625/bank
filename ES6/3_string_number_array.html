@@ -13,13 +13,13 @@
 
 </body>
 <script>
-    // 1.String
+    // String
     //  主要功能：
     //      模板字符串   `${}`
     //      标签模板功能 tag `Hello ${ 15 } world ${ 50 }`
     //  其他方法    includes startsWith endsWith repeat
 
-    // 2.Number
+    // Number
     //  主要功能：
     //      指数运算符 
     //          **
@@ -30,24 +30,7 @@
     //          a **= 2;    // 等同于 a = a ** 2;
     //  其他方法    Number.isFinite() Number.isNaN() Number.parseInt() Number.parseFloat() 替代以前的方法减少全局变量
 
-    // 3.Array
-    //  主要功能：
-    //      扩展运算符 （...） 它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
-    //          应用： 
-    //              复制数组 
-    //              合并数组
-    //              与解构赋值结合  必须是最后一位
-    //                  const [first, ...last] = [1, 2, 3, 4, 5];
-    //                  console.log(first); // 1
-    //                  console.log(last); // [2, 3, 4, 5]
-    
-    //                  const { name, ...others } = { name: 'oscar', age: 18, sex: 'boy' };
-    //                  console.log(name); // 'oscar'
-    //                  console.log(others); // {age: 18, sex: "boy"}
-    //              将字符串转为真正的数组
-    //              任何定义了遍历器（Iterator）接口的对象（参阅 Iterator 一章），都可以用扩展运算符转为真正的数组。(待续)
-    //              Map 和 Set 结构，Generator 函数 (待续)
-    //  其他方法
+    // Array
     //  Array.from()  可以将各种值转为真正的数组，并且还提供map功能。
     //  适用范围如 类似数组的对象(有length属性) nodeList对象 arguments对象 部署了Iterator接口的数据结构
     function typesOf() {

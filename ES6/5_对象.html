@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>对象</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 一 简洁表示法
+    // const foo = 'bar';
+    // const o = {
+    //     // 属性的简洁表示法
+    //     foo,
+    //     // 方法的简洁表示法
+    //     method() {
+    //         return "Hello!";
+    //     }
+    // };
+
+    // 二 属性/方法名表达式    
+    // let propKey = 'foo';
+    // let obj = {
+    //     [propKey]: true,
+    //     ['a' + 'bc']: 123,
+    //     ['h' + 'ello']() {
+    //         return 'hi';
+    //     }
+    // };
+    //  注意，属性名表达式与简洁表示法，不能同时使用，会报错。
+
+    // 三 其他方法
+    // Object.is();
+    // Object.assign();
+    // Object.getPrototypeOf();
+    // Object.setPrototypeOf();    //更改对象的 [[Prototype]]在各个浏览器和 JavaScript 引擎上都是一个很慢的操作
+
+    // 四 对属性的遍历 
+    // ES6 一共有 6 种方法可以遍历对象的属性。
+    // （1）for...in 循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+    // （2）Object.keys(obj) Object.keys返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。
+    // （3）Object.getOwnPropertyNames(obj) Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
+    // （4）Object.getOwnPropertySymbols(obj) Object.getOwnPropertySymbols返回一个数组，包含对象自身的所有 Symbol 属性的键名。
+    // （5）Reflect.ownKeys(obj) Reflect.ownKeys返回一个数组，包含对象自身的所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。（待续）
+    // （6）Reflect.enumerate(obj) Reflect.enumerate返回一个Interator对象 与for in相同 循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）
+    //      以上的 6 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。
+    //          首先遍历所有数值键，按照数值升序排列。
+    //          其次遍历所有字符串键，按照加入时间升序排列。
+    //          最后遍历所有 Symbol 键，按照加入时间升序排列
+</script>
+
+</html>

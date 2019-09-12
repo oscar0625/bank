@@ -13,9 +13,30 @@
 
 </body>
 <script>
-     const { name, ...others } = { name: 'oscar', age: 18, sex: 'boy' };
-     console.log(name); // 'oscar'
-     console.log(others); // {age: 18, sex: "boy"}
+    var obj = {
+        _pri: 0,
+        get name() {
+            return this._pri;
+        },
+        set name(val) {
+            this._pri = val;
+        },
+        get name1() {
+            return this._pri;
+        },
+        set name1(val) {
+            this._pri = val;
+        },
+        get name2() {
+            return this._pri;
+        },
+        set name2(val) {
+            this._pri = val;
+        },
+    }
+
+    var {_pri,...oscar}=obj;
+    console.log(oscar);
 </script>
 
 </html>
