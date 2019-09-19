@@ -6,37 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
-    <title>title</title>
+    <title>Map</title>
 </head>
 
 <body>
 
 </body>
 <script>
-    var obj = {
-        _pri: 0,
-        get name() {
-            return this._pri;
-        },
-        set name(val) {
-            this._pri = val;
-        },
-        get name1() {
-            return this._pri;
-        },
-        set name1(val) {
-            this._pri = val;
-        },
-        get name2() {
-            return this._pri;
-        },
-        set name2(val) {
-            this._pri = val;
-        },
-    }
-
-    var {_pri,...oscar}=obj;
-    console.log(oscar);
+   let ws=new WeakSet();
+   let a=[1,2,3];
+   ws.add(a)
+    
 </script>
 
 </html>
