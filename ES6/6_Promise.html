@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise</title>
+</head>
+
+<body>
+</body>
+<script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+    //注意1:如果在定义Promise实例中执行 reject() 但是却没指定 onRejected (你的某个promise没有加上catch语句) 就会报错  Uncaught (in promise) 
+
+    // 一、Promise对象
+    //  Promise对象有三种状态：pending（进行中）、resolved（已完成，又称fulfilled）和 rejected（已失败）。
+    //  Promise对象的状态改变，只有两种可能：从pending变为resolved和从pending变为rejected。
+    //  缺点：
+    //      无法取消Promise
+    //      如果不设置回调函数，Promise内部抛出的错误，不会反应到外部。
+    //      当处于pending状态时，无法得知目前进展到哪一个阶段
+
+    function createPromise(param) {
+        return new Promise(function (resolve, reject) {
+            var timeOut = Math.random() * 2;
+            setTimeout(function () {
+                if (timeOut < 1) {
+                    resolve(param + '_resolve');
+                } else {
+                    reject(param + '_reject');
+                }
+            }, timeOut * 1000);
+        })
+    }
+    // let a = createPromise('a');
+    // 二、实例方法
+    //  1. Promise.prototype.then(onFulfilled, onRejected)
+    //  Promise 实例具有then方法，它的作用是为 Promise 实例添加状态改变时的回调函数。then方法的第一个参数是resolved状态的回调函数，第二个参数（可选）是rejected状态的回调函数。then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。
+    // a.then(function (value) {
+    //     console.log(value);
+    //     return 'a_resolve_end'
+    // }).then(function (value) {
+    //     console.log(value);
+    // })
+
+    //  2. Promise.prototype.catch(onRejected)
+    //  Promise.prototype.catch方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。
+    //  一般来说，不要在then方法里面定义 Reject 状态的回调函数（即then的第二个参数），总是使用catch方法。
+    //  catch方法返回的还是一个 Promise 对象，因此后面还可以接着调用then方法。
+    // a.then(function (value) {
+    //     console.log(value);
+    // }).catch(function (reason) {
+    //     console.log(reason);
+    // })
+    //  3. Promise.prototype.finally(() => {})
+    //  finally方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。
+
+
+    //  三、类方法
+    // let b = createPromise('b');
+    // 1. Promise.all() 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+    // 只有a,b的状态都变成resolved，p的状态才会变成resolved，此时a,b的返回值组成一个数组，传递给p的回调函数。
+    // 只要a,b之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。
+    // let p = Promise.all([a, b]).then(function (result) {
+    //     console.log('成功');
+    //     console.log(result); //['a_resolve','b_resolve']
+    // }).catch(function (reason) {
+    //     console.log('失败');
+    //     console.log(reason); //只返回其中一个失败的 'a_reject' 或者 'b_reject'
+    // })
+
+    // 2. Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
+    // 只要a,b之中有一个实例率先改变状态（不管是resolve还是reject，就看谁先），p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+    // let p = Promise.race([
+    //     new Promise(function (resolve, reject) {
+    //         setTimeout(() => resolve('伯'), 500)
+    //     }),
+    //     new Promise(function (resolve, reject) {
+    //         setTimeout(() => reject('仲'), 800)
+    //     })
+    // ]).then(response=>console.log(response)).catch(error=>console.log(error));
+
+    // 3. Promise.resolve() Promise.reject() 将现有对象转为 Promise 对象 
+    //  Promise.resolve('foo') 等价于 new Promise(resolve => resolve('foo'))  
+    //  Promise.reject('出错了') 等价于 new Promise((resolve, reject) => reject('出错了'))
+
+    
+</script>
+
+</html>

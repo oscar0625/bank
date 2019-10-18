@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>Iterator_forof</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //  Iterator 接口
+    //  1. Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即for...of循环。
+    //      ES6 规定，默认的 Iterator 接口部署在数据结构的Symbol.iterator属性，或者说，一个数据结构只要具有Symbol.iterator属性，就可以认为是“可遍历的”（iterable）。
+    //  2.使用范围 
+    //      原生具备 Iterator 接口的数据结构如下。
+    //          Array
+    //          类数组 arguments对象 NodeList对象
+    //          Set和Map
+    //          String
+    //  注意：对象不具备没有默认部署 Iterator 接口 是因为无法确定对象属性的先后顺序
+
+    //  for...of 循环   
+    //  1.一个数据结构只要部署了Symbol.iterator属性，就被视为具有 iterator 接口，就可以用for...of循环遍历它的成员，for...of循环内部调用的是数据结构的Symbol.iterator方法。
+    //  2.使用范围
+    //          Array
+    //          类数组 arguments对象 NodeList对象
+    //          Set和Map
+    //          String
+
+</script>
+
+</html>
