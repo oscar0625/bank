@@ -14,21 +14,82 @@
 </body>
 <script>
     // 一、class基本语法
-    // ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。ES6 的类，完全可以看作ES5构造函数的另一种写法。
-    // 注意点:
+    //  ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。ES6 的类，完全可以看作ES5构造函数的另一种写法。
+    //  注意点:
     //      严格模式，类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。
     //      不存在变量提升
     class Person {
-        constructor(name, age) {
-            this.name = name;
-            this.age = age;
+        //实例属性的新写法
+        body = '身体';
+
+        constructor(header, footer) {
+            this.header = header;
+            this.footer = footer;
         }
+
+        eat() {
+            return '吃东西'
+        }
+
+        //取值函数（getter）和存值函数（setter
+        get prop() {
+            return 'getter';
+        }
+        set prop(value) {
+            console.log('setter: ' + value);
+        }
+
+        //静态属性 
+        static category = '人';
         //静态方法
-        static tool(){
-            console.log('这是类方法（静态方法）');
+        static breathe() {
+            return '呼吸';
         }
     }
-    // 二、
+
+    // 二、class的继承
+    //  Class 可以通过extends关键字实现继承
+    //  注意点:
+    //      父类的静态方法和静态属性都可以被子类继承
+    class Me extends Person {
+        constructor(header, footer, name) {
+            super(header, footer);
+            this.name = name;
+        }
+        like() {
+            return '写代码' + super.eat();
+        }
+    }
+    // 1.super 关键字
+    //  第一种情况，super作为函数调用时，代表父类的构造函数。
+    //  ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面，然后再用子类的构造函数修改this。
+    //  注意点:
+    //      在子类的构造函数必须执行一次super()，否则会报错
+    //      必须先调用super()方法，才可以使用this关键字，否则会报错
+    //      super()只能用在子类的构造函数之中，否则会报错
+    //      如果子类没有定义constructor方法，这个super方法会被默认添加进constructor
+    //  第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+    //  注意点:
+    //      由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
+    //      使用super的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错。console.log(super)会报错
+
+    //  2.类的 prototype 属性和__proto__属性
+    //  Class 作为构造函数的语法糖，同时有prototype属性和__proto__属性，因此同时存在两条继承链。
+    //      a.子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。（与es5一致）
+    //      b.子类的__proto__属性，表示构造函数的继承，总是指向父类。（与es5有区别，es5中指向 Function() 类）  所以 Object.getPrototypeOf方法可以用来从子类上获取父类。
+
+
+    //  三、new.target 属性
+    //  Class 内部调用new.target，返回当前 Class。
+    //  注意点：
+    //      子类继承父类时，new.target会返回子类。利用这个特点，可以写出不能独立使用、必须继承后才能使用的类。
+    class Shape {
+        constructor() {
+            if (new.target === Shape) {
+                throw new Error('本类不能实例化');
+            }
+        }
+    }
 </script>
 
 </html>
