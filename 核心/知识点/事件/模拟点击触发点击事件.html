@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            background: red;
+            width: 500px;
+            height: 500px;
+        }
+        p{
+            background: green;
+            width: 500px;
+            height: 500px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div></div>
+<p></p>
+<script>
+    var div=document.querySelector('div');
+    var p=document.querySelector('p');
+    div.addEventListener('click',function () {
+        console.log(111)
+    });
+    //方法一  最优  是真正地用程序去点击按钮，触发了按钮的click事件
+    p.onclick=function () {
+        div.click();
+        //jq
+        //$('div').trigger('click')
+    };
+
+    //方法二  不好 只是简单地调用了onclick所指向的方法，只是调用方法而已  只适用于dom0级绑定的事件
+//    p.onclick=function () {
+//        div.onclick()
+//    };
+</script>
+</body>
+</html>

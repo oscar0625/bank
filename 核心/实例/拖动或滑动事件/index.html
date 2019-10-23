@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 600px;
+        }
+
+        div {
+            width: 500px;
+            height: 500px;
+            background: red;
+            margin: 50px auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div></div>
+</body>
+<script src="./dragAndSlide.js"></script>
+<script>
+    var p = new DragAndSlide({
+        ele: document.querySelector('div'),
+        dragRight: function () {
+            console.log('→→→→拖动')
+        },
+        dragLeft: function () {
+            console.log('←←←←←拖动')
+        },
+        slideRight: function (speed) {
+            console.log('→→→→滑动')
+        },
+        slideLeft: function (speed) {
+            console.log('←←←←←滑动')
+        }
+    });
+</script>
+
+</html>

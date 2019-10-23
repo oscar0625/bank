@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #dragEle{
+            cursor: move;
+        }
+        #targetEle{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #030303;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p draggable="true" id="dragEle">拖动我!</p>
+</div>
+
+<div  id="targetEle"></div>
+</body>
+<script>
+    /*
+    * 注意
+    * 1.本教程所有事件 必须建立在浏览器支持 draggable="true" 这个h5属性的基础上
+    * 2.目标元素的drop事件如要触发 必须在 目标元素的dragover事件中 禁止默认行为 否则不触发
+    * 3.拖拽事件对象中会初始化一个DataTransfer对象,用于保存拖拽数据和交互信息.以下是它的属性和方法  (不同浏览器对属性支持不一样)
+    *   e.dataTransfer
+    *   .files: 包含File对象的FileList对象.从操作系统向浏览器拖放文件时有用.
+        .types: 保存DataTransfer对象中设置的所有数据类型.
+        .setData(format, data): 以键值对设置数据,format通常为数据格式,如text,text/html
+        .getData(format): 获取设置的对应格式数据,format与setData()中一致
+        .clearData(format): 清除指定格式的数据
+    *
+    * */
+    var ele=document.getElementById('dragEle'),        //被拖动元素
+        target=document.getElementById('targetEle');   //目标元素
+
+    /*被拖动元素事件*/
+    //开始拖动触发
+    ele.ondragstart=function (e) {
+        e.dataTransfer.setData('text', 'Hello World');
+    };
+
+//    //被拖动元素 拖动中触发 (move) 不常用
+//    ele.ondrag=function () {
+//        console.log('drag')
+//
+//    };
+//    //结束拖动中触发 不常用
+//    ele.ondragend=function () {
+//        console.log('dragend')
+//    };
+
+    /*目标元素事件*/
+    //被拖动元素进入目标元素且在目标元素中拖动触发  (move)
+    target.ondragover=function () {
+        event.preventDefault ?event.preventDefault():event.returnValue=false; //必须禁止 否则不触发 drop事件
+    };
+
+    //被拖动元素 在 目标元素中 释放时触发事件  (必须在目标元素的dragover事件中取消默认行为)
+    target.ondrop=function (e) {
+        event.preventDefault ?event.preventDefault():event.returnValue=false;
+        console.log(e.dataTransfer.getData('text'));
+    };
+
+//    //被拖动元素进入目标元素触发
+//    target.ondragenter=function () {
+//        console.log('dragenter')
+//    };
+//    //被拖动元素离开目标元素触发
+//    target.ondragleave=function () {
+//        console.log('dragleave')
+//    };
+</script>
+</html>

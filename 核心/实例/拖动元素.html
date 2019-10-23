@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+            body{
+                height: 6000px;
+            }
+        div{
+            width: 500px;
+            height: 500px;
+            background: red;
+            position: fixed;
+            left: 50px;
+            top: 50px;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div class=""></div>
+<div></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.7.2/jquery.min.js"></script>
+<script>
+
+
+    //将此方法扩展到jq的prototype上
+    $.fn.extend({
+        drag:function (w,h) {
+            var self=this;
+            var on=false;
+            var width;
+            var height;
+            self.on('mousedown', function (e) {
+                e.preventDefault();   //去除鼠标按下默认带出虚影行为
+                on=true;
+                width= e.pageX-self.offset().left;
+                height= e.pageY-self.offset().top;
+            });
+            $(document).on('mouseup', function () {
+                on=false;
+            }).on('mousemove', function (e) {
+                if(on){
+                    var left= e.clientX-width;
+                    var top= e.clientY-height;
+                    left=left<0?0:left;
+                    left=left>=document.documentElement.clientWidth-w?document.documentElement.clientWidth-w:left;
+                    top=top<0?0:top;
+                    top=top>=document.documentElement.clientHeight-h?document.documentElement.clientHeight-h:top;
+                    self.css({left:left,top:top})
+                }
+            });
+        }
+    });
+
+    $(function () {
+        //选中要拖动的元素 调用drag方法  params1 : 元素的宽度   params2 : 元素的高度
+        $('div').drag(500,500);
+    });
+
+
+</script>
+</html>

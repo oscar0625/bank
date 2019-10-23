@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<form action=""></form>
+<div id="d1"></div>
+</body>
+<script>
+    var d1=document.getElementById('d1');
+
+    //1 模拟鼠标事件
+//        d1.onclick=function () {
+//            console.log(111)
+//        };
+//        var evt=document.createEvent("MouseEvents");
+//        evt.initMouseEvent("click", true, true, document.defaultView, 0, 0, 0, 0, 0, false, false, false,false, 0, null);
+//        d1.dispatchEvent(evt);
+
+    //2 自定义事件 ie9,9+ 支持
+        d1.addEventListener('mysj',function (e) {
+            console.log('自定义事件');
+            console.log(e)
+        });
+        if(document.implementation.hasFeature("CustomEvents",3.0)){
+            var evt=document.createEvent("CustomEvent");
+            /*
+             * type（字符串）：事件类型；
+             bubbles（布尔值）：时间是否应该冒泡；
+             cancelable（布尔值）：表示事件是否可以取消；
+             detail（对象）：任意值，保存在event对象的detail属性中。
+             * */
+            evt.initCustomEvent('mysj',true,false,{name:'oscar'});
+            d1.dispatchEvent(evt);
+        }
+
+
+
+
+
+
+
+
+
+</script>
+</html>
