@@ -1,0 +1,20 @@
+{
+  "name": "babel",
+  "version": "1.0.0",
+  "description": "使用指南",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel src --out-dir lib --presets=@babel/preset-env"
+  },
+  "author": "oscar",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/plugin-proposal-class-properties": "^7.5.5"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0"
+  }
+}
