@@ -1,36 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv ="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
     <title>npm</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
-    // 1.NPM 使用介绍
-    // 是随同NodeJS一起安装的包管理工具，
+    // NPM 是随同NodeJS一起安装的包管理工具
+
+    // 一 命令行
+    // 1.基础指令
     // npm -v                   查询版本
     // npm install npm -g       更新npm
     // npm install -g cnpm --registry=https://registry.npm.taobao.org   cnpm淘宝镜像
 
-    // 2.npm 命令
     // npm init
     // npm install <Module Name>
     // npm uninstall <Module Name>
     // npm update <Module Name>
     // npm search <Module Name>
-    // npm cache clean -f  npm清理缓存
-    // --save --save-dev -g 
-    
-    // 3.发布包
-    // npm publish
-    // npm unpublish <package>@<version>    撤销发布自己发布过的某个版本代码。
+    // npm cache clean -f       npm清理缓存
 
-    // 4.帮助
-    // npm help 
+    // npm publish              发布包
+    // npm unpublish <package>@<version>   撤销发布自己发布过的某个版本代码。
+    // npm help                 帮助
+
+    // 2.后缀
+    // -g 
+    // --save-dev 和 --save 区别
+    // --save-dev 是你开发时候依赖的东西，--save 是你发布之后还依赖的东西。
+    // 比如 @babel/core @babel/cli @babel/preset-env 只在开发环境用到 就--save-dev 
+    // 但是 @babel/polyfill 在生产环境也需要 就--save
+
+
+    // 二 package.json
+    // 1.scripts
+    // 指定 script 之前会把 node_modules/.bin 加到环境变量 $PATH 的前面
+    // "scripts": {
+    //     "babel": "babel src --out-dir lib"
+    // }
+    // npm run babel(npm run-script babel)
+
+    // npm start 是 npm run start 的简写
+    // npm stop 是 npm run stop 的简写 
+    // npm test 是 npm run test 的简写
+    // npm restart 是 npm run restart 的简写
+
+    // 2.devDependencies 和 dependencies
+    // 同--save-dev 和 --save
 </script>
+
 </html>
