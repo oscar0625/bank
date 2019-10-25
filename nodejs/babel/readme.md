@@ -3,6 +3,8 @@ https://www.babeljs.cn/docs/
 https://www.babeljs.cn/setup
 
 # 一、主要模块
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install --save @babel/polyfill
 @babel/core 核心库
 @babel/cli  CLI 命令行工具
 @babel/preset-env 插件和预设（preset）
