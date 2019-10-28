@@ -7,8 +7,8 @@ npm install --save-dev webpack webpack-cli webpack-dev-server webpack-merge
 ## 2.package.json
 ```
 "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack --config webpack.config.js"
+    "start": "webpack-dev-server --open --config build/webpack.dev.js",
+    "build": "webpack --config build/webpack.prod.js"
 }
 ```
 
@@ -140,7 +140,7 @@ https://www.webpackjs.com/guides/code-splitting/
 https://www.webpackjs.com/guides/lazy-loading/
 
 ## 3.缓存
-webpack4分包工具SplitChunksPlugin
+分包：webpack4分包工具SplitChunksPlugin
 ```
 optimization:{
     splitChunks: {

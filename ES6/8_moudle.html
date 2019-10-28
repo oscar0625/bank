@@ -13,9 +13,72 @@
 
 </body>
 <script>
-    // ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict"
+    // 一、export命令
+    // 输出变量/函数/class的写法 只有这么写否则出错 本质就是必须有名字才能匹配
+    // 写法1 推荐
+    let m = 1;
+    export { m };
+    function f() { };
+    export { f };
+    class Person { };
+    export { Person };
+    // 写法2 不推荐
+    export let m = 1;
+    export function f() { };
+    export class Person { };
 
-    // export命令
+    // 二、import命令
+    // 注意：import命令具有提升效果，会提升到整个模块的头部，首先执行。这种行为的本质是，import命令是编译阶段执行的，在代码运行之前。
+    // 1.import命令接受一个对象（用大括号表示），里面指定要从其他模块导入的变量名。
+    import { profile } from './profile';
+    // 2.import语句会执行所加载的模块，因此可以有下面的写法。
+    import 'lodash';
+    // 3.模块的整体加载
+    import * as obj from './profile';
+
+    // 从前面的例子可以看出，使用import命令的时候，用户需要知道所要加载的变量名或函数名，否则无法加载。为了给用户提供方便，就要用到export default命令，为模块指定默认输出。
+    // 三、export default命令
+    // export default命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此export default命令只能使用一次。
+    // 因为只可能唯一对应export default命令。所以，import命令后面才不用加大括号，export default命令后也不用加大括号直接跟变量
+    // 本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字。
+    // export default "变量名" 等于 export { "default" : 变量名 }
+    export default class { }
+    import MyClass from './profile';
+
+    // 四、模块的继承
+    // 1.export 与 import 的复合写法 先import再export
+    // 当前模块从 my_module 拿到 foo ,改名为 myFoo 再输出
+    export { foo as myFoo } from 'my_module';
+    // 当前模块从 my_module 拿到所有，后整体输出
+    export * from 'my_module';
+    // 2.模块之间也可以继承
+    // circleplus.js
+    export * from 'circle';
+    export default function (x) {
+        return Math.exp(x);
+    }
+    export { area as circleArea } from 'circle';
+    //上面代码中的export *，表示再输出circle模块的所有属性和方法。注意，export *命令会忽略circle模块的default方法。然后，上面代码又输出了自定义的默认方法。最后将circle的属性或方法，改名后再输出。
+
+
+    // 五、es6模块加载方案和commonjs/amd模块加载方案区别
+    // 1.CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+    //   CommonJS 和 AMD 模块，都只能在运行时确定这些东西，这种加载称为“运行时加载”。
+    //   ES6 可以在编译时就完成模块加载，这种加载称为“编译时加载”或者静态加载，效率要比 CommonJS 模块的加载方式高。
+    // 2.CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+    //   CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
+    //   ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
+    // 3.循环引用（待续）
+
+    // 六、import()
+    // import和export命令只能在模块的顶层，不能在代码块之中（比如，在if代码块之中，或在函数之中）。因为import命令是编译时加载，这时不会去分析或执行if语句，所以import语句放在if代码块之中毫无意义，因此会报句法错误，而不是执行时错误。
+    // 因此，有一个提案，建议引入import()函数，完成动态加载。 import()返回一个 Promise 对象。
+    // 使用场景：
+    //          按需加载
+    //          条件加载
+    //          动态的模块路径
+
+
 </script>
 
 </html>
