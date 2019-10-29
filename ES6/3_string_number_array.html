@@ -31,8 +31,7 @@
     //  其他方法    Number.isFinite() Number.isNaN() Number.parseInt() Number.parseFloat() 替代以前的方法减少全局变量
 
     // Array
-    //  Array.from()  可以将各种值转为真正的数组，并且还提供map功能。
-    //  适用范围如 类似数组的对象(有length属性) nodeList对象 arguments对象 部署了Iterator接口的数据结构
+    //  Array.from() 可以将具备Iterator接口的数据结构（类数组，set/Map,字符串）转为真正的数组，并且还提供map功能。
     function typesOf() {
         return Array.from(arguments, value => typeof value)
     }

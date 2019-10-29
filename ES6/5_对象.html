@@ -36,7 +36,7 @@
     //  注意，属性名表达式与简洁表示法，不能同时使用，会报错。
 
     // 三 其他方法
-    // Object.is();
+    // Object.is();                 //用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。
     // Object.assign();
     // Object.getPrototypeOf();
     // Object.setPrototypeOf();    //更改对象的 [[Prototype]]在各个浏览器和 JavaScript 引擎上都是一个很慢的操作
@@ -48,7 +48,7 @@
     // （2）Object.keys(obj) Object.keys返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。
     // （3）Object.getOwnPropertyNames(obj) Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
     // （4）Object.getOwnPropertySymbols(obj) Object.getOwnPropertySymbols返回一个数组，包含对象自身的所有 Symbol 属性的键名。
-    // （5）Reflect.ownKeys(obj) Reflect.ownKeys返回一个数组，包含对象自身的所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。（待续）
+    // （5）Reflect.ownKeys(obj) Reflect.ownKeys返回一个数组，包含对象自身的所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。
     // （6）Reflect.enumerate(obj) Reflect.enumerate返回一个Interator对象 与for in相同 循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）
     //      以上的 6 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。
     //          首先遍历所有数值键，按照数值升序排列。
