@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
 </head>
 <button>start</button>
 <button>end</button>
+
 <body>
 </body>
 <script>
-    /*
-     *
-     *
-     *  Worker
-     *  线程对象，可以执行一个js文件在后台默默的运行，且不会阻塞页面！
-     *  一般用于大量的计算等比较消耗性能的代码。
-     *
-     *
-     * */
-    var start=document.querySelectorAll('button')[0];
-    var end=document.querySelectorAll('button')[1];
-    var obj;
-    start.onclick= function () {
-        obj=new Worker('worker.js');
+    //    Worker
+    //   一般用于大量的计算等比较消耗性能的代码。
+    //    无法读取主线程所在网页的 DOM 对象，也无法使用document、window、parent这些对象。但是，Worker 线程可以navigator对象和location对象。
+    //    Worker 线程不能执行alert()方法和confirm()方法，但可以使用 XMLHttpRequest 对象发出 AJAX 请求。
+
+    var start = document.querySelectorAll('button')[0];
+    var end = document.querySelectorAll('button')[1];
+    var worker;
+    start.onclick = function () {
+        worker = new Worker('worker.js');
+        //发送消息
+        worker.postMessage(0);
         //添加监听事件
-        obj.onmessage= function (e) {
+        worker.onmessage = function (e) {
             console.log(e.data);
         };
         //添加异常事件
-        obj.onerror= function (e) {
+        worker.onerror = function (e) {
             console.log(e)
         }
     };
     //停止worker
-    end.onclick= function () {
-        obj.terminate();
+    end.onclick = function () {
+        worker.terminate();
     };
-
-
 </script>
+
 </html>
