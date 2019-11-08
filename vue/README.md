@@ -9,6 +9,18 @@ https://cli.vuejs.org/zh/guide/
 ```
 npm install -g @vue/cli
 vue create my-project
+选择配置
+->Manually select features
+->Babel, Router, Vuex, CSS Pre-processors, Linter, Unit, E2E
+->yes
+->Less
+->ESLint + Prettier
+->Lint on save
+->Jest
+->Cypress
+->In dedicated config files
+->yes  // 是否记录一下以便下次继续使用这套配置
+->commonConfig //通用配置 下次可以直接使用不用再重复上述步骤
 ```
 3.0之前的老版本
 ```

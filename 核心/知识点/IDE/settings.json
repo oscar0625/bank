@@ -1,0 +1,114 @@
+{
+    //主题配置
+    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorCustomizations": {
+        "editor.wordHighlightStrongBackground": "#DCE2F1",
+        "editor.hoverHighlightBackground": "#ECAD9E",
+        "editor.lineHighlightBackground": "#D6D5B7",
+        "editor.background": "#cce8cf",
+    },
+    //默认浏览器配置
+    "open-in-browser.default": "Chrome",
+    //editor配置
+    // 控制是否在键入时自动显示建议。
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    //不显示小图配置
+    "editor.minimap.enabled": false,
+    "editor.wordWrap": "on",
+    "editor.fontSize": 18,
+    // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
+    "files.associations": {
+        "*.vue": "vue",
+        "*.wxss": "css",
+        "*.cjson": "jsonc",
+        "*.wxs": "javascript"
+    },
+    "files.autoSave": "off",
+    //Bracket Pair Colorizer括号颜色配置
+    "bracketPairColorizer.consecutivePairColors": [
+        "()",
+        "[]",
+        "{}",
+        [
+            "Orchid",
+            "green",
+            "red"
+        ],
+        "Red"
+    ],
+    // 配置emmet
+    // 启用tab展开缩写
+    "emmet.triggerExpansionOnTab": true,
+    // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
+    "emmet.syntaxProfiles": {
+        "vue-html": "html",
+        "vue": "html"
+    },
+    "emmet.includeLanguages": {
+        "vue-html": "html",
+        "vue": "html",
+        "aspx": "html",
+        "wxml": "html"
+    },
+    // eslint 配置
+    // eslint配置文件
+    //每次保存的时候将代码按eslint格式进行修复
+    "eslint.autoFixOnSave": true,
+    //每次保存的时候自动格式化 
+    "editor.formatOnSave": true,
+    // eslint能够识别的文件后缀类型
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "html",
+        "vue-html",
+        {
+            "language": "vue",
+            "autoFix": true
+        },
+        "typescript",
+        "typescriptreact"
+    ],
+    //vetur
+    //html格式化依赖
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    //函数前加空格
+    // "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    //没有下边这个 上边不生效
+    // "vetur.format.defaultFormatter.js": "vscode-typescript",
+    //去双引号和分号可以用一下 需要将上面设置为prettier
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "semi": true,
+            "singleQuote": false
+        }
+    },
+    //easyLess配置
+    "less.compile": {
+        "sourceMap": true, // true => generate source maps (.css.map files)
+        "compress": true, // true => remove surplus whitespace
+        "out": "..\\css\\" // 将css输出重定向到特定文件夹 与当前文件夹less平级的css中
+    },
+    //LiveServer
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.port": 8008,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "liveServer.settings.donotVerifyTags": true,
+    //Settings Sync
+    "sync.gist": "ca73ace3c38c00082effdb0151bdebbf",
+    "sync.autoUpload": true,
+    "sync.autoDownload": true,
+    //解决内存爆满
+    "search.followSymlinks": false,
+    "search.location": "sidebar",
+    //搜索排除某个文件
+    "search.exclude": {
+        "**/obj": true
+    },
+    //其他
+    "workbench.iconTheme": "material-icon-theme"
+}
