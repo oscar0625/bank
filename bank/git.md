@@ -96,7 +96,6 @@ http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html
 ```
     $ git config --global user.name "oscar0625"
     $ git config --global user.email "749301111@qq.com"
-    注意:我的github 密码 qiangqiang0625
 ```
 ## 1.利用 SSH 完成 Git 与 GitHub 的绑定
 ```
