@@ -2,98 +2,99 @@
 <html lang="en">
 
 <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 
 <body>
 
 </body>
 <script>
-      // 1.快捷键
-      // Ctrl+P 
-      // F1/Ctrl+Shift+P   输入join lines,确认执行就可以合并多行了。
-      // F12  移动到当前变量定义处   Alt+F12 只看一眼而不跳转过去    Shift+F12 查看当前变量的所有引用
-      // F2                               修改当前变量名 全部修改
-      // Ctrl+F                           查找 
-      // Ctrl+H                           查找替换
-      // Ctrl+Shift+F                     整个文件夹中查找 
-      // Alt+Up 或 Alt+Down               上下移动一行
-      // Shift+Alt+Up 或 Shift+Alt+Down   向上向下复制一行
-      // Ctrl+Alt+Down/Up                 多行编辑
-      // Ctrl+U                           回退一个光标
-      // Ctrl+Shift+N                     打开一个新窗口
-      // Ctrl+G                           跳转到行数
-      // Ctrl+Enter                       在当前行下边插入一行 
-      // Ctrl+Shift+Enter                 在当前行上方插入一行
+    // 1.快捷键
+    // Ctrl+P 
+    // F1/Ctrl+Shift+P   输入join lines,确认执行就可以合并多行了。
+    // F12  移动到当前变量定义处   Alt+F12 只看一眼而不跳转过去    Shift+F12 查看当前变量的所有引用
+    // F2                               修改当前变量名 全部修改
+    // Ctrl+F                           查找 
+    // Ctrl+H                           查找替换
+    // Ctrl+Shift+F                     整个文件夹中查找 
+    // Alt+Up 或 Alt+Down               上下移动一行
+    // Shift+Alt+Up 或 Shift+Alt+Down   向上向下复制一行
+    // Ctrl+Alt+Down/Up                 多行编辑
+    // Ctrl+U                           回退一个光标
+    // Ctrl+Shift+N                     打开一个新窗口
+    // Ctrl+G                           跳转到行数
+    // Ctrl+Enter                       在当前行下边插入一行 
+    // Ctrl+Shift+Enter                 在当前行上方插入一行
 
-      // 2.插件 https://segmentfault.com/a/1190000006697219
-      // view
-      //       Chinese (Simplified) Language Pack for Visual Studio Code 
-      //       Material Icon Theme
-      //       Bracket Pair Colorizer
-      // html+css
-      //       HTMLHint       html检测
-      //       stylelint      css检测
-      //       IntelliSense for CSS class names in HTML 在html导入css名字
-      //       Easy Less      在保存时自动编译LESS到CSS
-      //       Autoprefixer
-      //       HTML CSS Support 
-      //       aspx-html      在 ASPX 文件中提供语法高亮、括号匹配和代码片段功能
-      // js    
-      //       JavaScript (ES6) code snippets
-      //       ESlint
-      // jq
-      //       jQuery Code Snippets 
-      // vue   
-      //       vetur
-      //       vue 2 Snippets
-      //       Vue Peek             组件提示
-      //       Element UI Snippets
-      // svn
-      //       svn
-      // npm
-      //       Npm   
-      //       Npm Intellisense
+    // 2.插件 https://segmentfault.com/a/1190000006697219
+    // view
+    //       Chinese (Simplified) Language Pack for Visual Studio Code 
+    //       Material Icon Theme
+    //       Bracket Pair Colorizer
+    //       Beautify
+    // html+css
+    //       HTMLHint       html检测
+    //       stylelint      css检测
+    //       IntelliSense for CSS class names in HTML 在html导入css名字
+    //       Easy Less      在保存时自动编译LESS到CSS
+    //       Autoprefixer
+    //       HTML CSS Support 
+    //       aspx-html      在 ASPX 文件中提供语法高亮、括号匹配和代码片段功能
+    // js    
+    //       JavaScript (ES6) code snippets
+    //       ESlint
+    // jq
+    //       jQuery Code Snippets 
+    // vue   
+    //       vetur
+    //       vue 2 Snippets
+    //       Vue Peek             组件提示
+    //       Element UI Snippets
+    // svn
+    //       svn
+    // npm
+    //       Npm   
+    //       Npm Intellisense
 
-      // other
-      //       Path Intellisense     
-      //       Markdown All in One        .md
+    // other
+    //       Path Intellisense     
+    //       Markdown All in One        .md
 
-      //       Settings Sync     同步多个电脑的svn设置
-      //       filesize          状态栏中显示焦点文件的大小。
-      //       vscode-fileheader 添加注释到文件头，并支持自动更新文件修改时间。
-      //       Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
-      // 小程序
-      //       minapp
-      // debug
-      //       open in browser
-      //       Live Server       自动刷新   
+    //       Settings Sync     同步多个电脑的svn设置
+    //       filesize          状态栏中显示焦点文件的大小。
+    //       vscode-fileheader 添加注释到文件头，并支持自动更新文件修改时间。
+    //       Import Cost      引入包大小计算,对于项目打包后体积掌握很有帮助
+    // 小程序
+    //       minapp
+    // debug
+    //       open in browser
+    //       Live Server       自动刷新   
 
-      //       Debugger for Chrome     
-      //             launch.json->   
-      //             "configurations": [
-      //                   {
-      //                         "type": "chrome",
-      //                         "request": "launch",
-      //                         "name": "Launch Google Chrome",
-      //                         "url": "http://localhost:8080",         //路径
-      //                         "webRoot": "${workspaceFolder}",
-      //                         "userDataDir": false,                   //等价于  "runtimeExecutable":"C:/Users/oscar/AppData/Local/Google/Chrome/Application/chrome.exe"
-      //                   },
-      //                   {
-      //                         "type": "node",
-      //                         "request": "launch",
-      //                         "name": "Launch NodeJS Program",
-      //                         "program": "${workspaceFolder}/app.js"   //要启动的文件
-      //                   },
-      //             ]     
+    //       Debugger for Chrome     
+    //             launch.json->   
+    //             "configurations": [
+    //                   {
+    //                         "type": "chrome",
+    //                         "request": "launch",
+    //                         "name": "Launch Google Chrome",
+    //                         "url": "http://localhost:8080",         //路径
+    //                         "webRoot": "${workspaceFolder}",
+    //                         "userDataDir": false,                   //等价于  "runtimeExecutable":"C:/Users/oscar/AppData/Local/Google/Chrome/Application/chrome.exe"
+    //                   },
+    //                   {
+    //                         "type": "node",
+    //                         "request": "launch",
+    //                         "name": "Launch NodeJS Program",
+    //                         "program": "${workspaceFolder}/app.js"   //要启动的文件
+    //                   },
+    //             ]     
 
-      //插件路径  C:\Users\oscar\.vscode\extensions   如果换电脑了，把插件全部copy走。把extensions文件夹拷走就行。
+    //插件路径  C:\Users\oscar\.vscode\extensions   如果换电脑了，把插件全部copy走。把extensions文件夹拷走就行。
 
-      // 3.配置  https://blog.csdn.net/win7583362/article/details/79315055/
+    // 3.配置  https://blog.csdn.net/win7583362/article/details/79315055/
 </script>
 
 </html>
