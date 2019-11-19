@@ -1,17 +1,16 @@
 # 一、开始
-## 1.安装
+## 1. 安装
 ```
 npm init -y
 npm install --save-dev webpack webpack-cli webpack-dev-server webpack-merge
 ```
-## 2.package.json
+## 2. package.json
 ```
 "scripts": {
     "start": "webpack-dev-server --open --config build/webpack.dev.js",
     "build": "webpack --config build/webpack.prod.js"
 }
 ```
-
 
 # 二、webpack.config配置
 更多配置教程：https://www.webpackjs.com/configuration/
@@ -88,7 +87,7 @@ const config = {
     }
 };
 ```
-## 4.插件(plugins)
+## 4. 插件(plugins)
 插件目的在于解决 loader 无法实现的其他事。
 插件列表：https://www.webpackjs.com/plugins/
 
@@ -115,6 +114,12 @@ const config = {
     mode: "production"  
 };
 ```
+### 6.1 process.env.NODE_ENV
+```
+process 是webpack的一个全局变量 
+mode: development --> process.env.NODE_ENV = development
+mode: production --> process.env.NODE_ENV = production
+```
 ## 7. devtool
 此选项控制是否生成，以及如何生成 source map。
 ```
@@ -128,6 +133,7 @@ const config = {
     devtool: 'inline-source-map',
 };
 ```
+
 # 三、其他
 ## 1. 代码分离
 https://www.webpackjs.com/guides/code-splitting/
@@ -136,10 +142,11 @@ https://www.webpackjs.com/guides/code-splitting/
 2.防止重复：使用 CommonsChunkPlugin 去重和分离 chunk。 ExtractTextPlugin: 用于将 CSS 从主应用程序中分离。
 3.动态导入：通过模块的内联函数调用来分离代码。
 ```
-## 2.懒加载
+## 2. 懒加载
+```
 https://www.webpackjs.com/guides/lazy-loading/
-
-## 3.缓存
+```
+## 3. 缓存
 分包：webpack4分包工具SplitChunksPlugin
 ```
 optimization:{
@@ -161,5 +168,6 @@ optimization:{
     }
 }
 ```
+
 # 四、API
 https://www.webpackjs.com/api/

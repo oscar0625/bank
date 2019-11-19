@@ -172,6 +172,7 @@ v-model为可输入元素创建双向数据绑定，它会根据元素类型自�
 ```
     v-model.lazy=""  在默认情况下，v-model在 input 事件中同步输入框的值与数据 添加一个修饰符 lazy ，从而转变为在 change 事件中同步
     v-model.trim=""  过滤首尾空格
+    v-model.number   限制为number类型
 ```
 
 ## 5.条件渲染和列表渲染
@@ -662,6 +663,9 @@ ref 被用来给元素或子组件注册引用信息。引用信息将会注册�
     如果只提供了事件，则移除该事件所有的监听器；
     如果同时提供了事件与回调，则只移除这个回调的监听器
 ```
+
+## 5.axios
+https://www.cnblogs.com/ginkgo-leaves/p/11477373.html
 
 # 七、注意点
 

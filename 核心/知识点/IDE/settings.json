@@ -26,7 +26,7 @@
     "editor.wordWrap": "on",
     "editor.fontSize": 18,
     //每次保存的时候自动格式化 
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
     "files.associations": {
         "*.vue": "vue",
