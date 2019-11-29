@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>useWay</title>
+</head>
+<body>
+
+<form action="" id="formTarget">
+    <input type="text" name="Position"/>
+    <input type="file"  id="myFile" >
+    <input type="text" name="Company" value="" />
+    <input type="text" name="Address" value="" />
+    <input type="text" name="JoinYear" value="" />
+    <input type="text" name="JoinMonth" value="" />
+    <input type="text" name="LeaveYear" value="" />
+    <input type="text" name="LeaveMonth" value="" />
+    <input type="text" name="OnJob" value="" />
+    <input type="text" name="Remark" value="" />
+    <input type="file" name="Filedata">
+</form>
+<button>点击</button>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    /*ie11+*/
+    /*way1和way2可以合并使用*/
+
+    /*way1*/
+    $('button').on('click', function () {
+        //必须放在事件里面否则有缓存 有问题
+        var formData = new FormData(document.getElementById('formTarget'));
+        $.ajax({
+            url: "",
+            type: "post",
+            data: formData,      //表单序列化 input的name要和后台数据键名
+            dataType:'json',
+            contentType: false,  //false 不使用jq给加的contentType   xhr对象能识别是fromData 自动加上正确的contentType
+            processData: false,  //false 避开jQuery对 formdata 的默认处理  xhr对象能自动识别是fromData
+            success: function (res) {
+                console.log(res)
+            }
+        });
+    });
+
+    /*way2 */
+//    $('button').on('click',function () {
+//        //必须放在事件里面否则有缓存 有问题
+//        var formData = new FormData();
+//        formData.append("Position",document.getElementById("Position").value);
+//        formData.append("myFile",document.getElementById("myFile").files[0]);
+//        $.ajax({
+//            url: "",
+//            type: "POST",
+//            data: formData,
+//            dataType:'json',
+//            contentType: false,  //false 不使用jq给加的contentType   xhr对象能识别是fromData 自动加上正确的contentType
+//            processData: false,  //false 避开jQuery对 formdata 的默认处理  xhr对象能自动识别是fromData
+//            success: function (res) {
+//                console.log(res)
+//            }
+//        });
+//    })
+</script>
+</html>

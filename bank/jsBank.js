@@ -191,6 +191,36 @@ var oscarMethod = {
         }
     },
 
+    /*storage操作*/
+    storage: {
+        setLocal: function (key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        },
+        getLocal: function (key) {
+            let value = localStorage.getItem(key);
+            return JSON.parse(value);
+        },
+        setSession: function (key, value) {
+            sessionStorage.setItem(key, JSON.stringify(value));
+        },
+        getSession: function (key) {
+            let value = sessionStorage.getItem(key);
+            return JSON.parse(value);
+        },
+        clearOneLocal: function (key) {
+            localStorage.removeItem(key);
+        },
+        clearOneSession: function (key) {
+            sessionStorage.removeItem(key);
+        },
+        clearAllLocal: function () {
+            localStorage.clear();
+        },
+        clearAllSession: function () {
+            sessionStorage.clear();
+        }
+    },
+
     /*深拷贝*/
     deepClone: function () {
         if (typeof obj != 'object') {
@@ -616,6 +646,32 @@ var oscarCheck = {
         c18 = str.charAt(index);
 
         return c18 == codes[1];
+    },
+    
+    /*检验专利号*/
+    checkPatentNumber: function (str) {
+        var next2002 = str.match(/(\d{4}[12389]\d{7})\.(\d|X)/), //2002之后
+            prev2002 = str.match(/(\d{2}[12389]\d{5})\.(\d|X)/), //2002之前
+            parity = function (arr) {
+                var code = 1,
+                    parityBit,
+                    lastBit;
+                parityBit =
+                    arr[1].split("").reduce(function (acc, cur) {
+                        code++;
+                        code = code === 10 ? 2 : code;
+                        return acc + cur * code;
+                    }, 0) % 11;
+                lastBit = parityBit === 10 ? "X" : parityBit.toString();
+                return lastBit === arr[2];
+            };
+        if (next2002) {
+            return parity(next2002);
+        }
+        if (prev2002) {
+            return parity(prev2002);
+        }
+        return false;
     },
 
     /*检验正确的数字 */

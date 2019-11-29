@@ -1,10 +1,9 @@
-# 一、开始
-
+# 一、vue-cli
+https://cli.vuejs.org/zh/guide/
+https://cli.vuejs.org/zh/config/
 ## 1.安装Vue Devtools
 在谷歌商店搜索Vue.js devtools安装
-
-## 2.快速构建项目 Vue CLI脚手架
-https://cli.vuejs.org/zh/guide/
+## 2.快速构建项目
 3.0之后的新版本
 ```
 npm install -g @vue/cli
@@ -27,9 +26,39 @@ vue create my-project
 npm install -g vue-cli
 vue init webpack my-vue
 ```
+## 3.环境变量
+Vue CLI 自带的环境变量
+```
+
+    判断模式的环境变量
+    process.env.NODE_ENV 
+        development 模式用于 vue-cli-service serve
+        production 模式用于 vue-cli-service build 和 vue-cli-service test:e2e
+        test 模式用于 vue-cli-service test:unit
+    基础路径的环境变量    
+    process.env.BASE_URL
+```
+自定义环境变量
+```
+    //创建 .env文件
+    为一个特定模式准备的环境文件的 (例如 .env.production) 将会比一般的环境文件 (例如 .env) 拥有更高的优先级。
+    .env                # 在所有的环境中被载入
+    .env.[mode]         # 只在指定的模式中被载入
+
+    //编写 .env文件
+    只有以 VUE_APP_ 开头的变量会被 webpack.DefinePlugin 静态嵌入到客户端侧的包中
+    VUE_APP_SECRET=secret
+
+    //访问
+    process.env.VUE_APP_SECRET
+```
+
+## 4.其他
+```
+    构建一个多页应用    https://cli.vuejs.org/zh/config/#pages
+```
 
 # 二、vue语法
-
 ## 1.插值  
 ### 1.1 文本插值
 支持变量 表达式( 但只支持简单的单个表达式 如三目运算，同样支持Math 和 Date) 函数
@@ -44,7 +73,6 @@ vue init webpack my-vue
 ```
     <div v-html="oscar"></div> 
 ```
-
 ## 2.属性绑定
 ### 2.1 v-bind
 ```
@@ -84,7 +112,6 @@ vue init webpack my-vue
         }
     }
 ```
-
 ## 3.事件绑定
 vue封装事件的意义：
 1.无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
@@ -119,7 +146,6 @@ vue封装事件的意义：
     组合修饰符    
         <div @click.ctrl="doSomething">必须先按下ctrl 再点击才有效果</div>
 ```
-
 ## 4.双向绑定 v-model
 v-model为可输入元素创建双向数据绑定，它会根据元素类型自动选取正确的方式来更新元素。（永远是为了拿到值 好向后台传啊！！！）
 注：v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值。因为它会选择 Vue 实例数据来作为具体的值。你应该通过 JavaScript 在组件的 data 选项中声明初始值。
@@ -172,9 +198,7 @@ v-model为可输入元素创建双向数据绑定，它会根据元素类型自�
 ```
     v-model.lazy=""  在默认情况下，v-model在 input 事件中同步输入框的值与数据 添加一个修饰符 lazy ，从而转变为在 change 事件中同步
     v-model.trim=""  过滤首尾空格
-    v-model.number   限制为number类型
 ```
-
 ## 5.条件渲染和列表渲染
 ### 5.1 v-if 和 v-show
 v-if  true出现/false消失 （操作节点）
@@ -200,9 +224,7 @@ v-for 用于实现列表渲染，可以使用 item in items 或者 item of items
 在使用v-for时，最好为每个迭代元素指定key
 类似于 v-if，你也可以利用带有 v-for 的template渲染多个元素。
 
-
 # 三、vue选项
-
 ## 1.数据选项 data 
 数据选项(data)，可以接受的类型有对象和函数两种，但是定义一个组件是只能使用函数类型
 vue会递归的将data中的数据加入响应式系统，所以应将可能在实例中被观察的对象预先在data中声明
@@ -213,7 +235,6 @@ vue会递归的将data中的数据加入响应式系统，所以应将可能在�
         }
     }
 ```
-
 ## 2.属性选项 props
 props选项可以是数组或者对象类型，用于接收从父组件传递过来的参数并允许开发者为其设置默认值，类型检测和校验规则等
 ```
@@ -228,7 +249,6 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
         }
     }
 ```
-
 ## 3.方法选项 methods
 用于绑定事件的，绑定事件时调用的时候加不加()都行，加()可以传参
 注意:不应该使用箭头函数来定义method函数。理由是箭头函数绑定了父级作用域的上下文，所以 this 将不会按照期望指向 Vue 实例。
@@ -240,7 +260,6 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
         }
     }
 ```
-
 ## 4.计算属性 computed
 用于计算的，调用的时候不能加()，因为内部已经调用完。计算属性:对于任何复杂逻辑，你都应当使用计算属性
 同methods一样，不应该使用箭头函数声明。
@@ -274,7 +293,6 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
             所以在不改变的情况下只会执行一次，而且上来就会执行，不能于事件用computed，
             正是由于它的缓存，由于它只根据依赖才改变,所以当大量用此计算结果的时候，性能更好
 ```
-
 ## 5.侦听属性 watch 
 监听某个变量，在变量被修改时调用
 同methods一样，不应该使用箭头函数声明。
@@ -298,26 +316,22 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
 ```
 
 # 四、组件
-
 ## 1.组件的注册
 ```
      components:{ MyComponents }
 ```
-
 ## 2.普通组件
 注：当你写的html不符合规范的时候，像 ul、ol、table、select 这样的元素里允许包含的元素有限制(比如你在li中写入div是不规范的)，而另一些像 option 这样的元素只能出现在某些特定元素的内部。在使用上面的写法会导致渲染出错。
 ```
     <my-components></my-components > 
     <my-components />
 ```
-
 ## 3.动态组件
 让多个组件可以使用同一个挂载点，并动态切换
 ```
     //核心 is属性   v-bind:is="组件名"  就会加载那个组件
     <component v-bind:is="MyComponents"></component>
 ```
-
 ## 4.组件缓存
 ```
     //keep-alive：把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。
@@ -325,7 +339,6 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
         <component v-bind:is="MyComponents"></component>
     </keep-alive>
 ```
-
 ## 5.组件通信
 组件设计初衷就是要配合使用的，最常见的就是形成父子组件的关系：组件 A 在它的模板中使用了组件 B。它们之间必然需要相互通信
 ### 5.1父传子down  props方式
@@ -445,7 +458,7 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
     }
     子：<div class="child" >
                                 <!--核心2-->
-    <input type="text" v-bind:value="value" v-on:input="updateValue($event.target.value)" />
+    <input type="text" v-bind:value="value" v-on:input="updateValue" />
     </div>
     export default {
     props: ['value'],
@@ -476,7 +489,7 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
     }
     子:<div class="child" >
         <!--核心2-->
-        <input  type="checkbox" :checked="checked" @change="updateValue($event.target.checked)" :value="value"/>
+        <input  type="checkbox" :checked="checked" @change="updateValue" :value="value"/>
     </div>
     export default {
     model: {
@@ -499,7 +512,6 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
 ```
 ### 5.5非父子组件的通信
 vuex
-
 ## 6.插槽 slot
 使用插槽分发内容 作用：父向子传递内容,内容可也是变量也可以是组件
 ### 6.1父单个插槽  父里面只有一个元素
@@ -521,32 +533,10 @@ vuex
     <slot name="footer"></slot>
 ```
 
-# 五、路由
-vue-router
-## 1.路由的跳转和显示
-```
-    //router-link和router-view是vue-router提供的两个内置组件
-
-    //负责挂载路由匹配到的视图组件
-    <router-view></router-view>
-
-    //相当于a标签，to是url
-    <router-link to="/">基础路由</router-link>
-    <router-link v-bind:to="'/info/'+num">动态路由</router-link>
-
-    <router-link to="/home/me">嵌套路由</router-link>
-    <router-link to="/home/he">嵌套路由</router-link>
-```
-js跳转路由
-```
-    <a @click="redirectByPath('/info/'+num)">js跳转路由</a>
-    methods: {
-        redirectByPath (path) {
-            this.$router.push({ path })
-        }
-    }
-```
-## 2.路由匹配规则的定义
+# 五、路由 vue-router
+$route:路由信息对象，只读对象 如获取路由参时：vm.$route.params vm.$route.query
+$router:路由操作对象 ，只写对象 如跳转路由时： this.$router.push()
+## 1.路由匹配规则的定义
 ```
     export default new Router({
         routes: [
@@ -564,30 +554,178 @@ js跳转路由
             },
             //嵌套路由
             {
-                path: '/home/',
+                path: '/home',
                 name: 'home',
                 component: home,
                 children:[
                     {
+                        path: '',           //会被当作根路径。
+                        name: 'root',
+                        component: root,
+                        alias: "/root"      //“别名”的功能让你可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。 
+                    }, 
+                    {
                         path: 'me',
                         name: 'me',
-                        component: me
+                        component: me,
+                        alias: "/me"       
                     }, 
                     {
                         path: 'he/:id',
                         name: 'he',
-                        component: he
+                        component: he,
+                        alias: "/he"       
                     }
                 ]
             },
+            // 404路由 会匹配所有路径
+            {
+                path: "*",
+                redirect: "/404"
+            },
+            {
+                path: "/404",
+                component: NotFound
+            }
         ]
     })
 ```
-## 3.路由参数的获取
-vm.$route.params
+## 2.路由的导航
+html
+```
+    //路径方式 to是字符串
+    <router-link to="/">基础路由</router-link>
+    <router-link :to="'/info/'+num">动态路由</router-link>
+    <router-link to="/home/me">嵌套路由</router-link>
+    <router-link to="/home/he">嵌套路由</router-link>
+
+    //命名方式 to是对象
+    <router-link :to="{ name: 'register', params: { name: 'oscar' } }">命名方式</router-link>
+```
+js
+```
+    //路径方式 注意：路径方式时 参数在path里面写入
+    <a @click="redirectByPath('/info/oscar', { plan: 'private' })">路径方式</a>
+
+    //命名方式
+    <a @click="redirectByName('register', { name: 'oscar' }, { plan: 'private' })">命名方式</a>
+
+    methods: {
+        redirectByPath(path, query) {
+            this.$router.push({ path, query });
+        },
+        redirectByName(name, params, query) {
+            this.$router.push({ name, params, query });
+        }
+    }
+```
+## 3.路由的视图
+```
+    <router-view></router-view>
+```
+多视图
+```
+    <router-view class="view one"></router-view>
+    <router-view class="view two" name="a"></router-view>
+    <router-view class="view three" name="b"></router-view>
+
+    const router = new VueRouter({
+        routes: [
+            {
+            path: '/',
+            components: {
+                default: Foo,
+                a: Bar,
+                b: Baz
+            }
+            }
+        ]
+    })
+```
+## 4.路由的重定向
+``` 
+    const router = new VueRouter({
+        routes: [
+            { path: '/a', redirect: '/b' },
+            { path: '/a', redirect: { name: 'foo' }},
+            { path: '/a', redirect: to => {
+                // 方法接收 目标路由 作为参数
+                // return 重定向的 字符串路径/路径对象
+            }}
+        ]
+    })
+```
+## 5.History 模式
+待续
+## 6.导航守卫
+全局前置守卫
+```
+    const router = new VueRouter({ ... })
+    router.beforeEach((to, from, next) => {
+        console.log(to, from);
+        next();
+    })
+```
+路由独享的守卫
+```
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/foo',
+                component: Foo,
+                beforeEnter: (to, from, next) => {
+                    // 这些守卫与全局前置守卫的方法参数是一样的。
+                }
+            }
+        ]
+    })
+```
+组件内的守卫
+```
+    const Foo = {
+        beforeRouteEnter (to, from, next) {
+            // 这些守卫与全局前置守卫的方法参数是一样的。
+            // 在渲染该组件的对应路由被 confirm 前调用
+            // 不！能！获取组件实例 `this`
+            // 因为当守卫执行前，组件实例还没被创建
+        },
+        beforeRouteUpdate (to, from, next) {
+            // 这些守卫与全局前置守卫的方法参数是一样的。
+            // 在当前路由改变，但是该组件被复用时调用
+            // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+            // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。不会触发生命周期，而这个钩子就会在这个情况下被调用。
+            // 可以访问组件实例 `this`
+        }
+    }
+```
+## 7.其他
+### 7.1 数据获取方式 
+```
+    https://router.vuejs.org/zh/guide/advanced/data-fetching.html
+    解决详情页面id切换不触发路由参数切换的bug
+```
+### 7.2 滚动行为
+```
+    //就会像浏览器的原生表现那样
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
+```
+## 8.路由懒加载
+```
+    const Foo = () => import('./Foo.vue');
+    const router = new VueRouter({
+        routes: [
+            { path: '/foo', component: Foo }
+        ]
+    })
+```
 
 # 六、其他
-
 ## 1.过滤器
 Vue.filter( id, [definition] )
 ```
@@ -607,7 +745,6 @@ Vue.filter( id, [definition] )
     <div>{{ message | myFilter }}</div>
     <div v-bind:id="message | myFilter"></div>
 ```
-
 ## 2.混入
 当组件和混入对象（myMixin）含有同名选项时，这些选项将以恰当的方式进行“合并”。
 数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先。
@@ -617,7 +754,6 @@ Vue.filter( id, [definition] )
     mixins: [myMixin]
 ```
 混入也可以进行全局注册。使用时格外小心！
-
 ## 3.ref
 ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
 ```
@@ -640,7 +776,6 @@ ref 被用来给元素或子组件注册引用信息。引用信息将会注册�
         }
     }    
 ```  
-
 ## 4.自定义事件
 ```
     //事件的定义
@@ -663,12 +798,10 @@ ref 被用来给元素或子组件注册引用信息。引用信息将会注册�
     如果只提供了事件，则移除该事件所有的监听器；
     如果同时提供了事件与回调，则只移除这个回调的监听器
 ```
-
 ## 5.axios
-https://www.cnblogs.com/ginkgo-leaves/p/11477373.html
+见 axios.js
 
 # 七、注意点
-
 ## 1.响应式系统检测数据改变后更新
 ```
     //数组
@@ -695,7 +828,6 @@ https://www.cnblogs.com/ginkgo-leaves/p/11477373.html
         但如果你同时又把这个对象的一个键值对进行了修改，vue是可以检测到修改的，所以vue要更新，这个时候的更新，会把你新添加的那个键值对也展现出来
         this.$forceUpdate();//强制重新绘制 
 ```
-
 ## 2.v-for与v-if的优先级
 当它们处于同一节点，v-for 的优先级比 v-if 更高. 这意味着 v-if 将分别重复运行于每个 v-for 循环中。 当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用:
 ```
@@ -711,7 +843,6 @@ https://www.cnblogs.com/ginkgo-leaves/p/11477373.html
         </li>
     </ul>
 ```
-
 ## 3.key
 Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。这么做除了使 Vue 变得非常快之外，还有其它一些好处。
 ```
@@ -739,15 +870,10 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
 ```
 
 # 八、待续
-
 ## 自定义指令
 https://cn.vuejs.org/v2/guide/custom-directive.html
-
 ## 过渡效果
 https://cn.vuejs.org/v2/guide/transitions.html
- 
 ## 状态管理
-
 ## 服务端渲染
-
 ## 生命周期

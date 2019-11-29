@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>同时上传多个文件</title>
+</head>
+
+<body>
+    <form>
+        <input type="file" id="myFile" multiple>
+    </form>
+    <button>点击</button>
+</body>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var fileList;
+    $('#myFile').on("change", function () {
+        fileList = [];
+        for (var i = 0; i < this.files.length; i++) {
+            fileList.push(this.files[i]);
+        }
+    })
+    $('button').on('click', function () {
+        var formData = new FormData();
+        //循环添加到formData中
+        fileList.map(function (file) {
+            formData.append('file', file, file.name);
+        })
+        $.ajax({
+            url: "http://47.94.205.149:8335/api/company/addcrangefromtyc",
+            headers: {
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjYzNzMxMGM1LTc4YWUtNGUyMS04NTI2LTBiOTg0YzI2MWIyMyIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNTc0NzQ2NzI5LCJleHAiOjE1NzQ4MzMxMjksImlhdCI6MTU3NDc0NjcyOSwiaXNzIjoiRGVtb0lzc3VlciIsImF1ZCI6IkRlbW9BdWRpZW5jZSJ9.PkmN0s8O83mDu8eEvymjL7S31GE5AHGMy2VOWAL09e4"
+            },
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            contentType: false, //false 不使用jq给加的contentType   xhr对象能识别是fromData 自动加上正确的contentType
+            processData: false, //false 避开jQuery对 formdata 的默认处理  xhr对象能自动识别是fromData
+            success: function (res) {
+                console.log(res)
+            }
+        });
+    })
+</script>
+
+</html>

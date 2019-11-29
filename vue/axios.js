@@ -36,7 +36,8 @@ const instance = axios.create({
 });
 
 //设置Content-Type 默认情况下，axios将JavaScript对象序列化为JSON。
-instance.defaults.headers.post["Content-Type"] = "application/json";
+instance.defaults.headers.post["Content-Type"] =
+  "application/json;charset=UTF-8";
 
 // 请求拦截器
 instance.interceptors.request.use(
@@ -50,7 +51,8 @@ instance.interceptors.request.use(
     return config;
   },
   error => {
-    return Promise.reject(error); // for debug
+    console.log("request_error"); // for debug
+    return Promise.reject(error); 
   }
 );
 
@@ -61,31 +63,29 @@ instance.interceptors.response.use(
       // 对响应数据做点什么
       return response.data;
     } else {
-      return Promise.reject(response); // for debug
+      console.log("response_error_not_200"); // for debug
+      return Promise.reject(response); 
     }
   },
   error => {
-    const { response } = error;
+    const { response, message } = error;
     if (response) {
-      // 状态码判断
+      // 有response 状态码判断
       switch (response.status) {
         case 401:
-          tip("未登录，请登录");
-          break;
-        case 403:
-          tip("登录过期，请重新登录");
+          tip("未登录，请先登录");
           break;
         case 404:
           tip("请求的资源不存在");
           break;
         default:
-          tip(`状态码：${response.status}，状态信息：${response.statusText}`);
+          tip(message);
       }
-      return Promise.reject(response);
     } else {
-      tip("网络出错！！！");
-      return Promise.reject(error);
+      //没有response 超时等情况
+      tip(message);
     }
+    return Promise.reject(error);
   }
 );
 

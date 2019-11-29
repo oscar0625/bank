@@ -185,7 +185,7 @@
         };
     }
 
-    //Array.every() ie9+  测试数组的所有元素是否都通过了指定函数的测试 只要有一个不满足就跳出循环 返回false  如果全对 返回true
+    //Array.every() ie9+  测试数组的所有元素是否都通过了指定函数的测试 只要有一个不满足就跳出循环 如果全对 返回true 否则false
     if (!Array.prototype.every) {
         Array.prototype.every = function (fun /*, thisArg */ ) {
             'use strict';
@@ -208,7 +208,7 @@
         };
     }
 
-    //Array.some()  ie9+ 测试数组中的某些元素是否通过了指定函数的测试 只要有一个满足就跳出循环 返回true 如果全错返回false 
+    //Array.some()  ie9+ 测试数组中的某些元素是否通过了指定函数的测试 只要有一个满足就跳出循环 如果有一个对 返回true 否则false
     if (!Array.prototype.some) {
         Array.prototype.some = function (fun /*, thisArg*/ ) {
             'use strict';
