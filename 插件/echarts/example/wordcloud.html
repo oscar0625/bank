@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <style>
+        #container {
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script src="../script/echarts-wordcloud.min.js"></script>
+<script type="text/javascript">
+    //https://github.com/ecomfe/echarts-wordcloud
+    var preloadImg = function (url, callback) {
+            var img = new Image();
+            img.src = url;
+            if (img.complete) {
+                callback(img);
+            } else {
+                img.onload = function () {
+                    callback(img);
+                    img.onload = null;
+                };
+            }
+        },
+        createData = function () {
+            var presents = ['圣诞树', '贺卡', '圣诞礼盒', '围巾', '袜子', '苹果', '手链', '巧克力', '玫瑰', '香水', '乐高', '芭比', '项链',
+                    '抱枕', '变形金刚', '摆件', '魔方', '文具', '棒棒糖', '蓝牙耳帽', '超级飞侠', '暖手宝', '夜灯', '堆袜', '耳钉', '公仔', '手机壳',
+                    '八音盒', '剃须刀', '打火机', '手表', '巴克球', '模型', '音响', '蒙奇奇', '保温杯', '公仔', '手机壳', '八音盒', '剃须刀', '打火机',
+                    '手表', '巴克球', '模型', '音响', '蒙奇奇', '保温杯', '圣诞树', '贺卡', '圣诞礼盒', '围巾', '袜子', '苹果', '手链', '巧克力',
+                    '玫瑰', '香水', '乐高', '芭比', '项链', '抱枕', '变形金刚', '摆件', '魔方', '文具', '棒棒糖', '蓝牙耳帽', '超级飞侠', '暖手宝',
+                    '夜灯', '堆袜', '耳钉', '公仔', '手机壳', '八音盒', '剃须刀', '打火机', '手表', '巴克球', '模型', '音响', '蒙奇奇', '保温杯',
+                    '公仔', '手机壳', '八音盒', '剃须刀', '打火机', '手表', '巴克球', '模型', '音响', '蒙奇奇', '保温杯'
+                ],
+                data = [];
+            for (var i = 0; i < presents.length; ++i) {
+                data.push({
+                    name: presents[i],
+                    value: (presents.length - i) * 2
+                });
+            }
+            for (var i = 10; i < presents.length; ++i) {
+                var cnt = Math.floor(Math.random() * 10);
+                for (var j = 0; j < cnt; ++j) {
+                    data.push({
+                        name: presents[i],
+                        value: Math.random() * 100
+                    });
+                }
+            }
+            return data
+        };
+    preloadImg("../img/wordCloud.jpg", function (maskImage) {
+        var dom = document.getElementById("container"),
+            myChart = echarts.init(dom),
+            option = {
+                tooltip: {
+                    show: false
+                },
+                series: [{
+                    type: 'wordCloud',
+
+                    //将白色区域从绘图文本中排除的剪影图像。“形状”选项将随着云形状的增长而继续应用。
+                    //图片类型 shape将失效
+                    maskImage: maskImage,
+
+                    //形状 默认 circle  还有 diamond cardioid triangle triangle-forward triangle
+                    // shape: 'circle',
+
+                    left: 'center',
+                    top: 'center',
+                    width: '70%',
+                    height: '80%',
+
+                    //网格在像素中的大小，以标记网格的可用性 网格尺寸大，字之间的差距大。
+                    gridSize: 1,
+                    //数据中的值将映射到的文本大小范围。默认为具有最小12px和最大60px大小。如果设置太大会出现少词（溢出屏幕）
+                    sizeRange: [6, 20],
+                    //设置为true以允许部分在画布外部绘制单词。
+                    drawOutOfBound: false,
+                    //文本旋转范围和步进度。文本将在[-90，90]范围内随机旋转，旋转步骤45
+                    rotationRange: [-90, 90],
+                    rotationStep: 45,
+
+                    textStyle: {
+                        normal: {
+                            fontFamily: 'Microsoft YaHei',
+                            color: function (v) {
+                                var index = v.dataIndex % 5,
+                                    arr = [
+                                        "#02ebfa",
+                                        "#03df4b",
+                                        "#f9fc02",
+                                        "#fc8f02",
+                                        "#02a1fc",
+                                    ]
+                                return arr[index]
+                            }
+                        },
+                    },
+                    data: createData()
+                }]
+            };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        };
+    })
+</script>
+
+</html>

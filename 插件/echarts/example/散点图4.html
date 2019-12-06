@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <style>
+        #container {
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    // var data = [
+    //     ['海洋', '大型', 17096869, 'Australia'],
+    //     ['太空', '大型', 27662440, 'Canada'],
+    //     ['生物与医药', '大型', 1154605773, 'China'],
+    //     ['新能源', '大型', 10582082, 'Cuba'],
+    //     ['制造业', '大型', 4986705, 'Finland'],
+    //     ['网络空间', '大型', 56943299, 'France'],
+    //     ['人工智能', '大型', 78958237, 'Germany'],
+    //     ['海洋', '中型', 17096869, 'Australia'],
+    //     ['太空', '中型', 27662440, 'Canada'],
+    //     ['生物与医药', '中型', 1154605773, 'China'],
+    //     ['新能源', '中型', 10582082, 'Cuba'],
+    //     ['制造业', '中型', 4986705, 'Finland'],
+    //     ['网络空间', '中型', 56943299, 'France'],
+    //     ['人工智能', '中型', 78958237, 'Germany'],
+    // ];
+    function random(min, max) { //限制 max-min值为整数
+        if (arguments.length < 2) {
+            max = min;
+            min = 0;
+        }
+        if (min > max) {
+            var hold = max;
+            max = min;
+            min = hold;
+        }
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var xAxis = [
+        "海洋",
+        "太空",
+        "生物与医药",
+        "新能源",
+        "制造业",
+        "网络空间",
+        "人工智能"
+    ];
+    var yAxis = [
+        "大型",
+        "中型",
+        "小型",
+        "微型"
+    ];
+    var data=[];
+    yAxis.map(function (y) {
+        xAxis.map(function (x) {
+            data.push([x,y,random(1, 20)])
+        })
+    })
+    console.log(data);
+
+    option = {
+        backgroundColor: '#404a59', //整体背景
+        textStyle: {
+            // fontSize: basicSize,
+            color: "#fff"
+        },
+        visualMap: {
+            type: "continuous",
+            min: 0,
+            max: 20,
+            top: 20,
+            right: 20,
+            itemWidth: 20,
+            itemHeight: 140,
+            textStyle: {
+                color: '#fff'
+            },
+            calculable: true,
+            precision: 0.1,
+            inRange: { //定义被选中时 selected:true 的样式
+                symbol: 'circle',
+                color: '#02b2b0'
+            },
+            dimension: 2
+        },
+        xAxis: {
+            position: "top",
+            type: 'category',
+            axisLabel: {
+                show: true
+            },
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+            type: 'category',
+            inverse: true,
+            axisLabel: {
+                show: true
+            },
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                show: false
+            }
+        },
+        series: [{
+            type: 'scatter',
+            coordinateSystem: "cartesian2d",
+            data: data,
+            symbolSize: function (val) {
+                return val[2] * 2;
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                    formatter: function (param) {
+                        return param.data[2];
+                    }
+                }
+            },
+            itemStyle: {
+                normal: {
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(120, 36, 50, 0.5)',
+                    shadowOffsetY: 5
+                }
+            },
+            animationDelay: function (idx) {
+                return idx * 5;
+            }
+        }],
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    };
+</script>
+
+</html>
