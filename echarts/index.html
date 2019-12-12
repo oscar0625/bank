@@ -25,6 +25,21 @@
 
     // 图表的配置项和数据，具体见配置项手册。
     var option = {
+        // 渐变
+        backgroundColor: {
+            type: 'radial',
+            x: 0.5,
+            y: 0.5,
+            r: 0.5,
+            colorStops: [{
+                offset: 0,
+                color: 'red' // 0% 处的颜色
+            }, {
+                offset: 1,
+                color: 'blue' // 100% 处的颜色
+            }],
+            global: false // 缺省为 false
+        },
         title: {
             text: 'ECharts 入门示例'
         },
@@ -45,6 +60,16 @@
 
     // 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过 setOption 完成，ECharts 会合并新的参数和数据，然后刷新图表。如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
     myChart.setOption(option);
+
+    // 事件
+    myChart.on('click', function (e) {
+        console.log(e);
+    })
+
+    // 行为
+    myChart.dispatchAction()
+
+    // 术语速查手册
 </script>
 
 </html>
