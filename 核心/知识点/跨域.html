@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //https://segmentfault.com/a/1190000011145364、
+
+    //1.jsonp
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'http://www.domain2.com:8080/login?user=admin&callback=handleCallback';
+    document.head.appendChild(script);
+
+    function handleCallback(res) {
+        alert(JSON.stringify(res));
+    }
+
+    //2. 跨域资源共享（CORS）   http://www.ruanyifeng.com/blog/2016/04/cors.html
+    //XMLHttpRequest.withCredentials 有什么用?
+    //跨域请求是否提供凭据信息(cookie、HTTP认证及客户端SSL证明等) 也可以简单的理解为，当前请求为跨域类型时是否在请求中协带cookie。
+
+    //3. nginx代理跨域
+    //4. Nodejs中间件代理跨域
+</script>
+
+</html>

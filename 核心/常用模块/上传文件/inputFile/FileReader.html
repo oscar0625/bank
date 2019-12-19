@@ -48,7 +48,7 @@
     //读取指定的Blob 或 File 对象。读取操作完成后(触发loadend事件)，result属性将包含一个 data:URL 格式的字符串(base64编码)（读取图像文件常用方法）
     reader.readAsDataURL(file);     
 
-    //将 Blob 或者 File 对象转根据特殊的编码格式转化为内容(字符串形式), encoding参数用于指定编码类型，默认编码是 utf-8 是可选的。(认为没用)
+    //将 Blob 或者 File 对象转根据特殊的编码格式转化为内容(字符串形式), encoding参数用于指定编码类型，默认编码是 utf-8 是可选的。
     reader.readAsText(file,encoding);  
 
     //手动终止读取操作，只有当 readyState 为 1 时才能调用，调用后，readyState 值为 2

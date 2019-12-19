@@ -22,9 +22,13 @@
     // options 是一个可选的对象，它可能会指定如下两个属性：
     //      type，默认值为 ""，它代表了将会被放入到blob中的数组内容的MIME类型
     //      endings，默认值为"transparent"，用于指定包含行结束符\n的字符串如何被写入。
-    
-    var obj = { hello: "world" };
-    var blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
+
+    var obj = {
+        hello: "world"
+    };
+    var blob = new Blob([JSON.stringify(obj)], {
+        type: 'application/json'
+    });
     //还可通过canvas.toBlob()创建blob
 
     // 2.属性
@@ -32,7 +36,7 @@
     // type	只一个字符串，表明该Blob对象所包含数据的MIME类型。如果类型未知，则该值为空字符串。例如 "image/png".
 
     // 3.slice方法 创建一个包含源 Blob的指定字节范围内的数据的新 Blob 对象。
-    var blobSlice=blob.slice(6,blob.size,'application/json')
+    var blobSlice = blob.slice(6, blob.size, 'application/json')
 
 
     // 4.处理解析Blob
@@ -66,18 +70,16 @@
 
     // c.通过url下载文件
     // 只有 Firefox 和 Chrome 支持 a标签 download 属性。 
-    function createDownload(fileName, content){
-        var blob = new Blob([content],{type: 'text/plain'});
-
+    function createDownload(fileName, content) {
+        var blob = new Blob([content], {
+            type: 'text/plain'
+        });
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.innerHTML = fileName;
         link.download = fileName;
-        document.getElementsByTagName("body")[0].appendChild(link);
+        link.click();
     }
     // createDownload("download.doc","download file");
-
-    
 </script>
 
 </html>
