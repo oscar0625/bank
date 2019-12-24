@@ -12,7 +12,8 @@
     "search.location": "sidebar",
     //搜索排除某个文件
     "search.exclude": {
-        "**/obj": true
+        "**/obj": true,
+        "**/dist": true
     },
     //editor配置
     // 控制是否在键入时自动显示建议。
@@ -27,6 +28,10 @@
     "editor.fontSize": 18,
     //每次保存的时候自动格式化 
     "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+        //每次保存的时候将代码按eslint格式进行修复
+        "source.fixAll.eslint": true
+    },
     // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
     "files.associations": {
         "*.vue": "vue",
@@ -64,19 +69,13 @@
         "Red"
     ],
     // eslint 配置
-    // eslint配置文件
-    //每次保存的时候将代码按eslint格式进行修复
-    "eslint.autoFixOnSave": true,
     // eslint能够识别的文件后缀类型
     "eslint.validate": [
         "javascript",
         "javascriptreact",
         "html",
         "vue-html",
-        {
-            "language": "vue",
-            "autoFix": true
-        },
+        "vue",
         "typescript",
         "typescriptreact"
     ],
@@ -110,5 +109,7 @@
     "sync.autoUpload": true,
     "sync.autoDownload": true,
     //其他
-    "workbench.iconTheme": "material-icon-theme"
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.sideBar.location": "left",
+    "window.zoomLevel": 0
 }

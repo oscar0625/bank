@@ -358,7 +358,7 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
         props: ['title'],
         data: function () {
             return {
-            constantTitle: this.title  //也可以这么写： this._props.title
+            constantTitle: this.title  //也可以这么写： this.$props.title
             }
         }
         b.Prop 作为初始值传入后,子组件需要随着父组件更新,但是props需要做进一步的处理
@@ -366,7 +366,7 @@ props选项可以是数组或者对象类型，用于接收从父组件传递过
             props: ['title'],
             computed: {
                 chuLiProps: function () {
-                return this.title  //也可以这么写：this._props.title
+                return this.title  //也可以这么写：this.$props.title
                 }
         }
         绝对不允许直接对props进行修改
