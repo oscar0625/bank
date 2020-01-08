@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 500px;
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 50px);
+            grid-template-areas: 'a b c''d e f''g h i';
+            grid-gap: 20px 20px;
+            place-content: center space-evenly;
+            place-items: center;
+        }
+
+        .item1 {
+            grid-area: e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+        <div class="item4">4</div>
+        <div class="item5">5</div>
+        <div class="item6">6</div>
+        <div class="item7">7</div>
+        <div class="item8">8</div>
+        <div class="item9">9</div>
+    </div>
+
+</body>
+<script>
+    //https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
+
+    //一、基本概念
+    //  1.采用网格布局的区域，称为"容器"（container）。容器内部采用网格定位的子元素，称为"项目"（item）。
+    //  2.容器里面的水平区域称为"行"（row），垂直区域称为"列"（column）。
+    //  3.行和列的交叉区域，称为"单元格"（cell）。
+    //  4.划分网格的线，称为"网格线"（grid line）。
+
+    //二、容器属性
+    //  1.display 属性
+    //      display: grid;
+    //      display: inline-grid;
+
+    //  2.grid-template-columns 和 grid-template-rows 属性
+    //      grid-template-columns属性定义每一列的列宽，grid-template-rows属性定义每一行的行高
+    //      单位：  
+    //          像素/百分比
+    //          比例关系单位fraction单位，简写为 fr (与绝对长度的单位结合使用会非常方便)
+    //          浏览器自己决定长度 auto (与绝对长度的单位结合使用会非常方便)
+    //      函数：
+    //          重复函数 repeat(3, 100px)  
+    //                   repeat(auto-fill, 100px) (自动填充，网格能根据容器的宽度改变列的数量)
+    //          范围函数 minmax(100px, 200px) minmax(100px, 1fr)
+    //      支持网格线命名：
+    //          grid-template-columns: [c1] 100px [c2] 100px [c3] auto;
+
+    //  3.grid-template-areas 属性
+    //      网格布局允许指定"区域"（area），一个区域由单个或多个单元格组成。grid-template-areas属性用于定义区域。
+
+    //  4.grid-gap  grid-row-gap grid-column-gap 属性
+    //      grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属性设置列与列的间隔（列间距）。
+    //      合并写法：grid-gap: <grid-row-gap> <grid-column-gap>;
+
+    //  5.place-items align-items justify-items 属性
+    //      justify-items属性设置单元格内容的水平位置（左中右），align-items属性设置单元格内容的垂直位置（上中下）。
+    //          start | end | center | stretch(拉伸占据整个网格容器默认)
+    //      合并写法：place-items: <align-items> <justify-items>;
+
+    //  6.place-content align-content justify-content 属性    
+    //      justify-content属性是整个内容区域在容器里面的水平位置（左中右），align-content属性是整个内容区域的垂直位置（上中下）。
+    //          start | end | center | stretch(拉伸占据整个网格容器默认) | space-around | space-between | space-evenly;
+    //      合并写法：place-content: <align-content> <justify-content>
+
+    //  7.grid-auto-flow 属性  
+    //      grid-auto-flow默认值是row，即"先行后列"。也可以将它设成column，变成"先列后行"。
+
+    //  8.grid-auto-columns grid-auto-rows 属性    
+    //      grid-auto-columns属性和grid-auto-rows属性用来设置，浏览器自动创建的多余网格的列宽和行高。它们的写法与grid-template-columns和grid-template-rows完全相同。如果不指定这两个属性，浏览器完全根据单元格内容的大小，决定新增网格的列宽和行高。
+
+    //三、项目属性
+    //  1.grid-area 属性
+    //      grid-area属性指定项目放在哪一个区域。
+
+    //  2.place-self align-self justify-self 属性 
+    //      同place-items align-items justify-items 属性 只作用于单个项目
+
+    //  3.grid-column grid-row 属性 和 grid-column-start grid-column-end grid-row-start grid-row-end 属性 
+    //      grid - column - start属性： 左边框所在的垂直网格线
+    //      grid - column - end属性： 右边框所在的垂直网格线
+    //      grid - row - start属性： 上边框所在的水平网格线
+    //      grid - row - end属性： 下边框所在的水平网格线
+    //      这四个属性的值，除了指定为第几个网格线，还可以指定为网格线的名字。
+
+    //      合并写法：grid - column: grid - column - start / grid - column - end;
+    //      合并写法：grid - row: grid - row - start / grid - row - end;
+</script>
+
+</html>

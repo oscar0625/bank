@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>自动填充</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+            grid-auto-rows: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 自动填充，网格能根据容器的宽度改变列的数量，响应式设计 -->
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>6</div>
+        <div>6</div>
+    </div>
+
+</body>
+
+</html>
