@@ -26,3 +26,6 @@ class Person {
         return '呼吸';
     }
 }
+
+let bad = true;
+let dead = true;

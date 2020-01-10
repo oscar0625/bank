@@ -43,3 +43,5 @@ function () {
 }();
 
 Person.category = '人';
+var good = true;
+var alive = true;

@@ -12,7 +12,11 @@ module.exports = function (api) {
         ["@babel/plugin-proposal-class-properties", {
             "loose": true
         }],
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-runtime",
+        ["./myPlugin", {
+            "bad": "good",
+            "dead": "alive"
+        }]
     ];
 
     return {

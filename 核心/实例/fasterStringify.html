@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>title</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    const theme = {
+        name: "oscar",
+        age: 18,
+        boy: true,
+        girl: null,
+        d: new Date()
+    }
+
+    function isType(target) {
+        // String Number Boolean Undefined Null Object Function Array Date RegExp
+        var res = Object.prototype.toString.call(target);
+        return res.slice(8, res.length - 1);
+    }
+    //不支持字段中的值为数组或对象
+    function fasterStringify(theme) {
+        let keysArr = Object.keys(theme);
+        return function (o) {
+            let res = "{";
+            keysArr.map((key, index) => {
+                let value = o[key];
+                switch (isType(value)) {
+                    case "String":
+                        value = `"${value}"`;
+                        break;
+                    case "Date":
+                        value = `"${value.toISOString()}"`;
+                        break;
+                    case "Undefined":
+                    case "RegExp":
+                    case "Array":
+                    case "Object":
+                    case "Function":
+                        return;
+                        break;
+                }
+                res += `"${key}":${value},`
+            })
+            return res.slice(0, res.length - 1) + '}'
+        }
+    }
+    const myStringify = fasterStringify(theme);
+    const str= myStringify(theme)
+    console.log(str);
+</script>
+
+</html>

@@ -24,14 +24,18 @@
     new Date('1993/06/25,08:00:00'); //会先调用Date.parse('1993/06/25,08:00:00') 完成转换成 new Date(0);
 
     // 类方法
-    Date.parse('1993/06/25,08:00:00') //将字符串转化成毫秒数
-    Date.UTC(1993, 5, 25, 8, 0, 0) //month-1 将数字转化成毫秒数
     Date.now() //当前时间的毫秒数
+    Date.UTC(1993, 5, 25, 8, 0, 0) //month-1 将数字转化成毫秒数
+    Date.parse('1993/06/25,08:00:00') //将字符串转化成毫秒数
 
     // 实例方法
     my.toLocaleString() //2019/12/23 下午4:19:09  本地区时时间
+    my.toLocaleDateString() //2019/12/23 本地区时时间
+    my.toLocaleTimeString() //下午4:19:09  本地区时时间
     my.toString() //Mon Dec 23 2019 16:19:09 GMT+0800 (中国标准时间)
     my.toUTCString() //Mon, 23 Dec 2019 08:19:09 GMT  国际标准区时时间 推荐使用
+    my.toISOString() //2018-12-15T10:21:14.743Z
+    
 </script>
 
 </html>
