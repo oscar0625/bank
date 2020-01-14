@@ -1,8 +1,10 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+    target:'web',
     entry: {
         app: './src/index.js'
     },
@@ -22,6 +24,16 @@ module.exports = {
                 ]
             },
             {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }]
+            },
+            {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     'file-loader'
@@ -37,9 +49,12 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.OSCAR':123
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'myWebpaclApp'
+            template: path.resolve(__dirname, '../public/index.html')
         })
     ],
     optimization: {

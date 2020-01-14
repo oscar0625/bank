@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+    * //1.explode 使用时 一定要给目标容器固定的宽高px   用css 百分比的形式设置目标容器的宽高 explode效果会出现问题
+    *   $('#explode').width(window.innerWidth);
+        $('#explode').height(window.innerHeight);
+        $('#explode').show( 'explode');
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+    $(document).tooltip({
+        items: ".title-description", //选择器
+        classes: {
+            "ui-tooltip": "title-tooltip" //添加自定义的类
+        },
+        content:function(){
+            console.log(this);
+            return 1
+        },
+        position: {
+            my: "left+15 top+15"
+        }, //toolti相对与鼠标的位置
+        show: false, //关闭出现动画
+        hide: false, //关闭隐藏动画
+        track: true //跟随鼠标
+    });
+</script>
+
+</html>

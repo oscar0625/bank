@@ -29,3 +29,4 @@ class Person {
         return '呼吸';
     }
 }
+console.log(process.env.OSCAR);

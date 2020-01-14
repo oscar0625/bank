@@ -428,7 +428,7 @@ var oscarMethod = {
 var oscarCheck = {
     /*检验真是姓名 全中文包含少数名族 如：迪丽热巴·迪力木拉提*/
     checkChineseName: function (str) {
-        if (/^[\u4E00-\u9FA5]+·?[\u4E00-\u9FA5]+$/.test(str)) {
+        if (/^(?:[\u4e00-\u9fa5·]{2,16})$/.test(str)) {
             return true
         } else {
             return false
@@ -593,7 +593,7 @@ var oscarCheck = {
 
     /*检验邮箱*/
     checkEmail: function (str) {
-        if (/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(str)) {
+        if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str)) {
             return true
         } else {
             return false
@@ -602,7 +602,7 @@ var oscarCheck = {
 
     /*检验手机*/
     checkPhone: function (str) {
-        if (/^1[3-9]\d{9}$/.test(str)) {
+        if (/^(?:(?:\+|00)86)?1\d{10}$/.test(str)) {
             return true;
         } else {
             return false;
@@ -611,7 +611,7 @@ var oscarCheck = {
 
     /*检验座机电话*/
     checkTelephone: function (str) {
-        if (/(^0\d{2}-\d{8}$)|(^0\d{3}-\d{7}$)/.test(str)) {
+        if (/\d{3}-\d{8}|\d{4}-\d{7}/.test(str)) {
             return true;
         } else {
             return false;
@@ -620,7 +620,7 @@ var oscarCheck = {
 
     /*验证18位营业执照*/
     checkTradingCertificate: function (code) {
-        var reg = /^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{9})([0-9ABCDEFGHJKLMNPQRTUWXY]{1})$/;
+        var reg = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
         if (code.length != 18 || reg.test(code) == false) {
             return false;
         }
