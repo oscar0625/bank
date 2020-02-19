@@ -222,9 +222,14 @@ DefinePlugin可以定义一些全局变量，让我们在模块当中直接使�
         "process.env.OSCAR":123
     }),
 ```
+# 四、webpakc中的gulp
+https://www.webpackjs.com/guides/integrations/#gulp
+```
+npm install --save-dev webpack-stream
+```
 
-# 四、TypeScript
+# 五、TypeScript
 https://www.webpackjs.com/guides/typescript/
 
-# 五、API
+# 六、API
 https://www.webpackjs.com/api/

@@ -130,5 +130,8 @@ Gist：如果我们没有项目可以开源或者只是单纯的想分享一些�
 ```
 ## 3.github上的分支和合并
 https://blog.csdn.net/qq_35246620/article/details/65628903
+
 ## 4.详述 GitHub 如何将代码从原分支合并到 fork 分支
 https://guobinhit.blog.csdn.net/article/details/98039346
+
+## 5.Git 忽略提交 .gitignore
