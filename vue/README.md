@@ -220,6 +220,8 @@ v-for 用于实现列表渲染，可以使用 item in items 或者 item of items
     <li v-for="item in obj">{{item}}</li>
     <li v-for="(item,key) in obj">{{key}}{{item}}</li>
     <li v-for="(item,key,index) in arr">{{key}}:{{item}}{{index}}</li>
+    数字
+    <li v-for="item in 5">{{item}}</li>
 ```
 在使用v-for时，最好为每个迭代元素指定key
 类似于 v-if，你也可以利用带有 v-for 的template渲染多个元素。
@@ -868,6 +870,13 @@ Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从�
         <input placeholder="Enter your email address" key="email-input">
     </template>
 ```
+## 4.引入图片路径的方式
+```
+    <img src="./assets/images/01.jpg" alt=""> 
+
+    <img :src="require('./assets/images/03.jpg')" alt=""> 
+    <img :src="require('./assets/images/'+ this.imgName +'.jpg')" alt=""> 
+```
 
 # 八、待续
 ## 自定义指令
@@ -877,3 +886,8 @@ https://cn.vuejs.org/v2/guide/transitions.html
 ## 状态管理
 ## 服务端渲染
 ## 生命周期
+
+# 九 elementUI
+```
+elementUI 使用el-image组件双击图片会给body添加overflow: hidden;
+```

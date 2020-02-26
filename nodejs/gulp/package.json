@@ -5,7 +5,7 @@
   "private": true,
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp"
   },
   "author": "oscar",
   "license": "ISC",

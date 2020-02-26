@@ -8,7 +8,7 @@
 </body>
 <script>
     /*
-    * 购买vps搭建代理
+    * 一、购买vultr搭建代理
     * 1.https://my.vultr.com
     *   购买服务器 美国西海岸的西雅图、洛杉矶、硅谷比较适合亚洲人用  选择os:Ubuntu;
     *   站长之家检测ip是否被墙 http://ping.chinaz.com/
@@ -31,5 +31,28 @@
     *   配置密码 qiangqiang0625
     *   配置端口 6060
     * */
+
+    // 二、购买hostwinds搭建代理
+    //https://www.anspoon.com/hostwinds-ssr-7330.html
+    //https://www.daniao.org/6294.html
+    //1.https://www.hostwinds.com/
+    //  选择 “VPS” 下的 “Unmanaged Linux” 进入 VPS 选择页面后，根据自己的需要的配置选择套餐，一般我们选择最低配置就够用了，然后点击 “Order” 按钮进入信息填写页面，选择 达拉斯 服务器，cenOS6系统，取消云备份功能（否则多花1美元）
+    //2.pc 使用putty进行ssh会话 配置服务器 ( 或者 ) 手机使用 juiceSSH进行ssh会话 配置服务器
+    //  用户名：root 密码：再网站上自定义密码
+    //3.配置vpn代理
+    //  同vultr
+    //4.Hostwinds 搭建 BBR 加速
+    //  # wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+    //  # chmod +x bbr.sh
+    //  # ./bbr.sh
+    //  根据提示输入：y，重启服务器即可生效 （如果错过了重启步骤，直接输入重启命令命令：reboot）
+    //  检测：输入 lsmod | grep bbr 如果看到 tcp_bbr 就说明 SSR 已经启动了。
+    //5.下载Shadowsocks
+    //  同vultr
+    //6.其他
+    //  IP被墙解决方案
+    //  Manage IP's >> Fix ISP Block >> 重装vps
+
+
 </script>
 </html>

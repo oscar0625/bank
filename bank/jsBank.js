@@ -396,7 +396,7 @@ var oscarMethod = {
     },
 
     //图片懒加载
-    lazyload: function lazyload() {
+    lazyload: function () {
         //等待加载的图片数组
         var imgs = Array.prototype.slice.apply(document.querySelectorAll('.lazyload')),
             //主要函数
@@ -423,6 +423,11 @@ var oscarMethod = {
         window.addEventListener('scroll', main);
         //主动执行一次
         main();
+    },
+    
+    //去掉所有的html标记
+    delHtmlTag: function (str) {
+        return str.replace(/<[^>]+>/g, "");
     }
 };
 var oscarCheck = {
@@ -647,7 +652,7 @@ var oscarCheck = {
 
         return c18 == codes[1];
     },
-    
+
     /*检验专利号*/
     checkPatentNumber: function (str) {
         var next2002 = str.match(/(\d{4}[12389]\d{7})\.(\d|X)/), //2002之后

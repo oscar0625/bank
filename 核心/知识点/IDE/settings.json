@@ -106,7 +106,6 @@
     "liveServer.settings.donotVerifyTags": true,
     //Settings Sync
     "sync.gist": "ca73ace3c38c00082effdb0151bdebbf",
-    "sync.autoUpload": true,
     "sync.autoDownload": true,
     //其他
     "workbench.iconTheme": "material-icon-theme",
