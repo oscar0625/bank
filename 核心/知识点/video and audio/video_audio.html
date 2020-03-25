@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        video{
+            /*width: 800px;*/
+            /*height: 500px;*/
+            object-fit: fill;   /*将video按设定的宽高铺满  IE全军覆没，安卓要4.4.3以上才支持*/
+        }
+    </style>
+</head>
+<body>
+<!--虽然支持MP4但是html中只支持H.264的编码格式
+MP4 = MPEG 4文件使用 H264 视频编解码器和AAC音频编解码器
+WebM = WebM 文件使用 VP8 视频编解码器和 Vorbis 音频编解码器
+Ogg = Ogg 文件使用 Theora 视频编解码器和 Vorbis音频编解码器
+-->
+                                                        <!-- 不加muted  不自动播放 -->
+<video width="500" height="250" controls="controls" autoplay="autoplay" loop="loop" muted>
+    <source src="movie.ogg" type="video/ogg">
+    <source src="movie.mp4" type="video/mp4">
+    您的浏览器不支持此种视频格式。
+</video>
+</body>
+<script>
+    /*https://www.douban.com/note/158621500/*/
+    //http://www.cnblogs.com/lucker/archive/2013/03/01/2939163.html
+    /*audio和video*/
+    //注意：加载音频资源是异步的，若加载没完成的音频资源，duration会返回NaN,currentSrc会返回空字符串
+    //1 创建
+    var Media=new Audio('src');
+    //2 属性
+    Media.currentSrc; //返回当前资源的URL
+    Media.duration; //返回当前资源长度（以秒计）
+    Media.currentTime = value; //当前播放的位置，赋值可改变位置 (读写)（以秒计）
+    Media.playbackRate = value;//当前播放速度，设置后马上改变(默认1)
+
+    Media.buffered  //返回表示音频/视频已缓冲部分的 TimeRanges 对象
+    //example:Media.buffered.end(0) 获取到缓存最后一个位置的秒数
+    //    Media.ontimeupdate=function () {
+    //        console.log(video.buffered.end(0))
+    //    };
+    // Media.buffered.start(0)获取到缓存最开始的秒数
+
+    Media.controls;Media.controls='controls';//是否有默认控制条(d)(读写)
+    Media.volume = value; //设置音量
+    Media.muted = true; //设置或返回音频/视频是否应该被静音
+
+    Media.played; //返回已经播放的区域
+    Media.paused; //是否暂停 boolean
+    Media.ended;  //是否结束 boolean
+    Media.loop=true; //将视频设置为循环播放：
+    //3方法
+    Media.play();   //播放
+    Media.pause();  //暂停
+    Media.load(); //重新加载资源
+    //4事件
+    onplay; //play()触发
+    onpause;//pause()触发  /*在执行结束之前会执行暂停*/
+    onended;//播放结束触发
+
+    ontimeupdate   //当目前的播放位置已更改时
+    onvolumechange //当音量已更改时
+
+//    当音频/视频处于加载过程中时，会依次发生以下事件：
+    onloadstart       //当浏览器开始查找音频/视频时
+    ondurationchange  //当音频/视频的时长已更改时
+    onloadedmetadata  //当浏览器已加载音频/视频的元数据时
+    onloadeddata      //当浏览器已加载音频/视频的当前帧时  ***
+    onprogress        //当浏览器正在下载音频/视频时
+    oncanplay         //当浏览器可以播放音频/视频时    ***
+    oncanplaythrough; //当浏览器可在不因缓冲而停顿的情况下进行播放时 ***
+
+    //其他 全屏
+//    $('.fullscreen').on('click', function() {
+//        //For Webkit
+//        video[0].webkitEnterFullscreen();
+//
+//        //For Firefox
+//        video[0].mozRequestFullScreen();
+//
+//        return false;
+//    });
+
+    //高级用法
+    //复杂的，与Web兼容的视频播放器的核心仍然都是基于 MediaSource 和 SourceBuffers。
+</script>
+</html>
